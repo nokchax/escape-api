@@ -12,7 +12,7 @@ public class ApiApplication {
 
         new SpringApplicationBuilder()
                 .sources(ApiApplication.class)
-                .properties("spring.config.location=file:/data/etc/escape/application.yml")
+                .properties("spring.config.additional-location=file:/data/etc/escape/application.yml")
                 .run(args);
     }
 
