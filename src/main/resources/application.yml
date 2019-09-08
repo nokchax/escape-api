@@ -1,4 +1,19 @@
-telegram:
-  bot:
-    name:
-    token:
+#telegram:
+#  bot:
+#    name:
+#    token:
+#
+spring.datasource.driver-class-name: org.h2.Driver
+spring.datasource.url: jdbc:h2:file:~/data/h2
+spring.datasource.username: sa
+spring.datasource.password:
+spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+spring.jpa.properties.hibernate.show_sql: true
+
+spring:
+  h2:
+    console:
+      enabled: true
+  jpa:
+    generate-ddl: true
+    show-sql: true

@@ -57,14 +57,10 @@ public class LeetCodeServiceTest {
 
 
         Document document = connection.get();
-        System.out.println(document);
-
         Elements elements = document.getElementsByClass("progress-bar-success");
-        Elements elements1 = document.getElementsByTag("a");
         System.out.println("=============================================================");
         System.out.println(elements.get(1).text());
         System.out.println("=============================================================");
-        System.out.println(elements1);
         Elements href = document.getElementsByAttributeValueStarting("href", "/problems");
         System.out.println("=============================================================");
         System.out.println(href);
