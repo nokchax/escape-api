@@ -8,6 +8,7 @@ import com.zum.escape.api.thirdPartyAdapter.leetcode.service.LeetCodeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -28,35 +29,38 @@ public class ProblemService {
 
     public void saveOrUpdateProblems() {
         updateCache();
-        List<Problem> problems = getProblems();
 
-        if(!isUpdated(problems))
+        List<Problem> notUpdatedProblems = getNotUpdatedProblems(getProblems());
+        if(notUpdatedProblems.isEmpty())
             return;
 
-        for(Problem problem : problems) {
+        for(Problem problem : notUpdatedProblems) {
             System.out.println(problem);
-            if(!problemRepository.existsById(problem.getId()))
-                problemRepository.save(problem);
+            problemRepository.save(problem);
         }
 
-        ConcurrentHashMap<String, Problem> updatedConcurrentHashMap = new ConcurrentHashMap<>();
-        problems.forEach(
+        ConcurrentHashMap<String, Problem> updatedConcurrentHashMap = new ConcurrentHashMap<>(cachedProblems);
+        notUpdatedProblems.forEach(
                 problem -> updatedConcurrentHashMap.put(problem.getTitle(), problem)
         );
 
         cachedProblems = updatedConcurrentHashMap;
     }
 
-    private boolean isUpdated(List<Problem> problems) {
-        for(Problem problem : problems)
-            if(!cachedProblems.contains(problem.getTitle()))
-                return true;
+    private List<Problem> getNotUpdatedProblems(List<Problem> problems) {
+        List<Problem> notUpdatedList = new ArrayList<>();
+        for(Problem problem : problems) {
+            if(!cachedProblems.containsKey(problem.getTitle())) {
+                notUpdatedList.add(problem);
+            }
+        }
 
-        return false;
+        return notUpdatedList;
     }
 
     private void updateCache() {
         List<Problem> problems = problemRepository.findAll();
+        System.out.println(problems.size());
         ConcurrentHashMap<String, Problem> newCache = new ConcurrentHashMap<>();
         problems.forEach(problem -> newCache.put(problem.getTitle(), problem));
         cachedProblems = newCache;
