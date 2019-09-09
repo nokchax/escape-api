@@ -20,14 +20,28 @@ public class User {
     private Long id;
     private String userId;
     private int solvedQuestionCount;
-    @ManyToMany
-    @JoinTable(name = "solved_problem")
-    private Set<Problem> solvedProblems = new HashSet<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<UserProblem> solvedProblem = new HashSet<>();
 
     public boolean checkSolveQuestion(CrawledUserInfo crawledUserInfo) {
         if(crawledUserInfo.solvedQuestion())
             return false;
 
         return this.solvedQuestionCount > crawledUserInfo.getSolvedQuestionCount();
+    }
+
+    public void setSolvedProblem(Set<UserProblem> solved) {
+        this.solvedProblem = solved;
+    }
+
+    public void updateSolvedProblems(CrawledUserInfo crawledUserInfo) {
+        if(crawledUserInfo.getProblems() == null) {
+            System.out.println("NULL");
+            return;
+        }
+
+        for(Problem problem : crawledUserInfo.getProblems()) {
+            solvedProblem.add(new UserProblem(this, problem));
+        }
     }
 }

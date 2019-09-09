@@ -1,8 +1,11 @@
 package com.zum.escape.api.domain.entity;
 
+import com.zum.escape.api.users.domain.UserProblem;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -22,4 +25,6 @@ public class Problem {
     private boolean hide;
     @Enumerated(EnumType.STRING)
     private Difficulty difficulty;
+    @OneToMany(mappedBy = "problem")
+    private Set<UserProblem> userProblem = new HashSet<>();
 }

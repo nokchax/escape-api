@@ -28,7 +28,9 @@ public class UsersService {
 
         CrawledUserInfo crawledUserInfo = getCrawledUserInfo(userId).get();
 
-        userRepository.save(crawledUserInfo.toUser());
+        User user = userRepository.save(crawledUserInfo.toUser());
+        user.updateSolvedProblems(crawledUserInfo);
+
 
         return "Register complete";
     }
