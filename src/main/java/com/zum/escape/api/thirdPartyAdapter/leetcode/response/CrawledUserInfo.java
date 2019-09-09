@@ -4,7 +4,7 @@ import com.zum.escape.api.domain.entity.Problem;
 import com.zum.escape.api.users.domain.User;
 import lombok.*;
 
-import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -13,11 +13,11 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CrawledUserInfo {
-    public static final CrawledUserInfo NOT_UPDATED = CrawledUserInfo.builder().build();
+    public static final CrawledUserInfo NOT_UPDATED = CrawledUserInfo.builder().solvedQuestionCount(0).build();
     private String userId;
     private int solvedQuestionCount;
-    private Set<String> solvedProblems = Collections.emptySet();
-    private Set<Problem> problems = Collections.emptySet();
+    private Set<String> solvedProblems = new HashSet<>();
+    private Set<Problem> problems = new HashSet<>();
 
     public boolean solvedQuestion() {
         return !solvedProblems.isEmpty();
@@ -25,7 +25,9 @@ public class CrawledUserInfo {
 
     public User toUser() {
         return User.builder()
+                .userId(this.userId)
                 .solvedQuestionCount(this.solvedQuestionCount)
+                .solvedProblems(this.problems)
                 .build();
     }
 }

@@ -8,6 +8,7 @@ import com.zum.escape.api.users.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -20,6 +21,7 @@ public class UsersService {
     private final UserRepository userRepository;
     private final LeetCodeService leetCodeService;
 
+    @Transactional
     public String addUser(String userId) {
         if(userRepository.existsByUserId(userId))
             return "User already exists";
@@ -44,7 +46,7 @@ public class UsersService {
         try {
             CrawledUserInfo crawledUserInfo = leetCodeService.findUser(userId);
             crawledUserInfo.setProblems(problemService.toProblem(crawledUserInfo));
-            return Optional.ofNullable(leetCodeService.findUser(userId));
+            return Optional.of(crawledUserInfo);
         } catch (IOException e) {
             log.error("Fail to find user");
         }

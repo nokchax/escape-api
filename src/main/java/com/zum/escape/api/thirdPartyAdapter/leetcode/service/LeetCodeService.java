@@ -20,6 +20,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 @Service
@@ -60,10 +61,10 @@ public class LeetCodeService {
 
         Document document = connection.get();
 
-        return extractUser(document);
+        return extractUser(document, userId);
     }
 
-    private CrawledUserInfo extractUser(Document document) {
+    private CrawledUserInfo extractUser(Document document, String userId) {
         Elements problems = document.getElementsByAttributeValueStarting("href", "/problems");
         Elements solvedQuestionElement = document.getElementsByClass("progress-bar-success");
 
@@ -71,18 +72,19 @@ public class LeetCodeService {
         Set<String> solvedProblems = extractSolvedProblems(problems);
 
         return CrawledUserInfo.builder()
+                .userId(userId)
                 .solvedQuestionCount(solvedQuestionCount)
                 .solvedProblems(solvedProblems)
                 .build();
     }
 
     private Set<String> extractSolvedProblems(Elements problems) {
-        Set<String> solvedProblems = Collections.EMPTY_SET;
+        Set<String> solvedProblems = new HashSet<>();
 
         for(Element problem : problems) {
-            String accepted = problem.getElementsByTag("span").get(0).text();
+            String accepted = problem.getElementsByTag("span").get(0).text().trim();
             if("Accepted".equalsIgnoreCase(accepted)) {
-                String problemName = problem.getElementsByTag("b").text();
+                String problemName = problem.getElementsByTag("b").text().trim();
                 solvedProblems.add(problemName);
             }
         }
