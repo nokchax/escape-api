@@ -4,7 +4,6 @@ import com.zum.escape.api.domain.entity.Difficulty;
 import com.zum.escape.api.domain.entity.Problem;
 import com.zum.escape.api.task.domain.DurationType;
 import com.zum.escape.api.task.domain.Task;
-import com.zum.escape.api.task.domain.TaskDone;
 import com.zum.escape.api.task.domain.TaskParticipant;
 import com.zum.escape.api.task.repository.TaskRepository;
 import com.zum.escape.api.users.domain.User;
@@ -14,6 +13,7 @@ import com.zum.escape.api.users.service.UsersService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -24,9 +24,16 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class TaskService {
+    public static final int GOAL_SCORE = 5;
     private final TaskRepository taskRepository;
     private final UsersService usersService;
     private final UserProblemService userProblemService;
+    private LocalDateTime lastUpdateTime;
+
+    @PostConstruct
+    public void updateLastUpdateTime() {
+        this.lastUpdateTime = LocalDateTime.now();
+    }
 
     @Transactional
     public void createTasks() {
@@ -46,9 +53,10 @@ public class TaskService {
     public List<User> getDoneList() {
         Task currentTask = taskRepository.findByStartDateTime(getStartOfWeek());
 
-        return currentTask.getDoneUser()
+        return currentTask.getParticipants()
                 .stream()
-                .map(TaskDone::getUsers)
+                .filter(TaskParticipant::hasReachedGaol)
+                .map(TaskParticipant::getUsers)
                 .collect(Collectors.toList());
     }
 
@@ -83,7 +91,9 @@ public class TaskService {
     }
 
     @Transactional
-    public List<User> update() {
+    public String update() {
+        if(!isUpdatable())
+            return "Too many request, try after 10secs";
         Task currentTask = taskRepository.findByStartDateTime(getStartOfWeek());
         List<User> participants = extractParticipants(currentTask);
         Map<User, TaskParticipant> userScores = extractTaskParticipant(currentTask);
@@ -96,7 +106,12 @@ public class TaskService {
             userScores.get(participant).updateScore(score);
         });
 
-        return participants;
+        return toString(participants);
+    }
+
+    private boolean isUpdatable() {
+        return LocalDateTime.now()
+                .isAfter(lastUpdateTime.plusSeconds(10));
     }
 
     private Map<User, TaskParticipant> extractTaskParticipant(Task currentTask) {

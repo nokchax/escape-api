@@ -26,8 +26,6 @@ public class Task {
     private DurationType durationType;
     @OneToMany(mappedBy = "tasks", cascade = CascadeType.ALL)
     private List<TaskParticipant> participants = new ArrayList<>();
-    @OneToMany(mappedBy = "tasks", cascade = CascadeType.ALL)
-    private List<TaskDone> doneUser = new ArrayList<>();
 
     public void registerParticipants(List<User> users) {
         List<TaskParticipant> participants = new ArrayList<>();

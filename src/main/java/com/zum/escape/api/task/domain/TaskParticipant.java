@@ -1,5 +1,6 @@
 package com.zum.escape.api.task.domain;
 
+import com.zum.escape.api.task.TaskService.TaskService;
 import com.zum.escape.api.users.domain.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,5 +32,9 @@ public class TaskParticipant {
 
     public void updateScore(int score) {
         this.score = score;
+    }
+
+    public boolean hasReachedGaol() {
+        return this.score >= TaskService.GOAL_SCORE;
     }
 }
