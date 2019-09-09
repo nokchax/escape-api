@@ -6,9 +6,6 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-/**
- * Created by greentea@zuminternet.com on 2019-09-09
- */
 public class DateTest {
     @Test
     public void startOfWeekTest() {

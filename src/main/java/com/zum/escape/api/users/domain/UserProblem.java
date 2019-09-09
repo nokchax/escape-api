@@ -8,10 +8,8 @@ import org.apache.tomcat.jni.Local;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
-/**
- * Created by greentea@zuminternet.com on 2019-09-09
- */
 @Entity
 @Getter
 @Setter
@@ -33,5 +31,19 @@ public class UserProblem {
         this.user = user;
         this.problem = problem;
         this.solvedDateTime = solvedDateTime;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserProblem that = (UserProblem) o;
+        return Objects.equals(user, that.user) &&
+                Objects.equals(problem, that.problem);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(user, problem);
     }
 }

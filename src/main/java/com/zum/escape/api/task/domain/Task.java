@@ -1,5 +1,6 @@
 package com.zum.escape.api.task.domain;
 
+import com.zum.escape.api.users.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,14 +11,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by greentea@zuminternet.com on 2019-09-09
- */
 @Entity
 @Builder
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class Task {
     @Id @GeneratedValue
     private Long id;
@@ -30,4 +28,14 @@ public class Task {
     private List<TaskParticipant> participants = new ArrayList<>();
     @OneToMany(mappedBy = "tasks", cascade = CascadeType.ALL)
     private List<TaskDone> doneUser = new ArrayList<>();
+
+    public void registerParticipants(List<User> users) {
+        List<TaskParticipant> participants = new ArrayList<>();
+
+        for(User user : users) {
+            participants.add(new TaskParticipant(this, user));
+        }
+
+        this.participants = participants;
+    }
 }

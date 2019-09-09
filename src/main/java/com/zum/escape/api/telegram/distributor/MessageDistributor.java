@@ -1,5 +1,6 @@
 package com.zum.escape.api.telegram.distributor;
 
+import com.zum.escape.api.task.TaskService.TaskService;
 import com.zum.escape.api.users.service.UsersService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequiredArgsConstructor
 public class MessageDistributor {
     private final UsersService usersService;
+    private final TaskService taskService;
 
     public String distributeMessage(String message) {
         if(message.startsWith("/"))
@@ -27,10 +29,13 @@ public class MessageDistributor {
                 if(args.length < 2)
                     return "/register id";
                 return usersService.addUser(args[1]);
+            case "newtask":
+                taskService.createTasks();
+                return "new task created";
             case "todo":
-                break;
+                return taskService.toString(taskService.getTodoList());
             case "done":
-                break;
+                return taskService.toString(taskService.getDoneList());
             default:
                 log.info("Unknown command : {}", message);
         }

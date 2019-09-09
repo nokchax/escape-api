@@ -7,10 +7,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Table(name = "users")
 @Entity
@@ -38,10 +35,10 @@ public class User {
         this.solvedProblem = solved;
     }
 
-    public void updateSolvedProblems(CrawledUserInfo crawledUserInfo) {
+    public List<Problem> updateSolvedProblems(CrawledUserInfo crawledUserInfo) {
         if(crawledUserInfo.getProblems() == null) {
             System.out.println("NULL");
-            return;
+            return Collections.emptyList();
         }
         Map<String, LocalDateTime> time = new HashMap<>();
 
@@ -49,8 +46,16 @@ public class User {
                 submission -> time.put(submission.getProblemTitle(), submission.getSolvedDate())
         );
 
+        List<Problem> addedProblem = new ArrayList<>();
+
         for(Problem problem : crawledUserInfo.getProblems()) {
-            solvedProblem.add(new UserProblem(this, problem, time.get(problem.getTitle())));
+            UserProblem userProblem = new UserProblem(this, problem, time.get(problem.getTitle()));
+            if(!solvedProblem.contains(userProblem)) {
+                solvedProblem.add(userProblem);
+                addedProblem.add(problem);
+            }
         }
+
+        return addedProblem;
     }
 }
