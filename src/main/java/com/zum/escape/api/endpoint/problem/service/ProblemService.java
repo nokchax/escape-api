@@ -4,6 +4,7 @@ import com.zum.escape.api.domain.entity.Problem;
 import com.zum.escape.api.domain.repository.ProblemRepository;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.response.CrawledUserInfo;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.response.ProblemResponse;
+import com.zum.escape.api.thirdPartyAdapter.leetcode.response.Submission;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.service.LeetCodeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -69,7 +70,8 @@ public class ProblemService {
     public Set<Problem> toProblem(CrawledUserInfo crawledUserInfo) {
         Set<Problem> problems = new HashSet<>();
 
-        crawledUserInfo.getSolvedProblems().forEach(name -> problems.add(cachedProblems.get(name)));
+        Set<Submission> submissions = crawledUserInfo.getSolvedProblems();
+        submissions.forEach(submission -> problems.add(cachedProblems.get(submission.getProblemTitle())));
 
         return problems;
     }

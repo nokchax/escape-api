@@ -17,7 +17,7 @@ public class CrawledUserInfo {
     public static final CrawledUserInfo NOT_UPDATED = CrawledUserInfo.builder().solvedQuestionCount(0).build();
     private String userId;
     private int solvedQuestionCount;
-    private Set<String> solvedProblems = new HashSet<>();
+    private Set<Submission> solvedProblems = new HashSet<>();
     private Set<Problem> problems = new HashSet<>();
 
     public boolean solvedQuestion() {

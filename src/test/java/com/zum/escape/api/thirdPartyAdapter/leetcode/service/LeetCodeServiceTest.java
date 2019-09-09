@@ -69,7 +69,8 @@ public class LeetCodeServiceTest {
             String problemr1 = e.attr("href");
             String problem = e.getElementsByTag("b").text();
             String accepted= e.getElementsByTag("span").get(0).text();
-            System.out.println(problem + " : " + accepted);
+            String time = e.getElementsByClass("text-muted").get(0).text();
+            System.out.println(problem + " : " + accepted + " : " + time);
         }
 
     }

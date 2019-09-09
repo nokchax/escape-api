@@ -2,10 +2,14 @@ package com.zum.escape.api.users.domain;
 
 import com.zum.escape.api.domain.entity.Problem;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.response.CrawledUserInfo;
+import com.zum.escape.api.thirdPartyAdapter.leetcode.response.Submission;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 @Table(name = "users")
@@ -39,9 +43,14 @@ public class User {
             System.out.println("NULL");
             return;
         }
+        Map<String, LocalDateTime> time = new HashMap<>();
+
+        crawledUserInfo.getSolvedProblems().forEach(
+                submission -> time.put(submission.getProblemTitle(), submission.getSolvedDate())
+        );
 
         for(Problem problem : crawledUserInfo.getProblems()) {
-            solvedProblem.add(new UserProblem(this, problem));
+            solvedProblem.add(new UserProblem(this, problem, time.get(problem.getTitle())));
         }
     }
 }

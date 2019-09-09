@@ -2,6 +2,7 @@ package com.zum.escape.api.thirdPartyAdapter.leetcode.service;
 
 import com.zum.escape.api.thirdPartyAdapter.leetcode.response.CrawledUserInfo;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.response.ProblemResponse;
+import com.zum.escape.api.thirdPartyAdapter.leetcode.response.Submission;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Connection;
@@ -19,7 +20,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
-import java.util.Collections;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -69,7 +70,7 @@ public class LeetCodeService {
         Elements solvedQuestionElement = document.getElementsByClass("progress-bar-success");
 
         int solvedQuestionCount = extractSolvedQuestionCount(solvedQuestionElement.get(1).text());
-        Set<String> solvedProblems = extractSolvedProblems(problems);
+        Set<Submission> solvedProblems = extractSolvedProblems(problems);
 
         return CrawledUserInfo.builder()
                 .userId(userId)
@@ -78,14 +79,16 @@ public class LeetCodeService {
                 .build();
     }
 
-    private Set<String> extractSolvedProblems(Elements problems) {
-        Set<String> solvedProblems = new HashSet<>();
+    private Set<Submission> extractSolvedProblems(Elements problems) {
+        Set<Submission> solvedProblems = new HashSet<>();
 
         for(Element problem : problems) {
             String accepted = problem.getElementsByTag("span").get(0).text().trim();
             if("Accepted".equalsIgnoreCase(accepted)) {
                 String problemName = problem.getElementsByTag("b").text().trim();
-                solvedProblems.add(problemName);
+                String time = problem.getElementsByClass("text-muted").get(0).text();
+
+                solvedProblems.add(new Submission(problemName, extractDateTime(time)));
             }
         }
 
@@ -99,5 +102,52 @@ public class LeetCodeService {
         String[] inputs = text.split("/");
 
         return Integer.parseInt(inputs[0].trim());
+    }
+
+    private LocalDateTime extractDateTime(String time) {
+        String[] times = time.split(",");
+        LocalDateTime now = LocalDateTime.now();
+
+        for(String t : times) {
+            t = t.replace(((char)160),' ');
+            String[] inputs = t.trim().split("\\s+");
+
+            int num = Integer.parseInt(inputs[0]);
+            if(inputs.length < 2) {
+                log.error("Fail to parse time : {}", t);
+                return now;
+            }
+
+            switch(inputs[1].trim()) {
+                case "minute":
+                case "minutes":
+                    now = now.minusMinutes(num);
+                    break;
+                case "hour":
+                case "hours":
+                    now = now.minusHours(num);
+                    break;
+
+                case "week":
+                case "weeks":
+                    now = now.minusWeeks(num);
+                    break;
+
+                case "day":
+                case "days":
+                    now = now.minusDays(num);
+                    break;
+
+                case "month":
+                case "months":
+                    now = now.minusMonths(num);
+                    break;
+
+                default:
+                    log.error("Fail to parse time : {}", t);
+            }
+        }
+
+        return now;
     }
 }

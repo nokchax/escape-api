@@ -3,9 +3,11 @@ package com.zum.escape.api.users.domain;
 import com.zum.escape.api.domain.entity.Problem;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.tomcat.jni.Local;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * Created by greentea@zuminternet.com on 2019-09-09
@@ -25,10 +27,11 @@ public class UserProblem {
     @JoinColumn(name = "problem_id")
     private Problem problem;
 
-    private LocalDate localDate;
+    private LocalDateTime solvedDateTime;
 
-    public UserProblem(User user, Problem problem) {
+    public UserProblem(User user, Problem problem, LocalDateTime solvedDateTime) {
         this.user = user;
         this.problem = problem;
+        this.solvedDateTime = solvedDateTime;
     }
 }
