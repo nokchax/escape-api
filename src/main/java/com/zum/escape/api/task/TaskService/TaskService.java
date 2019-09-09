@@ -2,6 +2,7 @@ package com.zum.escape.api.task.TaskService;
 
 import com.zum.escape.api.task.domain.DurationType;
 import com.zum.escape.api.task.domain.Task;
+import com.zum.escape.api.task.domain.TaskDone;
 import com.zum.escape.api.task.domain.TaskParticipant;
 import com.zum.escape.api.task.repository.TaskRepository;
 import com.zum.escape.api.users.domain.User;
@@ -16,6 +17,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -42,11 +44,10 @@ public class TaskService {
     public List<User> getDoneList() {
         Task currentTask = taskRepository.findByStartDateTime(getStartOfWeek());
 
-        List<User> users = new ArrayList<>();
-        currentTask.getDoneUser()
-                .forEach(doneUser -> users.add(doneUser.getUsers()));
-
-        return users;
+        return currentTask.getDoneUser()
+                .stream()
+                .map(TaskDone::getUsers)
+                .collect(Collectors.toList());
     }
 
     public List<User> getTodoList() {
@@ -61,10 +62,11 @@ public class TaskService {
         if(users == null || users.isEmpty())
             return "Everyone completed weekly task";
 
-        List<String> ids = new ArrayList<>(users.size());
-        users.forEach(user -> ids.add(user.getUserId()));
+        List<String> userIds = users.stream()
+                .map(User::getUserId)
+                .collect(Collectors.toList());
 
-        String usersId = String.join(", ", ids);
+        String usersId = String.join(", ", userIds);
 
         return "[" + usersId + "]";
     }
@@ -72,11 +74,10 @@ public class TaskService {
     public List<User> getParticipants() {
         Task currentTask = taskRepository.findByStartDateTime(getStartOfWeek());
 
-        List<User> participants = new ArrayList<>();
-
-        currentTask.getParticipants().forEach(participant -> participants.add(participant.getUsers()));
-
-        return participants;
+        return currentTask.getParticipants()
+                .stream()
+                .map(TaskParticipant::getUsers)
+                .collect(Collectors.toList());
     }
 
     @Transactional
