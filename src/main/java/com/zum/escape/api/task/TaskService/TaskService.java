@@ -1,5 +1,7 @@
 package com.zum.escape.api.task.TaskService;
 
+import com.zum.escape.api.domain.entity.Difficulty;
+import com.zum.escape.api.domain.entity.Problem;
 import com.zum.escape.api.task.domain.DurationType;
 import com.zum.escape.api.task.domain.Task;
 import com.zum.escape.api.task.domain.TaskDone;
@@ -116,10 +118,12 @@ public class TaskService {
     }
 
     private int calculateScore(List<UserProblem> solvedProblems) {
-        int score = solvedProblems.stream()
-                .mapToInt(userProblem -> userProblem.getProblem().getDifficulty().getLevel()).sum();
 
-        return score;
+        return solvedProblems.stream()
+                .map(UserProblem::getProblem)
+                .map(Problem::getDifficulty)
+                .mapToInt(Difficulty::getLevel)
+                .sum();
     }
 
     public LocalDateTime getStartOfWeek() {
