@@ -27,12 +27,12 @@ public class ProblemService {
     }
 
     public void saveOrUpdateProblems() {
+        updateCache();
         List<Problem> problems = getProblems();
 
-/*        problems.forEach(
-                problem -> problemRepository.findById(problem.getId())
-                        .orElse(problemRepository.save(problem))
-        );*/
+        if(!isUpdated(problems))
+            return;
+
         for(Problem problem : problems) {
             System.out.println(problem);
             if(!problemRepository.existsById(problem.getId()))
@@ -45,6 +45,21 @@ public class ProblemService {
         );
 
         cachedProblems = updatedConcurrentHashMap;
+    }
+
+    private boolean isUpdated(List<Problem> problems) {
+        for(Problem problem : problems)
+            if(!cachedProblems.contains(problem.getTitle()))
+                return true;
+
+        return false;
+    }
+
+    private void updateCache() {
+        List<Problem> problems = problemRepository.findAll();
+        ConcurrentHashMap<String, Problem> newCache = new ConcurrentHashMap<>();
+        problems.forEach(problem -> newCache.put(problem.getTitle(), problem));
+        cachedProblems = newCache;
     }
 
     public Set<Problem> toProblem(CrawledUserInfo crawledUserInfo) {
