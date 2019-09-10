@@ -8,20 +8,24 @@ import com.zum.escape.api.task.domain.TaskParticipant;
 import com.zum.escape.api.task.repository.TaskRepository;
 import com.zum.escape.api.users.domain.User;
 import com.zum.escape.api.users.domain.UserProblem;
+import com.zum.escape.api.users.dto.UserDto;
 import com.zum.escape.api.users.service.UserProblemService;
 import com.zum.escape.api.users.service.UsersService;
+import com.zum.escape.api.util.DateTimeMaker;
+import com.zum.escape.api.util.MessageMaker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class TaskService {
     public static final int GOAL_SCORE = 5;
@@ -35,66 +39,11 @@ public class TaskService {
         this.lastUpdateTime = LocalDateTime.now();
     }
 
-    @Transactional
-    public void createTasks() {
-        Task task = Task.builder()
-                .startDateTime(getStartOfWeek())
-                .endDateTime(getEndOfWeek())
-                .goalScore(5)
-                .durationType(DurationType.WEEK)
-                .build();
-
-        taskRepository.save(task);
-
-        List<User> users = usersService.findAllUser();
-        task.registerParticipants(users);
-    }
-
-    public List<User> getDoneList() {
-        Task currentTask = taskRepository.findByStartDateTime(getStartOfWeek());
-
-        return currentTask.getParticipants()
-                .stream()
-                .filter(TaskParticipant::hasReachedGaol)
-                .map(TaskParticipant::getUsers)
-                .collect(Collectors.toList());
-    }
-
-    public List<User> getTodoList() {
-        List<User> allUser = getParticipants();
-        List<User> doneUsers = getDoneList();
-
-        doneUsers.forEach(allUser::remove);
-        return allUser;
-    }
-
-    public String toString(List<User> users) {
-        if(users == null || users.isEmpty())
-            return "Everyone completed weekly task";
-
-        List<String> userIds = users.stream()
-                .map(User::getUserId)
-                .collect(Collectors.toList());
-
-        String usersId = String.join(", ", userIds);
-
-        return "[" + usersId + "]";
-    }
-
-    public List<User> getParticipants() {
-        Task currentTask = taskRepository.findByStartDateTime(getStartOfWeek());
-
-        return currentTask.getParticipants()
-                .stream()
-                .map(TaskParticipant::getUsers)
-                .collect(Collectors.toList());
-    }
-
-    @Transactional
     public String update() {
         if(!isUpdatable())
             return "Too many request, try after 10secs";
-        Task currentTask = taskRepository.findByStartDateTime(getStartOfWeek());
+
+        Task currentTask = getCurrentTask();
         List<User> participants = extractParticipants(currentTask);
         Map<User, TaskParticipant> userScores = extractTaskParticipant(currentTask);
 
@@ -106,7 +55,54 @@ public class TaskService {
             userScores.get(participant).updateScore(score);
         });
 
-        return toString(participants);
+
+        updateLastUpdateTime();
+
+        return MessageMaker.userDtoToMessage(
+                currentTask.getParticipants()
+                        .stream()
+                        .map(TaskParticipant::toUserDto)
+                        .collect(Collectors.toList())
+                , "There are no participants"
+        );
+    }
+
+    public void createTasks() {
+        Task task = Task.builder()
+                .startDateTime(DateTimeMaker.getStartOfWeek())
+                .endDateTime(DateTimeMaker.getEndOfWeek())
+                .goalScore(GOAL_SCORE)
+                .durationType(DurationType.WEEK)
+                .build();
+
+        taskRepository.save(task);
+
+        List<User> users = usersService.findAllUser();
+        task.registerParticipants(users);
+    }
+
+    public List<UserDto> getDoneList() {
+        update();
+
+        return getCurrentTask().getParticipants()
+                .stream()
+                .filter(TaskParticipant::hasReachedGoal)
+                .map(TaskParticipant::toUserDto)
+                .collect(Collectors.toList());
+    }
+
+    public List<UserDto> getTodoList() {
+        update();
+
+        return getCurrentTask().getParticipants()
+                .stream()
+                .filter(TaskParticipant::hasNotReachedGoal)
+                .map(TaskParticipant::toUserDto)
+                .collect(Collectors.toList());
+    }
+
+    private Task getCurrentTask() {
+        return taskRepository.findByStartDateTime(DateTimeMaker.getStartOfWeek());
     }
 
     private boolean isUpdatable() {
@@ -125,31 +121,17 @@ public class TaskService {
     }
 
     private List<User> extractParticipants(Task currentTask) {
-        List<User> participants = new ArrayList<>();
-
-        currentTask.getParticipants().forEach(participant -> participants.add(participant.getUsers()));
-
-        return participants;
+        return currentTask.getParticipants()
+                .stream()
+                .map(TaskParticipant::getUsers)
+                .collect(Collectors.toList());
     }
 
     private int calculateScore(List<UserProblem> solvedProblems) {
-
         return solvedProblems.stream()
                 .map(UserProblem::getProblem)
                 .map(Problem::getDifficulty)
                 .mapToInt(Difficulty::getLevel)
                 .sum();
-    }
-
-    public LocalDateTime getStartOfWeek() {
-        return LocalDate.now()
-                .with(DayOfWeek.MONDAY)
-                .atStartOfDay();
-    }
-
-    public LocalDateTime getEndOfWeek() {
-        return LocalDate.now()
-                .with(DayOfWeek.SUNDAY)
-                .atTime(23, 59, 59);
     }
 }

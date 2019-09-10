@@ -2,10 +2,10 @@ package com.zum.escape.api.task.domain;
 
 import com.zum.escape.api.task.TaskService.TaskService;
 import com.zum.escape.api.users.domain.User;
+import com.zum.escape.api.users.dto.UserDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
 
@@ -34,7 +34,18 @@ public class TaskParticipant {
         this.score = score;
     }
 
-    public boolean hasReachedGaol() {
+    public boolean hasReachedGoal() {
         return this.score >= TaskService.GOAL_SCORE;
+    }
+
+    public boolean hasNotReachedGoal() {
+        return !hasReachedGoal();
+    }
+
+    public UserDto toUserDto() {
+        return UserDto.builder()
+                .leetcodeId(this.users.getUserId())
+                .score(this.score)
+                .build();
     }
 }

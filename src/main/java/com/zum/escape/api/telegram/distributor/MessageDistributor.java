@@ -1,11 +1,12 @@
 package com.zum.escape.api.telegram.distributor;
 
+import com.zum.escape.api.endpoint.problem.service.ProblemService;
 import com.zum.escape.api.task.TaskService.TaskService;
 import com.zum.escape.api.users.service.UsersService;
+import com.zum.escape.api.util.MessageMaker;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Component
 @Slf4j
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class MessageDistributor {
     private final UsersService usersService;
     private final TaskService taskService;
+    private final ProblemService problemService;
 
     public String distributeMessage(String message) {
         if(message.startsWith("/"))
@@ -22,9 +24,9 @@ public class MessageDistributor {
 
         switch(args[0]) {
             case "help":
-                return "1.유저 등록 : /register id" +
-                        "2.과제 완료 : /done" +
-                        "3.과제 미완 : /todo";
+                return  "1.유저 등록 : /register leetcodeId" +
+                        "2.과제 완료 리스트 : /done" +
+                        "3.과제 미완 리스트 : /todo";
             case "register":
                 if(args.length < 2)
                     return "/register id";
@@ -33,20 +35,19 @@ public class MessageDistributor {
                 taskService.createTasks();
                 return "new task created";
             case "todo":
-                return taskService.toString(taskService.getTodoList());
+                return MessageMaker.userDtoToMessage(taskService.getTodoList(), "Everybody finished");
             case "done":
-                return taskService.toString(taskService.getDoneList());
+                return MessageMaker.userDtoToMessage(taskService.getDoneList(), "Nobody finished yet");
+            case "update":
+                return taskService.update();
+            case "update problem":
+                problemService.saveOrUpdateProblems();
+                return "problem lists updated";
             default:
                 log.info("Unknown command : {}", message);
         }
-        //user 관련 등록, 삭제(위험)
-        //weekly homework
-        /**
-         * 회원 등록
-         *
-         * 주간 과제(task)
-         *
-         */
+
+
         return "Unknown command : " + message;
     }
 }

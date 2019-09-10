@@ -14,6 +14,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -72,6 +73,13 @@ public class ProblemService {
 
         Set<Submission> submissions = crawledUserInfo.getSolvedProblems();
         submissions.forEach(submission -> problems.add(cachedProblems.get(submission.getProblemTitle())));
+
+        Set<Problem> submissionSet = submissions.stream()
+                .map(Submission::getProblemTitle)
+                .filter(x -> cachedProblems.contains(x))
+                .map(x -> cachedProblems.get(x))
+                .collect(Collectors.toSet());
+
 
         return problems;
     }

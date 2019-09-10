@@ -2,7 +2,6 @@ package com.zum.escape.api.users.domain;
 
 import com.zum.escape.api.domain.entity.Problem;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.response.CrawledUserInfo;
-import com.zum.escape.api.thirdPartyAdapter.leetcode.response.Submission;
 import lombok.*;
 
 import javax.persistence.*;
@@ -29,10 +28,6 @@ public class User {
             return false;
 
         return this.solvedQuestionCount > crawledUserInfo.getSolvedQuestionCount();
-    }
-
-    public void setSolvedProblem(Set<UserProblem> solved) {
-        this.solvedProblem = solved;
     }
 
     public List<Problem> updateSolvedProblems(CrawledUserInfo crawledUserInfo) {
