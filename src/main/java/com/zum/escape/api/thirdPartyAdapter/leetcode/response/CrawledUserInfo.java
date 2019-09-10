@@ -1,7 +1,6 @@
 package com.zum.escape.api.thirdPartyAdapter.leetcode.response;
 
 import com.zum.escape.api.domain.entity.Problem;
-import com.zum.escape.api.users.domain.User;
 import lombok.*;
 
 import java.util.HashSet;
@@ -21,13 +20,5 @@ public class CrawledUserInfo {
 
     public boolean solvedQuestion() {
         return !solvedProblems.isEmpty();
-    }
-
-    public User toUser() {
-        return User.builder()
-                .userId(this.userId)
-                .solvedQuestionCount(this.solvedQuestionCount)
-                .solvedProblem(new HashSet<>())
-                .build();
     }
 }

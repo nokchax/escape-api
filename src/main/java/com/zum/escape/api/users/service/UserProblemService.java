@@ -16,7 +16,7 @@ public class UserProblemService {
 
     public List<UserProblem> findAllSolvedProblemsInThisWeek(User user) {
 
-        return userProblemRepository.findByUserEqualsAndSolvedDateTimeBetween(
+        return userProblemRepository.findByUserEqualsAndSolvedTimeBetween(
                 user,
                 DateTimeMaker.getStartOfWeek(),
                 DateTimeMaker.getEndOfWeek()

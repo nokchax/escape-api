@@ -13,12 +13,13 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
+@IdClass(TaskParticipantId.class)
 public class TaskParticipant {
-    @Id @GeneratedValue
-    private Long id;
+    @Id
     @ManyToOne
     @JoinColumn(name = "task_id")
     private Task tasks;
+    @Id
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User users;
@@ -44,7 +45,7 @@ public class TaskParticipant {
 
     public UserDto toUserDto() {
         return UserDto.builder()
-                .leetcodeId(this.users.getUserId())
+                .leetcodeId(this.users.getLeetcodeName())
                 .score(this.score)
                 .build();
     }

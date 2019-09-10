@@ -2,35 +2,35 @@ package com.zum.escape.api.users.domain;
 
 import com.zum.escape.api.domain.entity.Problem;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.apache.tomcat.jni.Local;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@IdClass(UserProblemId.class)
 public class UserProblem {
-    @Id @GeneratedValue
-    private Long id;
-
+    @Id
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Id
     @ManyToOne
     @JoinColumn(name = "problem_id")
     private Problem problem;
 
-    private LocalDateTime solvedDateTime;
+    private LocalDateTime solvedTime;
 
-    public UserProblem(User user, Problem problem, LocalDateTime solvedDateTime) {
+    public UserProblem(User user, Problem problem, LocalDateTime solvedTime) {
         this.user = user;
         this.problem = problem;
-        this.solvedDateTime = solvedDateTime;
+        this.solvedTime = solvedTime;
     }
 
     @Override

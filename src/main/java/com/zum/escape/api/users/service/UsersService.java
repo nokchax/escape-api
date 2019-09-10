@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -30,27 +29,21 @@ public class UsersService {
 
     @Transactional
     public String addUser(String userId) {
-        if(userRepository.existsByUserId(userId))
+        User newUser = new User(userId);
+
+        if(userRepository.existsByLeetcodeName(newUser.getLeetcodeName()))
             return "User already exists";
 
-        CrawledUserInfo crawledUserInfo = getCrawledUserInfo(userId);
+        CrawledUserInfo crawledUserInfo = getCrawledUserInfo(newUser.getLeetcodeName());
+        newUser.updateSolvedProblems(crawledUserInfo);
 
-        User user = userRepository.save(crawledUserInfo.toUser());
-        user.updateSolvedProblems(crawledUserInfo);
-
+        userRepository.save(newUser);
 
         return "Register complete";
     }
 
-    public boolean checkUserSolvedProblem(String userId) {
-        User user = userRepository.findByUserId(userId);
-        CrawledUserInfo crawledUserInfo = getCrawledUserInfo(userId);
-
-        return user.checkSolveQuestion(crawledUserInfo);
-    }
-
     public List<Problem> updateUser(User user) {
-        CrawledUserInfo crawledUserInfo = getCrawledUserInfo(user.getUserId());
+        CrawledUserInfo crawledUserInfo = getCrawledUserInfo(user.getLeetcodeName());
         if(!user.checkSolveQuestion(crawledUserInfo))
             return Collections.emptyList();
 

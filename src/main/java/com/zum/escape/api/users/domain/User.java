@@ -16,12 +16,27 @@ import java.util.*;
 @AllArgsConstructor
 @Builder
 public class User {
-    @Id @GeneratedValue
-    private Long id;
-    private String userId;
+    @Id
+    private String email;
+    private String password;
+    private String name;
+    @Column(unique = true)
+    private String leetcodeName;
     private int solvedQuestionCount;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<UserProblem> solvedProblem = new HashSet<>();
+
+    public User(String command) {
+        String[] commands = command.trim().split(" ");
+        if(commands.length < 5)
+            throw new IllegalArgumentException("/register email pw name leetcodeId");
+
+        this.email = commands[1];
+        this.password = commands[2];
+        this.name = commands[3];
+        this.leetcodeName = commands[4];
+        this.solvedProblem = new HashSet<>();
+    }
 
     public boolean checkSolveQuestion(CrawledUserInfo crawledUserInfo) {
         if(crawledUserInfo.solvedQuestion())
