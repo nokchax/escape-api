@@ -8,6 +8,7 @@ import com.zum.escape.api.task.domain.TaskParticipant;
 import com.zum.escape.api.task.repository.TaskRepository;
 import com.zum.escape.api.users.domain.User;
 import com.zum.escape.api.users.domain.UserProblem;
+import com.zum.escape.api.users.dto.PunishedUser;
 import com.zum.escape.api.users.dto.UserDto;
 import com.zum.escape.api.users.service.UserProblemService;
 import com.zum.escape.api.users.service.UsersService;
@@ -101,8 +102,20 @@ public class TaskService {
                 .collect(Collectors.toList());
     }
 
+    public List<PunishedUser> getUsersNotSolvedProblemLastWeek() {
+        return getLastTask().getParticipants()
+                .stream()
+                .filter(TaskParticipant::hasNotReachedGoal)
+                .map(TaskParticipant::toPunishedUser)
+                .collect(Collectors.toList());
+    }
+
     private Task getCurrentTask() {
         return taskRepository.findByStartDateTime(DateTimeMaker.getStartOfWeek());
+    }
+
+    private Task getLastTask() {
+        return taskRepository.findByStartDateTime(DateTimeMaker.getStartOfLastWeek());
     }
 
     private boolean isUpdatable() {

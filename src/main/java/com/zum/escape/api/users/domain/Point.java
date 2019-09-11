@@ -18,6 +18,12 @@ public class Point {
         this.dateTime = LocalDateTime.now();
     }
 
+    public Point(Description description, int point, LocalDateTime imposedTime) {
+        this.point = point;
+        this.description = description;
+        this.dateTime = imposedTime;
+    }
+
     public static Point makeMonthlyPoint(int point, Description description) {
         return new Point(point, description);
     }

@@ -2,6 +2,7 @@ package com.zum.escape.api.task.domain;
 
 import com.zum.escape.api.task.TaskService.TaskService;
 import com.zum.escape.api.users.domain.User;
+import com.zum.escape.api.users.dto.PunishedUser;
 import com.zum.escape.api.users.dto.UserDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -47,6 +48,13 @@ public class TaskParticipant {
         return UserDto.builder()
                 .leetcodeId(this.users.getLeetcodeName())
                 .score(this.score)
+                .build();
+    }
+
+    public PunishedUser toPunishedUser() {
+        return PunishedUser.builder()
+                .user(this.users)
+                .lackPoint(TaskService.GOAL_SCORE - this.score)
                 .build();
     }
 }

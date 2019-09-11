@@ -16,4 +16,14 @@ public class DateTimeMaker {
                 .with(DayOfWeek.SUNDAY)
                 .atTime(23, 59, 59);
     }
+
+    public static LocalDateTime getStartOfLastWeek() {
+        return getStartOfWeek()
+                .minusWeeks(1);
+    }
+
+    public static LocalDateTime getEndOfLastWeek() {
+        return getEndOfWeek()
+                .minusWeeks(1);
+    }
 }
