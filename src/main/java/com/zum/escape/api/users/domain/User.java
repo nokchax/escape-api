@@ -68,4 +68,14 @@ public class User {
 
         return addedProblem;
     }
+
+    public UserHistory getPoints(Point point) {
+        return UserHistory.builder()
+                .user(this)
+                .point(point.getPoint())
+                .dateTime(point.getDateTime())
+                .description(point.getDescription())
+                .build();
+
+    }
 }

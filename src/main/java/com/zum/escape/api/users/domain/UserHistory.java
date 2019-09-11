@@ -1,6 +1,7 @@
 package com.zum.escape.api.users.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -8,6 +9,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Builder
 @Getter
 @IdClass(UserHistoryId.class)
 @NoArgsConstructor
