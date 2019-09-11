@@ -28,7 +28,7 @@ public class EscapeHelpBot extends TelegramLongPollingBot {
 
         SendMessage message = new SendMessage()
                 .setChatId(update.getMessage().getChatId())
-                .setText(messageDistributor.distributeMessage(update.getMessage().getText()));
+                .setText(messageDistributor.distributeMessage(update.getMessage()));
 
         sendMessage(message);
     }

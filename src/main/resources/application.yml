@@ -15,3 +15,6 @@ telegram:
   bot:
     name:
     token:
+
+observer:
+  admins:
