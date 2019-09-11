@@ -2,6 +2,7 @@ package com.zum.escape.api.users.service;
 
 import com.zum.escape.api.users.domain.Description;
 import com.zum.escape.api.users.domain.Point;
+import com.zum.escape.api.users.domain.User;
 import com.zum.escape.api.users.domain.UserHistory;
 import com.zum.escape.api.users.repository.UserHistoryRepository;
 import com.zum.escape.api.users.repository.UserRepository;
@@ -27,5 +28,14 @@ public class UserHistoryService {
                 .collect(Collectors.toList());
 
         userHistoryRepository.saveAll(userHistories);
+    }
+
+    public void givePointToOne(String leetcodeId, int point) {
+        Point specialPoint = new Point(1, Description.PROVIDE_POINT);
+
+        UserHistory userHistory = userRepository.findByLeetcodeName(leetcodeId)
+                .getPoints(specialPoint);
+
+        userHistoryRepository.save(userHistory);
     }
 }
