@@ -54,4 +54,5 @@ public class UserHistoryService {
 
         userHistoryRepository.saveAll(userHistories);
     }
+
 }

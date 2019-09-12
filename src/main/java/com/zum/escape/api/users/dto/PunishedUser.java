@@ -4,6 +4,7 @@ import com.zum.escape.api.users.domain.Description;
 import com.zum.escape.api.users.domain.Point;
 import com.zum.escape.api.users.domain.User;
 import com.zum.escape.api.users.domain.UserHistory;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class PunishedUser {
     private User user;

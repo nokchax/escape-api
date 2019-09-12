@@ -3,7 +3,7 @@ package com.zum.escape.api.telegram.distributor;
 import com.zum.escape.api.admin.AdminService;
 import com.zum.escape.api.endpoint.problem.service.ProblemService;
 import com.zum.escape.api.task.TaskService.TaskService;
-import com.zum.escape.api.users.domain.UserProblemHistory;
+import com.zum.escape.api.users.repository.UserPointRepository;
 import com.zum.escape.api.users.repository.UserProblemHistoryRepository;
 import com.zum.escape.api.users.service.UsersService;
 import com.zum.escape.api.util.MessageMaker;
@@ -11,8 +11,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
-
-import java.util.List;
 
 @Component
 @Slf4j
@@ -23,6 +21,7 @@ public class MessageDistributor {
     private final ProblemService problemService;
     private final UserProblemHistoryRepository userProblemHistoryRepository;
     private final AdminService adminService;
+    private final UserPointRepository userPointRepository;
 
     public String distributeMessage(Message message) {
         String text = message.getText();
@@ -56,14 +55,10 @@ public class MessageDistributor {
                 problemService.saveOrUpdateProblems();
                 return "problem lists updated";
             case "test":
-                List<UserProblemHistory> all = userProblemHistoryRepository.findAll();
-                StringBuilder sb = new StringBuilder();
-                all.forEach( x -> {
-                    sb.append(x.toString()).append("\n");
-                });
-                all.forEach(System.out::println);
+                userPointRepository.findAllByOrderByPointDesc();
+                userPointRepository.findAllByPointIsLessThanOrderByPointAsc(0);
 
-                return sb.toString();
+                return "hi";
             default:
                 log.info("Unknown command : {}", text);
         }
