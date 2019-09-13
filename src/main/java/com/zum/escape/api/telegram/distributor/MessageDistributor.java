@@ -12,8 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
-@Component
 @Slf4j
+@Component
 @RequiredArgsConstructor
 public class MessageDistributor {
     private final UsersService usersService;

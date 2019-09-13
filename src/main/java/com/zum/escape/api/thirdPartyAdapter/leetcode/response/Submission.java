@@ -7,9 +7,6 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-/**
- * Created by greentea@zuminternet.com on 2019-09-09
- */
 @Getter
 @Setter
 @Builder
