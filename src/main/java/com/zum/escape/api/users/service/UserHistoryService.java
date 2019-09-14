@@ -18,9 +18,9 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserHistoryService {
     public static final int MONTHLY_POINT = 5;
-    private UserRepository userRepository;
-    private UserHistoryRepository userHistoryRepository;
-    private TaskService taskService;
+    private final UserRepository userRepository;
+    private final UserHistoryRepository userHistoryRepository;
+    private final TaskService taskService;
 
     public void givePointToEveryUser(int point) {
         Point monthlyPoint = Point.makeMonthlyPoint(point , Description.PROVIDE_POINT);

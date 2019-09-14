@@ -2,7 +2,6 @@ package com.zum.escape.api.users.service;
 
 import com.zum.escape.api.domain.entity.Problem;
 import com.zum.escape.api.endpoint.problem.service.ProblemService;
-import com.zum.escape.api.task.TaskService.TaskService;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.response.CrawledUserInfo;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.service.LeetCodeService;
 import com.zum.escape.api.users.domain.User;
@@ -23,7 +22,6 @@ public class UsersService {
     private final ProblemService problemService;
     private final UserRepository userRepository;
     private final LeetCodeService leetCodeService;
-    private final TaskService taskService;
 
     public List<User> findAllUser() {
         return userRepository.findAll();
@@ -40,7 +38,6 @@ public class UsersService {
         newUser.updateSolvedProblems(crawledUserInfo);
 
         userRepository.save(newUser);
-        taskService.participate(newUser);
 
         return "Register complete";
     }

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.ToString;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -32,8 +33,13 @@ public class Command {
 
         this.totalLength = args.length;
         this.command = args[0];
-        this.arguments = Arrays.asList(
+
+        this.arguments = args.length < 2 ? new ArrayList<>() : Arrays.asList(
                 Arrays.copyOfRange(args, 1, args.length)
         );
+    }
+
+    public boolean isArgsEmpty() {
+        return this.arguments.isEmpty();
     }
 }

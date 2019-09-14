@@ -9,10 +9,7 @@ import com.zum.escape.api.thirdPartyAdapter.leetcode.service.LeetCodeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
@@ -66,6 +63,15 @@ public class ProblemService {
         ConcurrentHashMap<String, Problem> newCache = new ConcurrentHashMap<>();
         problems.forEach(problem -> newCache.put(problem.getTitle(), problem));
         cachedProblems = newCache;
+    }
+
+    public Problem findProblem(String problemName) {
+        Optional<Problem> problem = cachedProblems.values()
+                .stream()
+                .filter(x -> problemName.equalsIgnoreCase(x.getTitle()))
+                .findFirst();
+
+        return problem.orElse(null);
     }
 
     public Set<Problem> toProblem(CrawledUserInfo crawledUserInfo) {

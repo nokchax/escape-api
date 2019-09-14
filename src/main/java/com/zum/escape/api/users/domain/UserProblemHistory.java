@@ -1,5 +1,6 @@
 package com.zum.escape.api.users.domain;
 
+import com.zum.escape.api.users.dto.ProblemHistoryDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -42,4 +43,14 @@ public class UserProblemHistory {
     private int mediumCount;
     @Column(name = "easy_count")
     private int easyCount;
+
+    public ProblemHistoryDto toProblemHistoryDto() {
+        return ProblemHistoryDto.builder()
+                .userId(this.userId)
+                .totalCount(this.totalCount)
+                .hardCount(this.hardCount)
+                .mediumCount(this.mediumCount)
+                .easyCount(this.easyCount)
+                .build();
+    }
 }

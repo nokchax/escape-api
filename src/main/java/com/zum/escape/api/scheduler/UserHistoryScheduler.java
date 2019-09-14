@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class UserHistoryScheduler {
-    private UserHistoryService userHistoryService;
+    private final UserHistoryService userHistoryService;
 
     @Scheduled(cron = "0 0 0 1 * *")
     public void givePointsToAllUser() {

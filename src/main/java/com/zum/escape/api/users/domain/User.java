@@ -2,6 +2,7 @@ package com.zum.escape.api.users.domain;
 
 import com.zum.escape.api.domain.entity.Problem;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.response.CrawledUserInfo;
+import com.zum.escape.api.users.dto.UserProblemSolveDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -75,6 +76,12 @@ public class User {
                 .point(point.getPoint())
                 .dateTime(point.getDateTime())
                 .description(point.getDescription())
+                .build();
+    }
+
+    public UserProblemSolveDto toUserProblemSolveDto() {
+        return UserProblemSolveDto.builder()
+                .leetcodeId(this.leetcodeName)
                 .build();
     }
 }

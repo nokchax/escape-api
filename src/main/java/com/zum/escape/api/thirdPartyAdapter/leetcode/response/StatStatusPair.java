@@ -18,7 +18,6 @@ public class StatStatusPair {
                 .title(stat.getQuestionTitle())
                 .titleSlug(stat.getQuestionTitleSlug())
                 .hide(stat.isQuestionHide())
-                .status(this.status)
                 .difficulty(difficulty.levelToDifficulty())
                 .build();
     }
