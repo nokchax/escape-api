@@ -23,4 +23,9 @@ public class UserHistory {
     private LocalDateTime dateTime;
     private int point;
     private Description description;
+
+    @Override
+    public String toString() {
+        return user + ": " + point + "\n" + dateTime + " / " + description;
+    }
 }

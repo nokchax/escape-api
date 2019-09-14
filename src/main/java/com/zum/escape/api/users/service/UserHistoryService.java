@@ -3,7 +3,6 @@ package com.zum.escape.api.users.service;
 import com.zum.escape.api.task.TaskService.TaskService;
 import com.zum.escape.api.users.domain.Description;
 import com.zum.escape.api.users.domain.Point;
-import com.zum.escape.api.users.domain.User;
 import com.zum.escape.api.users.domain.UserHistory;
 import com.zum.escape.api.users.dto.PunishedUser;
 import com.zum.escape.api.users.repository.UserHistoryRepository;
@@ -34,13 +33,13 @@ public class UserHistoryService {
         userHistoryRepository.saveAll(userHistories);
     }
 
-    public void givePointToOne(String leetcodeId, int point) {
+    public UserHistory givePointToOne(String leetcodeId, int point) {
         Point specialPoint = new Point(point, Description.PROVIDE_POINT);
 
         UserHistory userHistory = userRepository.findByLeetcodeName(leetcodeId)
                 .getPoints(specialPoint);
 
-        userHistoryRepository.save(userHistory);
+        return userHistoryRepository.save(userHistory);
     }
 
     public void imposeFines() {

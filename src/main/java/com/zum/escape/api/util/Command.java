@@ -17,6 +17,11 @@ public class Command {
     public String getFirstArg() {
         return this.arguments.get(0);
     }
+
+    public String getSecondArg() {
+        return this.arguments.get(1);
+    }
+
     public Command(Message message) {
         String text = message.getText();
 
