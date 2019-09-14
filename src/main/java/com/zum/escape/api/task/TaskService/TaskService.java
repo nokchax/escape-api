@@ -13,7 +13,6 @@ import com.zum.escape.api.users.dto.UserDto;
 import com.zum.escape.api.users.service.UserProblemService;
 import com.zum.escape.api.users.service.UsersService;
 import com.zum.escape.api.util.DateTimeMaker;
-import com.zum.escape.api.util.MessageMaker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -50,22 +49,18 @@ public class TaskService {
 
         participants.forEach(participant -> {
             usersService.updateUser(participant);
-            List<UserProblem> solvedProblems = userProblemService.findAllSolvedProblemsInThisWeek(participant);
-
-            int score = calculateScore(solvedProblems);
-            userScores.get(participant).updateScore(score);
+            userScores.get(participant)
+                    .updateScore(
+                            calculateScore(
+                                    userProblemService.findAllSolvedProblemsInThisWeek(participant)
+                            )
+                    );
         });
 
 
         updateLastUpdateTime();
 
-        return MessageMaker.userDtoToMessage(
-                currentTask.getParticipants()
-                        .stream()
-                        .map(TaskParticipant::toUserDto)
-                        .collect(Collectors.toList())
-                , "There are no participants"
-        );
+        return "update complete";
     }
 
     public void createTasks() {
@@ -78,8 +73,7 @@ public class TaskService {
 
         taskRepository.save(task);
 
-        List<User> users = usersService.findAllUser();
-        task.registerParticipants(users);
+        task.registerParticipants(usersService.findAllUser());
     }
 
     public List<UserDto> getDoneList() {
@@ -100,6 +94,15 @@ public class TaskService {
                 .filter(TaskParticipant::hasNotReachedGoal)
                 .map(TaskParticipant::toUserDto)
                 .collect(Collectors.toList());
+    }
+
+    public List<UserDto> getAllUsers() {
+        update();
+
+        return getCurrentTask().getParticipants()
+                        .stream()
+                        .map(TaskParticipant::toUserDto)
+                        .collect(Collectors.toList());
     }
 
     public List<PunishedUser> getUsersNotSolvedProblemLastWeek() {
@@ -146,5 +149,10 @@ public class TaskService {
                 .map(Problem::getDifficulty)
                 .mapToInt(Difficulty::getLevel)
                 .sum();
+    }
+
+    public void participate(User newUser) {
+        Task task = taskRepository.findByStartDateTime(DateTimeMaker.getStartOfWeek());
+        task.registerParticipants(newUser);
     }
 }

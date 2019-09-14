@@ -54,9 +54,12 @@ public class MessageDistributor {
                 );
 
             case "update":
-                return taskService.update();
+                return MessageMaker.dtoToMessage(
+                        taskService.getAllUsers(),
+                        "No users"
+                );
 
-            case "update problem":
+            case "update-problem":
                 problemService.saveOrUpdateProblems();
                 return "problem lists updated";
 

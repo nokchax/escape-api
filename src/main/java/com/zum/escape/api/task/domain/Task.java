@@ -36,4 +36,8 @@ public class Task {
 
         this.participants = participants;
     }
+
+    public void registerParticipants(User user) {
+        this.participants.add(new TaskParticipant(this, user));
+    }
 }
