@@ -6,6 +6,7 @@ import com.zum.escape.api.task.TaskService.TaskService;
 import com.zum.escape.api.users.repository.UserPointRepository;
 import com.zum.escape.api.users.repository.UserProblemHistoryRepository;
 import com.zum.escape.api.users.service.UsersService;
+import com.zum.escape.api.util.Command;
 import com.zum.escape.api.util.MessageMaker;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,14 +25,9 @@ public class MessageDistributor {
     private final UserPointRepository userPointRepository;
 
     public String distributeMessage(Message message) {
-        String text = message.getText();
+        Command command = new Command(message);
 
-        if(text.startsWith("/"))
-            text = text.substring(1);
-
-        String[] args = text.split(" ");
-
-        switch(args[0]) {
+        switch(command.getCommand()) {
             case "su":
                 return adminService.byPassMessage(message);
             case "help":
@@ -40,9 +36,9 @@ public class MessageDistributor {
                         "3.과제 미완 리스트 : /todo";
 
             case "register":
-                if(args.length < 5)
+                if(command.getTotalLength() < 5)
                     return "/register email pw name leetcodeName";
-                return usersService.addUser(text);
+                return usersService.addUser(command.getFirstArg());
 
             case "newtask":
                 taskService.createTasks();
@@ -70,18 +66,25 @@ public class MessageDistributor {
             case "point":
                 return MessageMaker.dtoToMessage(
                         userPointRepository.findAllByOrderByPointDesc(),
-                        "There is no users"
+                        "There are no users"
                 );
+
+            case "fine":
+                return MessageMaker.dtoToMessage(
+                        userPointRepository.findAllByPointIsLessThanOrderByPointAsc(0),
+                        "No fine list"
+                );
+
             case "test":
                 userPointRepository.findAllByOrderByPointDesc();
                 userPointRepository.findAllByPointIsLessThanOrderByPointAsc(0);
 
                 return "hi";
             default:
-                log.info("Unknown command : {}", text);
+                log.info("Unknown command : {}", command.toString());
         }
 
 
-        return "Unknown command : " + text;
+        return "Unknown command : " + command.toString();
     }
 }
