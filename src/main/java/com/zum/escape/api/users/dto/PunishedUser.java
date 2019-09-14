@@ -15,11 +15,16 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PunishedUser {
+public class PunishedUser extends Message {
     private User user;
     private int lackPoint;
 
     public UserHistory imposed(LocalDateTime imposedTime) {
         return user.getPoints(new Point(Description.FINES, -lackPoint, imposedTime));
+    }
+
+    @Override
+    public String toMessage() {
+        return user + ": " + lackPoint;
     }
 }

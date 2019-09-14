@@ -9,12 +9,17 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDto {
+public class UserDto extends Message {
     private String leetcodeId;
     private int score;
 
     @Override
     public String toString() {
+        return leetcodeId + ": " + score;
+    }
+
+    @Override
+    public String toMessage() {
         return leetcodeId + ": " + score;
     }
 }

@@ -38,22 +38,40 @@ public class MessageDistributor {
                 return  "1.유저 등록 : /register leetcodeId" +
                         "2.과제 완료 리스트 : /done" +
                         "3.과제 미완 리스트 : /todo";
+
             case "register":
                 if(args.length < 5)
                     return "/register email pw name leetcodeName";
                 return usersService.addUser(text);
+
             case "newtask":
                 taskService.createTasks();
                 return "new task created";
+
             case "todo":
-                return MessageMaker.userDtoToMessage(taskService.getTodoList(), "Everybody finished");
+                return MessageMaker.dtoToMessage(
+                        taskService.getTodoList(),
+                        "Everybody finished"
+                );
+
             case "done":
-                return MessageMaker.userDtoToMessage(taskService.getDoneList(), "Nobody finished yet");
+                return MessageMaker.dtoToMessage(
+                        taskService.getDoneList(),
+                        "Nobody finished yet"
+                );
+
             case "update":
                 return taskService.update();
+
             case "update problem":
                 problemService.saveOrUpdateProblems();
                 return "problem lists updated";
+
+            case "point":
+                return MessageMaker.dtoToMessage(
+                        userPointRepository.findAllByOrderByPointDesc(),
+                        "There is no users"
+                );
             case "test":
                 userPointRepository.findAllByOrderByPointDesc();
                 userPointRepository.findAllByPointIsLessThanOrderByPointAsc(0);

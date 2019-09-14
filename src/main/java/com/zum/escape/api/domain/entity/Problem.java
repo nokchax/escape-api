@@ -19,6 +19,7 @@ public class Problem {
     private Long id;
     @Column(name = "front_end_question_id", unique = true)
     private Long viewId;
+    private String status;
     private String title;
     @Column(name = "title_slug")
     private String titleSlug;

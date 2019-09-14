@@ -8,6 +8,7 @@ import lombok.Data;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class StatStatusPair {
     private Stat stat;
+    private String status;
     private Difficulty difficulty;
 
     public Problem toProblem() {
@@ -17,6 +18,7 @@ public class StatStatusPair {
                 .title(stat.getQuestionTitle())
                 .titleSlug(stat.getQuestionTitleSlug())
                 .hide(stat.isQuestionHide())
+                .status(this.status)
                 .difficulty(difficulty.levelToDifficulty())
                 .build();
     }

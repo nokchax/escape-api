@@ -1,5 +1,6 @@
 package com.zum.escape.api.users.domain;
 
+import com.zum.escape.api.users.dto.Message;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,13 +21,13 @@ import javax.persistence.Id;
 )
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserPoint {
+public class UserPoint extends Message {
     @Id
     private String id;
     private int point;
 
     @Override
-    public String toString() {
+    public String toMessage() {
         return id + ": " + point;
     }
 }
