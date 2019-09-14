@@ -25,7 +25,7 @@ public class MessageDistributor {
     private final UserPointRepository userPointRepository;
 
     public String distributeMessage(Message message) {
-        Command command = new Command(message);
+        Command command = new Command(message, false);
 
         switch(command.getCommand()) {
             case "su":
@@ -33,14 +33,14 @@ public class MessageDistributor {
 
                 //help
             case "help":
-                return  "1.현황 업데이트 : /update" +
-                        "2.과제 완료 리스트 : /done" +
-                        "3.과제 미완 리스트 : /todo" +
-                        "4.문제 리스트 업데이트 : /update-problem" +
-                        "5.포인트 조회 : /point" +
-                        "6.벌금 조회 : /fine" +
-                        "7.총 푼문제 내역 조회 : /history [id]" +
-                        "8.해당 문제를 푼 사람 : /problem (problem-name)";
+                return  "1.현황 업데이트 : /update\n" +
+                        "2.과제 완료 리스트 : /done\n" +
+                        "3.과제 미완 리스트 : /todo\n" +
+                        "4.문제 리스트 업데이트 : /update-problem\n" +
+                        "5.포인트 조회 : /point\n" +
+                        "6.벌금 조회 : /fine\n" +
+                        "7.총 푼문제 내역 조회 : /history [id]\n" +
+                        "8.해당 문제를 푼 사람 : /problem {problem-name}";
 
                 // /td -> return users that dose't reached the goal
             case "todo":

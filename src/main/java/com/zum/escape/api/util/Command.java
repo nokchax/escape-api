@@ -9,7 +9,6 @@ import java.util.Arrays;
 import java.util.List;
 
 @Getter
-@ToString
 public class Command {
     private String command;
     private List<String> arguments;
@@ -23,8 +22,10 @@ public class Command {
         return this.arguments.get(1);
     }
 
-    public Command(Message message) {
+    public Command(Message message, boolean isSudo) {
         String text = message.getText();
+        if(isSudo)
+            text = text.replaceFirst("su ", "");
 
         if(text.startsWith("/"))
             text = text.substring(1);
@@ -41,5 +42,10 @@ public class Command {
 
     public boolean isArgsEmpty() {
         return this.arguments.isEmpty();
+    }
+
+    @Override
+    public String toString() {
+        return command + " / " + arguments.toString();
     }
 }

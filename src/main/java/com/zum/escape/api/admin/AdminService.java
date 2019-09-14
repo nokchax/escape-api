@@ -5,13 +5,17 @@ import com.zum.escape.api.users.service.UserHistoryService;
 import com.zum.escape.api.users.service.UsersService;
 import com.zum.escape.api.util.Command;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
+@Slf4j
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class AdminService {
     private final UserHistoryService userHistoryService;
@@ -25,7 +29,7 @@ public class AdminService {
         if(!isAdmin(message))
             return "Permission Denied";
 
-        Command command = new Command(message);
+        Command command = new Command(message, true);
 
         switch (command.getCommand()) {
             // /register email pw name leetcodeName -> register user
@@ -47,12 +51,15 @@ public class AdminService {
                 return "new task created";
         }
 
-        return "";
+        log.info(command.toString());
+        return command.toString();
     }
 
 
     private boolean isAdmin(Message message) {
         Integer userId = message.getFrom().getId();
+        log.info(ADMIN_LIST.toString());
+        log.info("{}", userId);
 
         return ADMIN_LIST.contains(userId);
     }

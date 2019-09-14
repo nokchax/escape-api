@@ -26,6 +26,6 @@ public class UserHistory {
 
     @Override
     public String toString() {
-        return user + ": " + point + "\n" + dateTime + " / " + description;
+        return user.getLeetcodeName() + ": " + point + "\n" + dateTime + " / " + description;
     }
 }

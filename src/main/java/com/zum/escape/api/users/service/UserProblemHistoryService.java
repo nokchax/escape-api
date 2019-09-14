@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,6 +30,9 @@ public class UserProblemHistoryService {
                     .collect(Collectors.toList());
 
         User user = userRepository.findByLeetcodeName(command.getFirstArg());
+
+        if(user == null)
+            return new ArrayList<>();
 
         return userProblemHistoryRepository.findAllById(Arrays.asList(user.getEmail()))
                 .stream()

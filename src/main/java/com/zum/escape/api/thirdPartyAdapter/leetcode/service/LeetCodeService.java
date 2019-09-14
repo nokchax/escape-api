@@ -69,7 +69,7 @@ public class LeetCodeService {
         Elements problems = document.getElementsByAttributeValueStarting("href", "/problems");
         Elements solvedQuestionElement = document.getElementsByClass("fa-question").parents().get(0).getElementsByClass("progress-bar-success");
 
-        int solvedQuestionCount = solvedQuestionElement.isEmpty() ? 0 : extractSolvedQuestionCount(solvedQuestionElement.get(1).text());
+        int solvedQuestionCount = solvedQuestionElement.isEmpty() ? 0 : extractSolvedQuestionCount(solvedQuestionElement.get(0).text());
         Set<Submission> solvedProblems = extractSolvedProblems(problems);
 
         return CrawledUserInfo.builder()
