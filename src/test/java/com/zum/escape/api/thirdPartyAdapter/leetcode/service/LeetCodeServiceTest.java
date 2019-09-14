@@ -57,16 +57,15 @@ public class LeetCodeServiceTest {
 
 
         Document document = connection.get();
-        Elements elements = document.getElementsByClass("progress-bar-success");
+        Elements elements = document.getElementsByClass("fa-question").parents().get(0).getElementsByClass("progress-bar-success");
         System.out.println("=============================================================");
-        System.out.println(elements.get(1).text());
+        System.out.println(elements.get(0).text());
         System.out.println("=============================================================");
         Elements href = document.getElementsByAttributeValueStarting("href", "/problems");
         System.out.println("=============================================================");
         System.out.println(href);
         System.out.println("=============================================================");
         for(Element e : href) {
-            String problemr1 = e.attr("href");
             String problem = e.getElementsByTag("b").text();
             String accepted= e.getElementsByTag("span").get(0).text();
             String time = e.getElementsByClass("text-muted").get(0).text();

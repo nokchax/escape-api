@@ -67,7 +67,7 @@ public class LeetCodeService {
 
     private CrawledUserInfo extractUser(Document document, String userId) {
         Elements problems = document.getElementsByAttributeValueStarting("href", "/problems");
-        Elements solvedQuestionElement = document.getElementsByClass("progress-bar-success");
+        Elements solvedQuestionElement = document.getElementsByClass("fa-question").parents().get(0).getElementsByClass("progress-bar-success");
 
         int solvedQuestionCount = extractSolvedQuestionCount(solvedQuestionElement.get(1).text());
         Set<Submission> solvedProblems = extractSolvedProblems(problems);
