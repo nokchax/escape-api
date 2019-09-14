@@ -26,15 +26,14 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<UserProblem> solvedProblem = new HashSet<>();
 
-    public User(String command) {
-        String[] commands = command.trim().split(" ");
-        if(commands.length < 5)
+    public User(List<String> args) {
+        if(args.size() < 4)
             throw new IllegalArgumentException("/register email pw name leetcodeId");
 
-        this.email = commands[1];
-        this.password = commands[2];
-        this.name = commands[3];
-        this.leetcodeName = commands[4];
+        this.email = args.get(0);
+        this.password = args.get(1);
+        this.name = args.get(2);
+        this.leetcodeName = args.get(3);
         this.solvedProblem = new HashSet<>();
     }
 
@@ -50,6 +49,7 @@ public class User {
             System.out.println("NULL");
             return Collections.emptyList();
         }
+
         Map<String, LocalDateTime> time = new HashMap<>();
 
         crawledUserInfo.getSolvedProblems().forEach(
@@ -76,6 +76,5 @@ public class User {
                 .dateTime(point.getDateTime())
                 .description(point.getDescription())
                 .build();
-
     }
 }

@@ -30,6 +30,7 @@ public class MessageDistributor {
         switch(command.getCommand()) {
             case "su":
                 return adminService.byPassMessage(message);
+
             case "help":
                 return  "1.유저 등록 : /register leetcodeId" +
                         "2.과제 완료 리스트 : /done" +
@@ -38,11 +39,7 @@ public class MessageDistributor {
             case "register":
                 if(command.getTotalLength() < 5)
                     return "/register email pw name leetcodeName";
-                return usersService.addUser(command.getFirstArg());
-
-            case "newtask":
-                taskService.createTasks();
-                return "new task created";
+                return usersService.addUser(command.getArguments());
 
             case "todo":
                 return MessageMaker.dtoToMessage(
@@ -75,11 +72,6 @@ public class MessageDistributor {
                         "No fine list"
                 );
 
-            case "test":
-                userPointRepository.findAllByOrderByPointDesc();
-                userPointRepository.findAllByPointIsLessThanOrderByPointAsc(0);
-
-                return "hi";
             default:
                 log.info("Unknown command : {}", command.toString());
         }

@@ -28,8 +28,8 @@ public class UsersService {
     }
 
     @Transactional
-    public String addUser(String userId) {
-        User newUser = new User(userId);
+    public String addUser(List<String> args) {
+        User newUser = new User(args);
 
         if(userRepository.existsByLeetcodeName(newUser.getLeetcodeName()))
             return "User already exists";

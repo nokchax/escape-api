@@ -1,5 +1,6 @@
 package com.zum.escape.api.admin;
 
+import com.zum.escape.api.task.TaskService.TaskService;
 import com.zum.escape.api.users.service.UserHistoryService;
 import com.zum.escape.api.util.Command;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AdminService {
     private UserHistoryService userHistoryService;
+    private TaskService taskService;
 
     @Value("${observer.admins}")
     private List<Integer> ADMIN_LIST;
@@ -29,6 +31,10 @@ public class AdminService {
                         command.getFirstArg(),
                         Integer.parseInt(command.getSecondArg())
                 ).toString();
+
+            case "newtask":
+                taskService.createTasks();
+                return "new task created";
         }
 
         return "";
