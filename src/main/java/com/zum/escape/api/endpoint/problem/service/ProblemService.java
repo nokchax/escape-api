@@ -80,13 +80,6 @@ public class ProblemService {
         Set<Submission> submissions = crawledUserInfo.getSolvedProblems();
         submissions.forEach(submission -> problems.add(cachedProblems.get(submission.getProblemTitle())));
 
-        Set<Problem> submissionSet = submissions.stream()
-                .map(Submission::getProblemTitle)
-                .filter(x -> cachedProblems.contains(x))
-                .map(x -> cachedProblems.get(x))
-                .collect(Collectors.toSet());
-
-
         return problems;
     }
 

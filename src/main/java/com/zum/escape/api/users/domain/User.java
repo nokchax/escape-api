@@ -12,7 +12,6 @@ import java.util.*;
 @Table(name = "users")
 @Entity
 @Getter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -22,7 +21,7 @@ public class User {
     private String password;
     private String name;
     private int solvedQuestionCount;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user")
     private Set<UserProblem> solvedProblem = new HashSet<>();
 
     public User(List<String> args) {
@@ -44,16 +43,17 @@ public class User {
 
     public boolean checkSolveQuestion(CrawledUserInfo crawledUserInfo) {
         if(crawledUserInfo.solvedQuestion())
-            return false;
+            return true;
 
         return this.solvedQuestionCount > crawledUserInfo.getSolvedQuestionCount();
     }
 
-    public List<Problem> updateSolvedProblems(CrawledUserInfo crawledUserInfo) {
+    public List<UserProblem> updateSolvedProblems(CrawledUserInfo crawledUserInfo) {
         if(crawledUserInfo.getProblems() == null) {
             System.out.println("NULL");
             return Collections.emptyList();
         }
+        System.out.println(crawledUserInfo.getProblems());
 
         Map<String, LocalDateTime> time = new HashMap<>();
 
@@ -61,30 +61,39 @@ public class User {
                 submission -> time.put(submission.getProblemTitle(), submission.getSolvedDate())
         );
 
-        List<Problem> addedProblem = new ArrayList<>();
+        List<UserProblem> addedProblem = new ArrayList<>();
 
         for(Problem problem : crawledUserInfo.getProblems()) {
             UserProblem userProblem = new UserProblem(this, problem, time.get(problem.getTitle()));
             if(!solvedProblem.contains(userProblem)) {
+                System.out.println(userProblem);
                 solvedProblem.add(userProblem);
-                addedProblem.add(problem);
+                addedProblem.add(userProblem);
             }
         }
 
         return addedProblem;
     }
 
-    public List<Problem> updateSolvedProblems(Set<Problem> problems, LocalDateTime solvedTime) {
+    public List<UserProblem> updateSolvedProblems(Set<Problem> problems, LocalDateTime solvedTime) {
         if(problems == null || problems.isEmpty())
             return Collections.emptyList();
 
-        List<Problem> addedProblem = new ArrayList<>();
+        List<UserProblem> addedProblem = new ArrayList<>();
 
         for(Problem problem : problems) {
             UserProblem userProblem = new UserProblem(this, problem, solvedTime);
-            if(!solvedProblem.contains(userProblem)) {
+
+            boolean add = true;
+            for(UserProblem solvedBefore : solvedProblem) {
+                if (solvedBefore.getProblem().getId().equals(problem.getId())) {
+                    add = false;
+                    break;
+                }
+            }
+            if(add) {
                 solvedProblem.add(userProblem);
-                addedProblem.add(problem);
+                addedProblem.add(userProblem);
             }
         }
 

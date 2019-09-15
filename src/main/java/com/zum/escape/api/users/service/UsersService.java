@@ -6,6 +6,7 @@ import com.zum.escape.api.thirdPartyAdapter.leetcode.response.CrawledUserInfo;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.response.ProblemResponse;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.service.LeetCodeService;
 import com.zum.escape.api.users.domain.User;
+import com.zum.escape.api.users.repository.UserProblemRepository;
 import com.zum.escape.api.users.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +28,7 @@ public class UsersService {
     private final UserRepository userRepository;
     private final LeetCodeService leetCodeService;
     private final UserProblemCrawlService userProblemCrawlService;
+    private final UserProblemRepository userProblemRepository;
 
     public List<User> findAllUser() {
         return userRepository.findAll();
@@ -42,9 +44,10 @@ public class UsersService {
 
         //CrawledUserInfo crawledUserInfo = getCrawledUserInfo(newUser.getId());
         //newUser.updateSolvedProblems(crawledUserInfo);
-        updateAllSolvedHistory(newUser, LocalDateTime.of(2010, 1, 1, 0, 0));
 
         userRepository.save(newUser);
+        updateAllSolvedHistory(newUser, LocalDateTime.of(2010, 1, 1, 0, 0));
+        userProblemRepository.saveAll(newUser.getSolvedProblem());
 
         return "Register complete";
     }
@@ -64,7 +67,8 @@ public class UsersService {
         Set<Problem> problems = problemService.toProblem(problemNames);
 
 
-        return user.updateSolvedProblems(problems, updateTime);
+        userProblemRepository.saveAll(user.updateSolvedProblems(problems, updateTime));
+        return Collections.emptyList();
     }
 
     public List<Problem> updateUser(User user) {
@@ -72,7 +76,9 @@ public class UsersService {
         if(!user.checkSolveQuestion(crawledUserInfo))
             return new ArrayList<>(0);
 
-        return user.updateSolvedProblems(crawledUserInfo);
+        userProblemRepository.saveAll(user.updateSolvedProblems(crawledUserInfo));
+
+        return Collections.emptyList();
     }
 
 
