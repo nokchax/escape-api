@@ -3,6 +3,7 @@ package com.zum.escape.api.users.service;
 import com.zum.escape.api.domain.entity.Problem;
 import com.zum.escape.api.endpoint.problem.service.ProblemService;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.response.CrawledUserInfo;
+import com.zum.escape.api.thirdPartyAdapter.leetcode.response.ProblemResponse;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.service.LeetCodeService;
 import com.zum.escape.api.users.domain.User;
 import com.zum.escape.api.users.repository.UserRepository;
@@ -12,8 +13,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @Service
@@ -22,6 +26,7 @@ public class UsersService {
     private final ProblemService problemService;
     private final UserRepository userRepository;
     private final LeetCodeService leetCodeService;
+    private final UserProblemCrawlService userProblemCrawlService;
 
     public List<User> findAllUser() {
         return userRepository.findAll();
@@ -30,20 +35,40 @@ public class UsersService {
     @Transactional
     public String addUser(List<String> args) {
         User newUser = new User(args);
+        System.out.println(newUser);
 
-        if(userRepository.existsByLeetcodeName(newUser.getLeetcodeName()))
+        if(userRepository.existsById(newUser.getId()))
             return "User already exists";
 
-        CrawledUserInfo crawledUserInfo = getCrawledUserInfo(newUser.getLeetcodeName());
-        newUser.updateSolvedProblems(crawledUserInfo);
+        //CrawledUserInfo crawledUserInfo = getCrawledUserInfo(newUser.getId());
+        //newUser.updateSolvedProblems(crawledUserInfo);
+        updateAllSolvedHistory(newUser, LocalDateTime.of(2010, 1, 1, 0, 0));
 
         userRepository.save(newUser);
 
         return "Register complete";
     }
 
+    public List<Problem> updateAllSolvedHistory(User user, LocalDateTime updateTime) {
+        ProblemResponse userProblems = null;
+        try {
+            userProblems = userProblemCrawlService.getUserProblems(user);
+        } catch (IOException e) {
+            log.error(e.getMessage());
+        }
+
+        if(userProblems == null)
+            return Collections.emptyList();
+
+        List<String> problemNames = userProblems.toProblemNames();
+        Set<Problem> problems = problemService.toProblem(problemNames);
+
+
+        return user.updateSolvedProblems(problems, updateTime);
+    }
+
     public List<Problem> updateUser(User user) {
-        CrawledUserInfo crawledUserInfo = getCrawledUserInfo(user.getLeetcodeName());
+        CrawledUserInfo crawledUserInfo = getCrawledUserInfo(user.getId());
         if(!user.checkSolveQuestion(crawledUserInfo))
             return new ArrayList<>(0);
 

@@ -3,6 +3,7 @@ package com.zum.escape.api.util;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class DateTimeMaker {
     public static LocalDateTime getStartOfWeek() {
@@ -25,5 +26,11 @@ public class DateTimeMaker {
     public static LocalDateTime getEndOfLastWeek() {
         return getEndOfWeek()
                 .minusWeeks(1);
+    }
+
+    public static LocalDateTime getYesterday() {
+        return LocalDateTime.now()
+                .minusDays(1)
+                .with(LocalTime.of(23,59,59));
     }
 }

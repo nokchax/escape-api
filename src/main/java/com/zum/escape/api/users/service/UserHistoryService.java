@@ -36,7 +36,7 @@ public class UserHistoryService {
     public UserHistory givePointToOne(String leetcodeId, int point) {
         Point specialPoint = new Point(point, Description.PROVIDE_POINT);
 
-        UserHistory userHistory = userRepository.findByLeetcodeName(leetcodeId)
+        UserHistory userHistory = userRepository.findById(leetcodeId).get()
                 .getPoints(specialPoint);
 
         return userHistoryRepository.save(userHistory);

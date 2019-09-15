@@ -1,5 +1,7 @@
 package com.zum.escape.api.admin;
 
+import com.zum.escape.api.scheduler.ProblemHistoryScheduler;
+import com.zum.escape.api.scheduler.UserHistoryScheduler;
 import com.zum.escape.api.task.TaskService.TaskService;
 import com.zum.escape.api.users.service.UserHistoryService;
 import com.zum.escape.api.users.service.UsersService;
@@ -21,6 +23,8 @@ public class AdminService {
     private final UserHistoryService userHistoryService;
     private final TaskService taskService;
     private final UsersService usersService;
+    private final UserHistoryScheduler userHistoryScheduler;
+    private final ProblemHistoryScheduler problemHistoryScheduler;
 
     @Value("${observer.admins}")
     private List<Integer> ADMIN_LIST;
@@ -32,18 +36,26 @@ public class AdminService {
         Command command = new Command(message, true);
 
         switch (command.getCommand()) {
-            // /register email pw name leetcodeName -> register user
+            // /register id pw name -> register user
             case "register":
-                if(command.getTotalLength() < 5)
-                    return "/register email pw name leetcodeName";
+                if(command.getTotalLength() < 4)
+                    return "/register id pw name";
                 return usersService.addUser(command.getArguments());
 
             // /su give-point id point
-            case "give-point" :
+            case "givePoint":
                 return userHistoryService.givePointToOne(
                         command.getFirstArg(),
                         Integer.parseInt(command.getSecondArg())
                 ).toString();
+
+            case "givePointToAll":
+                userHistoryScheduler.givePointsToAllUser();
+                return "Give 5points to all user";
+
+            case "correct":
+                problemHistoryScheduler.correctUpdate();
+                return "Update complete";
 
             // /su newtast
             case "newtask":

@@ -49,7 +49,7 @@ public class UserLogin {
                 + csrftoken + "\r\n"
                 + "--" + boundary + "\r\n"
                 + "Content-Disposition: form-data; name=\"login\"" + "\r\n\r\n"
-                + user.getEmail() + "\r\n"
+                + user.getId() + "\r\n"
                 + "--" + boundary + "\r\n"
                 + "Content-Disposition: form-data; name=\"password\"" + "\r\n\r\n"
                 + user.getPassword()+ "\r\n"
@@ -88,5 +88,9 @@ public class UserLogin {
         loginResponse.close();
 
         return success;
+    }
+
+    public Response getResponse() throws IOException {
+        return this.okHttpHelper.getSync(URL.PROBLEMS);
     }
 }

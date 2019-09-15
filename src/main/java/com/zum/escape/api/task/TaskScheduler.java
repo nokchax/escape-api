@@ -22,10 +22,8 @@ public class TaskScheduler {
         userHistoryService.imposeFines();
     }
 
-    @Scheduled(cron = "0 0 0,9,12,15,18,21 * * MON")
+    @Scheduled(cron = "0 0 0,9,12,15,18,21 * * *")
     public void update() {
         taskService.update();
     }
-
-
 }

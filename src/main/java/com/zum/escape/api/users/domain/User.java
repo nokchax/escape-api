@@ -18,31 +18,27 @@ import java.util.*;
 @Builder
 public class User {
     @Id
-    private String email;
+    private String id;
     private String password;
     private String name;
-    @Column(unique = true)
-    private String leetcodeName;
     private int solvedQuestionCount;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<UserProblem> solvedProblem = new HashSet<>();
 
     public User(List<String> args) {
-        if(args.size() < 4)
-            throw new IllegalArgumentException("/register email pw name leetcodeId");
+        if(args.size() < 3)
+            throw new IllegalArgumentException("/register leetcodeId pw name");
 
-        this.email = args.get(0);
+        this.id = args.get(0);
         this.password = args.get(1);
         this.name = args.get(2);
-        this.leetcodeName = args.get(3);
         this.solvedProblem = new HashSet<>();
     }
 
-    public User(String email, String password, String name, String leetcodeName) {
-        this.email = email;
+    public User(String password, String name, String id) {
+        this.id = id;
         this.password = password;
         this.name = name;
-        this.leetcodeName = leetcodeName;
         this.solvedProblem = new HashSet<>();
     }
 
@@ -78,6 +74,23 @@ public class User {
         return addedProblem;
     }
 
+    public List<Problem> updateSolvedProblems(Set<Problem> problems, LocalDateTime solvedTime) {
+        if(problems == null || problems.isEmpty())
+            return Collections.emptyList();
+
+        List<Problem> addedProblem = new ArrayList<>();
+
+        for(Problem problem : problems) {
+            UserProblem userProblem = new UserProblem(this, problem, solvedTime);
+            if(!solvedProblem.contains(userProblem)) {
+                solvedProblem.add(userProblem);
+                addedProblem.add(problem);
+            }
+        }
+
+        return addedProblem;
+    }
+
     public UserHistory getPoints(Point point) {
         return UserHistory.builder()
                 .user(this)
@@ -89,7 +102,7 @@ public class User {
 
     public UserProblemSolveDto toUserProblemSolveDto() {
         return UserProblemSolveDto.builder()
-                .leetcodeId(this.leetcodeName)
+                .leetcodeId(this.id)
                 .build();
     }
 }

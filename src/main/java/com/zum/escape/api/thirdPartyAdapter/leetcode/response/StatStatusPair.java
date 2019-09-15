@@ -15,6 +15,10 @@ public class StatStatusPair {
     private String status;
     private Difficulty difficulty;
 
+    public boolean solved() {
+        return "ac".equalsIgnoreCase(status);
+    }
+
     public Problem toProblem() {
         return Problem.builder()
                 .id(stat.getQuestionId())
@@ -26,14 +30,14 @@ public class StatStatusPair {
                 .build();
     }
 
-    public UserProblem toUserProblem(User user) {
-        if(status=="ac")
+    public UserProblem toUserProblem(User user, LocalDateTime time) {
+        if("ac".equalsIgnoreCase(status))
             return null;
         else
             return UserProblem.builder()
                     .user(user)
                     .problem(toProblem())
-                    .solvedTime(LocalDateTime.now())
+                    .solvedTime(time)
                     .build();
     }
 }

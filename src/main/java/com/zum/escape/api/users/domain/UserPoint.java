@@ -15,8 +15,8 @@ import javax.persistence.Id;
 @Immutable
 @Subselect(
         "SELECT " +
-                "LEETCODE_NAME AS ID, SUM(POINT) AS POINT " +
-                "FROM USER_HISTORY LEFT JOIN USERS ON (USERS.EMAIL = USER_HISTORY.USER_ID) " +
+                "ID, SUM(POINT) AS POINT " +
+                "FROM USER_HISTORY LEFT JOIN USERS ON (USERS.ID = USER_HISTORY.USER_ID) " +
                 "GROUP BY USER_ID"
 )
 @NoArgsConstructor

@@ -19,10 +19,14 @@ public class UserProblemCrawlService {
     }
 
     public ProblemResponse getUserProblems(User user) throws IOException {
+        UserLogin userLogin = new UserLogin(user);
+        userLogin.doLogin();
+
         ProblemResponse problemResponse = new ProblemResponse();
-        Response response = okHttpHelper.getSync(URL.PROBLEMS);
+        Response response = userLogin.getResponse();
         if(response.isSuccessful() && response.body() != null) {
             String responseData = response.body().string();
+            System.out.println(responseData);
             problemResponse = okHttpHelper.fromJson(responseData,ProblemResponse.class);
         } else {
             System.out.println("code : " + response.code() + " message : " + response.message());

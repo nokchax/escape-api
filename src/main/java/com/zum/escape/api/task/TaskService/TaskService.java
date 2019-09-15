@@ -136,6 +136,13 @@ public class TaskService {
         return userScores;
     }
 
+    public void correctUpdate() {
+        getCurrentTask().getParticipants()
+                .stream()
+                .map(TaskParticipant::getUsers)
+                .forEach(user -> usersService.updateAllSolvedHistory(user, DateTimeMaker.getYesterday()));
+    }
+
     private List<User> extractParticipants(Task currentTask) {
         return currentTask.getParticipants()
                 .stream()

@@ -79,7 +79,7 @@ public class LeetCodeServiceTest {
     }
     @Test
     public void LoginTest() throws IOException {
-        User user = new User("test@naver.com","test","test","test");
+        User user = new User("test","test","test");
         UserLogin userLogin = new UserLogin(user);
         userLogin.doLogin();
         System.out.println(new UserProblemCrawlService().getUserProblems(user).toUserProblemList(user));

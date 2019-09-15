@@ -36,7 +36,7 @@ public class MessageDistributor {
                 return  "1.현황 업데이트 : /update\n" +
                         "2.과제 완료 리스트 : /done\n" +
                         "3.과제 미완 리스트 : /todo\n" +
-                        "4.문제 리스트 업데이트 : /update-problem\n" +
+                        "4.문제 리스트 업데이트 : /updateProblem\n" +
                         "5.포인트 조회 : /point\n" +
                         "6.벌금 조회 : /fine\n" +
                         "7.총 푼문제 내역 조회 : /history [id]\n" +
@@ -64,7 +64,7 @@ public class MessageDistributor {
                 );
 
                 // /update-problem -> update problems
-            case "update-problem":
+            case "updateProblem":
                 problemService.saveOrUpdateProblems();
                 return "problem lists updated";
 

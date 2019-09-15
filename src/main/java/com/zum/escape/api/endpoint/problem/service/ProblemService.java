@@ -89,4 +89,12 @@ public class ProblemService {
 
         return problems;
     }
+
+    public Set<Problem> toProblem(List<String> problemNames) {
+        return problemNames.stream()
+                .filter(title -> cachedProblems.containsKey(title))
+                .map(title -> cachedProblems.get(title))
+                .collect(Collectors.toSet());
+    }
+
 }
