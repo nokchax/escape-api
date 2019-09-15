@@ -38,6 +38,14 @@ public class User {
         this.solvedProblem = new HashSet<>();
     }
 
+    public User(String email, String password, String name, String leetcodeName) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.leetcodeName = leetcodeName;
+        this.solvedProblem = new HashSet<>();
+    }
+
     public boolean checkSolveQuestion(CrawledUserInfo crawledUserInfo) {
         if(crawledUserInfo.solvedQuestion())
             return false;

@@ -2,6 +2,7 @@ package com.zum.escape.api.users.domain;
 
 import com.zum.escape.api.domain.entity.Problem;
 import com.zum.escape.api.users.dto.UserProblemSolveDto;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
+@Builder
 @IdClass(UserProblemId.class)
 public class UserProblem {
     @Id
@@ -46,5 +48,14 @@ public class UserProblem {
     @Override
     public int hashCode() {
         return Objects.hash(user, problem);
+    }
+
+    @Override
+    public String toString() {
+        return "UserProblem{" +
+                "user=" + user +
+                ", problem=" + problem +
+                ", solvedTime=" + solvedTime +
+                '}';
     }
 }

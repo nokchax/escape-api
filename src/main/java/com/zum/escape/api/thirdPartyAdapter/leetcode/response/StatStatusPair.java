@@ -2,7 +2,11 @@ package com.zum.escape.api.thirdPartyAdapter.leetcode.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zum.escape.api.domain.entity.Problem;
+import com.zum.escape.api.users.domain.User;
+import com.zum.escape.api.users.domain.UserProblem;
 import lombok.Data;
+
+import java.time.LocalDateTime;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -20,5 +24,16 @@ public class StatStatusPair {
                 .hide(stat.isQuestionHide())
                 .difficulty(difficulty.levelToDifficulty())
                 .build();
+    }
+
+    public UserProblem toUserProblem(User user) {
+        if(status=="ac")
+            return null;
+        else
+            return UserProblem.builder()
+                    .user(user)
+                    .problem(toProblem())
+                    .solvedTime(LocalDateTime.now())
+                    .build();
     }
 }
