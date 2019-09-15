@@ -3,6 +3,7 @@ package com.zum.escape.api.thirdPartyAdapter.leetcode.service;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.response.CrawledUserInfo;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.response.ProblemResponse;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.response.Submission;
+import com.zum.escape.api.users.dto.URL;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Connection;
@@ -29,8 +30,6 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class LeetCodeService {
     private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36";
-    private static final String LEET_CODE_PROBLEM_API_URL = "https://leetcode.com/api/problems/all";
-    private static final String LEET_CODE_URL = "https://leetcode.com/";
     private final RestTemplate restTemplate;
 
     public ProblemResponse getProblems() {
@@ -38,7 +37,7 @@ public class LeetCodeService {
 
         try {
             problemResponse = restTemplate.exchange(
-                    LEET_CODE_PROBLEM_API_URL,
+                    URL.PROBLEMS,
                     HttpMethod.GET,
                     new HttpEntity<>(makeHttpHeaders()),
                     ProblemResponse.class
@@ -46,7 +45,6 @@ public class LeetCodeService {
         } catch (HttpClientErrorException e) {
             log.error("Fail to get problems list from leetcode : {}", e.getMessage());
         }
-
         return problemResponse.getBody();
     }
 
@@ -57,7 +55,7 @@ public class LeetCodeService {
     }
 
     public CrawledUserInfo findUser(String userId) throws IOException {
-        Connection connection = Jsoup.connect(LEET_CODE_URL + userId);
+        Connection connection = Jsoup.connect(URL.USER + userId);
         connection.header(HttpHeaders.USER_AGENT, USER_AGENT);
 
         Document document = connection.get();

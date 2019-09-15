@@ -2,6 +2,10 @@ package com.zum.escape.api.thirdPartyAdapter.leetcode.service;
 
 
 import com.zum.escape.api.thirdPartyAdapter.leetcode.response.ProblemResponse;
+import com.zum.escape.api.users.domain.User;
+import com.zum.escape.api.users.dto.URL;
+import com.zum.escape.api.users.service.UserLogin;
+import com.zum.escape.api.users.service.UserProblemCrawlService;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -32,7 +36,7 @@ public class LeetCodeServiceTest {
     public void getProblemsTest() {
         try {
             HttpEntity<String> headers = new HttpEntity<>(makeHttpHeaders());
-            ResponseEntity<ProblemResponse> problemResponse = restTemplate.exchange("https://leetcode.com/api/problems/all", HttpMethod.GET, headers, ProblemResponse.class);
+            ResponseEntity<ProblemResponse> problemResponse = restTemplate.exchange(URL.PROBLEMS, HttpMethod.GET, headers, ProblemResponse.class);
 
             System.out.println("StatusCode : " + problemResponse.getStatusCode());
             System.out.println("Headers : " + problemResponse.getHeaders());
@@ -52,7 +56,7 @@ public class LeetCodeServiceTest {
 
     @Test
     public void jsoupTest() throws IOException {
-        Connection connection = Jsoup.connect("https://leetcode.com/" + "nokchax");
+        Connection connection = Jsoup.connect(URL.USER + "nokchax");
         connection.header(HttpHeaders.USER_AGENT, USER_AGENT);
 
 
@@ -72,5 +76,12 @@ public class LeetCodeServiceTest {
             System.out.println(problem + " : " + accepted + " : " + time);
         }
 
+    }
+    @Test
+    public void LoginTest() throws IOException {
+        User user = new User("test@naver.com","test","test","test");
+        UserLogin userLogin = new UserLogin(user);
+        userLogin.doLogin();
+        System.out.println(new UserProblemCrawlService().getUserProblems(user).toUserProblemList(user));
     }
 }
