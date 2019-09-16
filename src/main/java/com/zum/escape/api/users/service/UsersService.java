@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -79,6 +80,11 @@ public class UsersService {
             return new ArrayList<>(0);
 
         userProblemRepository.saveAll(user.updateSolvedProblems(crawledUserInfo));
+
+        if(user.isSolvedProblemCountNotCorrect(crawledUserInfo)) {
+            log.error("Solved problem count not correct so update : {}\n{}", user, crawledUserInfo);
+            updateAllSolvedHistory(user, LocalDateTime.now());
+        }
 
         return Collections.emptyList();
     }

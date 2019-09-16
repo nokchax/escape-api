@@ -21,4 +21,13 @@ public class CrawledUserInfo {
     public boolean solvedQuestion() {
         return !solvedProblems.isEmpty();
     }
+
+    @Override
+    public String toString() {
+        return "CrawledUserInfo{" +
+                "userId='" + userId + '\'' +
+                ", solvedQuestionCount=" + solvedQuestionCount +
+                ", solvedProblems=" + solvedProblems +
+                '}';
+    }
 }

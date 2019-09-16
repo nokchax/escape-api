@@ -53,7 +53,6 @@ public class User {
             System.out.println("NULL");
             return Collections.emptyList();
         }
-        System.out.println(crawledUserInfo.getProblems());
 
         Map<String, LocalDateTime> time = new HashMap<>();
 
@@ -66,13 +65,13 @@ public class User {
         for(Problem problem : crawledUserInfo.getProblems()) {
             UserProblem userProblem = new UserProblem(this, problem, time.get(problem.getTitle()));
             if(!solvedProblem.contains(userProblem)) {
-                System.out.println(userProblem);
                 solvedProblem.add(userProblem);
                 addedProblem.add(userProblem);
             }
         }
 
 
+        updateSolvedProblemCount();
         return addedProblem;
     }
 
@@ -98,6 +97,7 @@ public class User {
             }
         }
 
+        updateSolvedProblemCount();
 
         return addedProblem;
     }
@@ -119,5 +119,19 @@ public class User {
 
     public void updateSolvedProblemCount() {
         this.solvedQuestionCount = solvedProblem.size();
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", solvedQuestionCount=" + solvedQuestionCount +
+                '}';
+    }
+
+    public boolean isSolvedProblemCountNotCorrect(CrawledUserInfo crawledUserInfo) {
+        return this.solvedQuestionCount < crawledUserInfo.getSolvedQuestionCount();
     }
 }
