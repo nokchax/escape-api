@@ -68,7 +68,7 @@ public class ProblemService {
     public Problem findProblem(Long problemNo) {
         Optional<Problem> problem = cachedProblems.values()
                 .stream()
-                .filter(x -> problemNo.equals(x.getId()))
+                .filter(x -> problemNo.equals(x.getViewId()))
                 .findFirst();
 
         return problem.orElse(null);

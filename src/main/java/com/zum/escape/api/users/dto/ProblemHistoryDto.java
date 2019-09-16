@@ -18,6 +18,6 @@ public class ProblemHistoryDto extends Message {
 
     @Override
     public String toMessage() {
-        return userId + ": T[" + totalCount + "], H[" + hardCount + "], M[" + mediumCount + "], E[" + easyCount + "]";
+        return "[" + userId + "] total: " + totalCount + " / hard: " + hardCount + " / medium: " + mediumCount + " / easy: " + easyCount;
     }
 }

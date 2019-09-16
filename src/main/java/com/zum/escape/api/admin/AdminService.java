@@ -1,5 +1,6 @@
 package com.zum.escape.api.admin;
 
+import com.zum.escape.api.endpoint.problem.service.ProblemService;
 import com.zum.escape.api.scheduler.ProblemHistoryScheduler;
 import com.zum.escape.api.scheduler.UserHistoryScheduler;
 import com.zum.escape.api.task.TaskService.TaskService;
@@ -24,6 +25,7 @@ public class AdminService {
     private final TaskService taskService;
     private final UsersService usersService;
     private final ProblemHistoryScheduler problemHistoryScheduler;
+    private final ProblemService problemService;
 
     @Value("${observer.admins}")
     private List<Integer> ADMIN_LIST;
@@ -65,6 +67,12 @@ public class AdminService {
             case "updateTask":
                 taskService.updateTask();
                 return "task participants updated";
+
+            // /update-problem -> update problems
+            case "updateProblem":
+                problemService.saveOrUpdateProblems();
+                return "problem lists updated";
+
         }
 
         log.info(command.toString());

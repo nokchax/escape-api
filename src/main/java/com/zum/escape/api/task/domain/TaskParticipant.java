@@ -25,15 +25,24 @@ public class TaskParticipant {
     @JoinColumn(name = "user_id")
     private User users;
     private int score;
+    private int hard;
+    private int medium;
+    private int easy;
 
     public TaskParticipant(Task task, User user) {
         this.tasks = task;
         this.users = user;
         this.score = 0;
+        this.hard = 0;
+        this.medium = 0;
+        this.easy = 0;
     }
 
-    public void updateScore(int score) {
+    public void updateScore(int score, int hard, int medium, int easy) {
         this.score = score;
+        this.hard = hard;
+        this.medium = medium;
+        this.easy = easy;
     }
 
     public boolean hasReachedGoal() {
@@ -48,6 +57,9 @@ public class TaskParticipant {
         return UserDto.builder()
                 .leetcodeId(this.users.getId())
                 .score(this.score)
+                .hard(this.hard)
+                .medium(this.medium)
+                .easy(this.easy)
                 .build();
     }
 

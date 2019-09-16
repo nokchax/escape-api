@@ -28,6 +28,19 @@ public class Problem {
     @OneToMany(mappedBy = "problem")
     private Set<UserProblem> userProblem = new HashSet<>();
 
+
+    public boolean isHard() {
+        return this.difficulty.isEqualTo(Difficulty.HARD);
+    }
+
+    public boolean isMedium() {
+        return this.difficulty.isEqualTo(Difficulty.MEDIUM);
+    }
+
+    public boolean isEasy() {
+        return this.difficulty.isEqualTo(Difficulty.EASY);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

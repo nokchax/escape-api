@@ -11,4 +11,20 @@ public enum Difficulty {
     Difficulty(int level) {
         this.level = level;
     }
+
+    public boolean isHard() {
+        return this == HARD;
+    }
+
+    public boolean isMedium() {
+        return this == MEDIUM;
+    }
+
+    public boolean isEasy() {
+        return this == EASY;
+    }
+
+    public boolean isEqualTo(Difficulty difficulty) {
+        return this == difficulty;
+    }
 }

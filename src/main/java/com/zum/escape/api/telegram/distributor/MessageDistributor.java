@@ -19,7 +19,6 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 @RequiredArgsConstructor
 public class MessageDistributor {
     private final TaskService taskService;
-    private final ProblemService problemService;
     private final UserProblemHistoryService userProblemHistoryService;
     private final AdminService adminService;
     private final UserProblemService userProblemService;
@@ -34,17 +33,18 @@ public class MessageDistributor {
 
                 //help
             case "help":
-                return  "1.현황 업데이트 : /update\n" +
-                        "2.과제 완료 리스트 : /done\n" +
-                        "3.과제 미완 리스트 : /todo\n" +
-                        "4.문제 리스트 업데이트 : /updateProblem\n" +
-                        "5.포인트 조회 : /point\n" +
-                        "6.벌금 조회 : /fine\n" +
-                        "7.총 푼문제 내역 조회 : /history [id]\n" +
-                        "8.해당 문제를 푼 사람 : /problem {problem-name}";
+                return "1. 문제풀고 나서 기록 업데이트 : /u or /update username\n" +
+                        "2. 미션 완료 사용자 리스트 : /d or /done\n" +
+                        "3. 금주 미션 point 달성 현황 리스트 : /t or /todo\n" +
+                        "4. 보너스(방학) 포인트 확인 : /po or /point\n" +
+                        "5. 미납 벌금 조회 : /f or /fine\n" +
+                        "6. 총 푼 문제 내역조회 : /h or /history username\n" +
+                        "7. 문제별 푼 사용자 리스트 : /pr or /problem 문제번호\n\n" +
+                        "예) 문제를 푼다 > /update username > /todo";
 
                 // /td -> return users that dose't reached the goal
             case "todo":
+            case "t":
                 return MessageMaker.dtoToMessage(
                         taskService.getTodoList(),
                         "Everybody finished"
@@ -52,6 +52,7 @@ public class MessageDistributor {
 
                 // /done -> return users that reached the goal
             case "done":
+            case "d":
                 return MessageMaker.dtoToMessage(
                         taskService.getDoneList(),
                         "Nobody finished yet"
@@ -59,6 +60,7 @@ public class MessageDistributor {
 
                 // /update -> return update user's problem solve count and return every users info;
             case "update":
+            case "u":
                 if(command.containsArgs()) {
                     return taskService.updateSpecificUser(command.getFirstArg());
                 }
@@ -67,14 +69,9 @@ public class MessageDistributor {
                         taskService.getAllUsers(),
                         "No users"
                 );
-
-                // /update-problem -> update problems
-            case "updateProblem":
-                problemService.saveOrUpdateProblems();
-                return "problem lists updated";
-
                 // /point -> return all user's current point
             case "point":
+            case "po":
                 return MessageMaker.dtoToMessage(
                         userPointRepository.findAllByOrderByPointDesc(),
                         "There are no users"
@@ -82,6 +79,7 @@ public class MessageDistributor {
 
                 // /fine -> return fine list
             case "fine":
+            case "f":
                 return MessageMaker.dtoToMessage(
                         userPointRepository.findAllByPointIsLessThanOrderByPointAsc(0),
                         "No fine list"
@@ -89,6 +87,7 @@ public class MessageDistributor {
 
                 // /history or /history id -> return user problem's counting result
             case "history":
+            case "h":
                 return MessageMaker.dtoToMessage(
                         userProblemHistoryService.find(command),
                         "User not found"
@@ -96,6 +95,7 @@ public class MessageDistributor {
 
                 // /problem {problem-name} -> return user list that solved this problem
             case "problem":
+            case "pr":
                 return userProblemService.findAllUsersSolvedThisProblem(command)
                         .toMessage();
 

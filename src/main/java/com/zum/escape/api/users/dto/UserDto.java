@@ -12,6 +12,9 @@ import lombok.NoArgsConstructor;
 public class UserDto extends Message {
     private String leetcodeId;
     private int score;
+    private int hard;
+    private int medium;
+    private int easy;
 
     @Override
     public String toString() {
@@ -20,6 +23,6 @@ public class UserDto extends Message {
 
     @Override
     public String toMessage() {
-        return leetcodeId + ": " + score;
+        return "[" + leetcodeId + "] total: " + score + " / hard: " + hard + " / medium: " + medium + " / easy: " + easy;
     }
 }

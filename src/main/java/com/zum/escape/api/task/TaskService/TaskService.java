@@ -50,11 +50,13 @@ public class TaskService {
 
         participants.forEach(participant -> {
             usersService.updateUser(participant);
+            List<UserProblem> userProblems = userProblemService.findAllSolvedProblemsInThisWeek(participant);
             userScores.get(participant)
                     .updateScore(
-                            calculateScore(
-                                    userProblemService.findAllSolvedProblemsInThisWeek(participant)
-                            )
+                            calculateScore(userProblems),
+                            calculateHardCount(userProblems),
+                            calculateMediumCount(userProblems),
+                            calculateEasyCount(userProblems)
                     );
         });
 
@@ -164,6 +166,27 @@ public class TaskService {
                 .sum();
     }
 
+    private int calculateHardCount(List<UserProblem> solvedProblems) {
+        return (int) solvedProblems.stream()
+                .map(UserProblem::getProblem)
+                .filter(Problem::isHard)
+                .count();
+    }
+
+    private int calculateMediumCount(List<UserProblem> solvedProblems) {
+        return (int) solvedProblems.stream()
+                .map(UserProblem::getProblem)
+                .filter(Problem::isMedium)
+                .count();
+    }
+
+    private int calculateEasyCount(List<UserProblem> solvedProblems) {
+        return (int) solvedProblems.stream()
+                .map(UserProblem::getProblem)
+                .filter(Problem::isEasy)
+                .count();
+    }
+
     public String updateSpecificUser(String userId) {
         usersService.updateUser(userId);
         Optional<TaskParticipant> participant = getCurrentTask().getParticipants()
@@ -171,10 +194,12 @@ public class TaskService {
                 .filter(taskParticipant -> taskParticipant.getUsers().getId().equalsIgnoreCase(userId))
                 .findFirst();
 
+        List<UserProblem> userProblems = userProblemService.findAllSolvedProblemsInThisWeek(participant.get().getUsers());
         participant.get().updateScore(
-                calculateScore(
-                        userProblemService.findAllSolvedProblemsInThisWeek(participant.get().getUsers())
-                )
+                calculateScore(userProblems),
+                calculateHardCount(userProblems),
+                calculateMediumCount(userProblems),
+                calculateEasyCount(userProblems)
         );
         return participant.get().toUserDto().toMessage();
     }
