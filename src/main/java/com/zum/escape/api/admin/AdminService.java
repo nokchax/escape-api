@@ -23,7 +23,6 @@ public class AdminService {
     private final UserHistoryService userHistoryService;
     private final TaskService taskService;
     private final UsersService usersService;
-    private final UserHistoryScheduler userHistoryScheduler;
     private final ProblemHistoryScheduler problemHistoryScheduler;
 
     @Value("${observer.admins}")
@@ -50,8 +49,8 @@ public class AdminService {
                 ).toString();
 
             case "givePointToAll":
-                userHistoryScheduler.givePointsToAllUser();
-                return "Give 5points to all user";
+                userHistoryService.givePointToEveryUser(Integer.parseInt(command.getFirstArg()));
+                return "Give : " + command.getFirstArg() + "points to all user";
 
             case "correct":
                 problemHistoryScheduler.correctUpdate();

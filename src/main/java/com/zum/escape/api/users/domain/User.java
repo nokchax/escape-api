@@ -72,6 +72,7 @@ public class User {
             }
         }
 
+
         return addedProblem;
     }
 
@@ -97,6 +98,7 @@ public class User {
             }
         }
 
+
         return addedProblem;
     }
 
@@ -113,5 +115,9 @@ public class User {
         return UserProblemSolveDto.builder()
                 .leetcodeId(this.id)
                 .build();
+    }
+
+    public void updateSolvedProblemCount() {
+        this.solvedQuestionCount = solvedProblem.size();
     }
 }

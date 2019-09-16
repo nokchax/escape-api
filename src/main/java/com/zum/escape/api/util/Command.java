@@ -48,4 +48,8 @@ public class Command {
     public String toString() {
         return command + " / " + arguments.toString();
     }
+
+    public boolean containsArgs() {
+        return !this.arguments.isEmpty();
+    }
 }

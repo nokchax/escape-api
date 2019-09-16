@@ -22,6 +22,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -163,8 +164,18 @@ public class TaskService {
                 .sum();
     }
 
-    public void participate(User newUser) {
-        Task task = taskRepository.findByStartDateTime(DateTimeMaker.getStartOfWeek());
-        task.registerParticipants(newUser);
+    public String updateSpecificUser(String userId) {
+        usersService.updateUser(userId);
+        Optional<TaskParticipant> participant = getCurrentTask().getParticipants()
+                .stream()
+                .filter(taskParticipant -> taskParticipant.getUsers().getId().equalsIgnoreCase(userId))
+                .findFirst();
+
+        participant.get().updateScore(
+                calculateScore(
+                        userProblemService.findAllSolvedProblemsInThisWeek(participant.get().getUsers())
+                )
+        );
+        return participant.get().toUserDto().toMessage();
     }
 }

@@ -15,10 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -37,7 +34,6 @@ public class UsersService {
     @Transactional
     public String addUser(List<String> args) {
         User newUser = new User(args);
-        System.out.println(newUser);
 
         if(userRepository.existsById(newUser.getId()))
             return "User already exists";
@@ -66,9 +62,15 @@ public class UsersService {
         List<String> problemNames = userProblems.toProblemNames();
         Set<Problem> problems = problemService.toProblem(problemNames);
 
-
         userProblemRepository.saveAll(user.updateSolvedProblems(problems, updateTime));
         return Collections.emptyList();
+    }
+
+    public User updateUser(String userId) {
+        Optional<User> user = userRepository.findById(userId);
+        updateUser(user.get());
+
+        return user.get();
     }
 
     public List<Problem> updateUser(User user) {

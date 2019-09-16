@@ -58,6 +58,10 @@ public class MessageDistributor {
 
                 // /update -> return update user's problem solve count and return every users info;
             case "update":
+                if(command.containsArgs()) {
+                    return taskService.updateSpecificUser(command.getFirstArg());
+                }
+
                 return MessageMaker.dtoToMessage(
                         taskService.getAllUsers(),
                         "No users"
