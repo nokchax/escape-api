@@ -4,6 +4,7 @@ import com.zum.escape.api.domain.entity.Problem;
 import com.zum.escape.api.endpoint.problem.service.ProblemService;
 import com.zum.escape.api.users.domain.User;
 import com.zum.escape.api.users.domain.UserProblem;
+import com.zum.escape.api.users.dto.SolvedProblemDto;
 import com.zum.escape.api.users.dto.UserProblemSolveDto;
 import com.zum.escape.api.users.repository.UserProblemRepository;
 import com.zum.escape.api.util.Command;
@@ -31,19 +32,31 @@ public class UserProblemService {
         );
     }
 
-    public List<UserProblemSolveDto> findAllUsersSolvedThisProblem(Command command) {
+    public SolvedProblemDto findAllUsersSolvedThisProblem(Command command) {
         if(command.isArgsEmpty())
-            return Collections.emptyList();
+            return SolvedProblemDto.builder()
+                    .problem(null)
+                    .userProblemSolveDto(Collections.emptyList())
+                    .build();
 
-        Problem problem = problemService.findProblem(command.getFirstArg());
+
+        Problem problem = problemService.findProblem(Long.parseLong(command.getFirstArg()));
         if (problem == null)
-            return Collections.emptyList();
+            return SolvedProblemDto.builder()
+                    .problem(null)
+                    .userProblemSolveDto(Collections.emptyList())
+                    .build();
 
         List<UserProblem> userProblems = userProblemRepository.findByProblemEquals(problem);
 
-        return userProblems.stream()
+        List<UserProblemSolveDto> userProblemSolveDtos = userProblems.stream()
                 .map(UserProblem::getUser)
                 .map(User::toUserProblemSolveDto)
                 .collect(Collectors.toList());
+
+        return SolvedProblemDto.builder()
+                .problem(problem)
+                .userProblemSolveDto(userProblemSolveDtos)
+                .build();
     }
 }

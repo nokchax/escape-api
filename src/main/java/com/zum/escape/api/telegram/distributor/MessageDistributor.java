@@ -3,6 +3,7 @@ package com.zum.escape.api.telegram.distributor;
 import com.zum.escape.api.admin.AdminService;
 import com.zum.escape.api.endpoint.problem.service.ProblemService;
 import com.zum.escape.api.task.TaskService.TaskService;
+import com.zum.escape.api.users.dto.SolvedProblemDto;
 import com.zum.escape.api.users.repository.UserPointRepository;
 import com.zum.escape.api.users.service.UserProblemHistoryService;
 import com.zum.escape.api.users.service.UserProblemService;
@@ -95,10 +96,8 @@ public class MessageDistributor {
 
                 // /problem {problem-name} -> return user list that solved this problem
             case "problem":
-                return MessageMaker.dtoToMessage(
-                       userProblemService.findAllUsersSolvedThisProblem(command),
-                        "No users solved this problem"
-                );
+                return userProblemService.findAllUsersSolvedThisProblem(command)
+                        .toMessage();
 
             default:
                 log.info("Unknown command : {}", command.toString());

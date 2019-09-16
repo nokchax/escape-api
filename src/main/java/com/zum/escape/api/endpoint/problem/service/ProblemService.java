@@ -65,10 +65,10 @@ public class ProblemService {
         cachedProblems = newCache;
     }
 
-    public Problem findProblem(String problemName) {
+    public Problem findProblem(Long problemNo) {
         Optional<Problem> problem = cachedProblems.values()
                 .stream()
-                .filter(x -> problemName.equalsIgnoreCase(x.getTitle()))
+                .filter(x -> problemNo.equals(x.getId()))
                 .findFirst();
 
         return problem.orElse(null);
