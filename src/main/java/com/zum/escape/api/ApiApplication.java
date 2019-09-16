@@ -2,8 +2,10 @@ package com.zum.escape.api;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.telegram.telegrambots.ApiContextInitializer;
 
+@EnableScheduling
 @SpringBootApplication
 public class ApiApplication {
 

@@ -12,12 +12,12 @@ public class TaskScheduler {
     private final TaskService taskService;
     private final UserHistoryService userHistoryService;
 
-    @Scheduled(cron = "0 2 0 * * MON")
+    @Scheduled(cron = "0 1 0 * * MON")
     public void createTask() {
         taskService.createTasks();
     }
 
-    @Scheduled(cron = "30 2 0 * * MON")
+    @Scheduled(cron = "30 1 0 * * MON")
     public void updatePoints() {
         userHistoryService.imposeFines();
     }
