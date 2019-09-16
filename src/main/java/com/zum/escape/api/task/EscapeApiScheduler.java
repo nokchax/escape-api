@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class TaskScheduler {
+public class EscapeApiScheduler {
     private final TaskService taskService;
     private final UserHistoryService userHistoryService;
 
