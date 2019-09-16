@@ -14,10 +14,10 @@ import javax.persistence.Id;
 @Getter
 @Immutable
 @Subselect(
-        "SELECT " +
-                "ID, SUM(POINT) AS POINT " +
-                "FROM USER_HISTORY LEFT JOIN USERS ON (USERS.ID = USER_HISTORY.USER_ID) " +
-                "GROUP BY USER_ID"
+        "select " +
+                "id, sum(point) as point " +
+                "from user_history left join users on (users.id = user_history.user_id) " +
+                "group by user_id"
 )
 @NoArgsConstructor
 @AllArgsConstructor
