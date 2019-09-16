@@ -40,4 +40,19 @@ public class Task {
     public void registerParticipants(User user) {
         this.participants.add(new TaskParticipant(this, user));
     }
+
+    public void updateParticipants(List<User> newUsers) {
+        for(User user : newUsers) {
+            boolean insertable = true;
+            for(TaskParticipant participant : participants) {
+                if(user.getId().equalsIgnoreCase(participant.getUsers().getId())) {
+                    insertable = false;
+                    break;
+                }
+            }
+
+            if(insertable)
+                participants.add(new TaskParticipant(this, user));
+        }
+    }
 }

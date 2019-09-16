@@ -61,6 +61,11 @@ public class AdminService {
             case "newtask":
                 taskService.createTasks();
                 return "new task created";
+
+                // updateTask
+            case "updateTask":
+                taskService.updateTask();
+                return "task participants updated";
         }
 
         log.info(command.toString());

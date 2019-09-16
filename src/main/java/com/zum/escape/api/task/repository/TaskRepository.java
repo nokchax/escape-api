@@ -7,4 +7,5 @@ import java.time.LocalDateTime;
 
 public interface TaskRepository extends JpaRepository<Task, Long> {
     Task findByStartDateTime(LocalDateTime startDateTime);
+    boolean existsTaskByStartDateTime(LocalDateTime startDateTime);
 }

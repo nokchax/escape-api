@@ -64,6 +64,9 @@ public class TaskService {
     }
 
     public void createTasks() {
+        if(taskRepository.existsTaskByStartDateTime(DateTimeMaker.getStartOfWeek()))
+            return;
+
         Task task = Task.builder()
                 .startDateTime(DateTimeMaker.getStartOfWeek())
                 .endDateTime(DateTimeMaker.getEndOfWeek())
@@ -76,9 +79,13 @@ public class TaskService {
         task.registerParticipants(usersService.findAllUser());
     }
 
-    public List<UserDto> getDoneList() {
-        update();
+    public void updateTask() {
+        Task task = taskRepository.findByStartDateTime(DateTimeMaker.getStartOfWeek());
 
+        task.updateParticipants(usersService.findAllUser());
+    }
+
+    public List<UserDto> getDoneList() {
         return getCurrentTask().getParticipants()
                 .stream()
                 .filter(TaskParticipant::hasReachedGoal)
@@ -87,8 +94,6 @@ public class TaskService {
     }
 
     public List<UserDto> getTodoList() {
-        update();
-
         return getCurrentTask().getParticipants()
                 .stream()
                 .filter(TaskParticipant::hasNotReachedGoal)
