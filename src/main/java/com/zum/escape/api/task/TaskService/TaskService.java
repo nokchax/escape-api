@@ -14,6 +14,7 @@ import com.zum.escape.api.users.service.UserProblemService;
 import com.zum.escape.api.users.service.UsersService;
 import com.zum.escape.api.util.DateTimeMaker;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -23,8 +24,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -48,8 +51,9 @@ public class TaskService {
         List<User> participants = extractParticipants(currentTask);
         Map<User, TaskParticipant> userScores = extractTaskParticipant(currentTask);
 
+        updateUser(participants);
         participants.forEach(participant -> {
-            usersService.updateUser(participant);
+            //usersService.updateUser(participant);
             List<UserProblem> userProblems = userProblemService.findAllSolvedProblemsInThisWeek(participant);
             userScores.get(participant)
                     .updateScore(
@@ -61,9 +65,25 @@ public class TaskService {
         });
 
 
+
         updateLastUpdateTime();
 
         return "update complete";
+    }
+
+    public void updateUser(List<User> participants) {
+        log.info("UPDATE USER STARTED");
+        List<CompletableFuture<User>> futures = participants.stream()
+                .map(usersService::updateUser)
+                .collect(Collectors.toList());
+
+
+        log.info("WAITING CRAWLING USERS");
+
+        CompletableFuture.allOf(futures.toArray(new CompletableFuture[futures.size()]))
+                .join();
+
+        log.info("UPDATE USER END");
     }
 
     public void createTasks() {
