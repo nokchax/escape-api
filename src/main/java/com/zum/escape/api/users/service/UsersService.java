@@ -85,8 +85,8 @@ public class UsersService {
         log.info("{} : {}", Thread.currentThread().getName(), user.getId());
 
         CrawledUserInfo crawledUserInfo = getCrawledUserInfo(user.getId());
-/*        if(!user.checkSolveQuestion(crawledUserInfo))
-            return CompletableFuture.completedFuture(user);*/
+        if(!user.checkSolveQuestion(crawledUserInfo))
+            return CompletableFuture.completedFuture(user);
 
 
         log.info("UPDATE USERDATA : {}", user.getId());
