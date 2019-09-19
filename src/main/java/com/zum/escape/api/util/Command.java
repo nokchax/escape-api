@@ -1,7 +1,6 @@
 package com.zum.escape.api.util;
 
 import lombok.Getter;
-import lombok.ToString;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
 import java.util.ArrayList;
@@ -20,6 +19,10 @@ public class Command {
 
     public String getSecondArg() {
         return this.arguments.get(1);
+    }
+
+    public Command(Message message) {
+        this(message, false);
     }
 
     public Command(Message message, boolean isSudo) {
@@ -44,12 +47,12 @@ public class Command {
         return this.arguments.isEmpty();
     }
 
-    @Override
-    public String toString() {
-        return command + " / " + arguments.toString();
-    }
-
     public boolean containsArgs() {
         return !this.arguments.isEmpty();
+    }
+
+    @Override
+    public String toString() {
+        return command;
     }
 }

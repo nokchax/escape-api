@@ -1,9 +1,7 @@
 package com.zum.escape.api.telegram.distributor;
 
 import com.zum.escape.api.admin.AdminService;
-import com.zum.escape.api.endpoint.problem.service.ProblemService;
 import com.zum.escape.api.task.TaskService.TaskService;
-import com.zum.escape.api.users.dto.SolvedProblemDto;
 import com.zum.escape.api.users.repository.UserPointRepository;
 import com.zum.escape.api.users.service.UserProblemHistoryService;
 import com.zum.escape.api.users.service.UserProblemService;
@@ -25,7 +23,7 @@ public class MessageDistributor {
     private final UserPointRepository userPointRepository;
 
     public String distributeMessage(Message message) {
-        Command command = new Command(message, false);
+        Command command = new Command(message);
 
         switch(command.getCommand()) {
             case "su":
