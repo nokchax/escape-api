@@ -2,7 +2,6 @@ package com.zum.escape.api.admin;
 
 import com.zum.escape.api.endpoint.problem.service.ProblemService;
 import com.zum.escape.api.scheduler.ProblemHistoryScheduler;
-import com.zum.escape.api.scheduler.UserHistoryScheduler;
 import com.zum.escape.api.task.TaskService.TaskService;
 import com.zum.escape.api.users.service.UserHistoryService;
 import com.zum.escape.api.users.service.UsersService;
