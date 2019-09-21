@@ -33,6 +33,7 @@ dependencies {
 }
 
 bootJar {
-    archiveBaseName.set('escapeApi')
+    //to change archiveBasename modify rootProject.name in setting.gradle
+    //archiveBaseName.set('escapeApi')
     archiveVersion.set(version + '-' + new Date().format('yyMMddHHmm'))
 }
