@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.zum.escape'
-version = '0.0.1-SNAPSHOT'
+version = '1.0.0.RELEASE'
 sourceCompatibility = '1.8'
 
 configurations {
@@ -30,4 +30,9 @@ dependencies {
     runtimeOnly 'mysql:mysql-connector-java'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+bootJar {
+    archiveBaseName.set('escapeApi')
+    archiveVersion.set(version + '-' + new Date().format('yyMMddHHmm'))
 }
