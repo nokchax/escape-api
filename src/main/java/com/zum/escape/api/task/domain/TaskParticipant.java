@@ -55,7 +55,7 @@ public class TaskParticipant {
 
     public UserDto toUserDto() {
         return UserDto.builder()
-                .leetcodeId(this.users.getId())
+                .leetcodeId(this.users.getName())
                 .score(this.score)
                 .hard(this.hard)
                 .medium(this.medium)

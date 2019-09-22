@@ -18,6 +18,6 @@ public class ProblemHistoryDto extends Message {
 
     @Override
     public String toMessage() {
-        return String.format("| %12s | %3d | %3d | %3d | %3d |", userId, totalCount, hardCount, mediumCount, easyCount);
+        return String.format("|%10s|%3d %3d %3d %3d|", userId.length() > 10 ? userId.replaceAll("\\d", "") : userId, totalCount, hardCount, mediumCount, easyCount);
     }
 }

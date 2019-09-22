@@ -1,8 +1,6 @@
 package com.zum.escape.api.util;
 
 import com.zum.escape.api.users.dto.Message;
-import com.zum.escape.api.users.dto.UserDto;
-import sun.net.www.content.audio.x_aiff;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,8 +10,18 @@ public class MessageMaker {
         if(dto == null || dto.isEmpty())
             return defaultMessage;
 
-        return dto.stream()
+        StringBuilder sb = new StringBuilder();
+        String liner = "+----------+---------------+";
+        return sb.append("```\n")
+                .append(liner).append('\n')
+                .append("| USERNAME | T   H   M   E |\n")
+                .append(liner).append('\n')
+                .append(dto.stream().map(Message::toMessage).collect(Collectors.joining("\n")))
+                .append('\n').append(liner).append('\n')
+                .append("```")
+                .toString();
+/*        return dto.stream()
                 .map(Message::toMessage)
-                .collect(Collectors.joining("\n"));
+                .collect(Collectors.joining("\n"));*/
     }
 }
