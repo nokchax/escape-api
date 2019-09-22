@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PunishedUser extends Message {
+    private static String liner = "+--------------+-------+";
     private User user;
     private int lackPoint;
 
@@ -24,7 +25,26 @@ public class PunishedUser extends Message {
     }
 
     @Override
+    public String makeHeader() {
+        StringBuilder sb = new StringBuilder();
+
+        return sb.append("```")
+                .append('\n')
+                .append(liner)
+                .append('\n')
+                .append("|   USERNAME   | POINT |\n")
+                .append(liner)
+                .append('\n')
+                .toString();
+    }
+
+    @Override
+    public String makeFooter() {
+        return "\n" + liner + "\n```";
+    }
+
+    @Override
     public String toMessage() {
-        return user + ": " + lackPoint;
+        return String.format("| %12s | %5d |", user.getId(), lackPoint);
     }
 }
