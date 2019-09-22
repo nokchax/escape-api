@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProblemHistoryDto extends Message {
-    private static String liner = "+----------+---------------+";
+    private static String liner = "----------+---------------";
     private String userId;
     private int totalCount;
     private int hardCount;
@@ -25,7 +25,7 @@ public class ProblemHistoryDto extends Message {
                 .append('\n')
                 .append(liner)
                 .append('\n')
-                .append("| USERNAME | T   H   M   E |\n")
+                .append(" USERNAME | T   H   M   E \n")
                 .append(liner)
                 .append('\n')
                 .toString();
@@ -38,6 +38,6 @@ public class ProblemHistoryDto extends Message {
 
     @Override
     public String toMessage() {
-        return String.format("|%10s|%3d %3d %3d %3d|", userId.length() > 10 ? userId.replaceAll("\\d", "") : userId, totalCount, hardCount, mediumCount, easyCount);
+        return String.format("%10s|%3d %3d %3d %3d", userId.length() > 10 ? userId.replaceAll("\\d", "") : userId, totalCount, hardCount, mediumCount, easyCount);
     }
 }

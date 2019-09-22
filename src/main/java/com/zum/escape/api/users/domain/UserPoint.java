@@ -24,7 +24,7 @@ import javax.persistence.Transient;
 @AllArgsConstructor
 public class UserPoint extends Message {
     @Transient
-    private static String liner = "+--------------+-------+";
+    private static String liner = "--------------+-------";
     @Id
     private String id;
     private int point;
@@ -37,7 +37,7 @@ public class UserPoint extends Message {
                 .append('\n')
                 .append(liner)
                 .append('\n')
-                .append("|   USERNAME   | POINT |\n")
+                .append("   USERNAME   | POINT \n")
                 .append(liner)
                 .append('\n')
                 .toString();
@@ -50,6 +50,6 @@ public class UserPoint extends Message {
 
     @Override
     public String toMessage() {
-        return String.format("| %12s | %5d |", id, point);
+        return String.format(" %12s | %5d ", id, point);
     }
 }

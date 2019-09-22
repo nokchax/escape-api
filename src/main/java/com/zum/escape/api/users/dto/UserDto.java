@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDto extends Message {
-    private static String liner = "+----------+---------------+";
+    private static String liner = "----------+---------------";
     private String leetcodeId;
     private int score;
     private int hard;
@@ -30,7 +30,7 @@ public class UserDto extends Message {
                 .append('\n')
                 .append(liner)
                 .append('\n')
-                .append("| USERNAME | S   H   M   E |\n")
+                .append(" USERNAME | S   H   M   E \n")
                 .append(liner)
                 .append('\n')
                 .toString();
@@ -43,6 +43,6 @@ public class UserDto extends Message {
 
     @Override
     public String toMessage() {
-        return String.format("|%10s|%3d %3d %3d %3d|", leetcodeId.length() > 10 ? leetcodeId.replaceAll("\\d", "") : leetcodeId, score, hard, medium, easy);
+        return String.format("%10s|%3d %3d %3d %3d", leetcodeId.length() > 10 ? leetcodeId.replaceAll("\\d", "") : leetcodeId, score, hard, medium, easy);
     }
 }
