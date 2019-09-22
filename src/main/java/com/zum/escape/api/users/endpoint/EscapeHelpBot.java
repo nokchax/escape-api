@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -26,9 +27,11 @@ public class EscapeHelpBot extends TelegramLongPollingBot {
             return;
         }
 
+
         SendMessage message = new SendMessage()
                 .setChatId(update.getMessage().getChatId())
-                .setText(messageDistributor.distributeMessage(update.getMessage()));
+                .setText(messageDistributor.distributeMessage(update.getMessage()))
+                .setParseMode(ParseMode.MARKDOWN);
 
         sendMessage(message);
     }
