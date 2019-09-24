@@ -1,7 +1,7 @@
-package com.zum.escape.api.endpoint.problem.service;
+package com.zum.escape.api.problem.service;
 
-import com.zum.escape.api.domain.entity.Problem;
-import com.zum.escape.api.domain.repository.ProblemRepository;
+import com.zum.escape.api.problem.domain.entity.Problem;
+import com.zum.escape.api.problem.repository.ProblemRepository;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.response.CrawledUserInfo;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.response.ProblemResponse;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.response.Submission;

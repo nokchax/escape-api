@@ -1,7 +1,7 @@
 package com.zum.escape.api.task.TaskService;
 
-import com.zum.escape.api.domain.entity.Difficulty;
-import com.zum.escape.api.domain.entity.Problem;
+import com.zum.escape.api.problem.domain.entity.Difficulty;
+import com.zum.escape.api.problem.domain.entity.Problem;
 import com.zum.escape.api.task.domain.DurationType;
 import com.zum.escape.api.task.domain.Task;
 import com.zum.escape.api.task.domain.TaskParticipant;

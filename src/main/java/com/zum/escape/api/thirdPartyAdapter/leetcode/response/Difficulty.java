@@ -8,15 +8,15 @@ import lombok.Data;
 public class Difficulty {
     private int level;
 
-    public com.zum.escape.api.domain.entity.Difficulty levelToDifficulty() {
+    public com.zum.escape.api.problem.domain.entity.Difficulty levelToDifficulty() {
         switch (this.level) {
             case 1:
-                return com.zum.escape.api.domain.entity.Difficulty.EASY;
+                return com.zum.escape.api.problem.domain.entity.Difficulty.EASY;
             case 2:
-                return com.zum.escape.api.domain.entity.Difficulty.MEDIUM;
+                return com.zum.escape.api.problem.domain.entity.Difficulty.MEDIUM;
             case 3:
-                return com.zum.escape.api.domain.entity.Difficulty.HARD;
+                return com.zum.escape.api.problem.domain.entity.Difficulty.HARD;
         }
-        return com.zum.escape.api.domain.entity.Difficulty.UNKNOWN;
+        return com.zum.escape.api.problem.domain.entity.Difficulty.UNKNOWN;
     }
 }

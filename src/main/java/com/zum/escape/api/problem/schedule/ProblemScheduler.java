@@ -1,6 +1,6 @@
-package com.zum.escape.api.scheduler;
+package com.zum.escape.api.problem.schedule;
 
-import com.zum.escape.api.endpoint.problem.service.ProblemService;
+import com.zum.escape.api.problem.service.ProblemService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

@@ -1,4 +1,4 @@
-package com.zum.escape.api.domain.entity;
+package com.zum.escape.api.problem.domain.entity;
 
 import com.zum.escape.api.users.domain.UserProblem;
 import lombok.*;

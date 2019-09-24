@@ -1,6 +1,6 @@
 package com.zum.escape.api.users.domain;
 
-import com.zum.escape.api.domain.entity.Problem;
+import com.zum.escape.api.problem.domain.entity.Problem;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.response.CrawledUserInfo;
 import com.zum.escape.api.users.dto.UserProblemSolveDto;
 import lombok.*;

@@ -1,6 +1,6 @@
 package com.zum.escape.api.telegram.distributor;
 
-import com.zum.escape.api.admin.AdminService;
+import com.zum.escape.api.admin.service.AdminService;
 import com.zum.escape.api.task.TaskService.TaskService;
 import com.zum.escape.api.users.repository.UserPointRepository;
 import com.zum.escape.api.users.service.UserProblemHistoryService;

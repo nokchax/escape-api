@@ -1,6 +1,6 @@
 package com.zum.escape.api.users.dto;
 
-import com.zum.escape.api.domain.entity.Problem;
+import com.zum.escape.api.problem.domain.entity.Problem;
 import com.zum.escape.api.util.MessageMaker;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

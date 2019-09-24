@@ -1,7 +1,7 @@
 package com.zum.escape.api.users.service;
 
-import com.zum.escape.api.domain.entity.Problem;
-import com.zum.escape.api.endpoint.problem.service.ProblemService;
+import com.zum.escape.api.problem.domain.entity.Problem;
+import com.zum.escape.api.problem.service.ProblemService;
 import com.zum.escape.api.users.domain.User;
 import com.zum.escape.api.users.domain.UserProblem;
 import com.zum.escape.api.users.dto.SolvedProblemDto;
@@ -12,7 +12,6 @@ import com.zum.escape.api.util.DateTimeMaker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;

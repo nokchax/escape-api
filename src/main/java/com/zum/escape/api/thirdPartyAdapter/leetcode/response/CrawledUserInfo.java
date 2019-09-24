@@ -1,6 +1,6 @@
 package com.zum.escape.api.thirdPartyAdapter.leetcode.response;
 
-import com.zum.escape.api.domain.entity.Problem;
+import com.zum.escape.api.problem.domain.entity.Problem;
 import lombok.*;
 
 import java.util.HashSet;

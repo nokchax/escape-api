@@ -1,6 +1,6 @@
 package com.zum.escape.api.users.repository;
 
-import com.zum.escape.api.domain.entity.Problem;
+import com.zum.escape.api.problem.domain.entity.Problem;
 import com.zum.escape.api.users.domain.User;
 import com.zum.escape.api.users.domain.UserProblem;
 import com.zum.escape.api.users.domain.UserProblemId;
