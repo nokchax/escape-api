@@ -7,12 +7,14 @@ import com.zum.escape.api.thirdPartyAdapter.leetcode.response.ProblemResponse;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.response.Submission;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.service.LeetCodeService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ProblemService {
@@ -59,7 +61,7 @@ public class ProblemService {
 
     private void updateCache() {
         List<Problem> problems = problemRepository.findAll();
-        System.out.println(problems.size());
+        log.info("problem lists size : {}", problems.size());
         ConcurrentHashMap<String, Problem> newCache = new ConcurrentHashMap<>();
         problems.forEach(problem -> newCache.put(problem.getTitle(), problem));
         cachedProblems = newCache;

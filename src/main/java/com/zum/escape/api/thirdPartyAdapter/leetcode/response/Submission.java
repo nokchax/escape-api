@@ -1,15 +1,13 @@
 package com.zum.escape.api.thirdPartyAdapter.leetcode.response;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @Builder
+@ToString
 @NoArgsConstructor
 public class Submission {
     private String problemTitle;

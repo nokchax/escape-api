@@ -17,8 +17,8 @@ import javax.persistence.Transient;
 @Subselect(
         "select " +
                 "id, sum(point) as point " +
-                "from users left join user_history user_history on (users.id = user_history.user_id) " +
-                "group by user_id"
+                "from users left join user_history on (users.id = user_history.user_id) " +
+                "group by id"
 )
 @NoArgsConstructor
 @AllArgsConstructor
