@@ -53,7 +53,7 @@ public class User {
 
     public List<UserProblem> updateSolvedProblems(CrawledUserInfo crawledUserInfo) {
         if(crawledUserInfo.getProblems() == null) {
-            System.out.println("NULL");
+            log.error("problems is null");
             return Collections.emptyList();
         }
 
@@ -66,8 +66,8 @@ public class User {
         List<UserProblem> addedProblem = new ArrayList<>();
 
         for(Problem problem : crawledUserInfo.getProblems()) {
-            if(problem == null || !StringUtils.hasText(problem.getTitle())) {
-                log.error("problem is null : {}", problem);
+            if(problem == null) {
+                log.error("problem is null");
                 continue;
             }
 
