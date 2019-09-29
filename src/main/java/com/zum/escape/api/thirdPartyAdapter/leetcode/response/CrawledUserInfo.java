@@ -12,7 +12,12 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CrawledUserInfo {
-    public static final CrawledUserInfo NOT_UPDATED = CrawledUserInfo.builder().solvedQuestionCount(0).build();
+    public static final CrawledUserInfo NOT_UPDATED = CrawledUserInfo.builder()
+            .solvedQuestionCount(0)
+            .solvedProblems(new HashSet<>())
+            .problems(new HashSet<>())
+            .build();
+
     private String userId;
     private int solvedQuestionCount;
     private Set<Submission> solvedProblems = new HashSet<>();

@@ -75,12 +75,12 @@ public class ProblemService {
     }
 
     public Set<Problem> toProblem(CrawledUserInfo crawledUserInfo) {
-        Set<Problem> problems = new HashSet<>();
-
         Set<Submission> submissions = crawledUserInfo.getSolvedProblems();
-        submissions.forEach(submission -> problems.add(cachedProblems.get(submission.getProblemTitle())));
 
-        return problems;
+        return submissions.stream()
+                .filter(submission -> cachedProblems.contains(submission.getProblemTitle()))
+                .map(submission -> cachedProblems.get(submission.getProblemTitle()))
+                .collect(Collectors.toSet());
     }
 
     public Set<Problem> toProblem(List<String> problemNames) {

@@ -4,6 +4,8 @@ import com.zum.escape.api.problem.domain.entity.Problem;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.response.CrawledUserInfo;
 import com.zum.escape.api.users.dto.UserProblemSolveDto;
 import lombok.*;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -15,6 +17,7 @@ import java.util.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Slf4j
 public class User {
     @Id
     private String id;
@@ -63,6 +66,11 @@ public class User {
         List<UserProblem> addedProblem = new ArrayList<>();
 
         for(Problem problem : crawledUserInfo.getProblems()) {
+            if(problem == null || !StringUtils.hasText(problem.getTitle())) {
+                log.error("problem is null : {}", problem);
+                continue;
+            }
+
             UserProblem userProblem = new UserProblem(this, problem, time.get(problem.getTitle()));
             if(!solvedProblem.contains(userProblem)) {
                 solvedProblem.add(userProblem);
