@@ -6,10 +6,16 @@ import com.zum.escape.api.thirdPartyAdapter.leetcode.response.CrawledUserInfo;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.response.ProblemResponse;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.response.Submission;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.service.LeetCodeService;
+import com.zum.escape.api.users.domain.User;
+import com.zum.escape.api.users.repository.UserRepository;
+import com.zum.escape.api.users.service.UsersService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.beans.Transient;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
@@ -22,8 +28,16 @@ public class ProblemService {
     private final ProblemRepository problemRepository;
     private ConcurrentHashMap<String, Problem> cachedProblems = new ConcurrentHashMap<>();
 
+    @Value("${master.id}")
+    private String id;
+    @Value("${master.pw}")
+    private String pw;
+    @Value("${master.name}")
+    private String name;
+
     public List<Problem> getProblems() {
-        ProblemResponse problemResponse = leetCodeService.getProblems();
+        User user = new User(pw, name, id);
+        ProblemResponse problemResponse = leetCodeService.getProblems(user);
 
         return problemResponse.toProblemList();
     }

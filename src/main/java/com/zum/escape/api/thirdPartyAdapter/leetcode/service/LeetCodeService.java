@@ -3,9 +3,13 @@ package com.zum.escape.api.thirdPartyAdapter.leetcode.service;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.response.CrawledUserInfo;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.response.ProblemResponse;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.response.Submission;
+import com.zum.escape.api.users.domain.User;
 import com.zum.escape.api.users.dto.URL;
+import com.zum.escape.api.users.service.OkHttpHelper;
+import com.zum.escape.api.users.service.UserLogin;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import okhttp3.Response;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -30,22 +34,32 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class LeetCodeService {
     private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36";
-    private final RestTemplate restTemplate;
+    private final OkHttpHelper okHttpHelper;
 
-    public ProblemResponse getProblems() {
-        ResponseEntity<ProblemResponse> problemResponse = null;
+    public LeetCodeService() {
+        okHttpHelper = OkHttpHelper.getSingleton(false);
+    }
+
+    public ProblemResponse getProblems(User user) {
+        ProblemResponse problemResponse = null;
 
         try {
-            problemResponse = restTemplate.exchange(
-                    URL.PROBLEMS,
-                    HttpMethod.GET,
-                    new HttpEntity<>(makeHttpHeaders()),
-                    ProblemResponse.class
-            );
+            UserLogin userLogin = new UserLogin(user);
+            userLogin.doLogin();
+
+            Response response = userLogin.getResponse();
+            String responseData = response.body().string();
+            System.out.println(responseData);
+            log.info("update problems api response : {}", response);
+
+            problemResponse = okHttpHelper.fromJson(responseData, ProblemResponse.class);
         } catch (HttpClientErrorException e) {
             log.error("Fail to get problems list from leetcode : {}", e.getMessage());
+        } catch (IOException e) {
+            log.error("IOException occurred : {}", e.getMessage());
         }
-        return problemResponse.getBody();
+
+        return problemResponse;
     }
 
     private HttpHeaders makeHttpHeaders() {

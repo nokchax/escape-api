@@ -18,3 +18,8 @@ telegram:
 
 observer:
   admins:
+
+master:
+  id:
+  pw:
+  name:

@@ -11,7 +11,6 @@ import java.io.IOException;
 
 @Service
 public class UserProblemCrawlService {
-    private static volatile UserProblemCrawlService userProblemCrawlService;
     private OkHttpHelper okHttpHelper;
 
     public UserProblemCrawlService() {
