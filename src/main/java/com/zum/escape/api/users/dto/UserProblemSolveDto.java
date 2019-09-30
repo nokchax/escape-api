@@ -10,20 +10,27 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserProblemSolveDto extends Message {
+    private static String liner = "------------";
     private String leetcodeId;
 
     @Override
     public String makeHeader() {
-        return null;
+        StringBuilder sb = new StringBuilder();
+
+        return sb.append("```")
+                .append('\n')
+                .append(liner)
+                .append('\n')
+                .toString();
     }
 
     @Override
     public String makeFooter() {
-        return null;
+        return "\n" + liner + "\n```";
     }
 
     @Override
     public String toMessage() {
-        return leetcodeId;
+        return String.format("%12s", leetcodeId);
     }
 }
