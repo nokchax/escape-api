@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class UserHistoryService {
-    public static final int MONTHLY_POINT = 5;
+    public static final int MONTHLY_POINT = 3;
     private final UserRepository userRepository;
     private final UserHistoryRepository userHistoryRepository;
     private final TaskService taskService;
