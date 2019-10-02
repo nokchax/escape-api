@@ -23,11 +23,6 @@ public class DateTimeMaker {
                 .minusWeeks(1);
     }
 
-    public static LocalDateTime getEndOfLastWeek() {
-        return getEndOfWeek()
-                .minusWeeks(1);
-    }
-
     public static LocalDateTime getYesterday() {
         return LocalDateTime.now()
                 .minusDays(1)
