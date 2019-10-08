@@ -106,6 +106,6 @@ public class UsersService {
         } catch (IOException e) {
             log.error("Fail to find user");
         }
-        return CrawledUserInfo.NOT_UPDATED;
+        return CrawledUserInfo.NOT_UPDATED_USER_INFO;
     }
 }
