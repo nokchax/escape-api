@@ -3,7 +3,7 @@ package com.zum.escape.api.thirdPartyAdapter.leetcode.service;
 
 import com.zum.escape.api.thirdPartyAdapter.leetcode.response.ProblemResponse;
 import com.zum.escape.api.users.domain.User;
-import com.zum.escape.api.users.dto.URL;
+import com.zum.escape.api.util.LeetcodeUrl;
 import com.zum.escape.api.users.service.UserLogin;
 import com.zum.escape.api.users.service.UserProblemCrawlService;
 import org.jsoup.Connection;
@@ -36,7 +36,7 @@ public class LeetCodeServiceTest {
     public void getProblemsTest() {
         try {
             HttpEntity<String> headers = new HttpEntity<>(makeHttpHeaders());
-            ResponseEntity<ProblemResponse> problemResponse = restTemplate.exchange(URL.PROBLEMS, HttpMethod.GET, headers, ProblemResponse.class);
+            ResponseEntity<ProblemResponse> problemResponse = restTemplate.exchange(LeetcodeUrl.PROBLEM_API_URL, HttpMethod.GET, headers, ProblemResponse.class);
 
             System.out.println("StatusCode : " + problemResponse.getStatusCode());
             System.out.println("Headers : " + problemResponse.getHeaders());
@@ -56,7 +56,7 @@ public class LeetCodeServiceTest {
 
     @Test
     public void jsoupTest() throws IOException {
-        Connection connection = Jsoup.connect(URL.USER + "nokchax");
+        Connection connection = Jsoup.connect(LeetcodeUrl.USER_URL + "nokchax");
         connection.header(HttpHeaders.USER_AGENT, USER_AGENT);
 
 

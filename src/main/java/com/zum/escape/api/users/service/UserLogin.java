@@ -1,7 +1,7 @@
 package com.zum.escape.api.users.service;
 
 import com.zum.escape.api.users.domain.User;
-import com.zum.escape.api.users.dto.URL;
+import com.zum.escape.api.util.LeetcodeUrl;
 import okhttp3.*;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -33,7 +33,7 @@ public class UserLogin {
 
     public boolean doLogin() throws IOException {
         boolean success;
-        Connection.Response response = Jsoup.connect(URL.LOGIN)
+        Connection.Response response = Jsoup.connect(LeetcodeUrl.LOGIN_URL)
                 .method(Connection.Method.GET)
                 .execute();
         csrftoken = response.cookie("csrftoken");
@@ -63,12 +63,12 @@ public class UserLogin {
                 .add("Content-Type", "multipart/form-data; boundary=" + boundary)
                 .add("Connection", "keep-alive")
                 .add("Accept", "*/*")
-                .add("Origin", URL.HOME)
-                .add("Referer", URL.LOGIN)
+                .add("Origin", LeetcodeUrl.HOME_URL)
+                .add("Referer", LeetcodeUrl.LOGIN_URL)
                 .add("Cookie", "__cfduid=" + __cfduid + ";" + "csrftoken=" + csrftoken)
                 .build();
 
-        Response loginResponse = okHttpHelper.postSync(URL.LOGIN, requestBody, headers, client);
+        Response loginResponse = okHttpHelper.postSync(LeetcodeUrl.LOGIN_URL, requestBody, headers, client);
         headers = loginResponse.headers();
         List<String> cookies = headers.values("Set-Cookie");
         for (String cookie : cookies) {
@@ -91,6 +91,6 @@ public class UserLogin {
     }
 
     public Response getResponse() throws IOException {
-        return this.okHttpHelper.getSync(URL.PROBLEMS);
+        return this.okHttpHelper.getSync(LeetcodeUrl.PROBLEM_API_URL);
     }
 }

@@ -2,8 +2,6 @@ package com.zum.escape.api.users.service;
 
 import com.zum.escape.api.thirdPartyAdapter.leetcode.response.ProblemResponse;
 import com.zum.escape.api.users.domain.User;
-import com.zum.escape.api.users.domain.UserProblem;
-import com.zum.escape.api.users.dto.URL;
 import okhttp3.Response;
 import org.springframework.stereotype.Service;
 

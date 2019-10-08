@@ -4,7 +4,7 @@ import com.zum.escape.api.thirdPartyAdapter.leetcode.response.CrawledUserInfo;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.response.ProblemResponse;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.response.Submission;
 import com.zum.escape.api.users.domain.User;
-import com.zum.escape.api.users.dto.URL;
+import com.zum.escape.api.util.LeetcodeUrl;
 import com.zum.escape.api.users.service.OkHttpHelper;
 import com.zum.escape.api.users.service.UserLogin;
 import lombok.RequiredArgsConstructor;
@@ -15,14 +15,10 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -69,7 +65,7 @@ public class LeetCodeService {
     }
 
     public CrawledUserInfo findUser(String userId) throws IOException {
-        Connection connection = Jsoup.connect(URL.USER + userId);
+        Connection connection = Jsoup.connect(LeetcodeUrl.USER_URL + userId);
         connection.header(HttpHeaders.USER_AGENT, USER_AGENT);
 
         Document document = connection.get();

@@ -1,6 +1,6 @@
 package com.zum.escape.api.users.service;
 
-import com.zum.escape.api.users.dto.URL;
+import com.zum.escape.api.util.LeetcodeUrl;
 import okhttp3.Cookie;
 import okhttp3.CookieJar;
 import okhttp3.HttpUrl;
@@ -14,7 +14,7 @@ public class UserCookie implements CookieJar {
 
     @Override
     public void saveFromResponse(HttpUrl httpUrl, List<Cookie> list) {
-        if (!httpUrl.url().toString().equals(URL.LOGIN)) return;
+        if (!httpUrl.url().toString().equals(LeetcodeUrl.LOGIN_URL)) return;
         cookieStore.put(httpUrl.host(), list);
     }
 
