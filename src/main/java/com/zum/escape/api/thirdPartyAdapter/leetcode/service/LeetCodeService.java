@@ -58,12 +58,6 @@ public class LeetCodeService {
         return problemResponse;
     }
 
-    private HttpHeaders makeHttpHeaders() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.set(HttpHeaders.USER_AGENT, USER_AGENT);
-        return headers;
-    }
-
     public CrawledUserInfo findUser(String userId) throws IOException {
         Connection connection = Jsoup.connect(LeetcodeUrl.USER_URL + userId);
         connection.header(HttpHeaders.USER_AGENT, USER_AGENT);
