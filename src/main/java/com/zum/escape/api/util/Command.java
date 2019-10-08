@@ -11,7 +11,6 @@ import java.util.List;
 public class Command {
     private String command;
     private List<String> arguments;
-    private int totalLength;
 
     public String getFirstArg() {
         return this.arguments.get(0);
@@ -35,7 +34,6 @@ public class Command {
 
         String[] args = text.split(" ");
 
-        this.totalLength = args.length;
         this.command = args[0];
 
         this.arguments = args.length < 2 ? new ArrayList<>() : Arrays.asList(
@@ -48,7 +46,7 @@ public class Command {
     }
 
     public boolean containsArgs() {
-        return !this.arguments.isEmpty();
+        return !this.isArgsEmpty();
     }
 
     @Override
