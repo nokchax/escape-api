@@ -4,6 +4,7 @@ import com.zum.escape.api.thirdPartyAdapter.leetcode.response.CrawledUserInfo;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.response.ProblemResponse;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.response.Submission;
 import com.zum.escape.api.users.domain.User;
+import com.zum.escape.api.util.DateStringToLocalDateTimeConverter;
 import com.zum.escape.api.util.LeetcodeUrl;
 import com.zum.escape.api.users.service.OkHttpHelper;
 import com.zum.escape.api.users.service.UserLogin;
@@ -21,7 +22,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.client.HttpClientErrorException;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -90,7 +90,7 @@ public class LeetCodeService {
                 String problemName = problem.getElementsByTag("b").text().trim();
                 String time = problem.getElementsByClass("text-muted").get(0).text();
 
-                solvedProblems.add(new Submission(problemName, extractDateTime(time)));
+                solvedProblems.add(new Submission(problemName, DateStringToLocalDateTimeConverter.convert(time)));
             }
         }
 
@@ -104,52 +104,5 @@ public class LeetCodeService {
         String[] inputs = text.split("/");
 
         return Integer.parseInt(inputs[0].trim());
-    }
-
-    private LocalDateTime extractDateTime(String time) {
-        String[] times = time.split(",");
-        LocalDateTime now = LocalDateTime.now();
-
-        for(String t : times) {
-            t = t.replace(((char)160),' ');
-            String[] inputs = t.trim().split("\\s+");
-
-            int num = Integer.parseInt(inputs[0]);
-            if(inputs.length < 2) {
-                log.error("Fail to parse time : {}", t);
-                return now;
-            }
-
-            switch(inputs[1].trim()) {
-                case "minute":
-                case "minutes":
-                    now = now.minusMinutes(num);
-                    break;
-                case "hour":
-                case "hours":
-                    now = now.minusHours(num);
-                    break;
-
-                case "week":
-                case "weeks":
-                    now = now.minusWeeks(num);
-                    break;
-
-                case "day":
-                case "days":
-                    now = now.minusDays(num);
-                    break;
-
-                case "month":
-                case "months":
-                    now = now.minusMonths(num);
-                    break;
-
-                default:
-                    log.error("Fail to parse time : {}", t);
-            }
-        }
-
-        return now;
     }
 }
