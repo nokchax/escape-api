@@ -38,7 +38,7 @@ public class AdminService {
         switch (command.getCommand()) {
             // /register id pw name -> register user
             case "register":
-                if(command.getTotalLength() < 4)
+                if(command.isArgsLessThan(4))
                     return "/register id pw name";
                 return usersService.addUser(command.getArguments());
 

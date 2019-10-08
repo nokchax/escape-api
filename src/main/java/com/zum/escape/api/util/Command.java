@@ -49,6 +49,10 @@ public class Command {
         return !this.isArgsEmpty();
     }
 
+    public boolean isArgsLessThan(int num) {
+        return arguments.size() + 1 < num;
+    }
+
     @Override
     public String toString() {
         return command;
