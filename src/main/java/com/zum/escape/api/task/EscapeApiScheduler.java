@@ -20,7 +20,7 @@ public class EscapeApiScheduler {
 
     @Scheduled(cron = "30 1 0 * * MON")
     public void updatePoints() {
-        // give points to all users when month start
+        // subtract user's points when weekly tasks ends
         userHistoryService.imposeFines();
     }
 
