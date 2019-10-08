@@ -8,10 +8,10 @@ import java.time.LocalDateTime;
 public class DateStringToLocalDateTimeConverter {
 
     public static LocalDateTime convert(String time) {
-        String[] times = time.split(",");
         LocalDateTime now = LocalDateTime.now();
 
-        for(String t : times) {
+        for(String t : time.split(",")) {
+            // unknown space to ' '
             t = t.replace(((char)160),' ');
             String[] inputs = t.trim().split("\\s+");
 
