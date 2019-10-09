@@ -1,4 +1,4 @@
-package com.zum.escape.api.problem.schedule;
+package com.zum.escape.api.scheduler;
 
 import com.zum.escape.api.problem.service.ProblemService;
 import lombok.RequiredArgsConstructor;
