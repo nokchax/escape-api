@@ -221,6 +221,9 @@ public class TaskService {
                 calculateMediumCount(userProblems),
                 calculateEasyCount(userProblems)
         );
-        return participant.get().toUserDto().toMessage();
+
+        return participant.get()
+                .toUserDto()
+                .toMessage();
     }
 }

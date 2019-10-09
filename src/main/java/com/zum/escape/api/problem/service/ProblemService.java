@@ -7,16 +7,15 @@ import com.zum.escape.api.thirdPartyAdapter.leetcode.response.ProblemResponse;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.response.Submission;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.service.LeetCodeService;
 import com.zum.escape.api.users.domain.User;
-import com.zum.escape.api.users.repository.UserRepository;
-import com.zum.escape.api.users.service.UsersService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-import java.beans.Transient;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
