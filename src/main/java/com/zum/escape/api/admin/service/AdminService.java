@@ -1,5 +1,6 @@
 package com.zum.escape.api.admin.service;
 
+import com.zum.escape.api.observing.ObservingService;
 import com.zum.escape.api.problem.service.ProblemService;
 import com.zum.escape.api.scheduler.ProblemHistoryScheduler;
 import com.zum.escape.api.task.TaskService.TaskService;
@@ -25,6 +26,7 @@ public class AdminService {
     private final UsersService usersService;
     private final ProblemHistoryScheduler problemHistoryScheduler;
     private final ProblemService problemService;
+    private final ObservingService observingService;
 
     @Value("${observer.admins}")
     private List<Integer> ADMIN_LIST;
@@ -72,6 +74,12 @@ public class AdminService {
                 problemService.saveOrUpdateProblems();
                 return "problem lists updated";
 
+            case "noticeHere":
+                observingService.updateNoticeTargetRoom(message.getChatId());
+                return "send message to this room (no. " + message.getChatId() +")";
+
+            case "currentStatus":
+                return observingService.getCurrentStatus();
         }
 
         log.info(command.toString());

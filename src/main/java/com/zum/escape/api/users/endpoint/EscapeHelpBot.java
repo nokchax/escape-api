@@ -26,8 +26,6 @@ public class EscapeHelpBot extends TelegramLongPollingBot {
     @Value("${observing.noticeRoomNo}")
     private String noticeRoomNo;
 
-
-
     @Override
     public void onUpdateReceived(Update update) {
         if (!update.hasMessage() || !update.getMessage().hasText()) {
@@ -43,17 +41,13 @@ public class EscapeHelpBot extends TelegramLongPollingBot {
     }
 
 
-    @Scheduled(cron = "0 0/1 8-23 * * *")
+    @Scheduled(cron = "0 0/5 8-22 * * *")
     public void alarmPageUpdated() {
         log.info("Scheduling started");
         if(!observingService.scanPage())
             return;
 
-        SendMessage message = new SendMessage()
-                .setChatId(noticeRoomNo)
-                .setText(observingService.getCurrentStatus());
-
-        sendMessage(message);
+        sendMessage(observingService.createNotice());
     }
 
     private void sendMessage(SendMessage message) {
