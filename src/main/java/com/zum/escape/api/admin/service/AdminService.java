@@ -80,10 +80,11 @@ public class AdminService {
 
             case "currentStatus":
                 return observingService.getCurrentStatus();
-        }
 
-        log.info(command.toString());
-        return command.toString();
+            default:
+                log.info(command.toString());
+                return "Unknown command : " + command.toString();
+        }
     }
 
 
