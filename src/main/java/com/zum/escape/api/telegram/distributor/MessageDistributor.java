@@ -103,6 +103,11 @@ public class MessageDistributor {
             case "cs":
                 return observingService.getCurrentStatus();
 
+            case "crawlPage":
+            case "cp":
+                observingService.scanPage();
+                return observingService.getCurrentStatus();
+
             default:
                 log.info("Unknown command : {}", command.toString());
         }
