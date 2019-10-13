@@ -78,9 +78,6 @@ public class AdminService {
                 observingService.updateNoticeTargetRoom(message.getChatId());
                 return "send message to this room (no. " + message.getChatId() +")";
 
-            case "currentStatus":
-                return observingService.getCurrentStatus();
-
             default:
                 log.info(command.toString());
                 return "Unknown command : " + command.toString();

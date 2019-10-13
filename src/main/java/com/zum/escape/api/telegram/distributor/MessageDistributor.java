@@ -1,6 +1,7 @@
 package com.zum.escape.api.telegram.distributor;
 
 import com.zum.escape.api.admin.service.AdminService;
+import com.zum.escape.api.observing.ObservingService;
 import com.zum.escape.api.task.TaskService.TaskService;
 import com.zum.escape.api.users.repository.UserPointRepository;
 import com.zum.escape.api.users.service.UserProblemHistoryService;
@@ -21,6 +22,7 @@ public class MessageDistributor {
     private final AdminService adminService;
     private final UserProblemService userProblemService;
     private final UserPointRepository userPointRepository;
+    private final ObservingService observingService;
 
     public String distributeMessage(Message message) {
         Command command = new Command(message);
@@ -96,6 +98,10 @@ public class MessageDistributor {
             case "pr":
                 return userProblemService.findAllUsersSolvedThisProblem(command)
                         .toMessage();
+
+            case "currentStatus":
+            case "cs":
+                return observingService.getCurrentStatus();
 
             default:
                 log.info("Unknown command : {}", command.toString());
