@@ -13,7 +13,7 @@ public class ProblemHistoryScheduler {
     private final TaskService taskService;
 
 
-    @Scheduled(cron = "0 1 0 * * TUE-SUN")
+    @Scheduled(cron = "0 1 0 * * SUN,TUE,THU,WED,FRI,SAT")
     public void correctUpdate() {
         log.info("Correct update occurred");
         taskService.correctUpdate();
