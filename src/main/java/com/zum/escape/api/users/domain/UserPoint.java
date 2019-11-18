@@ -14,10 +14,9 @@ import javax.persistence.Transient;
 @Entity
 @Getter
 @Immutable
-// TODO: 2019-11-18 need to modify query. error occurs when sum(point) is null
 @Subselect(
         "select " +
-                "id, sum(point) as point " +
+                "id, ifnull(sum(point), 0) as point " +
                 "from users left join user_history on (users.id = user_history.user_id) " +
                 "group by id"
 )
