@@ -171,6 +171,13 @@ public class TaskService {
                 .forEach(user -> usersService.updateAllSolvedHistory(user, DateTimeMaker.getYesterday()));
     }
 
+    public void correctUpdateLastWeek() {
+        getLastTask().getParticipants()
+                .stream()
+                .map(TaskParticipant::getUsers)
+                .forEach(user -> usersService.updateAllSolvedHistory(user, DateTimeMaker.getYesterday()));
+    }
+
     private List<User> extractParticipants(Task currentTask) {
         return currentTask.getParticipants()
                 .stream()
