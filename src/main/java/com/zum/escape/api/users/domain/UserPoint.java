@@ -14,6 +14,7 @@ import javax.persistence.Transient;
 @Entity
 @Getter
 @Immutable
+// TODO: 2019-11-18 need to modify query. error occurs when sum(point) is null
 @Subselect(
         "select " +
                 "id, sum(point) as point " +
