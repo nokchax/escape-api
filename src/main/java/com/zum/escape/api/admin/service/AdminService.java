@@ -29,7 +29,7 @@ public class AdminService {
     private final ObservingService observingService;
 
     @Value("${observer.admins}")
-    private List<Integer> ADMIN_LIST;
+    private List<Integer> ADMINS;
 
     public String byPassMessage(Message message) {
         if(!isAdmin(message))
@@ -87,9 +87,9 @@ public class AdminService {
 
     private boolean isAdmin(Message message) {
         Integer userId = message.getFrom().getId();
-        log.info(ADMIN_LIST.toString());
-        log.info("{}", userId);
 
-        return ADMIN_LIST.contains(userId);
+        log.info("Admins : {}\nuserId : {}", ADMINS.toString(), userId);
+
+        return ADMINS.contains(userId);
     }
 }
