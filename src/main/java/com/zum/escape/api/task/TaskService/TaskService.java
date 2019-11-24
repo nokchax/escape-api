@@ -216,6 +216,11 @@ public class TaskService {
 
     public String updateSpecificUser(String userId) {
         usersService.updateUser(userId);
+
+        return getUserStatusInfo(userId);
+    }
+
+    public String getUserStatusInfo(String userId) {
         Optional<TaskParticipant> participant = getCurrentTask().getParticipants()
                 .stream()
                 .filter(taskParticipant -> taskParticipant.getUsers().getId().equalsIgnoreCase(userId))
@@ -232,5 +237,11 @@ public class TaskService {
         return participant.get()
                 .toUserDto()
                 .toMessage();
+    }
+
+    public String updateManually(String userId, Long problemId) {
+        usersService.updateManually(userId, problemId);
+
+        return getUserStatusInfo(userId);
     }
 }

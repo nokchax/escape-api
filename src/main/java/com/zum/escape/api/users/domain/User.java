@@ -3,6 +3,7 @@ package com.zum.escape.api.users.domain;
 import com.zum.escape.api.problem.domain.entity.Problem;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.response.CrawledUserInfo;
 import com.zum.escape.api.users.dto.UserProblemSolveDto;
+import com.zum.escape.api.util.DateTimeMaker;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
@@ -108,6 +109,13 @@ public class User {
         updateSolvedProblemCount();
 
         return addedProblem;
+    }
+    public UserProblem updateManually(Problem problem) {
+        UserProblem userProblem = new UserProblem(this, problem, LocalDateTime.now());
+
+        solvedProblem.add(userProblem);
+
+        return userProblem;
     }
 
     public UserHistory getPoints(Point point) {

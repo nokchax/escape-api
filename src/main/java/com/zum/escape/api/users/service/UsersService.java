@@ -108,4 +108,11 @@ public class UsersService {
         }
         return CrawledUserInfo.NOT_UPDATED_USER_INFO;
     }
+
+    public void updateManually(String userId, Long problemId) {
+        User user = userRepository.findById(userId).get();//throw exception
+        Problem problem = problemService.findProblem(problemId);
+
+        userProblemRepository.save(user.updateManually(problem));
+    }
 }

@@ -74,6 +74,10 @@ public class AdminService {
                 problemService.saveOrUpdateProblems();
                 return "problem lists updated";
 
+
+            case "manualUpdate" :
+                return taskService.updateManually(command.getFirstArg(), Long.parseLong(command.getSecondArg()));
+
             case "noticeHere":
                 observingService.updateNoticeTargetRoom(message.getChatId());
                 return "send message to this room (no. " + message.getChatId() +")";
