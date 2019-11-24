@@ -93,7 +93,7 @@ public class ProblemService {
         Set<Submission> submissions = crawledUserInfo.getSolvedProblems();
 
         return submissions.stream()
-                .filter(submission -> cachedProblems.contains(submission.getProblemTitle()))
+                .filter(submission -> cachedProblems.containsKey(submission.getProblemTitle()))
                 .map(submission -> cachedProblems.get(submission.getProblemTitle()))
                 .collect(Collectors.toSet());
     }
