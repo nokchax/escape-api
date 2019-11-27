@@ -19,7 +19,8 @@ public class SolvedProblemDto {
     private List<UserProblemSolveDto> userProblemSolveDto = new ArrayList<>();
 
     public String toMessage() {
-        return "[" + problem.getTitle() + "] : " + userProblemSolveDto.size() +"명\n"
+        return problem.getDifficulty() + "\n" +
+                "[" + problem.getTitle() + "] : " + userProblemSolveDto.size() +"명\n"
                 + problem.problemUrl() + "\n"
                 + MessageMaker.dtoToMessage(
                 this.userProblemSolveDto,
