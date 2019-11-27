@@ -70,4 +70,8 @@ public class Problem {
                 ", difficulty=" + difficulty +
                 '}';
     }
+
+    public String problemUrl() {
+        return "https://leetcode.com/problems/" + this.titleSlug;
+    }
 }

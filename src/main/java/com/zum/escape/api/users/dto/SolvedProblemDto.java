@@ -19,7 +19,9 @@ public class SolvedProblemDto {
     private List<UserProblemSolveDto> userProblemSolveDto = new ArrayList<>();
 
     public String toMessage() {
-        return "[" + problem.getTitle() + "] : " + userProblemSolveDto.size() +"명\n" + MessageMaker.dtoToMessage(
+        return "[" + problem.getTitle() + "] : " + userProblemSolveDto.size() +"명\n"
+                + problem.problemUrl() + "\n"
+                + MessageMaker.dtoToMessage(
                 this.userProblemSolveDto,
                 "No users solved this problem"
         );
