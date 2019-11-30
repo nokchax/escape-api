@@ -29,6 +29,7 @@ dependencies {
     runtimeOnly 'mysql:mysql-connector-java'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
 }
 
 bootJar {
