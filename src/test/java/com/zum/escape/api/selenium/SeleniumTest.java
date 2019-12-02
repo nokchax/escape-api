@@ -18,7 +18,7 @@ public class SeleniumTest {
         System.setProperty("webdriver.gecko.driver", resource.getPath());
 
         FirefoxOptions options = new FirefoxOptions();
-        options.setHeadless(true);
+        //options.setHeadless(true);
         WebDriver browser = new FirefoxDriver(options);
         WebDriverWait wait = new WebDriverWait(browser, 20);
         browser.get("https://leetcode.com/accounts/login/");
@@ -32,14 +32,18 @@ public class SeleniumTest {
         id.clear();
         id.sendKeys("blue44rain");
         password.clear();
-        password.sendKeys("zum123");
+        password.sendKeys("");
         button.click();
 
         wait.until(presenceOfElementLocated(By.xpath("//*[@id=\"nav-user-app\"]")));
         browser.navigate().to("https://leetcode.com/api/problems/all/");
-        browser.close();
+        WebElement body = browser.findElement(By.tagName("body"));
 
         System.out.println(browser.getPageSource());
+        System.out.println(body.getText());
+        System.out.println(body.toString());
+
+        browser.close();
     }
 
 }
