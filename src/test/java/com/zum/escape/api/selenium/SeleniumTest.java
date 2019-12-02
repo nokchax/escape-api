@@ -32,7 +32,7 @@ public class SeleniumTest {
         id.clear();
         id.sendKeys("nokchax");
         password.clear();
-        password.sendKeys("zum123");
+        password.sendKeys("");
         button.click();
 
         wait.until(presenceOfElementLocated(By.xpath("//*[@id=\"nav-user-app\"]")));
