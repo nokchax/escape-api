@@ -45,7 +45,7 @@ public class LeetCodeService {
 
             Response response = userLogin.getResponse();
             String responseData = response.body().string();
-            System.out.println(responseData);
+
             log.info("update problems api response : {}", response);
 
             problemResponse = okHttpHelper.fromJson(responseData, ProblemResponse.class);
