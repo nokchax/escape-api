@@ -14,6 +14,10 @@ import javax.annotation.PostConstruct;
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
 public class LeetCodeCrawlService {
+    private static final String LEETCODE_LOGIN_URL = "https://leetcode.com/accounts/login/";
+    private static final String LEETCODE_API_URL = "https://leetcode.com/api/problems/all/";
+    private static final String XPATH_OF_LOGIN_BUTTON = "/html/body/div[1]/div/div[2]/div/div[2]/div/div/div/button";
+    private static final String XPATH_OF_NAV_BUTTON = "//*[@id=\"nav-user-app\"]";
     private FirefoxOptions options;
 
     @PostConstruct
@@ -28,10 +32,10 @@ public class LeetCodeCrawlService {
     public void crawl(User user) {
         WebDriver browser = new FirefoxDriver(options);
         WebDriverWait wait = new WebDriverWait(browser, 20);
-        browser.get("https://leetcode.com/accounts/login/");
+        browser.get(LEETCODE_LOGIN_URL);
 
 
-        WebElement button = wait.until(presenceOfElementLocated(By.xpath("/html/body/div[1]/div/div[2]/div/div[2]/div/div/div/button")));
+        WebElement button = wait.until(presenceOfElementLocated(By.xpath(XPATH_OF_LOGIN_BUTTON)));
 
         WebElement id = browser.findElement(By.name("login"));
         WebElement password = browser.findElement(By.name("password"));
@@ -42,8 +46,8 @@ public class LeetCodeCrawlService {
         password.sendKeys(user.getPassword());
         button.click();
 
-        wait.until(presenceOfElementLocated(By.xpath("//*[@id=\"nav-user-app\"]")));
-        browser.navigate().to("https://leetcode.com/api/problems/all/");
+        wait.until(presenceOfElementLocated(By.xpath(XPATH_OF_NAV_BUTTON)));
+        browser.navigate().to(LEETCODE_API_URL);
         WebElement body = browser.findElement(By.tagName("body"));
 
         System.out.println(body.getText());
