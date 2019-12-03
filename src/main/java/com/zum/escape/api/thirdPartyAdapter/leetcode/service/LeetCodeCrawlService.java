@@ -52,6 +52,7 @@ public class LeetCodeCrawlService {
 
         System.out.println(body.getText());
 
+        // TODO: 2019/12/03 do not close browser and reuse it
         browser.close();
     }
 }
