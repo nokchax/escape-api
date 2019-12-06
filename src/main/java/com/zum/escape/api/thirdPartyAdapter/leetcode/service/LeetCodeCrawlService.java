@@ -41,6 +41,7 @@ public class LeetCodeCrawlService {
         String jsonBody = callProblemApi(browser, wait);
 
         logout(browser);
+        browser.close();
     }
 
     private String callProblemApi(WebDriver browser, WebDriverWait wait) {
@@ -62,7 +63,6 @@ public class LeetCodeCrawlService {
         password.sendKeys(user.getPassword());
         button.click();
     }
-
 
     private void logout(WebDriver browser) {
         browser.navigate()
