@@ -1,6 +1,9 @@
 package com.zum.escape.api.thirdPartyAdapter.leetcode.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zum.escape.api.users.domain.User;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,11 +11,15 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
+@Service
+@Slf4j
+@RequiredArgsConstructor
 public class LeetCodeCrawlService {
     private static final String LEETCODE_LOGIN_URL = "https://leetcode.com/accounts/login/";
     private static final String LEETCODE_LOGOUT_URL = "https://leetcode.com/accounts/logout/";
@@ -20,6 +27,8 @@ public class LeetCodeCrawlService {
     private static final String XPATH_OF_LOGIN_BUTTON = "/html/body/div[1]/div/div[2]/div/div[2]/div/div/div/button";
     private static final String XPATH_OF_NAV_BUTTON = "//*[@id=\"nav-user-app\"]";
     private FirefoxOptions options;
+
+    private final ObjectMapper objectMapper;
 
     @PostConstruct
     public void init() {
@@ -42,6 +51,8 @@ public class LeetCodeCrawlService {
 
         logout(browser);
         browser.close();
+
+        //return objectMapper.readValue(jsonBody, SomeClass);
     }
 
     private String callProblemApi(WebDriver browser, WebDriverWait wait) {
