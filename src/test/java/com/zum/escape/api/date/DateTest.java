@@ -1,21 +1,23 @@
 package com.zum.escape.api.date;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+@Slf4j
 public class DateTest {
     @Test
     public void startOfWeekTest() {
         LocalDate localDate = LocalDate.now().with(DayOfWeek.MONDAY);
-        System.out.println(localDate);
-        System.out.println(localDate.atStartOfDay());
-        System.out.println(localDate.atTime(LocalTime.MAX));
+        log.info("{}", localDate);
+        log.info("{}", localDate.atStartOfDay());
+        log.info("{}", localDate.atTime(LocalTime.MAX));
 
         LocalDate endOfWeek = LocalDate.now().with(DayOfWeek.SUNDAY);
-        System.out.println(endOfWeek);
-        System.out.println(endOfWeek.atTime(LocalTime.MAX));
+        log.info("{}", endOfWeek);
+        log.info("{}", endOfWeek.atTime(LocalTime.MAX));
     }
 }

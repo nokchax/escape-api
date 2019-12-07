@@ -1,5 +1,6 @@
 package com.zum.escape.api.selenium;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,6 +12,7 @@ import org.springframework.core.io.ClassPathResource;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
+@Slf4j
 public class SeleniumTest {
     @Test
     public void seleniumTest() {
@@ -39,7 +41,7 @@ public class SeleniumTest {
         browser.navigate().to("https://leetcode.com/api/problems/all/");
         WebElement body = browser.findElement(By.tagName("body"));
 
-        System.out.println(body.getText());
+        log.info(body.getText());
 
         browser.close();
     }

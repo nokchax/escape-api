@@ -5,6 +5,7 @@ import com.zum.escape.api.thirdPartyAdapter.leetcode.response.ProblemResponse;
 import com.zum.escape.api.users.domain.User;
 import com.zum.escape.api.util.LeetcodeUrl;
 import com.zum.escape.api.users.service.UserProblemCrawlService;
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -20,6 +21,7 @@ import org.springframework.web.client.RestTemplate;
 import java.io.IOException;
 import java.util.Collections;
 
+@Slf4j
 public class LeetCodeServiceTest {
     private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36";
     private RestTemplate restTemplate = new RestTemplate();
@@ -37,12 +39,12 @@ public class LeetCodeServiceTest {
             HttpEntity<String> headers = new HttpEntity<>(makeHttpHeaders());
             ResponseEntity<ProblemResponse> problemResponse = restTemplate.exchange(LeetcodeUrl.PROBLEM_API_URL, HttpMethod.GET, headers, ProblemResponse.class);
 
-            System.out.println("StatusCode : " + problemResponse.getStatusCode());
-            System.out.println("Headers : " + problemResponse.getHeaders());
-            System.out.println("Body : " + problemResponse.getBody());
+            log.info("StatusCode : " + problemResponse.getStatusCode());
+            log.info("Headers : " + problemResponse.getHeaders());
+            log.info("Body : " + problemResponse.getBody());
         } catch (HttpClientErrorException e) {
-            System.out.println(e.getResponseBodyAsString());
-            System.out.println(e.getMessage());
+            log.info(e.getResponseBodyAsString());
+            log.info(e.getMessage());
         }
     }
 
@@ -61,18 +63,18 @@ public class LeetCodeServiceTest {
 
         Document document = connection.get();
         Elements elements = document.getElementsByClass("fa-question").parents().get(0).getElementsByClass("progress-bar-success");
-        System.out.println("=============================================================");
-        System.out.println(elements.get(0).text());
-        System.out.println("=============================================================");
+        log.info("=============================================================");
+        log.info(elements.get(0).text());
+        log.info("=============================================================");
         Elements href = document.getElementsByAttributeValueStarting("href", "/problems");
-        System.out.println("=============================================================");
-        System.out.println(href);
-        System.out.println("=============================================================");
+        log.info("=============================================================");
+        log.info("{}", href);
+        log.info("=============================================================");
         for(Element e : href) {
             String problem = e.getElementsByTag("b").text();
             String accepted= e.getElementsByTag("span").get(0).text();
             String time = e.getElementsByClass("text-muted").get(0).text();
-            System.out.println(problem + " : " + accepted + " : " + time);
+            log.info(problem + " : " + accepted + " : " + time);
         }
 
     }
@@ -80,6 +82,6 @@ public class LeetCodeServiceTest {
     public void LoginTest() throws IOException {
         User user = new User("test","test","test");
         // TODO: 2019-12-07 login test
-        System.out.println(new UserProblemCrawlService().getUserProblems(user).toUserProblemList(user));
+        log.info("{}", new UserProblemCrawlService().getUserProblems(user).toUserProblemList(user));
     }
 }

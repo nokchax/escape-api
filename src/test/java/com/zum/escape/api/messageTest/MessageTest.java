@@ -1,8 +1,10 @@
 package com.zum.escape.api.messageTest;
 
 import com.zum.escape.api.users.dto.ProblemHistoryDto;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
+@Slf4j
 public class MessageTest {
 
     @Test
@@ -15,14 +17,14 @@ public class MessageTest {
                 .easyCount(9)
                 .build();
 
-        System.out.println("+----------+-------------+");
-        System.out.println("| USERNAME | T  H   M  E |");
-        System.out.println("+----------+-------------+");
-        System.out.println(problemHistoryDto.toMessage());
-        System.out.println(problemHistoryDto.toMessage());
-        System.out.println(problemHistoryDto.toMessage());
-        System.out.println(problemHistoryDto.toMessage());
-        System.out.println(problemHistoryDto.toMessage());
-        System.out.println("+----------+-------------+");
+        log.info("+----------+-------------+");
+        log.info("| USERNAME | T  H   M  E |");
+        log.info("+----------+-------------+");
+        log.info(problemHistoryDto.toMessage());
+        log.info(problemHistoryDto.toMessage());
+        log.info(problemHistoryDto.toMessage());
+        log.info(problemHistoryDto.toMessage());
+        log.info(problemHistoryDto.toMessage());
+        log.info("+----------+-------------+");
     }
 }
