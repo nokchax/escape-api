@@ -9,26 +9,13 @@ import java.io.IOException;
 
 @Service
 public class UserProblemCrawlService {
-    private OkHttpHelper okHttpHelper;
-
-    public UserProblemCrawlService() {
-        okHttpHelper = OkHttpHelper.getSingleton(false);
-    }
 
     public ProblemResponse getUserProblems(User user) throws IOException {
-        UserLogin userLogin = new UserLogin(user);
-        userLogin.doLogin();
+        //UserLogin userLogin = new UserLogin(user);
+        //userLogin.doLogin();
 
         ProblemResponse problemResponse = new ProblemResponse();
-        Response response = userLogin.getResponse();
-        if(response.isSuccessful() && response.body() != null) {
-            String responseData = response.body().string();
-            System.out.println(responseData);
-            problemResponse = okHttpHelper.fromJson(responseData,ProblemResponse.class);
-        } else {
-            System.out.println("code : " + response.code() + " message : " + response.message());
-        }
-        response.close();
+        //Response response = userLogin.getResponse();
         return problemResponse;
     }
 }
