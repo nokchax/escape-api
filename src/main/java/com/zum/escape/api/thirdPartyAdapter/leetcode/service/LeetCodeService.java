@@ -6,8 +6,6 @@ import com.zum.escape.api.thirdPartyAdapter.leetcode.response.Submission;
 import com.zum.escape.api.users.domain.User;
 import com.zum.escape.api.util.DateStringToLocalDateTimeConverter;
 import com.zum.escape.api.util.LeetcodeUrl;
-import com.zum.escape.api.users.service.OkHttpHelper;
-import com.zum.escape.api.users.service.UserLogin;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.Response;
@@ -30,25 +28,20 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class LeetCodeService {
     private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36";
-    private final OkHttpHelper okHttpHelper;
-
-    public LeetCodeService() {
-        okHttpHelper = OkHttpHelper.getSingleton(false);
-    }
 
     public ProblemResponse getProblems(User user) {
         ProblemResponse problemResponse = null;
 
         try {
-            UserLogin userLogin = new UserLogin(user);
-            userLogin.doLogin();
+            /// TODO: 2019-12-07 do login
 
-            Response response = userLogin.getResponse();
+            // TODO: 2019-12-07 get response
+            Response response = null;
             String responseData = response.body().string();
 
             log.info("update problems api response : {}", response);
 
-            problemResponse = okHttpHelper.fromJson(responseData, ProblemResponse.class);
+            //problemResponse = okHttpHelper.fromJson(responseData, ProblemResponse.class);
         } catch (HttpClientErrorException e) {
             log.error("Fail to get problems list from leetcode : {}", e.getMessage());
         } catch (IOException e) {

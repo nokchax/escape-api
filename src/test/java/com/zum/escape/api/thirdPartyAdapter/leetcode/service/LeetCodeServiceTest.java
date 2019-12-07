@@ -4,7 +4,6 @@ package com.zum.escape.api.thirdPartyAdapter.leetcode.service;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.response.ProblemResponse;
 import com.zum.escape.api.users.domain.User;
 import com.zum.escape.api.util.LeetcodeUrl;
-import com.zum.escape.api.users.service.UserLogin;
 import com.zum.escape.api.users.service.UserProblemCrawlService;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -80,8 +79,7 @@ public class LeetCodeServiceTest {
     @Test
     public void LoginTest() throws IOException {
         User user = new User("test","test","test");
-        UserLogin userLogin = new UserLogin(user);
-        userLogin.doLogin();
+        // TODO: 2019-12-07 login test
         System.out.println(new UserProblemCrawlService().getUserProblems(user).toUserProblemList(user));
     }
 }
