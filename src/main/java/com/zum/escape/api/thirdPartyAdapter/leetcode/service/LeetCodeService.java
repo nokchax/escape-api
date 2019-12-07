@@ -48,8 +48,7 @@ public class LeetCodeService {
 
             log.info("update problems api response : {}", response);
 
-            problemResponse = okHttpHelper.fromJ
-        son(responseData, ProblemResponse.class);
+            problemResponse = okHttpHelper.fromJson(responseData, ProblemResponse.class);
         } catch (HttpClientErrorException e) {
             log.error("Fail to get problems list from leetcode : {}", e.getMessage());
         } catch (IOException e) {

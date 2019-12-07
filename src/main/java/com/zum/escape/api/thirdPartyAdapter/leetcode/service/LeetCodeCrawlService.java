@@ -1,6 +1,7 @@
 package com.zum.escape.api.thirdPartyAdapter.leetcode.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.zum.escape.api.thirdPartyAdapter.leetcode.response.ProblemResponse;
 import com.zum.escape.api.users.domain.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +15,8 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+
+import java.io.IOException;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
@@ -40,7 +43,7 @@ public class LeetCodeCrawlService {
     }
 
     // TODO: 2019-12-06 make thread pool of browser or make login logic serial (this can be very slow)
-    public void crawl(User user) {
+    public ProblemResponse crawl(User user) throws IOException {
         WebDriver browser = new FirefoxDriver(options);
         WebDriverWait wait = new WebDriverWait(browser, 20);
         browser.get(LEETCODE_LOGIN_URL);
@@ -52,7 +55,7 @@ public class LeetCodeCrawlService {
         logout(browser);
         browser.close();
 
-        //return objectMapper.readValue(jsonBody, SomeClass);
+        return objectMapper.readValue(jsonBody, ProblemResponse.class);
     }
 
     private String callProblemApi(WebDriver browser, WebDriverWait wait) {
