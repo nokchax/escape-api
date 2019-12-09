@@ -54,6 +54,16 @@ public class UsersService {
     }
 
     public List<Problem> updateAllSolvedHistory(User user, LocalDateTime updateTime) {
+        CrawledUserInfo crawledUserInfo = getCrawledUserInfo(user.getId());
+        if(!user.checkSolveQuestion(crawledUserInfo))
+            return Collections.EMPTY_LIST;
+
+        userProblemRepository.saveAll(user.updateSolvedProblems(crawledUserInfo));
+
+        if(!user.isSolvedProblemCountNotCorrect(crawledUserInfo)) {
+            return Collections.EMPTY_LIST;
+        }
+
         ProblemResponse userProblems = null;
         try {
             userProblems = userProblemCrawlService.getUserProblems(user);
