@@ -1,27 +1,17 @@
 package com.zum.escape.api.thirdPartyAdapter.leetcode.service;
 
 
-import com.zum.escape.api.thirdPartyAdapter.leetcode.response.ProblemResponse;
-import com.zum.escape.api.users.domain.User;
-import com.zum.escape.api.util.LeetcodeUrl;
-import com.zum.escape.api.users.service.UserProblemCrawlService;
-import lombok.extern.slf4j.Slf4j;
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.http.*;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.util.Collections;
 
-@Slf4j
+//@Slf4j
 public class LeetCodeServiceTest {
     private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36";
     private RestTemplate restTemplate = new RestTemplate();
@@ -35,6 +25,7 @@ public class LeetCodeServiceTest {
 
     @Test
     public void getProblemsTest() {
+/*
         try {
             HttpEntity<String> headers = new HttpEntity<>(makeHttpHeaders());
             ResponseEntity<ProblemResponse> problemResponse = restTemplate.exchange(LeetcodeUrl.PROBLEM_API_URL, HttpMethod.GET, headers, ProblemResponse.class);
@@ -46,6 +37,7 @@ public class LeetCodeServiceTest {
             log.info(e.getResponseBodyAsString());
             log.info(e.getMessage());
         }
+*/
     }
 
     private HttpHeaders makeHttpHeaders() {
@@ -57,6 +49,7 @@ public class LeetCodeServiceTest {
 
     @Test
     public void jsoupTest() throws IOException {
+/*
         Connection connection = Jsoup.connect(LeetcodeUrl.USER_URL + "nokchax");
         connection.header(HttpHeaders.USER_AGENT, USER_AGENT);
 
@@ -76,12 +69,15 @@ public class LeetCodeServiceTest {
             String time = e.getElementsByClass("text-muted").get(0).text();
             log.info(problem + " : " + accepted + " : " + time);
         }
+*/
 
     }
     @Test
     public void LoginTest() throws IOException {
+/*
         User user = new User("test","test","test");
         // TODO: 2019-12-07 login test
         log.info("{}", new UserProblemCrawlService().getUserProblems(user).toUserProblemList(user));
+*/
     }
 }
