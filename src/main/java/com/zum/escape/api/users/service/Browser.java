@@ -21,8 +21,8 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElemen
 public class Browser {
     private WebDriver browser;
     private WebDriverWait wait;
-    WebElement id = browser.findElement(By.name("login"));
-    WebElement password = browser.findElement(By.name("password"));
+    WebElement id;
+    WebElement password;
 
     private Browser() {}
 
@@ -57,20 +57,21 @@ public class Browser {
         return this;
     }
 
-    private void closeBrowser() {
-        browser.close();
-    }
-
     public ProblemResponse doCrawl() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
 
         WebElement body = browser.findElement(By.tagName("body"));
         ProblemResponse problemResponse = objectMapper.readValue(body.getText(), ProblemResponse.class);
-        System.out.println(problemResponse);
+
+        log.debug("{}", problemResponse);
 
         closeBrowser();
 
         return problemResponse;
+    }
+
+    private void closeBrowser() {
+        browser.close();
     }
 
     private void typeId(String userId) throws InterruptedException {
