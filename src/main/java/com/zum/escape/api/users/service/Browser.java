@@ -21,8 +21,8 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElemen
 public class Browser {
     private WebDriver browser;
     private WebDriverWait wait;
-    WebElement id;
-    WebElement password;
+    private WebElement id;
+    private WebElement password;
 
     private Browser() {}
 
