@@ -3,10 +3,11 @@ package com.zum.escape.api.users.domain;
 import com.zum.escape.api.problem.domain.entity.Problem;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.response.CrawledUserInfo;
 import com.zum.escape.api.users.dto.UserProblemSolveDto;
-import com.zum.escape.api.util.DateTimeMaker;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -146,6 +147,7 @@ public class User {
                 ", solvedQuestionCount=" + solvedQuestionCount +
                 '}';
     }
+
 
     public boolean isSolvedProblemCountNotCorrect(CrawledUserInfo crawledUserInfo) {
         return this.solvedQuestionCount < crawledUserInfo.getSolvedQuestionCount();
