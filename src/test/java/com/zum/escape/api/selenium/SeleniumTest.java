@@ -39,11 +39,11 @@ public class SeleniumTest {
         Thread.sleep(2000);
 
         id.click();
-        humanize(id, "nokchax");
+        humanizeTyping(id, "");
         Thread.sleep(300);
         id.sendKeys(Keys.TAB);
         password.clear();
-        humanize(password, "");
+        humanizeTyping(password, "");
         Thread.sleep(300);
         password.sendKeys(Keys.RETURN);
 //        button.click();
@@ -62,7 +62,7 @@ public class SeleniumTest {
         browser.close();
     }
 
-    private void humanize(WebElement element, String input) throws InterruptedException {
+    private void humanizeTyping(WebElement element, String input) throws InterruptedException {
         for(char c : input.toCharArray()) {
             element.sendKeys(String.valueOf(c));
             Thread.sleep(ThreadLocalRandom.current().nextLong(100) + 100);
