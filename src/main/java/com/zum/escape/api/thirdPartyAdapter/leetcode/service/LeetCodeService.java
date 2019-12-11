@@ -4,6 +4,7 @@ import com.zum.escape.api.thirdPartyAdapter.leetcode.response.CrawledUserInfo;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.response.ProblemResponse;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.response.Submission;
 import com.zum.escape.api.users.domain.User;
+import com.zum.escape.api.users.service.UserProblemCrawlService;
 import com.zum.escape.api.util.DateStringToLocalDateTimeConverter;
 import com.zum.escape.api.util.LeetcodeUrl;
 import lombok.RequiredArgsConstructor;
@@ -28,27 +29,10 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class LeetCodeService {
     private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36";
+    private final UserProblemCrawlService userProblemCrawlService;
 
     public ProblemResponse getProblems(User user) {
-        ProblemResponse problemResponse = null;
-
-        try {
-            /// TODO: 2019-12-07 do login
-
-            // TODO: 2019-12-07 get response
-            Response response = null;
-            String responseData = response.body().string();
-
-            log.info("update problems api response : {}", response);
-
-            //problemResponse = okHttpHelper.fromJson(responseData, ProblemResponse.class);
-        } catch (HttpClientErrorException e) {
-            log.error("Fail to get problems list from leetcode : {}", e.getMessage());
-        } catch (IOException e) {
-            log.error("IOException occurred : {}", e.getMessage());
-        }
-
-        return problemResponse;
+        return userProblemCrawlService.getUserProblems(user);
     }
 
     public CrawledUserInfo findUser(String userId) throws IOException {
