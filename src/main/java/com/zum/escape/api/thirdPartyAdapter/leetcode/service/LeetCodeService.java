@@ -9,7 +9,6 @@ import com.zum.escape.api.util.DateStringToLocalDateTimeConverter;
 import com.zum.escape.api.util.LeetcodeUrl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import okhttp3.Response;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -18,7 +17,6 @@ import org.jsoup.select.Elements;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import org.springframework.web.client.HttpClientErrorException;
 
 import java.io.IOException;
 import java.util.HashSet;

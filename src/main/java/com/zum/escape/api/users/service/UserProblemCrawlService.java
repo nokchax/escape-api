@@ -13,7 +13,8 @@ import javax.annotation.PostConstruct;
 @Service
 @RequiredArgsConstructor
 public class UserProblemCrawlService {
-    private static final String DRIVER_PATH = "/src/main/resources/webdriver/geckodriver(linux)";
+    // TODO: 2019/12/16 change web driver from firefox to chrome
+    private static final String DRIVER_PATH = "/webdriver/geckodriver";
     private final UserAgentQueue userAgentQueue;
 
     @PostConstruct
