@@ -23,7 +23,7 @@ public class UserProblemCrawlService {
             driverPath = "/Users/nokchax" + driverPath;
         }
 
-        System.setProperty("webdriver.gecko.driver", driverPath);
+        System.setProperty("webdriver.chrome.driver", driverPath);
     }
 
     public ProblemResponse getUserProblems(User user) {
