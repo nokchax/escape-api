@@ -12,8 +12,6 @@ import javax.annotation.PostConstruct;
 @Service
 @RequiredArgsConstructor
 public class UserProblemCrawlService {
-    // TODO: 2019/12/16 change web driver from firefox to chrome
-    private String DRIVER_PATH = "/webdriver/geckodriver";
     private final UserAgentQueue userAgentQueue;
 
     // TODO: 2019/12/19 hard coding :(
