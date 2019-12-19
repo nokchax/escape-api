@@ -11,7 +11,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.springframework.core.io.ClassPathResource;
 
 import java.io.IOException;
 import java.util.concurrent.ThreadLocalRandom;
@@ -22,8 +21,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElemen
 public class SeleniumTest {
     @Test
     public void seleniumTest() throws InterruptedException, IOException {
-        ClassPathResource resource = new ClassPathResource("/src/main/resources/webdriver/geckodriver(mac)");
-        System.setProperty("webdriver.gecko.driver", resource.getPath());
+        System.setProperty("webdriver.chrome.driver", "/Users/nokchax/data/etc/webdriver/chromedriver");
 
         FirefoxOptions options = new FirefoxOptions();
 //        options.setHeadless(true);
@@ -34,6 +32,7 @@ public class SeleniumTest {
         browser.get("https://leetcode.com/accounts/login/");
 
 
+/*
         WebElement id = browser.findElement(By.name("login"));
         WebElement password = browser.findElement(By.name("password"));
         Thread.sleep(2000);
@@ -58,6 +57,7 @@ public class SeleniumTest {
 
         ProblemResponse problemResponse = objectMapper.readValue(body.getText(), ProblemResponse.class);
         System.out.println(problemResponse);
+*/
 
         browser.close();
     }
