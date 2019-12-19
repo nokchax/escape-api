@@ -1,21 +1,15 @@
 package com.zum.escape.api.selenium;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.zum.escape.api.thirdPartyAdapter.leetcode.response.ProblemResponse;
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.IOException;
 import java.util.concurrent.ThreadLocalRandom;
-
-import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
 //@Slf4j
 public class SeleniumTest {
@@ -23,11 +17,14 @@ public class SeleniumTest {
     public void seleniumTest() throws InterruptedException, IOException {
         System.setProperty("webdriver.chrome.driver", "/Users/nokchax/data/etc/webdriver/chromedriver");
 
-        FirefoxOptions options = new FirefoxOptions();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
 //        options.setHeadless(true);
         // change user agent using randomization or round robin each request
         options.merge(DesiredCapabilities.operaBlink());
-        WebDriver browser = new FirefoxDriver(options);
+        WebDriver browser = new ChromeDriver(options);
         WebDriverWait wait = new WebDriverWait(browser, 20);
         browser.get("https://leetcode.com/accounts/login/");
 
