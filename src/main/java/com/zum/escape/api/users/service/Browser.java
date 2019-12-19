@@ -8,8 +8,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.IOException;
@@ -27,11 +27,14 @@ public class Browser {
     private Browser() {}
 
     public static Browser openBrowser(UserAgentQueue userAgentQueue) {
-        FirefoxOptions options = new FirefoxOptions();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
         options.merge(userAgentQueue.peek());
 
         Browser newBrowser = new Browser();
-        newBrowser.browser = new FirefoxDriver(options);
+        newBrowser.browser = new ChromeDriver(options);
         newBrowser.wait = new WebDriverWait(newBrowser.browser, 20);
 
         return newBrowser;
