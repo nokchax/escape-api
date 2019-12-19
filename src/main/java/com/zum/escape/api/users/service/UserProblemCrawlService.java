@@ -4,7 +4,6 @@ import com.zum.escape.api.thirdPartyAdapter.leetcode.response.ProblemResponse;
 import com.zum.escape.api.users.domain.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -14,13 +13,19 @@ import javax.annotation.PostConstruct;
 @RequiredArgsConstructor
 public class UserProblemCrawlService {
     // TODO: 2019/12/16 change web driver from firefox to chrome
-    private static final String DRIVER_PATH = "/webdriver/geckodriver";
+    private String DRIVER_PATH = "/webdriver/geckodriver";
     private final UserAgentQueue userAgentQueue;
 
+    // TODO: 2019/12/19 hard coding :(
     @PostConstruct
     private void init() {
-        ClassPathResource resource = new ClassPathResource(DRIVER_PATH);
-        System.setProperty("webdriver.gecko.driver", resource.getPath());
+        String property = System.getProperty("os.name");
+        String driverPath = "/data/etc/webdriver/chromedriver";
+        if(property.startsWith("Mac")) {
+            driverPath = "/Users/nokchax" + driverPath;
+        }
+
+        System.setProperty("webdriver.gecko.driver", driverPath);
     }
 
     public ProblemResponse getUserProblems(User user) {
