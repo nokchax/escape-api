@@ -12,10 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
@@ -37,6 +34,10 @@ public class ProblemService {
     public List<Problem> getProblems() {
         User user = new User(pw, name, id);
         ProblemResponse problemResponse = leetCodeService.getProblems(user);
+
+        if (problemResponse == null) {
+            return Collections.emptyList();
+        }
 
         return problemResponse.toProblemList();
     }

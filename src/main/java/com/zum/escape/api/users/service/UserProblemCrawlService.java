@@ -4,6 +4,7 @@ import com.zum.escape.api.thirdPartyAdapter.leetcode.response.ProblemResponse;
 import com.zum.escape.api.users.domain.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.openqa.selenium.TimeoutException;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -35,6 +36,8 @@ public class UserProblemCrawlService {
                     .doCrawl();
         } catch (InterruptedException e) {
             log.error("Interrupted : {}", e.getMessage());
+        } catch (TimeoutException e) {
+            log.error("Timeout exception(maybe effected by recaptcha) : {}", e.getMessage());
         } catch (Exception e) {
             log.error("Exception : {}", e.getMessage());
         }
