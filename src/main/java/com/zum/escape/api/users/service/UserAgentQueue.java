@@ -16,6 +16,7 @@ public class UserAgentQueue {
         USER_AGENT_QUEUE.add(DesiredCapabilities.chrome());
         USER_AGENT_QUEUE.add(DesiredCapabilities.firefox());
         USER_AGENT_QUEUE.add(DesiredCapabilities.operaBlink());
+        USER_AGENT_QUEUE.add(DesiredCapabilities.safari());
     }
 
     public DesiredCapabilities peek() {
