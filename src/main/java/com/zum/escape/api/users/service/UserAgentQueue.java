@@ -4,6 +4,9 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -13,10 +16,16 @@ public class UserAgentQueue {
 
     @PostConstruct
     private void init() {
-        USER_AGENT_QUEUE.add(DesiredCapabilities.chrome());
-        USER_AGENT_QUEUE.add(DesiredCapabilities.firefox());
-        USER_AGENT_QUEUE.add(DesiredCapabilities.operaBlink());
-        USER_AGENT_QUEUE.add(DesiredCapabilities.safari());
+        List<DesiredCapabilities> capabilities = new ArrayList<>();
+
+        capabilities.add(DesiredCapabilities.chrome());
+        capabilities.add(DesiredCapabilities.firefox());
+        capabilities.add(DesiredCapabilities.operaBlink());
+        capabilities.add(DesiredCapabilities.safari());
+
+        Collections.shuffle(capabilities);
+
+        USER_AGENT_QUEUE.addAll(capabilities);
     }
 
     public DesiredCapabilities peek() {
