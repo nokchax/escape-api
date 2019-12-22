@@ -36,7 +36,10 @@ public class ProblemService {
         ProblemResponse problemResponse = leetCodeService.getProblems(user);
 
         if (problemResponse == null) {
-            return Collections.emptyList();
+            ProblemResponse problems = leetCodeService.getProblems();
+            if(problems == null)
+                return Collections.emptyList();
+            return problems.toProblemList();
         }
 
         return problemResponse.toProblemList();

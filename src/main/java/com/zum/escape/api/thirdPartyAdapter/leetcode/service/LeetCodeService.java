@@ -14,9 +14,13 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -28,9 +32,16 @@ import java.util.Set;
 public class LeetCodeService {
     private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36";
     private final UserProblemCrawlService userProblemCrawlService;
+    private final RestTemplate restTemplate;
 
     public ProblemResponse getProblems(User user) {
         return userProblemCrawlService.getUserProblems(user);
+    }
+
+    public ProblemResponse getProblems() {
+        HttpEntity<String> headers = new HttpEntity<>(makeHttpHeaders());
+        return restTemplate.exchange(LeetcodeUrl.PROBLEM_API_URL, HttpMethod.GET, headers, ProblemResponse.class)
+                .getBody();
     }
 
     public CrawledUserInfo findUser(String userId) throws IOException {
@@ -79,5 +90,11 @@ public class LeetCodeService {
         String[] inputs = text.split("/");
 
         return Integer.parseInt(inputs[0].trim());
+    }
+
+    private HttpHeaders makeHttpHeaders() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(HttpHeaders.USER_AGENT, USER_AGENT);
+        return headers;
     }
 }
