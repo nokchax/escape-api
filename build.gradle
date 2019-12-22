@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.zum.escape'
-version = '1.1.6.RELEASE'
+version = '1.1.7.RELEASE'
 sourceCompatibility = '1.8'
 
 configurations {
