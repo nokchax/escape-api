@@ -1,11 +1,13 @@
 package com.zum.escape.api.thirdPartyAdapter.leetcode.service;
 
 
+import com.zum.escape.api.thirdPartyAdapter.leetcode.response.ProblemResponse;
+import com.zum.escape.api.util.LeetcodeUrl;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
@@ -25,20 +27,19 @@ public class LeetCodeServiceTest {
 
     @Test
     public void getProblemsTest() {
-/*
         try {
             HttpEntity<String> headers = new HttpEntity<>(makeHttpHeaders());
             ResponseEntity<ProblemResponse> problemResponse = restTemplate.exchange(LeetcodeUrl.PROBLEM_API_URL, HttpMethod.GET, headers, ProblemResponse.class);
 
-            log.info("StatusCode : " + problemResponse.getStatusCode());
-            log.info("Headers : " + problemResponse.getHeaders());
-            log.info("Body : " + problemResponse.getBody());
+            System.out.println("StatusCode : " + problemResponse.getStatusCode());
+            System.out.println("Headers : " + problemResponse.getHeaders());
+            System.out.println("Body : " + problemResponse.getBody());
         } catch (HttpClientErrorException e) {
-            log.info(e.getResponseBodyAsString());
-            log.info(e.getMessage());
+            System.out.println(e.getResponseBodyAsString());
+            System.out.println(e.getMessage());
         }
-*/
     }
+
 
     private HttpHeaders makeHttpHeaders() {
         HttpHeaders headers = new HttpHeaders();
