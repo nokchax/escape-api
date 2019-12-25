@@ -13,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
+import java.io.File;
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -24,8 +26,10 @@ public class MessageDistributor {
     private final UserPointRepository userPointRepository;
     private final ObservingService observingService;
 
-    public String distributeMessage(Message message) {
+    public String distributeMessage(Message message, File file) {
         Command command = new Command(message);
+
+        log.info("Command : {} / Is File exist : {}", command, file != null);
 
         switch(command.getCommand()) {
             case "su":
@@ -56,6 +60,25 @@ public class MessageDistributor {
                 return MessageMaker.dtoToMessage(
                         taskService.getDoneList(),
                         "Nobody finished yet"
+                );
+
+            case "manualUpdate":
+                log.info("Start manual update [first args : {}]", command.getFirstArg());
+                if(file == null) {
+                    log.error("File not found");
+                    return "File not found";
+                }
+
+                if(command.containsArgs()) {
+                    return MessageMaker.dtoToMessage(
+                            taskService.updateSpecificUserManually(command.getFirstArg(), file),
+                            "User not found"
+                    );
+                }
+
+                return MessageMaker.dtoToMessage(
+                        taskService.getAllUsers(),
+                        "No users"
                 );
 
                 // /update -> return update user's problem solve count and return every users info;
