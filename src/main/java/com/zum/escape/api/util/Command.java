@@ -1,6 +1,7 @@
 package com.zum.escape.api.util;
 
 import lombok.Getter;
+import org.springframework.util.StringUtils;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
 import java.util.ArrayList;
@@ -26,6 +27,9 @@ public class Command {
 
     public Command(Message message, boolean isSudo) {
         String text = message.getText();
+        if (StringUtils.isEmpty(text))
+            text = message.getCaption();
+
         if(isSudo)
             text = text.replaceFirst("su ", "");
 
