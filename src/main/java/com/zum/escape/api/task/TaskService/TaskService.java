@@ -8,8 +8,11 @@ import com.zum.escape.api.task.domain.TaskParticipant;
 import com.zum.escape.api.task.repository.TaskRepository;
 import com.zum.escape.api.users.domain.User;
 import com.zum.escape.api.users.domain.UserProblem;
+import com.zum.escape.api.users.domain.UserProblemHistory;
+import com.zum.escape.api.users.dto.ProblemHistoryDto;
 import com.zum.escape.api.users.dto.PunishedUser;
 import com.zum.escape.api.users.dto.UserDto;
+import com.zum.escape.api.users.repository.UserProblemHistoryRepository;
 import com.zum.escape.api.users.service.UserProblemService;
 import com.zum.escape.api.users.service.UsersService;
 import com.zum.escape.api.util.DateTimeMaker;
@@ -19,11 +22,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
+import java.io.File;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
@@ -36,6 +37,7 @@ public class TaskService {
     private final TaskRepository taskRepository;
     private final UsersService usersService;
     private final UserProblemService userProblemService;
+    private final UserProblemHistoryRepository userProblemHistoryRepository;
     private LocalDateTime lastUpdateTime;
 
     @PostConstruct
@@ -218,6 +220,15 @@ public class TaskService {
         usersService.updateUser(userId);
 
         return getUserStatusInfo(userId);
+    }
+
+    public List<ProblemHistoryDto> updateSpecificUserManually(String userId, File file) {
+        usersService.updateUserManually(userId, file);
+
+        return userProblemHistoryRepository.findAllById(Arrays.asList(userId))
+                .stream()
+                .map(UserProblemHistory::toProblemHistoryDto)
+                .collect(Collectors.toList());
     }
 
     public String getUserStatusInfo(String userId) {

@@ -1,5 +1,6 @@
 package com.zum.escape.api.users.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zum.escape.api.problem.domain.entity.Problem;
 import com.zum.escape.api.problem.service.ProblemService;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.response.CrawledUserInfo;
@@ -14,6 +15,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -31,6 +33,7 @@ public class UsersService {
     private final LeetCodeService leetCodeService;
     private final UserProblemCrawlService userProblemCrawlService;
     private final UserProblemRepository userProblemRepository;
+    private final ObjectMapper objectMapper;
 
     public List<User> findAllUser() {
         return userRepository.findAll();
@@ -48,6 +51,22 @@ public class UsersService {
         userProblemRepository.saveAll(newUser.getSolvedProblem());
 
         return "Register complete";
+    }
+
+
+    private void updateAllSolvedHistory(User user, LocalDateTime updateTime, File file) {
+        ProblemResponse userProblems = null;
+        try {
+            userProblems = objectMapper.readValue(file, ProblemResponse.class);
+        } catch (IOException e) {
+            log.error("Fail to convert file to class : {}", e.getMessage());
+            e.printStackTrace();
+        }
+
+        List<String> problemNames = userProblems.toProblemNames();
+        Set<Problem> problems = problemService.toProblem(problemNames);
+
+        userProblemRepository.saveAll(user.updateSolvedProblems(problems, updateTime));
     }
 
     public List<Problem> updateAllSolvedHistory(User user, LocalDateTime updateTime) {
@@ -79,6 +98,15 @@ public class UsersService {
         updateUser(user.get());
 
         return user.get();
+    }
+
+    public User updateUserManually(String userId, File file) {
+        User user = userRepository.findById(userId)
+                .get();
+
+        updateAllSolvedHistory(user, LocalDateTime.of(2010, 1, 1, 0, 0), file);
+
+        return user;
     }
 
     @Async("threadPoolExecutor")
