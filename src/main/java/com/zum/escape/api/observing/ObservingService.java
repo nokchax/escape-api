@@ -34,24 +34,7 @@ public class ObservingService {
     }
 
     private String getStatus() {
-        Connection connect = Jsoup.connect("https://edu.nextstep.camp/c/8fWRxNWU/");
-        Document document = null;
-        try {
-            document = connect.get();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Element body = document.body();
-        int startIdx = body.toString().indexOf("\"sessions\":[{");
-        String temp = body.toString().substring(startIdx);
-        int endIdx = temp.indexOf(']');
-        String sessions = temp.substring(0, endIdx);
-        int statusIdx = sessions.indexOf("\"status\":");
-        String statusTempt = sessions.substring(statusIdx);
-        int statusEndIdx = statusTempt.indexOf(',');
-        String status = statusTempt.substring(0, statusEndIdx);
-
-        return status;
+        return "";
     }
 
     public void updateNoticeTargetRoom(Long chatId) {
