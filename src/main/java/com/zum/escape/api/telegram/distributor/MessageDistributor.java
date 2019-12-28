@@ -62,7 +62,9 @@ public class MessageDistributor {
                         "Nobody finished yet"
                 );
 
+                // How to call : send file and comment like this /mu userId
             case "manualUpdate":
+            case "mu":
                 log.info("Start manual update [first args : {}]", command.getFirstArg());
                 if(file == null) {
                     log.error("File not found");
