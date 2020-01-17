@@ -30,6 +30,7 @@ public class UserProblemCrawlService {
     public ProblemResponse getUserProblems(User user) {
         try {
             // this pattern is not good.. when process order is important
+            log.info("Start selenium test [{}]", user.getId());
             return Browser.openBrowser(userAgentQueue)
                     .toLoginPage()
                     .doLogin(user)
