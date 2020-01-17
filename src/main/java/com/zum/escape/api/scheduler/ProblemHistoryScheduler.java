@@ -14,13 +14,15 @@ public class ProblemHistoryScheduler {
 
     @Scheduled(cron = "0 1 0 * * SUN,TUE,WED,THU,FRI,SAT")
     public void correctUpdate() {
-        log.info("Correct update occurred");
+        log.info("Correct update start");
         taskService.correctUpdate();
+        log.info("Correct update end");
     }
 
     @Scheduled(cron = "0 1 0 * * MON")
     public void correctUpdateLastWeek() {
-        log.info("Correct update for last week's task occurred");
+        log.info("Correct update for last week's task start");
         taskService.correctUpdateLastWeek();
+        log.info("Correct update for last week's task end");
     }
 }
