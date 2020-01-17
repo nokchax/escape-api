@@ -17,6 +17,10 @@ public class ProblemHistoryDto extends Message {
     private int mediumCount;
     private int easyCount;
 
+    private String getShortenName() {
+        return userId.length() > 10 ? userId.replaceAll("\\d", "") : userId;
+    }
+
     @Override
     public String makeHeader() {
         StringBuilder sb = new StringBuilder();
@@ -38,6 +42,6 @@ public class ProblemHistoryDto extends Message {
 
     @Override
     public String toMessage() {
-        return String.format("%10s|%3d %3d %3d %3d", userId.length() > 10 ? userId.replaceAll("\\d", "") : userId, totalCount, hardCount, mediumCount, easyCount);
+        return String.format("%10s|%3d %3d %3d %3d", this.getShortenName(), totalCount, hardCount, mediumCount, easyCount);
     }
 }
