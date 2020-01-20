@@ -32,6 +32,7 @@ public class ProblemService {
     private String name;
 
     public List<Problem> getProblems() {
+        // TODO: 2020/01/20   make get problem without login logic
         User user = new User(pw, name, id);
         ProblemResponse problemResponse = leetCodeService.getProblems(user);
 
