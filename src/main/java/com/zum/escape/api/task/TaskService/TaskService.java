@@ -89,12 +89,12 @@ public class TaskService {
     }
 
     public void createTasks() {
-        if(taskRepository.existsTaskByStartDateTime(DateTimeMaker.getStartOfWeek()))
+        if(taskRepository.existsTaskByStartDateTime(DateTimeMaker.startOfWeek()))
             return;
 
         Task task = Task.builder()
-                .startDateTime(DateTimeMaker.getStartOfWeek())
-                .endDateTime(DateTimeMaker.getEndOfWeek())
+                .startDateTime(DateTimeMaker.startOfWeek())
+                .endDateTime(DateTimeMaker.endOfWeek())
                 .goalScore(GOAL_SCORE)
                 .durationType(DurationType.WEEK)
                 .build();
@@ -105,7 +105,7 @@ public class TaskService {
     }
 
     public void updateTask() {
-        Task task = taskRepository.findByStartDateTime(DateTimeMaker.getStartOfWeek());
+        Task task = taskRepository.findByStartDateTime(DateTimeMaker.startOfWeek());
 
         task.updateParticipants(usersService.findAllUser());
     }
@@ -144,11 +144,11 @@ public class TaskService {
     }
 
     private Task getCurrentTask() {
-        return taskRepository.findByStartDateTime(DateTimeMaker.getStartOfWeek());
+        return taskRepository.findByStartDateTime(DateTimeMaker.startOfWeek());
     }
 
     private Task getLastTask() {
-        return taskRepository.findByStartDateTime(DateTimeMaker.getStartOfLastWeek());
+        return taskRepository.findByStartDateTime(DateTimeMaker.startOfLastWeek());
     }
 
     private boolean isUpdatable() {
@@ -170,14 +170,14 @@ public class TaskService {
         getCurrentTask().getParticipants()
                 .stream()
                 .map(TaskParticipant::getUsers)
-                .forEach(user -> usersService.updateAllSolvedHistory(user, DateTimeMaker.getYesterday()));
+                .forEach(user -> usersService.updateAllSolvedHistory(user, DateTimeMaker.yesterday()));
     }
 
     public void correctUpdateLastWeek() {
         getLastTask().getParticipants()
                 .stream()
                 .map(TaskParticipant::getUsers)
-                .forEach(user -> usersService.updateAllSolvedHistory(user, DateTimeMaker.getYesterday()));
+                .forEach(user -> usersService.updateAllSolvedHistory(user, DateTimeMaker.yesterday()));
     }
 
     private List<User> extractParticipants(Task currentTask) {

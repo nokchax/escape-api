@@ -26,8 +26,8 @@ public class UserProblemService {
 
         return userProblemRepository.findByUserEqualsAndSolvedTimeBetween(
                 user,
-                DateTimeMaker.getStartOfWeek(),
-                DateTimeMaker.getEndOfWeek()
+                DateTimeMaker.startOfWeek(),
+                DateTimeMaker.endOfWeek()
         );
     }
 
