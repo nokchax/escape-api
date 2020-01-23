@@ -43,7 +43,7 @@ public class AdminService {
             // /register id pw name -> register user
             case "register":
                 if(command.isArgsLessThan(4)) {
-                    return "/register id pw name";
+                    return "use like this -> /register id pw name";
                 }
 
                 return usersService.addUser(command.getArguments());
