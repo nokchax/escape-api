@@ -36,6 +36,7 @@ public class AdminService {
             return "Permission Denied";
         }
 
+        // TODO: 2020-01-23 use extends
         Command command = new Command(message, true);
 
         switch (command.getCommand()) {
