@@ -21,27 +21,30 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 public class AdminService {
-    private final UserHistoryService userHistoryService;
     private final TaskService taskService;
     private final UsersService usersService;
-    private final ProblemHistoryScheduler problemHistoryScheduler;
     private final ProblemService problemService;
     private final ObservingService observingService;
+    private final UserHistoryService userHistoryService;
+    private final ProblemHistoryScheduler problemHistoryScheduler;
 
     @Value("${observer.admins}")
     private List<Integer> ADMINS;
 
     public String byPassMessage(Message message) {
-        if(!isAdmin(message))
+        if(!isAdmin(message)) {
             return "Permission Denied";
+        }
 
         Command command = new Command(message, true);
 
         switch (command.getCommand()) {
             // /register id pw name -> register user
             case "register":
-                if(command.isArgsLessThan(4))
+                if(command.isArgsLessThan(4)) {
                     return "/register id pw name";
+                }
+
                 return usersService.addUser(command.getArguments());
 
             // /su give-point id point
