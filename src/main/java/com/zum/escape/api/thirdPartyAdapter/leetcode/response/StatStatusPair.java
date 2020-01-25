@@ -33,11 +33,11 @@ public class StatStatusPair {
     public UserProblem toUserProblem(User user, LocalDateTime time) {
         if("ac".equalsIgnoreCase(status))
             return null;
-        else
-            return UserProblem.builder()
-                    .user(user)
-                    .problem(toProblem())
-                    .solvedTime(time)
-                    .build();
+
+        return UserProblem.builder()
+                .user(user)
+                .problem(toProblem())
+                .solvedTime(time)
+                .build();
     }
 }
