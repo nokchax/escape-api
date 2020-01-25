@@ -31,7 +31,7 @@ public class StatStatusPair {
     }
 
     public UserProblem toUserProblem(User user, LocalDateTime time) {
-        if("ac".equalsIgnoreCase(status))
+        if(solved())
             return null;
 
         return UserProblem.builder()
