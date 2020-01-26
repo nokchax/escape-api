@@ -86,12 +86,10 @@ public class ProblemService {
     }
 
     public Problem findProblem(Long problemNo) {
-        Optional<Problem> problem = cachedProblems.values()
+        return cachedProblems.values()
                 .stream()
                 .filter(x -> problemNo.equals(x.getViewId()))
-                .findFirst();
-
-        return problem.orElse(null);
+                .findFirst().orElse(null);
     }
 
     public Set<Problem> toProblem(CrawledUserInfo crawledUserInfo) {

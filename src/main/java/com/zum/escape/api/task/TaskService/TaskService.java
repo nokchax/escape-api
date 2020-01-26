@@ -2,7 +2,7 @@ package com.zum.escape.api.task.TaskService;
 
 import com.zum.escape.api.problem.domain.entity.Difficulty;
 import com.zum.escape.api.problem.domain.entity.Problem;
-import com.zum.escape.api.task.domain.DurationType;
+import com.zum.escape.api.task.domain.Duration;
 import com.zum.escape.api.task.domain.Task;
 import com.zum.escape.api.task.domain.TaskParticipant;
 import com.zum.escape.api.task.repository.TaskRepository;
@@ -96,7 +96,7 @@ public class TaskService {
                 .startDateTime(DateTimeMaker.startOfWeek())
                 .endDateTime(DateTimeMaker.endOfWeek())
                 .goalScore(GOAL_SCORE)
-                .durationType(DurationType.WEEK)
+                .duration(Duration.WEEK)
                 .build();
 
         taskRepository.save(task);

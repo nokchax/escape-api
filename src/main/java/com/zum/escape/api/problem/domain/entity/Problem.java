@@ -14,6 +14,9 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Problem {
+    @Transient
+    public static final String LEETCODE_PROBLEM_URL = "https://leetcode.com/problems/";
+
     @Id
     @Column(name = "question_id")
     private Long id;
@@ -59,19 +62,7 @@ public class Problem {
         return Objects.hash(id, viewId, title, titleSlug, hide, difficulty);
     }
 
-    @Override
-    public String toString() {
-        return "Problem{" +
-                "id=" + id +
-                ", viewId=" + viewId +
-                ", title='" + title + '\'' +
-                ", titleSlug='" + titleSlug + '\'' +
-                ", hide=" + hide +
-                ", difficulty=" + difficulty +
-                '}';
-    }
-
-    public String problemUrl() {
-        return "https://leetcode.com/problems/" + this.titleSlug;
+    public String url() {
+        return LEETCODE_PROBLEM_URL + this.titleSlug;
     }
 }

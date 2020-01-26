@@ -43,9 +43,9 @@ public class ProblemResponse {
         LocalDateTime past = LocalDateTime.of(2010, 1, 1, 0, 0);
 
         List<UserProblem> userProblems = new ArrayList<>(statStatusPairs.size());
-        for(StatStatusPair i : statStatusPairs) {
-            if(i.getStatus() != null) {
-                userProblems.add(i.toUserProblem(user, past));
+        for(StatStatusPair statStatusPair : statStatusPairs) {
+            if(statStatusPair.getStatus() != null) {
+                userProblems.add(statStatusPair.toUserProblem(user, past));
             }
         }
         return userProblems;
