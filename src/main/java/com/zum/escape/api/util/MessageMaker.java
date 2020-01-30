@@ -7,8 +7,9 @@ import java.util.stream.Collectors;
 
 public class MessageMaker {
     public static String dtoToMessage(List<? extends Message> dto, String defaultMessage) {
-        if(dto == null || dto.isEmpty())
+        if(dto == null || dto.isEmpty()) {
             return defaultMessage;
+        }
 
         Message message = dto.get(0);
 
