@@ -43,8 +43,9 @@ public class UsersService {
     public String addUser(List<String> args) {
         User newUser = new User(args);
 
-        if(userRepository.existsById(newUser.getId()))
+        if(userRepository.existsById(newUser.getId())) {
             return "User already exists";
+        }
 
         userRepository.save(newUser);
         updateAllSolvedHistory(newUser, LocalDateTime.of(2010, 1, 1, 0, 0));
@@ -72,8 +73,9 @@ public class UsersService {
     public List<Problem> updateAllSolvedHistory(User user, LocalDateTime updateTime) {
         CrawledUserInfo crawledUserInfo = getCrawledUserInfo(user.getId());
 
-        if(!user.checkSolveQuestion(crawledUserInfo))
+        if(!user.checkSolveQuestion(crawledUserInfo)) {
             return Collections.emptyList();
+        }
 
         userProblemRepository.saveAll(user.updateSolvedProblems(crawledUserInfo));
 
@@ -83,8 +85,9 @@ public class UsersService {
 
         ProblemResponse userProblems = userProblemCrawlService.getUserProblems(user);
 
-        if(userProblems == null)
+        if(userProblems == null) {
             return Collections.emptyList();
+        }
 
         List<String> problemNames = userProblems.toProblemNames();
         Set<Problem> problems = problemService.toProblem(problemNames);
@@ -114,8 +117,9 @@ public class UsersService {
         log.info("{} : {}", Thread.currentThread().getName(), user.getId());
 
         CrawledUserInfo crawledUserInfo = getCrawledUserInfo(user.getId());
-        if(!user.checkSolveQuestion(crawledUserInfo))
+        if(!user.checkSolveQuestion(crawledUserInfo)) {
             return CompletableFuture.completedFuture(user);
+        }
 
 
         userProblemRepository.saveAll(user.updateSolvedProblems(crawledUserInfo));
