@@ -26,15 +26,7 @@ public class Command {
     }
 
     public Command(Message message, boolean isSudo) {
-        String text = message.getText();
-        if (StringUtils.isEmpty(text))
-            text = message.getCaption();
-
-        if(isSudo)
-            text = text.replaceFirst("su ", "");
-
-        if(text.startsWith("/"))
-            text = text.substring(1);
+        String text = extractText(message, isSudo);
 
         String[] args = text.split(" ");
 
@@ -43,6 +35,23 @@ public class Command {
         this.arguments = args.length < 2 ? new ArrayList<>() : Arrays.asList(
                 Arrays.copyOfRange(args, 1, args.length)
         );
+    }
+
+    private String extractText(Message message, boolean isSudo) {
+        String text = message.getText();
+        if (StringUtils.isEmpty(text)) {
+            text = message.getCaption();
+        }
+
+        if(isSudo) {
+            text = text.replaceFirst("su ", "");
+        }
+
+        if(text.startsWith("/")) {
+            text = text.substring(1);
+        }
+
+        return text;
     }
 
     public boolean isArgsEmpty() {
