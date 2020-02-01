@@ -47,8 +47,9 @@ public class Task {
                 }
             }
 
-            if(insertable)
+            if(insertable) {
                 participants.add(new TaskParticipant(this, user));
+            }
         }
     }
 }
