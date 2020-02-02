@@ -33,15 +33,15 @@ public class Problem {
 
 
     public boolean isHard() {
-        return this.difficulty.isEqualTo(Difficulty.HARD);
+        return difficulty.isHard();
     }
 
     public boolean isMedium() {
-        return this.difficulty.isEqualTo(Difficulty.MEDIUM);
+        return difficulty.isMedium();
     }
 
     public boolean isEasy() {
-        return this.difficulty.isEqualTo(Difficulty.EASY);
+        return difficulty.isEasy();
     }
 
     @Override
@@ -62,7 +62,7 @@ public class Problem {
         return Objects.hash(id, viewId, title, titleSlug, hide, difficulty);
     }
 
-    public String url() {
+    public String leetcodeUrl() {
         return LEETCODE_PROBLEM_URL + this.titleSlug;
     }
 }

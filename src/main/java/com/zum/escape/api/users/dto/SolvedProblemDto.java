@@ -21,7 +21,7 @@ public class SolvedProblemDto {
     public String toMessage() {
         return problem.getDifficulty() + "\n" +
                 "[" + problem.getTitle() + "] : " + userProblemSolveDto.size() +"명\n"
-                + problem.url() + "\n"
+                + problem.leetcodeUrl() + "\n"
                 + MessageMaker.dtoToMessage(
                 this.userProblemSolveDto,
                 "No users solved this problem"
