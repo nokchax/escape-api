@@ -26,8 +26,9 @@ public class ObservingService {
     public boolean scanPage() {
         String currentStatus = getStatus();
 
-        if(previousStatus.equalsIgnoreCase(currentStatus))
+        if(previousStatus.equalsIgnoreCase(currentStatus)) {
             return false;
+        }
 
         previousStatus = currentStatus;
         return true;

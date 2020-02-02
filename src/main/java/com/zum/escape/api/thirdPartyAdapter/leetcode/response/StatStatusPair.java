@@ -31,8 +31,9 @@ public class StatStatusPair {
     }
 
     public UserProblem toUserProblem(User user, LocalDateTime time) {
-        if(solved())
+        if(solved()) {
             return null;
+        }
 
         return UserProblem.builder()
                 .user(user)

@@ -30,8 +30,9 @@ public class User {
     private Set<UserProblem> solvedProblem = new HashSet<>();
 
     public User(List<String> args) {
-        if(args.size() < 3)
+        if(args.size() < 3) {
             throw new IllegalArgumentException("/register leetcodeId pw name");
+        }
 
         this.id = args.get(0);
         this.password = args.get(1);
@@ -47,8 +48,9 @@ public class User {
     }
 
     public boolean checkSolveQuestion(CrawledUserInfo crawledUserInfo) {
-        if(crawledUserInfo.solvedQuestion())
+        if(crawledUserInfo.solvedQuestion()) {
             return true;
+        }
 
         return this.solvedQuestionCount > crawledUserInfo.getSolvedQuestionCount();
     }
@@ -86,8 +88,9 @@ public class User {
     }
 
     public List<UserProblem> updateSolvedProblems(Set<Problem> problems, LocalDateTime solvedTime) {
-        if(problems == null || problems.isEmpty())
+        if(problems == null || problems.isEmpty()) {
             return Collections.emptyList();
+        }
 
         List<UserProblem> addedProblem = new ArrayList<>();
 

@@ -38,8 +38,9 @@ public class ProblemService {
 
         if (problemResponse == null) {
             ProblemResponse problems = leetCodeService.getProblems();
-            if(problems == null)
+            if(problems == null) {
                 return Collections.emptyList();
+            }
             return problems.toProblemList();
         }
 
@@ -50,8 +51,9 @@ public class ProblemService {
         updateCache();
 
         List<Problem> notUpdatedProblems = getNotUpdatedProblems(getProblems());
-        if(notUpdatedProblems.isEmpty())
+        if(notUpdatedProblems.isEmpty()) {
             return;
+        }
 
         for(Problem problem : notUpdatedProblems) {
             System.out.println(problem);
