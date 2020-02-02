@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 public class ProblemHistoryScheduler {
     private final TaskService taskService;
 
+    // TODO: 2020-02-02 apply AOP Before scheduling start and After scheduling ends
     @Scheduled(cron = "0 1 0 * * SUN,TUE,WED,THU,FRI,SAT")
     public void correctUpdate() {
         log.info("Correct update start");
