@@ -4,26 +4,21 @@ import com.nokchax.escape.config.properties.Master;
 import com.nokchax.escape.config.properties.Telegram;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 /*
-telegram:
-    bot:
+app:
+  telegram:
     name:
     token:
 
-observer:
-    admins:
+  admin:
+    ids:
 
-master:
+  master:
     id:
     pw:
     name:
-
-observing:
-    page:
-    noticeRoomNo:
 */
 // load properties using @ConfigurationProperties annotation
 @Data
