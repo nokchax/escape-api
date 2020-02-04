@@ -27,3 +27,16 @@ master:
 observing:
   page:
   noticeRoomNo:
+
+app:
+  telegram:
+    name:
+    token:
+
+  admin:
+    ids:
+
+  master:
+    id:
+    pw:
+    name:
