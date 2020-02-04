@@ -43,3 +43,7 @@ bootJar {
     //archiveBaseName.set('escapeApi')
     archiveVersion.set(version + '-' + new Date().format('yyMMddHHmm'))
 }
+
+test {
+    useJUnitPlatform()
+}

@@ -1,0 +1,12 @@
+app:
+  telegramBot:
+    name: peng
+    token: giantPeng
+
+  admin:
+    ids: n,o,k,c,h,a,x
+
+  master:
+    id: nokchax
+    pw: 123
+    name: 광
