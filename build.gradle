@@ -33,6 +33,9 @@ dependencies {
     //for selenium
     compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
     compile group: 'com.google.guava', name: 'guava', version: '28.0-jre'
+
+    //for annotation processor
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 }
 
 bootJar {
