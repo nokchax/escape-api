@@ -135,6 +135,13 @@ public class TaskService {
                         .collect(Collectors.toList());
     }
 
+    public List<UserDto> getAllUsersWithoutUpdate() {
+        return getCurrentTask().getParticipants()
+                .stream()
+                .map(TaskParticipant::toUserDto)
+                .collect(Collectors.toList());
+    }
+
     public List<PunishedUser> getUsersNotSolvedProblemLastWeek() {
         return getLastTask().getParticipants()
                 .stream()
