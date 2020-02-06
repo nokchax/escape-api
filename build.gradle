@@ -35,7 +35,6 @@ dependencies {
     compile group: 'com.google.guava', name: 'guava', version: '28.0-jre'
 
     //for annotation processor
-    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 }
 
 bootJar {
