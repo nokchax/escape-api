@@ -44,6 +44,6 @@ bootJar {
     archiveVersion.set(version + '-' + new Date().format('yyMMddHHmm'))
 }
 
-test {
-    useJUnitPlatform()
-}
+//test {
+//    useJUnitPlatform()
+//}

@@ -1,15 +1,15 @@
-package com.nokchax.escape.config;
+//package com.nokchax.escape.config;
 
-import com.nokchax.escape.config.properties.Admin;
-import com.nokchax.escape.config.properties.Master;
-import com.nokchax.escape.config.properties.TelegramBot;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-
-import static org.assertj.core.api.Assertions.assertThat;
+//import com.nokchax.escape.config.properties.Admin;
+//import com.nokchax.escape.config.properties.Master;
+//import com.nokchax.escape.config.properties.TelegramBot;
+//import org.junit.jupiter.api.DisplayName;
+//import org.junit.jupiter.api.Test;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.boot.test.context.SpringBootTest;
+//import org.springframework.test.context.ActiveProfiles;
+//
+//import static org.assertj.core.api.Assertions.assertThat;
 
 //jupiter에서 아래 annotaion만으로 충분
 //@SpringBootTest
