@@ -9,7 +9,6 @@ import org.telegram.telegrambots.ApiContextInitializer;
 //@SpringBootApplication
 //public class ApiApplication {
 //
-//    // TODO: 2019-12-27 refactoring and construct dev environment (db, crawling)
 //    public static void main(String[] args) {
 //        ApiContextInitializer.init();
 //
