@@ -41,6 +41,14 @@ public class AdminService {
 
         switch (command.getCommand()) {
             // /register id pw name -> register user
+            case "help":
+                return "1. 사용자 등록 : /register id pw name\n" +
+                       "2. 특정 사용자에게 포인트 주기 : /givePoint id point\n" +
+                       "3. 모든 사용자에게 포인트 주기 : /givePointToAll point\n" +
+                       "4. 테스크 생성 : /newTask\n" +
+                       "5. 현 테스크 업데이트 : /updateTask\n" +
+                       "6. 문제 리스트 업데이트 : /updateProblem\n\n";
+
             case "register":
                 if(command.isArgsLessThan(4)) {
                     return "use like this -> /register id pw name";
