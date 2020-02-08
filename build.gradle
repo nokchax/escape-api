@@ -1,11 +1,11 @@
 plugins {
-    id 'org.springframework.boot' version '2.1.7.RELEASE'
+    id 'org.springframework.boot' version '2.2.0.RELEASE'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     id 'java'
 }
 
 group = 'com.nokchax.escape'
-version = '1.1.10.RELEASE'
+version = '1.1.9.RELEASE'
 sourceCompatibility = '1.8'
 
 configurations {
@@ -35,6 +35,7 @@ dependencies {
     compile group: 'com.google.guava', name: 'guava', version: '28.0-jre'
 
     //for annotation processor
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 }
 
 bootJar {
@@ -43,6 +44,6 @@ bootJar {
     archiveVersion.set(version + '-' + new Date().format('yyMMddHHmm'))
 }
 
-//test {
-//    useJUnitPlatform()
-//}
+test {
+    useJUnitPlatform()
+}

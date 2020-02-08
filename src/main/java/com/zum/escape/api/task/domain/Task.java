@@ -23,7 +23,7 @@ public class Task {
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
     @Enumerated(EnumType.STRING)
-    private Duration durationType;
+    private Duration duration;
     @OneToMany(mappedBy = "tasks", cascade = CascadeType.ALL)
     private List<TaskParticipant> participants = new ArrayList<>();
 

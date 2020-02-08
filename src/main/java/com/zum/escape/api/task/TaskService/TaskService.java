@@ -96,7 +96,7 @@ public class TaskService {
                 .startDateTime(DateTimeMaker.startOfWeek())
                 .endDateTime(DateTimeMaker.endOfWeek())
                 .goalScore(GOAL_SCORE)
-                .durationType(Duration.WEEK)
+                .duration(Duration.WEEK)
                 .build();
 
         taskRepository.save(task);
@@ -133,13 +133,6 @@ public class TaskService {
                         .stream()
                         .map(TaskParticipant::toUserDto)
                         .collect(Collectors.toList());
-    }
-
-    public List<UserDto> getAllUsersWithoutUpdate() {
-        return getCurrentTask().getParticipants()
-                .stream()
-                .map(TaskParticipant::toUserDto)
-                .collect(Collectors.toList());
     }
 
     public List<PunishedUser> getUsersNotSolvedProblemLastWeek() {

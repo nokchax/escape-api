@@ -43,8 +43,7 @@ public class MessageDistributor {
                         "4. 보너스(방학) 포인트 확인 : /po or /point\n" +
                         "5. 미납 벌금 조회 : /f or /fine\n" +
                         "6. 총 푼 문제 내역조회 : /h or /history username\n" +
-                        "7. 문제별 푼 사용자 리스트 : /pr or /problem 문제번호\n" +
-                        "8. 금주 미션 참가 리스트 : /l or /list\n\n" +
+                        "7. 문제별 푼 사용자 리스트 : /pr or /problem 문제번호\n\n" +
                         "예) 문제를 푼다 > /update username > /todo";
 
                 // /td -> return users that dose't reached the goal
@@ -61,13 +60,6 @@ public class MessageDistributor {
                 return MessageMaker.dtoToMessage(
                         taskService.getDoneList(),
                         "Nobody finished yet"
-                );
-
-            case "list":
-            case "l":
-                return MessageMaker.dtoToMessage(
-                        taskService.getAllUsersWithoutUpdate(),
-                        "No participants"
                 );
 
                 // How to call : send file and comment like this /mu userId

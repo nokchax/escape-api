@@ -97,7 +97,7 @@ public class UsersService {
     }
 
     public User updateUser(String userId) {
-        Optional<User> user = userRepository.findById(userId.toLowerCase());
+        Optional<User> user = userRepository.findById(userId);
         updateUser(user.get());
 
         return user.get();
