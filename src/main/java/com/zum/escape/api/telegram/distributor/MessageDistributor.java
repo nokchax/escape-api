@@ -43,7 +43,8 @@ public class MessageDistributor {
                         "4. 보너스(방학) 포인트 확인 : /po or /point\n" +
                         "5. 미납 벌금 조회 : /f or /fine\n" +
                         "6. 총 푼 문제 내역조회 : /h or /history username\n" +
-                        "7. 문제별 푼 사용자 리스트 : /pr or /problem 문제번호\n\n" +
+                        "7. 문제별 푼 사용자 리스트 : /pr or /problem 문제번호\n" +
+                        "8. 금주 미션 참가자 현황 : /l or /list\n\n" +
                         "예) 문제를 푼다 > /update username > /todo";
 
                 // /td -> return users that dose't reached the goal
@@ -87,7 +88,7 @@ public class MessageDistributor {
             case "update":
             case "u":
                 if(command.containsArgs()) {
-                    return taskService.updateSpecificUser(command.getFirstArg());
+                    return taskService.updateSpecificUser(command.getFirstArg().toLowerCase());
                 }
 
                 return MessageMaker.dtoToMessage(

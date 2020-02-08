@@ -96,7 +96,7 @@ public class TaskService {
                 .startDateTime(DateTimeMaker.startOfWeek())
                 .endDateTime(DateTimeMaker.endOfWeek())
                 .goalScore(GOAL_SCORE)
-                .duration(Duration.WEEK)
+                .durationType(Duration.WEEK)
                 .build();
 
         taskRepository.save(task);
