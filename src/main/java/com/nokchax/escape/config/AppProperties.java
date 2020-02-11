@@ -8,18 +8,18 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /*
-app:
-  telegram:
-    name:
-    token:
+    app:
+      telegramBot:
+        name:
+        token:
 
-  admin:
-    ids:
+      admin:
+        ids:
 
-  master:
-    id:
-    pw:
-    name:
+      master:
+        id:
+        pw:
+        name:
 */
 // load properties using @ConfigurationProperties annotation
 @Data
