@@ -23,7 +23,7 @@ public class User {
     private String id;
     private String password;
     private String name;
-    private int solvedQuestionCount;
+    private int solvedProblemCount;
 //    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
 //    private Set<UserProblem> solvedProblem = new HashSet<>();
 }
