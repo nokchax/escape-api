@@ -29,6 +29,6 @@ public class Problem {
     private boolean hide;
     @Enumerated(EnumType.STRING)
     private String difficulty;
-    @OneToMany(mappedBy = "problem")
-    private Set<UserProblem> userProblem = new HashSet<>();
+//    @OneToMany(mappedBy = "problem")
+//    private Set<UserProblem> userProblem = new HashSet<>();
 }

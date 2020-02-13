@@ -24,6 +24,6 @@ public class User {
     private String password;
     private String name;
     private int solvedQuestionCount;
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-    private Set<UserProblem> solvedProblem = new HashSet<>();
+//    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+//    private Set<UserProblem> solvedProblem = new HashSet<>();
 }
