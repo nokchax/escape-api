@@ -20,7 +20,7 @@ public class Problem {
     @Id
     @Column(name = "question_id")
     private Long id;
-    @Column(name = "front_end_question_id", unique = true)
+    @Column(name = "front_end_question_id")
     private Long viewId;
     private String title;
     @Column(name = "title_slug")

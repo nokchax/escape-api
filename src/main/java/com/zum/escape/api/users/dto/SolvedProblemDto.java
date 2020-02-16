@@ -19,6 +19,10 @@ public class SolvedProblemDto {
     private List<UserProblemSolveDto> userProblemSolveDto = new ArrayList<>();
 
     public String toMessage() {
+        if(problem == null) {
+            return "Problem is not exist";
+        }
+
         return problem.getDifficulty() + "\n" +
                 "[" + problem.getTitle() + "] : " + userProblemSolveDto.size() +"명\n"
                 + problem.leetcodeUrl() + "\n"

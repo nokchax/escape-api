@@ -32,25 +32,17 @@ public class ProblemService {
     private String name;
 
     public List<Problem> getProblems() {
-        // TODO: 2020/01/20   make get problem without login logic
-        User user = new User(pw, name, id);
-        ProblemResponse problemResponse = leetCodeService.getProblems(user);
-
-        if (problemResponse == null) {
-            ProblemResponse problems = leetCodeService.getProblems();
-            if(problems == null) {
-                return Collections.emptyList();
-            }
-            return problems.toProblemList();
+        ProblemResponse problems = leetCodeService.getProblems();
+        if(problems == null) {
+            return Collections.emptyList();
         }
-
-        return problemResponse.toProblemList();
+        return problems.toProblemList();
     }
 
     public void saveOrUpdateProblems() {
         updateCache();
 
-        List<Problem> notUpdatedProblems = getNotUpdatedProblems(getProblems());
+        List<Problem> notUpdatedProblems = getProblems();
         if(notUpdatedProblems.isEmpty()) {
             return;
         }
@@ -66,17 +58,6 @@ public class ProblemService {
         );
 
         cachedProblems = updatedConcurrentHashMap;
-    }
-
-    private List<Problem> getNotUpdatedProblems(List<Problem> problems) {
-        List<Problem> notUpdatedList = new ArrayList<>();
-        for(Problem problem : problems) {
-            if(!cachedProblems.containsKey(problem.getTitle())) {
-                notUpdatedList.add(problem);
-            }
-        }
-
-        return notUpdatedList;
     }
 
     private void updateCache() {
