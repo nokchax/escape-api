@@ -1,15 +1,12 @@
 package com.nokchax.escape.problem.domain;
 
 
-import com.zum.escape.api.users.domain.UserProblem;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Getter
