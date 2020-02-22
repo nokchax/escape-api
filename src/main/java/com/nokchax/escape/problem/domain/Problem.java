@@ -1,7 +1,6 @@
 package com.nokchax.escape.problem.domain;
 
 
-import com.zum.escape.api.problem.domain.entity.Difficulty;
 import com.zum.escape.api.users.domain.UserProblem;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,7 +27,7 @@ public class Problem {
     private String titleSlug;
     private boolean hide;
     @Enumerated(EnumType.STRING)
-    private String difficulty;
+    private Difficulty difficulty;
 //    @OneToMany(mappedBy = "problem")
 //    private Set<UserProblem> userProblem = new HashSet<>();
 }

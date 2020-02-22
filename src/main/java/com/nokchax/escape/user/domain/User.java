@@ -1,15 +1,14 @@
 package com.nokchax.escape.user.domain;
 
-import com.zum.escape.api.users.domain.UserProblem;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Table(name = "users")
 @Entity

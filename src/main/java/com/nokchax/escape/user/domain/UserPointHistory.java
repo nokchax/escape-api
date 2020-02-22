@@ -1,7 +1,5 @@
 package com.nokchax.escape.user.domain;
 
-import com.zum.escape.api.users.domain.Description;
-import com.zum.escape.api.users.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
