@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserPointHistoryId implements Serializable {
+class UserPointHistoryId implements Serializable {
     private String user;
     private LocalDateTime dateTime;
 }
