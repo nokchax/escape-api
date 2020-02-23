@@ -1,6 +1,6 @@
 package com.zum.escape.api.date;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 //@Slf4j
 public class DateTest {

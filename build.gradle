@@ -28,7 +28,9 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.5.0'
     runtimeOnly 'mysql:mysql-connector-java'
     annotationProcessor 'org.projectlombok:lombok'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
     
     //for selenium
     compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
