@@ -17,12 +17,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @ActiveProfiles("dev")
-@Sql("/problems.sql")
 public class ProblemTest {
     @Autowired
     ProblemRepository problemRepository;
 
     @Test
+    @Sql("/problems.sql")
     public void getAllProblemTest() {
         List<Problem> problems = problemRepository.findAll();
 
