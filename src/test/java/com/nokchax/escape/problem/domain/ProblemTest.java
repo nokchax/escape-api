@@ -44,7 +44,7 @@ public class ProblemTest {
                 Arguments.of(new Problem(1L, 1L, "2", "1", false, Difficulty.EASY), true),
                 Arguments.of(new Problem(1L, 1L, "1", "2", false, Difficulty.EASY), true),
                 Arguments.of(new Problem(1L, 1L, "1", "1", true, Difficulty.EASY), true),
-                Arguments.of(new Problem(1L, 1L, "1", "1", true, Difficulty.MEDIUM), true)
+                Arguments.of(new Problem(1L, 1L, "1", "1", false, Difficulty.MEDIUM), true)
         );
     }
 }
