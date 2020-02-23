@@ -25,4 +25,12 @@ public class Problem {
     private Difficulty difficulty;
 //    @OneToMany(mappedBy = "problem")
 //    private Set<UserProblem> userProblem = new HashSet<>();
+
+    public boolean checkUpdated(Problem problem) {
+        return !problem.viewId.equals(this.viewId) ||
+                !problem.title.equals(this.title) ||
+                !problem.titleSlug.equals(this.titleSlug) ||
+                !problem.difficulty.equals(this.difficulty) ||
+                problem.hide != this.hide;
+    }
 }
