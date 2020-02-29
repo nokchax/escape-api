@@ -1,9 +1,6 @@
 package com.nokchax.escape.user.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.Entity;
@@ -17,6 +14,7 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @Builder
 @Slf4j
+@ToString
 public class User {
     @Id
     private String id;
