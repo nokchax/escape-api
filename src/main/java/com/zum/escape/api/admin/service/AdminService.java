@@ -86,6 +86,9 @@ public class AdminService {
                 problemService.saveOrUpdateProblems();
                 return "problem lists updated";
 
+            case "loginUpdate":
+                problemService.saveOrUpdateProblemsLoginBase();
+                return "problem lists updated(login base)";
 
             case "manualUpdate" :
                 return taskService.updateManually(command.getFirstArg(), Long.parseLong(command.getSecondArg()));

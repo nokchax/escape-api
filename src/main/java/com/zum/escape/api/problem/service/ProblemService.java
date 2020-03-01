@@ -7,6 +7,7 @@ import com.zum.escape.api.thirdPartyAdapter.leetcode.response.ProblemResponse;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.response.Submission;
 import com.zum.escape.api.thirdPartyAdapter.leetcode.service.LeetCodeService;
 import com.zum.escape.api.users.domain.User;
+import com.zum.escape.api.users.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -22,6 +24,7 @@ import java.util.stream.Collectors;
 public class ProblemService {
     private final LeetCodeService leetCodeService;
     private final ProblemRepository problemRepository;
+    private final UserRepository userRepository;
     private ConcurrentHashMap<String, Problem> cachedProblems = new ConcurrentHashMap<>();
 
     @Value("${master.id}")
@@ -39,10 +42,22 @@ public class ProblemService {
         return problems.toProblemList();
     }
 
-    public void saveOrUpdateProblems() {
-        updateCache();
+    public List<Problem> getProblemsUsingLogin() {
+        List<User> users = userRepository.findAll();
+        int pickIdx = ThreadLocalRandom.current().nextInt(users.size());
 
-        List<Problem> notUpdatedProblems = getProblems();
+        ProblemResponse problems = leetCodeService.getProblems(users.get(pickIdx));
+        if(problems == null) {
+            return Collections.emptyList();
+        }
+        return problems.toProblemList();
+    }
+
+    public void saveOrUpdateProblemsLoginBase() {
+        updateProblems(getProblemsUsingLogin());
+    }
+
+    private void updateProblems(List<Problem> notUpdatedProblems) {
         if(notUpdatedProblems.isEmpty()) {
             return;
         }
@@ -58,6 +73,12 @@ public class ProblemService {
         );
 
         cachedProblems = updatedConcurrentHashMap;
+    }
+
+    public void saveOrUpdateProblems() {
+        updateCache();
+
+        updateProblems(getProblems());
     }
 
     private void updateCache() {
@@ -90,5 +111,4 @@ public class ProblemService {
                 .map(title -> cachedProblems.get(title))
                 .collect(Collectors.toSet());
     }
-
 }

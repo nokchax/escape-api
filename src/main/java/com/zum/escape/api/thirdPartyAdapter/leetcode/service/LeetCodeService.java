@@ -35,6 +35,7 @@ public class LeetCodeService {
     private final RestTemplate restTemplate;
 
     public ProblemResponse getProblems(User user) {
+        log.info("Get problem using user({})", user.getId());
         return userProblemCrawlService.getUserProblems(user);
     }
 
