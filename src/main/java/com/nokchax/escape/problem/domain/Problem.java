@@ -4,6 +4,8 @@ package com.nokchax.escape.problem.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -23,8 +25,8 @@ public class Problem {
     private boolean hide;
     @Enumerated(EnumType.STRING)
     private Difficulty difficulty;
-//    @OneToMany(mappedBy = "problem")
-//    private Set<UserProblem> userProblem = new HashSet<>();
+    @OneToMany(mappedBy = "problem")
+    private Set<SolvedProblem> solvedProblems = new HashSet<>();
 
     public boolean checkUpdated(Problem problem) {
         return !problem.viewId.equals(this.viewId) ||

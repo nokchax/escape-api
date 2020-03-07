@@ -1,11 +1,12 @@
 package com.nokchax.escape.user.domain;
 
+import com.nokchax.escape.problem.domain.SolvedProblem;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Table(name = "users")
 @Entity
@@ -21,6 +22,6 @@ public class User {
     private String password;
     private String name;
     private int solvedProblemCount;
-//    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-//    private Set<UserProblem> solvedProblem = new HashSet<>();
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private Set<SolvedProblem> solvedProblem = new HashSet<>();
 }
