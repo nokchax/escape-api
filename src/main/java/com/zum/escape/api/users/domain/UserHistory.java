@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
+//@Entity
 @Builder
 @Getter
 @IdClass(UserHistoryId.class)

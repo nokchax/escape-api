@@ -11,7 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 
-@Entity
+//@Entity
 @Getter
 @Immutable
 @Subselect(

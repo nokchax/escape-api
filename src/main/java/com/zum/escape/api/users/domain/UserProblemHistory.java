@@ -14,7 +14,7 @@ import javax.persistence.Id;
 
 @Getter
 @Setter
-@Entity
+//@Entity
 @ToString
 @Immutable
 @Subselect(

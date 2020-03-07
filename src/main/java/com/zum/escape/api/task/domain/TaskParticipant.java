@@ -10,7 +10,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-@Entity
+//@Entity
 @Getter
 @Setter
 @NoArgsConstructor

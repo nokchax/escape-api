@@ -13,8 +13,8 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.*;
 
-@Table(name = "users")
-@Entity
+//@Table(name = "users")
+//@Entity
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
