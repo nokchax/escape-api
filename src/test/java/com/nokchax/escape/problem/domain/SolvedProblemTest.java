@@ -10,6 +10,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 
 import java.util.stream.Stream;
 
@@ -49,5 +50,41 @@ class SolvedProblemTest {
                 Arguments.of("nokchax", "123", null),
                 Arguments.of("nokchax", "123", "")
         );
+    }
+
+
+    @Test
+    void flushTest() {
+        /*  https://stackoverflow.com/questions/45635827/how-do-i-stop-spring-data-jpa-from-doing-a-select-before-a-save
+            Before save
+            Hibernate: save하는 객체가 새 객체인지 DB에 저장된 객체인지 확인하기 위함
+                select
+                    user0_.id as id1_4_0_,
+                    user0_.name as name2_4_0_,
+                    user0_.password as password3_4_0_,
+                    user0_.solved_problem_count as solved_p4_4_0_
+                from
+                    users user0_
+                where
+                    user0_.id=?
+            After save
+            Before flush
+            Hibernate:
+                insert
+                into
+                    users
+                    (name, password, solved_problem_count, id)
+                values
+                    (?, ?, ?, ?)
+            after flush
+         */
+        User user = new User("nokchax", "123", "광");
+
+        System.out.println("=========================================================Before save");
+        userRepository.save(user);
+        System.out.println("=========================================================After save");
+        System.out.println("=========================================================Before flush");
+        userRepository.flush();
+        System.out.println("=========================================================After flush");
     }
 }
