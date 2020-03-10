@@ -22,7 +22,7 @@ class SolvedProblemTest {
     private ProblemRepository problemRepository;
 
     @Test
-    void testDDLQuery() {
+    void constructorTest() {
         User user = new User("nokchax", "123", "광");
 
         assertThat(user.getSolvedProblemCount()).isEqualTo(0);
