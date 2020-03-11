@@ -53,31 +53,32 @@ class SolvedProblemTest {
     }
 
 
+    /**
+     * https://stackoverflow.com/questions/45635827/how-do-i-stop-spring-data-jpa-from-doing-a-select-before-a-save
+     * =========================================================Before save
+     * Hibernate: save하는 객체가 새 객체인지 DB에 저장된 객체인지 확인하기 위함
+     *     select
+     *         user0_.id as id1_4_0_,
+     *         user0_.name as name2_4_0_,
+     *         user0_.password as password3_4_0_,
+     *         user0_.solved_problem_count as solved_p4_4_0_
+     *     from
+     *         users user0_
+     *     where
+     *         user0_.id=?
+     * =========================================================After save
+     * =========================================================Before flush
+     * Hibernate:
+     *     insert
+     *     into
+     *         users
+     *         (name, password, solved_problem_count, id)
+     *     values
+     *         (?, ?, ?, ?)
+     * =========================================================After flush
+     */
     @Test
-    void flushTest() {
-        /*  https://stackoverflow.com/questions/45635827/how-do-i-stop-spring-data-jpa-from-doing-a-select-before-a-save
-            Before save
-            Hibernate: save하는 객체가 새 객체인지 DB에 저장된 객체인지 확인하기 위함
-                select
-                    user0_.id as id1_4_0_,
-                    user0_.name as name2_4_0_,
-                    user0_.password as password3_4_0_,
-                    user0_.solved_problem_count as solved_p4_4_0_
-                from
-                    users user0_
-                where
-                    user0_.id=?
-            After save
-            Before flush
-            Hibernate:
-                insert
-                into
-                    users
-                    (name, password, solved_problem_count, id)
-                values
-                    (?, ?, ?, ?)
-            after flush
-         */
+    void saveAndFlushTest() {
         User user = new User("nokchax", "123", "광");
 
         System.out.println("=========================================================Before save");
@@ -86,5 +87,55 @@ class SolvedProblemTest {
         System.out.println("=========================================================Before flush");
         userRepository.flush();
         System.out.println("=========================================================After flush");
+    }
+
+    /**
+     * =========================================================Before save and flush
+     * Hibernate:
+     *     select
+     *         user0_.id as id1_4_0_,
+     *         user0_.name as name2_4_0_,
+     *         user0_.password as password3_4_0_,
+     *         user0_.solved_problem_count as solved_p4_4_0_
+     *     from
+     *         users user0_
+     *     where
+     *         user0_.id=?
+     * Hibernate:
+     *     insert
+     *     into
+     *         users
+     *         (name, password, solved_problem_count, id)
+     *     values
+     *         (?, ?, ?, ?)
+     * =========================================================After save and flush
+     */
+    @Test
+    void saveAndFlushTest2() {
+        User user = new User("nokchax", "123", "광");
+
+        System.out.println("=========================================================Before save and flush");
+        userRepository.saveAndFlush(user);
+        System.out.println("=========================================================After save and flush");
+    }
+
+    /**
+     * =========================================================Before find by id
+     * =========================================================After find by id
+     */
+    @Test
+    void updateTest() {
+        User user = new User("nokchax", "123", "광");
+
+        userRepository.saveAndFlush(user);
+
+        System.out.println("=========================================================Before find by id");
+        userRepository.findById("nokchax");
+        System.out.println("=========================================================After find by id");
+    }
+
+
+    void howToRemoveCachedEntity() {
+
     }
 }
