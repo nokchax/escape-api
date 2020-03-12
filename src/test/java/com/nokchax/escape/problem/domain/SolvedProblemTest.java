@@ -136,6 +136,5 @@ class SolvedProblemTest {
 
 
     void howToRemoveCachedEntity() {
-
     }
 }
