@@ -12,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 
+import javax.persistence.EntityManager;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -21,6 +22,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 @DataJpaTest
 @ActiveProfiles("dev")
 class SolvedProblemTest {
+    @Autowired
+    private EntityManager entityManager;
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -135,6 +138,22 @@ class SolvedProblemTest {
     }
 
 
+    @Test
     void howToRemoveCachedEntity() {
+        User user = new User("nokchax", "123", "광");
+
+        userRepository.saveAndFlush(user);
+
+        System.out.println("=========================================================Before find by id");
+        userRepository.findById("nokchax");
+        System.out.println("=========================================================After find by id");
+
+        System.out.println("=========================================================Before clear");
+        entityManager.clear();
+        System.out.println("=========================================================After clear");
+
+        System.out.println("=========================================================Before find by id");
+        userRepository.findById("nokchax");
+        System.out.println("=========================================================After find by id");
     }
 }
