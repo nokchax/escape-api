@@ -216,8 +216,8 @@ class SolvedProblemTest {
         System.out.println("=========================================================After find all");
 
         // lazy 일 때 아래를 수행하면 solvedProblems 를 가져와야 하기 때문에 그때 그때 select query 가 한 번 더 수행됨.
-        //users.forEach(System.out::println);
-
-        // 크롤링 하는 시점에서 비교가 필요한건 지금 까지 푼 문제수
+        // users.forEach(System.out::println);
+        // 크롤링 하는 시점에서 비교가 필요한건 지금 까지 푼 문제수이기 때문에 단순 조회 시점에는 lazy 로 가져오고,
+        // 무조건 업데이트가 되는 시점에는 한번에 solved problems 까지 가져오는게 좋다.
     }
 }
