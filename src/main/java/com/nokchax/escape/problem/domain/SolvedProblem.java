@@ -1,7 +1,6 @@
 package com.nokchax.escape.problem.domain;
 
 import com.nokchax.escape.user.domain.User;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,4 +26,5 @@ public class SolvedProblem {
     private Problem problem;
 
     private LocalDateTime solvedTime;
+//    private LocalDateTime updatedTime;
 }
