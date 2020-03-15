@@ -24,7 +24,7 @@ public class User {
     private String password;
     private String name;
     private int solvedProblemCount;
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<SolvedProblem> solvedProblem = new HashSet<>();
 
     public User(String id, String password, String name) {
