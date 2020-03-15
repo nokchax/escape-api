@@ -13,6 +13,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -130,7 +131,9 @@ class SolvedProblemTest {
     void updateTest() {
         User user = new User("nokchax", "123", "광");
 
+        System.out.println("=========================================================Before save and flush");
         userRepository.saveAndFlush(user);
+        System.out.println("=========================================================After save and flush");
 
         System.out.println("=========================================================Before find by id");
         userRepository.findById("nokchax");
@@ -155,5 +158,66 @@ class SolvedProblemTest {
         System.out.println("=========================================================Before find by id");
         userRepository.findById("nokchax");
         System.out.println("=========================================================After find by id");
+    }
+
+    /**
+     * fetch 가 LAZY 일 때
+     * =========================================================Before find all
+     * Hibernate:
+     *     select
+     *         user0_.id as id1_4_,
+     *         user0_.name as name2_4_,
+     *         user0_.password as password3_4_,
+     *         user0_.solved_problem_count as solved_p4_4_
+     *     from
+     *         users user0_
+     * =========================================================After find all
+     *
+     * fetch 가 EAGER 일 때
+     * user 테이블 1번 select
+     * 각 user마다 query 한번 -> N+1
+     * =========================================================Before find all
+     * Hibernate:
+     *     select
+     *         user0_.id as id1_4_,
+     *         user0_.name as name2_4_,
+     *         user0_.password as password3_4_,
+     *         user0_.solved_problem_count as solved_p4_4_
+     *     from
+     *         users user0_
+     * Hibernate: * 5
+     *     select
+     *         solvedprob0_.user_id as user_id2_3_0_,
+     *         solvedprob0_.problem_id as problem_1_3_0_,
+     *         solvedprob0_.problem_id as problem_1_3_1_,
+     *         solvedprob0_.user_id as user_id2_3_1_,
+     *         solvedprob0_.solved_time as solved_t3_3_1_,
+     *         problem1_.question_id as question1_0_2_,
+     *         problem1_.difficulty as difficul2_0_2_,
+     *         problem1_.hide as hide3_0_2_,
+     *         problem1_.title as title4_0_2_,
+     *         problem1_.title_slug as title_sl5_0_2_,
+     *         problem1_.front_end_question_id as front_en6_0_2_
+     *     from
+     *         user_problem solvedprob0_
+     *     inner join
+     *         problem problem1_
+     *             on solvedprob0_.problem_id=problem1_.question_id
+     *     where
+     *         solvedprob0_.user_id=?
+     * =========================================================After find all
+     *
+     */
+    @Test
+    @Sql("/users.sql")
+    void selectTest() {
+        System.out.println("=========================================================Before find all");
+        List<User> users = userRepository.findAll();
+        System.out.println("=========================================================After find all");
+
+        // lazy 일 때 아래를 수행하면 solvedProblems 를 가져와야 하기 때문에 그때 그때 select query 가 한 번 더 수행됨.
+        //users.forEach(System.out::println);
+
+        // 크롤링 하는 시점에서 비교가 필요한건 지금 까지 푼 문제수
     }
 }
