@@ -10,5 +10,5 @@ public interface ProblemSolveHistoryRepository extends JpaRepository<ProblemSolv
     List<ProblemSolveHistory> findAllByOrderByTotalCountDescHardCountDescMediumCountDescEasyCountDesc();
 
     @Query(value = "SELECT solveHistory FROM ProblemSolveHistory solveHistory ORDER BY totalCount DESC, hardCount DESC, mediumCount DESC, easyCount DESC" )
-    List<ProblemSolveHistory> findAllOrdered();
+    List<ProblemSolveHistory> findAllWithOrdering();
 }

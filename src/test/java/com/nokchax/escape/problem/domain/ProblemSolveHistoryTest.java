@@ -152,7 +152,7 @@ class ProblemSolveHistoryTest {
     @Test
     void findAllAndOrderedQueryTest() {
         System.out.println("=========================================================Before find all");
-        problemSolveHistoryRepository.findAllOrdered();
+        problemSolveHistoryRepository.findAllWithOrdering();
         System.out.println("=========================================================After find all");
     }
 }
