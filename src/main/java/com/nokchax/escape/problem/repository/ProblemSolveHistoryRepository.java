@@ -9,6 +9,6 @@ import java.util.List;
 public interface ProblemSolveHistoryRepository extends JpaRepository<ProblemSolveHistory, String> {
     List<ProblemSolveHistory> findAllByOrderByTotalCountDescHardCountDescMediumCountDescEasyCountDesc();
 
-    @Query(value = "SELECT solveHistory FROM ProblemSolveHistory solveHistory ORDER BY totalCount DESC, hardCount DESC, mediumCount DESC, easyCount DESC" )
+    @Query(value = "SELECT solveHistory FROM ProblemSolveHistory solveHistory ORDER BY totalCount DESC, hardCount DESC, mediumCount DESC, easyCount DESC")
     List<ProblemSolveHistory> findAllWithOrdering();
 }
