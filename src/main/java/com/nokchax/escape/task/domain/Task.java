@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,6 +24,8 @@ public class Task {
     private String id;
     private String password;
     private String name;
+    private LocalDateTime startDateTime;
+    private LocalDateTime endDateTime;
     private int solvedQuestionCount;
 //    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
 //    private Set<UserProblem> solvedProblem = new HashSet<>();

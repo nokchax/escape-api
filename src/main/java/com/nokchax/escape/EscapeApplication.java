@@ -49,9 +49,9 @@ public class EscapeApplication {
      * task
      *  id
      *  duration_type
+     *  start_date_time
      *  end_date_time
      *  goal_score
-     *  start_date_time
      *
      * task participants
      *  task_id
