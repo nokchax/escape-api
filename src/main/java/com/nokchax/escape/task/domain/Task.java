@@ -30,3 +30,10 @@ public class Task {
 //    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
 //    private Set<UserProblem> solvedProblem = new HashSet<>();
 }
+/**
+ * task 개념 불필요..?
+ * - 미션은 최소 하루 단위
+ *
+ * 문제를 푼 시점과 미션의 지속 기간(하루면 하루, 일주일이면 일주일 등...)을 가지고 고유한 task 값을 구할 수 없을까?
+ * 
+ */
