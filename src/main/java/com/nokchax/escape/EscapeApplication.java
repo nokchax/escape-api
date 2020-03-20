@@ -46,6 +46,7 @@ public class EscapeApplication {
      *  problem_id
      *  user_id
      *  solved_time
+     *  추가할 것 : updated_time (나중에 solved_time이 잘못 업데이트 됐을때를 대비) or envers 도입???
      *
      * task
      *  id
