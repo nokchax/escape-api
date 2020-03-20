@@ -1,18 +1,16 @@
 package com.nokchax.escape.task.domain;
 
-import com.zum.escape.api.users.domain.UserProblem;
+import com.zum.escape.api.task.domain.Duration;
+import com.zum.escape.api.task.domain.TaskParticipant;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Builder
@@ -20,20 +18,23 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Task {
-    @Id
-    private String id;
-    private String password;
-    private String name;
+    @Id @GeneratedValue
+    private Long id;
+    private int goalScore = 5;
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
-    private int solvedQuestionCount;
-//    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-//    private Set<UserProblem> solvedProblem = new HashSet<>();
+/*
+    @Enumerated(EnumType.STRING)
+    private Duration durationType;
+    @OneToMany(mappedBy = "tasks", cascade = CascadeType.ALL)
+    private List<TaskParticipant> participants = new ArrayList<>();
+*/
 }
 /**
  * task 개념 불필요..?
  * - 미션은 최소 하루 단위
- *
+ * - 미션은 목표(채워야 할 포인트)가 있다.
+ * -
  * 문제를 푼 시점과 미션의 지속 기간(하루면 하루, 일주일이면 일주일 등...)을 가지고 고유한 task 값을 구할 수 없을까?
  * 
  */
