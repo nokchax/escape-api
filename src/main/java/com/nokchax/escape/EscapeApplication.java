@@ -26,6 +26,7 @@ public class EscapeApplication {
      *  name
      *  password
      *  solve_question_count
+     *  추가할 것 : telegram id??? /u만 했을때 알아서 자기 계정을 업데이트 하기 위함.
      *
      * problem
      *  question_id
