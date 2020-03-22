@@ -1,5 +1,6 @@
 package com.nokchax.escape.problem.domain;
 
+import com.nokchax.escape.mission.domain.Mission;
 import com.nokchax.escape.user.domain.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,5 +27,8 @@ public class SolvedProblem {
     private Problem problem;
 
     private LocalDateTime solvedTime;
-//    private LocalDateTime updatedTime;
+    private LocalDateTime updatedTime;
+
+    // mission info, and it also should be a id????
+    //private Mission mission;
 }
