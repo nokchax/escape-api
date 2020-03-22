@@ -19,4 +19,7 @@ public class Mission {
     @Id
     @GeneratedValue
     private Long id;
+    private int goalScore = 5;
+    private LocalDateTime startDateTime;
+    private LocalDateTime endDateTime;
 }
