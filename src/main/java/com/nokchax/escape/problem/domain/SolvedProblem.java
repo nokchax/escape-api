@@ -26,9 +26,13 @@ public class SolvedProblem {
     @JoinColumn(name = "problem_id")
     private Problem problem;
 
+    @Id
+    @ManyToOne
+    @JoinColumn(name = "mission_id")
+    private Mission mission;
+
     private LocalDateTime solvedTime;
     private LocalDateTime updatedTime;
 
     // mission info, and it also should be a id????
-    //private Mission mission;
 }
