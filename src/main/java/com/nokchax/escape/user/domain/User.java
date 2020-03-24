@@ -24,6 +24,7 @@ public class User {
     private String password;
     private String name;
     private int solvedProblemCount;
+    private String telegramId;
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<SolvedProblem> solvedProblem = new HashSet<>();
 

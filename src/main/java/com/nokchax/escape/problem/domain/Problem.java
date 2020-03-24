@@ -15,9 +15,9 @@ import java.util.Set;
 @AllArgsConstructor
 public class Problem {
     @Id
-    @Column(name = "question_id")
+    @Column(name = "problem_id")
     private Long id;
-    @Column(name = "front_end_question_id")
+    @Column(name = "front_end_problem_id")
     private Long viewId;
     private String title;
     @Column(name = "title_slug")

@@ -13,5 +13,4 @@ import java.io.Serializable;
 public class SolvedProblemId implements Serializable {
     private String user;
     private Long problem;
-    private Long mission;
 }

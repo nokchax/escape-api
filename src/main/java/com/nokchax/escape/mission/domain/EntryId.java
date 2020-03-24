@@ -10,6 +10,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EntryId implements Serializable {
-    private String users;
-    private Long tasks;
+    private String user;
+    private Long mission;
 }

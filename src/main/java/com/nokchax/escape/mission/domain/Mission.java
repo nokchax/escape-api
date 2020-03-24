@@ -25,6 +25,6 @@ public class Mission {
 
 //    @Enumerated(EnumType.STRING)
 //    private Duration durationType;
-    @OneToMany(mappedBy = "tasks", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "missions", cascade = CascadeType.ALL)
     private List<Entry> participants = new ArrayList<>();
 }
