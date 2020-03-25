@@ -19,13 +19,13 @@ import javax.persistence.Id;
 @Subselect(
                 "SELECT " +
                 "  user_id, " +
-                "  COUNT(DISTINCT question_id) AS total_count, " +
-                "  COUNT(DISTINCT CASE WHEN difficulty = 'HARD' THEN question_id ELSE NULL END) AS hard_count, " +
-                "  COUNT(DISTINCT CASE WHEN difficulty = 'MEDIUM' THEN question_id ELSE NULL END) AS medium_count, " +
-                "  COUNT(DISTINCT CASE WHEN difficulty = 'EASY' THEN question_id ELSE NULL END) AS easy_count " +
+                "  COUNT(DISTINCT sp.problem_id) AS total_count, " +
+                "  COUNT(DISTINCT CASE WHEN difficulty = 'HARD' THEN sp.problem_id ELSE NULL END) AS hard_count, " +
+                "  COUNT(DISTINCT CASE WHEN difficulty = 'MEDIUM' THEN sp.problem_id ELSE NULL END) AS medium_count, " +
+                "  COUNT(DISTINCT CASE WHEN difficulty = 'EASY' THEN sp.problem_id ELSE NULL END) AS easy_count " +
                 "FROM " +
-                "  user_problem LEFT JOIN problem " +
-                "ON (user_problem.problem_id = problem.question_id) " +
+                "  solved_problem sp LEFT JOIN problem p " +
+                "ON (sp.problem_id = p.problem_id) " +
                 "GROUP BY " +
                 "  user_id"
 )

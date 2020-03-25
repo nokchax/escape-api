@@ -22,9 +22,6 @@ public class Mission {
     private int goalScore = 5;
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
-
-//    @Enumerated(EnumType.STRING)
-//    private Duration durationType;
-    @OneToMany(mappedBy = "missions", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "mission", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Entry> participants = new ArrayList<>();
 }

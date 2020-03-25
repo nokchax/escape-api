@@ -9,7 +9,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Table(name = "user_problem")
+@Table(name = "solved_problem")
 @Entity
 @Getter
 @Setter

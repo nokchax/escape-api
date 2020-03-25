@@ -25,7 +25,7 @@ public class Problem {
     private boolean hide;
     @Enumerated(EnumType.STRING)
     private Difficulty difficulty;
-    @OneToMany(mappedBy = "problem")
+    @OneToMany(mappedBy = "problem", fetch = FetchType.LAZY)
     private Set<SolvedProblem> solvedProblems = new HashSet<>();
 
     public boolean checkUpdated(Problem problem) {
