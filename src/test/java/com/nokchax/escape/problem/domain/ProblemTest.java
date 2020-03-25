@@ -35,7 +35,7 @@ public class ProblemTest {
     public void updateTest(Problem updatedProblem, boolean result) {
         Problem origin = new Problem(1L, 1L, "1", "1", false, Difficulty.EASY, Collections.EMPTY_SET);
 
-        assertThat(origin.checkUpdated(updatedProblem)).isEqualTo(result);
+        assertThat(origin.isUpdated(updatedProblem)).isEqualTo(result);
     }
 
     private static Stream updateTest() {

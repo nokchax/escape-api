@@ -28,7 +28,7 @@ public class Problem {
     @OneToMany(mappedBy = "problem", fetch = FetchType.LAZY)
     private Set<SolvedProblem> solvedProblems = new HashSet<>();
 
-    public boolean checkUpdated(Problem problem) {
+    public boolean isUpdated(Problem problem) {
         return !problem.viewId.equals(this.viewId) ||
                 !problem.title.equals(this.title) ||
                 !problem.titleSlug.equals(this.titleSlug) ||
