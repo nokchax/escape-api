@@ -10,7 +10,7 @@ import java.util.Set;
 @Entity
 @Getter
 @Builder
-@ToString
+@ToString(exclude = {"solvedProblems"})
 @NoArgsConstructor
 @AllArgsConstructor
 public class Problem {

@@ -17,7 +17,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Slf4j
-@ToString
+@ToString(exclude = {"solvedProblem"})
 public class User {
     @Id
     private String id;
