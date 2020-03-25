@@ -1,9 +1,6 @@
 package com.nokchax.escape.mission.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,6 +10,7 @@ import java.util.List;
 @Entity
 @Builder
 @Getter
+@ToString(exclude = {"participants"})
 @NoArgsConstructor
 @AllArgsConstructor
 public class Mission {
