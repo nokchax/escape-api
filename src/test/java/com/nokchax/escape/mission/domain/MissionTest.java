@@ -43,7 +43,7 @@ class MissionTest {
             mission0_.id desc limit ?
      */
     @Test
-    @Sql("/mission.sql")
+    @Sql("/missions.sql")
     public void findLatestTest() {
         System.out.println("=========================================================Before find top");
         Mission topByOrderByIdDesc = missionRepository.findTopByOrderByIdDesc();
@@ -62,7 +62,7 @@ class MissionTest {
             id DESC LIMIT 1 OFFSET 1
      */
     @Test
-    @Sql("/mission.sql")
+    @Sql("/missions.sql")
     public void findSecondLatestTest() {
         System.out.println("=========================================================Before find last");
         Mission lastMission = missionRepository.findLastMission();
