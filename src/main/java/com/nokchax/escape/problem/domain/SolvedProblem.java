@@ -5,6 +5,7 @@ import com.nokchax.escape.user.domain.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -17,19 +18,30 @@ import java.time.LocalDateTime;
 @IdClass(SolvedProblemId.class)
 public class SolvedProblem {
     @Id
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
     @Id
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "problem_id")
     private Problem problem;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mission_id")
     private Mission mission;
 
     private LocalDateTime solvedTime;
     private LocalDateTime updatedTime;
+
+    @Override
+    public String toString() {
+        return "SolvedProblem{" +
+                "userId=" + user.getId() +
+                ", problemId=" + problem.getId() +
+                ", missionId=" + mission.getId() +
+                ", solvedTime=" + solvedTime +
+                ", updatedTime=" + updatedTime +
+                '}';
+    }
 }
