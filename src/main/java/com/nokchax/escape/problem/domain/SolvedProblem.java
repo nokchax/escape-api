@@ -37,7 +37,7 @@ public class SolvedProblem {
     @Override
     public String toString() {
         return "SolvedProblem{" +
-                "userId=" + user.getId() +
+                "userId=" + user.getId() + //lazy로 했을때 id값만 가져오면 추가적인 query를 수행 안 함
                 ", problemId=" + problem.getId() +
                 ", missionId=" + mission.getId() +
                 ", solvedTime=" + solvedTime +
