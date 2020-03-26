@@ -73,3 +73,5 @@ compileQuerydsl {
     options.annotationProcessorPath = configurations.querydsl
 }
 // querydsl 추가 끝
+// 실행법 gradle -> tasks -> other -> compileQuerydsl
+// 이후 build -> generated -> querydsl 에 생성됨
