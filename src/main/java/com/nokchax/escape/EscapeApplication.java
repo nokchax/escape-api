@@ -18,7 +18,7 @@ public class EscapeApplication {
     }
 
     // TODO: 2020-03-18 DB 테이블 정리할겸 한번 그려보기 -> 개선사항 찾기
-    /**
+    /*
      * table list
      *
      * users

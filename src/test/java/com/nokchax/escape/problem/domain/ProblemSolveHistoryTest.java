@@ -12,7 +12,7 @@ class ProblemSolveHistoryTest {
     @Autowired
     private ProblemSolveHistoryRepository problemSolveHistoryRepository;
 
-    /**
+    /*
      * =========================================================Before find all
      * Hibernate:
      *     select
@@ -57,7 +57,7 @@ class ProblemSolveHistoryTest {
         System.out.println("=========================================================After find all");
     }
 
-    /**
+    /*
      * =========================================================Before find all
      * Hibernate:
      *     select
@@ -107,7 +107,7 @@ class ProblemSolveHistoryTest {
         System.out.println("=========================================================After find all");
     }
 
-    /**
+    /*
      * using @Query annotation
      * =========================================================Before find all
      * Hibernate:

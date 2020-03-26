@@ -57,7 +57,7 @@ class SolvedProblemTest {
     }
 
 
-    /**
+    /*
      * https://stackoverflow.com/questions/45635827/how-do-i-stop-spring-data-jpa-from-doing-a-select-before-a-save
      * =========================================================Before save
      * Hibernate: save하는 객체가 새 객체인지 DB에 저장된 객체인지 확인하기 위함
@@ -93,7 +93,7 @@ class SolvedProblemTest {
         System.out.println("=========================================================After flush");
     }
 
-    /**
+    /*
      * =========================================================Before save and flush
      * Hibernate:
      *     select
@@ -123,7 +123,7 @@ class SolvedProblemTest {
         System.out.println("=========================================================After save and flush");
     }
 
-    /**
+    /*
      * =========================================================Before find by id
      * =========================================================After find by id
      */
@@ -160,7 +160,7 @@ class SolvedProblemTest {
         System.out.println("=========================================================After find by id");
     }
 
-    /**
+    /*
      * fetch 가 LAZY 일 때
      * =========================================================Before find all
      * Hibernate:
