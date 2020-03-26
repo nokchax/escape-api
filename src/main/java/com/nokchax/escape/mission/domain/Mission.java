@@ -5,12 +5,13 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Builder
 @Getter
-@ToString(exclude = {"participants"})
 @NoArgsConstructor
 @AllArgsConstructor
 public class Mission {
@@ -21,5 +22,15 @@ public class Mission {
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
     @OneToMany(mappedBy = "mission", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Entry> participants = new ArrayList<>();
+    private Set<Entry> entry = new LinkedHashSet<>();
+
+    @Override
+    public String toString() {
+        return "Mission{" +
+                "id=" + id +
+                ", goalScore=" + goalScore +
+                ", startDateTime=" + startDateTime +
+                ", endDateTime=" + endDateTime +
+                '}';
+    }
 }
