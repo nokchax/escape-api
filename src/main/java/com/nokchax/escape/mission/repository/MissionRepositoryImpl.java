@@ -3,16 +3,9 @@ package com.nokchax.escape.mission.repository;
 import com.nokchax.escape.mission.domain.Mission;
 import com.nokchax.escape.mission.domain.QEntry;
 import com.nokchax.escape.mission.domain.QMission;
-import com.nokchax.escape.mission.dto.MissionEntryDto;
-import com.querydsl.core.Tuple;
-import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 import javax.persistence.EntityManager;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class MissionRepositoryImpl implements MissionRepositoryCustom {
     private final JPAQueryFactory queryFactory;
