@@ -1,4 +1,5 @@
-INSERT INTO `problem` VALUES (1301,'EASY',0,'Reformat Department Table','reformat-department-table',1179),
+INSERT INTO `problem` VALUES
+(1301,'EASY',0,'Reformat Department Table','reformat-department-table',1179),
 (1300,'HARD',0,'Critical Connections in a Network','critical-connections-in-a-network',1192),
 (1299,'MEDIUM',0,'K-Concatenation Maximum Sum','k-concatenation-maximum-sum',1191),
 (1298,'MEDIUM',0,'Reverse Substrings Between Each Pair of Parentheses','reverse-substrings-between-each-pair-of-parentheses',1190),
