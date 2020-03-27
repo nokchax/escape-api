@@ -1,3 +1,4 @@
 #TODO LIST
 
-- queryDSL 적용
+- aop 적용해보기
+
