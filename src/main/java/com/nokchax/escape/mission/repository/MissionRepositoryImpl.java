@@ -5,7 +5,6 @@ import com.nokchax.escape.mission.domain.QEntry;
 import com.nokchax.escape.mission.domain.QMission;
 import com.nokchax.escape.problem.domain.QSolvedProblem;
 import com.nokchax.escape.user.domain.QUser;
-import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import javax.persistence.EntityManager;
