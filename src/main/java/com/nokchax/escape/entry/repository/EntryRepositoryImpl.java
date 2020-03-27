@@ -1,7 +1,7 @@
 package com.nokchax.escape.entry.repository;
 
 import com.nokchax.escape.entry.domain.Entry;
-import com.nokchax.escape.mission.domain.QEntry;
+import com.nokchax.escape.entry.domain.QEntry;
 import com.nokchax.escape.mission.domain.QMission;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 

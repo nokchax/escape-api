@@ -1,6 +1,8 @@
 package com.nokchax.escape.problem.domain;
 
+import com.nokchax.escape.problem.dto.SolvedProblemSummaryDto;
 import com.nokchax.escape.problem.repository.ProblemRepository;
+import com.nokchax.escape.problem.repository.SolvedProblemRepository;
 import com.nokchax.escape.user.domain.User;
 import com.nokchax.escape.user.repository.UserRepository;
 import org.junit.jupiter.api.Test;
@@ -29,6 +31,8 @@ class SolvedProblemTest {
     private UserRepository userRepository;
     @Autowired
     private ProblemRepository problemRepository;
+    @Autowired
+    private SolvedProblemRepository solvedProblemRepository;
 
     @Test
     void constructorTest() {
@@ -209,7 +213,6 @@ class SolvedProblemTest {
      *
      */
     @Test
-    @Sql("/users.sql")
     void selectTest() {
         System.out.println("=========================================================Before find all");
         List<User> users = userRepository.findAll();
@@ -219,5 +222,14 @@ class SolvedProblemTest {
         // users.forEach(System.out::println);
         // 크롤링 하는 시점에서 비교가 필요한건 지금 까지 푼 문제수이기 때문에 단순 조회 시점에는 lazy 로 가져오고,
         // 무조건 업데이트가 되는 시점에는 한번에 solved problems 까지 가져오는게 좋다.
+    }
+
+    @Test
+    void groupByTest() {
+        System.out.println("=========================================================Before find solve problems summary dto");
+        List<SolvedProblemSummaryDto> summary = solvedProblemRepository.getSolvedProblemPerUserOfLatestMission();
+        System.out.println("=========================================================After find solve problems summary dto");
+
+        summary.forEach(System.out::println);
     }
 }
