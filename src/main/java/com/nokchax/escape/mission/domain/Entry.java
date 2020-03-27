@@ -27,6 +27,10 @@ public class Entry {
     private int medium;
     private int easy;
 
+    public boolean isMissionSuccess(int goalScore) {
+        return this.score >= goalScore;
+    }
+
     @Override
     public String toString() {
         return "Entry{" +
