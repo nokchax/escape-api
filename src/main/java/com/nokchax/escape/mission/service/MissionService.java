@@ -1,6 +1,6 @@
 package com.nokchax.escape.mission.service;
 
-import com.nokchax.escape.mission.domain.Entry;
+import com.nokchax.escape.entry.domain.Entry;
 import com.nokchax.escape.mission.domain.Mission;
 import com.nokchax.escape.mission.repository.MissionRepository;
 import lombok.RequiredArgsConstructor;

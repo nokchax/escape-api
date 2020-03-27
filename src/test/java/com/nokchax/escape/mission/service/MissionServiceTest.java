@@ -1,6 +1,6 @@
 package com.nokchax.escape.mission.service;
 
-import com.nokchax.escape.mission.domain.Entry;
+import com.nokchax.escape.entry.domain.Entry;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

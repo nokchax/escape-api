@@ -1,12 +1,11 @@
 package com.nokchax.escape.mission.domain;
 
+import com.nokchax.escape.entry.domain.Entry;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity

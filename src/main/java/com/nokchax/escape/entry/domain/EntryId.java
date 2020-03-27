@@ -1,4 +1,4 @@
-package com.nokchax.escape.mission.domain;
+package com.nokchax.escape.entry.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

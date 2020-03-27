@@ -1,6 +1,6 @@
 package com.nokchax.escape.mission.repository;
 
-import com.nokchax.escape.mission.domain.Entry;
+import com.nokchax.escape.entry.domain.Entry;
 import com.nokchax.escape.mission.domain.Mission;
 
 public interface MissionRepositoryCustom {

@@ -1,5 +1,6 @@
-package com.nokchax.escape.mission.domain;
+package com.nokchax.escape.entry.domain;
 
+import com.nokchax.escape.mission.domain.Mission;
 import com.nokchax.escape.user.domain.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
