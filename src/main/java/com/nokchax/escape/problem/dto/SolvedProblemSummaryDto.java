@@ -16,7 +16,7 @@ public class SolvedProblemSummaryDto {
     private int mediumCount;
     private int easyCount;
 
-    public int evaludateScore() {
+    public int evaluateScore() {
         return Difficulty.countToScore(this);
     }
 }

@@ -33,9 +33,21 @@ public class SolvedProblemRepositoryImpl implements SolvedProblemRepositoryCusto
                         SolvedProblemSummaryDto.class,
                         solvedProblem.user.id.as("userId"),
                         solvedProblem.mission.id.as("missionId"),
-                        new CaseBuilder().when(solvedProblem.problem.difficulty.eq(HARD)).then(1).otherwise(0).sum().as("hardCount"),
-                        new CaseBuilder().when(solvedProblem.problem.difficulty.eq(MEDIUM)).then(1).otherwise(0).sum().as("mediumCount"),
-                        new CaseBuilder().when(solvedProblem.problem.difficulty.eq(EASY)).then(1).otherwise(0).sum().as("easyCount"))
+                        new CaseBuilder().when(solvedProblem.problem.difficulty.eq(HARD))
+                                .then(1)
+                                .otherwise(0)
+                                .sum()
+                                .as("hardCount"),
+                        new CaseBuilder().when(solvedProblem.problem.difficulty.eq(MEDIUM))
+                                .then(1)
+                                .otherwise(0)
+                                .sum()
+                                .as("mediumCount"),
+                        new CaseBuilder().when(solvedProblem.problem.difficulty.eq(EASY))
+                                .then(1)
+                                .otherwise(0)
+                                .sum()
+                                .as("easyCount"))
                     )
                 .from(solvedProblem)
                 .where(solvedProblem.mission.id.eq(select(mission.id.max()).from(mission)))

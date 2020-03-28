@@ -24,8 +24,7 @@ public class EntryRepositoryImpl implements EntryRepositoryCustom {
     public List<Entry> getLatestEntry() {
 
         return queryFactory.select(entry)
-                .where(entry.mission.id.eq(
-                        select(mission.id.max()).from(mission)
-                )).fetch();
+                .where(entry.mission.id.eq(select(mission.id.max()).from(mission)))
+                .fetch();
     }
 }

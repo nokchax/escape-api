@@ -28,7 +28,7 @@ public class MissionRepositoryImpl implements MissionRepositoryCustom {
         return queryFactory.select(mission)
                 .from(mission)
                 .innerJoin(mission.entry, entry)
-                    .fetchJoin()
+                .fetchJoin()
                 .where(mission.id.eq(missionId))
                 .fetchOne();
     }
@@ -40,11 +40,11 @@ public class MissionRepositoryImpl implements MissionRepositoryCustom {
         return queryFactory.select(mission)
                 .from(mission)
                 .innerJoin(mission.entry, entry)
-                    .fetchJoin()
-                .where(mission.id.eq(
-                        select(missionSub.id.max())
-                                .from(missionSub)
-                )).fetchOne();
+                .fetchJoin()
+                .where(
+                        mission.id.eq(select(missionSub.id.max()).from(missionSub))
+                )
+                .fetchOne();
     }
 
     @Override
@@ -63,9 +63,8 @@ public class MissionRepositoryImpl implements MissionRepositoryCustom {
                     .fetchJoin()
                 .where(
                         mission.id.eq(select(missionSub.id.max()).from(missionSub))
-                        .and(
-                            solvedProblem.mission.id.eq(select(missionSub.id.max()).from(missionSub)
-                        )
-                )).fetchOne();
+                        .and(solvedProblem.mission.id.eq(select(missionSub.id.max()).from(missionSub)))
+                )
+                .fetchOne();
     }
 }
