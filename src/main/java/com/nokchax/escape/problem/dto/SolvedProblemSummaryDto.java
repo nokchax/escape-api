@@ -1,5 +1,6 @@
 package com.nokchax.escape.problem.dto;
 
+import com.nokchax.escape.entry.domain.Entry;
 import com.nokchax.escape.problem.domain.Difficulty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,5 +19,9 @@ public class SolvedProblemSummaryDto {
 
     public int evaluateScore() {
         return Difficulty.countToScore(this);
+    }
+
+    public Entry toEntry() {
+        return new Entry(this);
     }
 }

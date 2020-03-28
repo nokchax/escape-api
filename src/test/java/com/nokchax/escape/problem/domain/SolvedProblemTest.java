@@ -12,7 +12,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.jdbc.Sql;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -227,7 +226,7 @@ class SolvedProblemTest {
     @Test
     void groupByTest() {
         System.out.println("=========================================================Before find solve problems summary dto");
-        List<SolvedProblemSummaryDto> summary = solvedProblemRepository.getSolvedProblemPerUserOfLatestMission();
+        List<SolvedProblemSummaryDto> summary = solvedProblemRepository.getSolvedProblemOfLatestMissionUser();
         System.out.println("=========================================================After find solve problems summary dto");
 
         summary.forEach(System.out::println);

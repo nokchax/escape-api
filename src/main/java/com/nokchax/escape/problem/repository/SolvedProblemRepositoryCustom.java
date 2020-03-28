@@ -5,5 +5,5 @@ import com.nokchax.escape.problem.dto.SolvedProblemSummaryDto;
 import java.util.List;
 
 public interface SolvedProblemRepositoryCustom {
-    List<SolvedProblemSummaryDto> getSolvedProblemPerUserOfLatestMission();
+    List<SolvedProblemSummaryDto> getSolvedProblemOfLatestMissionUser();
 }

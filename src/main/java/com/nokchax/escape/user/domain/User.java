@@ -36,6 +36,10 @@ public class User {
         this.name = name;
     }
 
+    public User(String id) {
+        this.id = id;
+    }
+
     private void checkInput(String... inputs) {
         Arrays.stream(inputs)
                 .forEach(input -> {

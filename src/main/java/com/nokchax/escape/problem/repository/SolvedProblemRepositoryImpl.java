@@ -27,7 +27,7 @@ public class SolvedProblemRepositoryImpl implements SolvedProblemRepositoryCusto
     }
 
     @Override
-    public List<SolvedProblemSummaryDto> getSolvedProblemPerUserOfLatestMission() {
+    public List<SolvedProblemSummaryDto> getSolvedProblemOfLatestMissionUser() {
         return queryFactory.select(
                     bean(
                         SolvedProblemSummaryDto.class,

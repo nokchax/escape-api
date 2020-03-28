@@ -1,6 +1,7 @@
 package com.nokchax.escape.entry.domain;
 
 import com.nokchax.escape.mission.domain.Mission;
+import com.nokchax.escape.problem.dto.SolvedProblemSummaryDto;
 import com.nokchax.escape.user.domain.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,6 +28,16 @@ public class Entry {
     private int hard;
     private int medium;
     private int easy;
+
+    public Entry(SolvedProblemSummaryDto solvedProblemSummaryDto) {
+        this.mission = new Mission(solvedProblemSummaryDto.getMissionId());
+        this.user = new User(solvedProblemSummaryDto.getUserId());
+        this.score = solvedProblemSummaryDto.evaluateScore();
+        this.hard = solvedProblemSummaryDto.getHardCount();
+        this.medium = solvedProblemSummaryDto.getMediumCount();
+        this.easy = solvedProblemSummaryDto.getEasyCount();
+    }
+
 
     public boolean isMissionSuccess(int goalScore) {
         return this.score >= goalScore;

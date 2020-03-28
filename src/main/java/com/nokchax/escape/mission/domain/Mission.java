@@ -23,6 +23,10 @@ public class Mission {
     @OneToMany(mappedBy = "mission", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Entry> entry = new LinkedHashSet<>();
 
+    public Mission(long id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "Mission{" +
