@@ -1,5 +1,6 @@
 package com.nokchax.escape.entry.domain;
 
+import com.nokchax.escape.entry.dto.EntryDto;
 import com.nokchax.escape.message.template.MessageTemplate;
 import com.nokchax.escape.mission.domain.Mission;
 import com.nokchax.escape.problem.dto.SolvedProblemSummaryDto;
@@ -43,15 +44,15 @@ public class Entry extends MessageTemplate {
         return this.score >= goalScore;
     }
 
-    private String getShortenId() {
-        return user.getId().length() > 10 ?
-                user.getId().replaceAll("\\d", "") :
-                user.getId();
-    }
-
-    @Override
-    public String body() {
-        return String.format("%10s|%3d %3d %3d %3d\n", getShortenId(), score, hard, medium, easy);
+    public EntryDto toDto() {
+        return EntryDto.builder()
+                .missionId(mission.getId())
+                .userId(user.getId())
+                .score(score)
+                .hard(hard)
+                .medium(medium)
+                .easy(easy)
+                .build();
     }
 
     @Override
