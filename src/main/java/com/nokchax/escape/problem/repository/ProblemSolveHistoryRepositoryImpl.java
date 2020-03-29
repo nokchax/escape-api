@@ -21,10 +21,12 @@ public class ProblemSolveHistoryRepositoryImpl implements ProblemSolveHistoryRep
 
         return queryFactory.select(problemSolveHistory)
                 .from(problemSolveHistory)
-                .orderBy(problemSolveHistory.totalCount.desc())
-                .orderBy(problemSolveHistory.hardCount.desc())
-                .orderBy(problemSolveHistory.mediumCount.desc())
-                .orderBy(problemSolveHistory.easyCount.desc())
+                .orderBy(
+                        problemSolveHistory.totalCount.desc(),
+                        problemSolveHistory.hardCount.desc(),
+                        problemSolveHistory.mediumCount.desc(),
+                        problemSolveHistory.easyCount.desc()
+                )
                 .fetch();
     }
 }

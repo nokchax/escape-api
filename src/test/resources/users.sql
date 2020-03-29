@@ -12,4 +12,5 @@ INSERT INTO `users` (id, name, password, solved_problem_count) VALUES
 ('nokchax11','김광현11','',261),
 ('nokchax12','김광현12','',37),
 ('nokchax13','김광현13','',100),
-('nokchax14','김광현14','',30);
+('nokchax14','김광현14','',30),
+('nokchax15','김광현14','',0);
