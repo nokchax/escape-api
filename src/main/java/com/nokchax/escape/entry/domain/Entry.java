@@ -1,5 +1,6 @@
 package com.nokchax.escape.entry.domain;
 
+import com.nokchax.escape.message.template.MessageTemplate;
 import com.nokchax.escape.mission.domain.Mission;
 import com.nokchax.escape.problem.dto.SolvedProblemSummaryDto;
 import com.nokchax.escape.user.domain.User;
@@ -14,7 +15,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @IdClass(EntryId.class)
-public class Entry {
+public class Entry extends MessageTemplate {
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mission_id")
@@ -38,9 +39,19 @@ public class Entry {
         this.easy = solvedProblemSummaryDto.getEasyCount();
     }
 
-
-    public boolean isMissionSuccess(int goalScore) {
+    public boolean isMissionComplete(int goalScore) {
         return this.score >= goalScore;
+    }
+
+    private String getShortenId() {
+        return user.getId().length() > 10 ?
+                user.getId().replaceAll("\\d", "") :
+                user.getId();
+    }
+
+    @Override
+    public String body() {
+        return String.format("%10s|%3d %3d %3d %3d\n", getShortenId(), score, hard, medium, easy);
     }
 
     @Override

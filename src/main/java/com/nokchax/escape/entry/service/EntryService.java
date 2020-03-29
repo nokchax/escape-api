@@ -20,14 +20,13 @@ public class EntryService {
     private final SolvedProblemRepository solvedProblemRepository;
 
     @Transactional
-    List<Entry> updateLatestEntry() {
+    public List<Entry> updateLatestEntry() {
         List<SolvedProblemSummaryDto> solvedProblemSummaries = solvedProblemRepository.getSolvedProblemOfLatestMissionUser();
 
         List<Entry> entries = solvedProblemSummaries.stream()
                 .map(SolvedProblemSummaryDto::toEntry)
                 .collect(Collectors.toList());
 
-        System.out.println("before save");
         return entryRepository.saveAll(entries);
     }
 

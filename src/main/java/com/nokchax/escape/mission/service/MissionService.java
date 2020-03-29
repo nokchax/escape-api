@@ -29,7 +29,7 @@ public class MissionService {
 
         return latestMission.getEntry()
                 .stream()
-                .filter(participant -> participant.isMissionSuccess(missionGoalScore))
+                .filter(participant -> participant.isMissionComplete(missionGoalScore))
                 .collect(Collectors.toList());
     }
 
@@ -40,7 +40,7 @@ public class MissionService {
 
         return latestMission.getEntry()
                 .stream()
-                .filter(participant -> !participant.isMissionSuccess(missionGoalScore))
+                .filter(participant -> !participant.isMissionComplete(missionGoalScore))
                 .collect(Collectors.toList());
     }
 
