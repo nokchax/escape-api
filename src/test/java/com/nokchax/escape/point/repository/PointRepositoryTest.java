@@ -1,6 +1,7 @@
-package com.nokchax.escape.user.repository;
+package com.nokchax.escape.point.repository;
 
-import com.nokchax.escape.user.dto.UserPointDto;
+import com.nokchax.escape.point.dto.PointDto;
+import com.nokchax.escape.point.repository.PointRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -10,14 +11,14 @@ import java.util.List;
 
 @DataJpaTest
 @ActiveProfiles("dev")
-class UserPointHistoryRepositoryTest {
+class PointRepositoryTest {
     @Autowired
-    private UserPointHistoryRepository userPointHistoryRepository;
+    private PointRepository pointRepository;
 
     @Test
     void getPointSumTest() {
         System.out.println("=========================================================Before query");
-        List<UserPointDto> pointSummary = userPointHistoryRepository.findAllUserPointHistoryWithOrdering();
+        List<PointDto> pointSummary = pointRepository.findAllUserPointHistoryWithOrdering();
         System.out.println("=========================================================After query");
 
         pointSummary.forEach(System.out::println);

@@ -3,17 +3,14 @@ package com.nokchax.escape.problem.repository;
 import com.nokchax.escape.mission.domain.QMission;
 import com.nokchax.escape.problem.domain.QSolvedProblem;
 import com.nokchax.escape.problem.dto.SolvedProblemSummaryDto;
-import com.querydsl.core.Tuple;
-import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import javax.persistence.EntityManager;
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.nokchax.escape.problem.domain.Difficulty.*;
-import static com.querydsl.core.types.Projections.*;
+import static com.querydsl.core.types.Projections.bean;
 import static com.querydsl.jpa.JPAExpressions.select;
 
 public class SolvedProblemRepositoryImpl implements SolvedProblemRepositoryCustom {

@@ -1,4 +1,4 @@
-package com.nokchax.escape.user.domain;
+package com.nokchax.escape.point.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserPointHistoryId implements Serializable {
+public class PointId implements Serializable {
     private String user;
     private LocalDateTime dateTime;
 }
