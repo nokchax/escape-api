@@ -1,6 +1,7 @@
 package com.nokchax.escape.message.distributor;
 
 import com.nokchax.escape.entry.service.EntryService;
+import com.nokchax.escape.message.template.MessageMaker;
 import com.nokchax.escape.mission.service.MissionService;
 import com.zum.escape.api.util.Command;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,6 @@ public class MessageDistributor {
             case "su":
 //                return adminService.byPassMessage(message);
 
-            //help
             case "help":
                 return "1. 문제풀고 나서 기록 업데이트 : /u or /update username\n" +
                         "2. 미션 완료 사용자 리스트 : /d or /done\n" +
@@ -37,27 +37,41 @@ public class MessageDistributor {
 
             case "list":
             case "l":
-                missionService.getAllUserInLatestMission();
+                MessageMaker.toMessage(
+                        missionService.getAllUserInLatestMission(),
+                        "No users"
+                );
 
-            // /td -> return users that dose't reached the goal
             case "todo":
             case "t":
-                missionService.getAllMissioningUserInLatestMission();
-/*
-                return MessageMaker.dtoToMessage(
-                        taskService.getTodoList(),
-                        "Everybody finished"
+                MessageMaker.toMessage(
+                        missionService.getAllMissioningUserInLatestMission(),
+                        "Every one finished mission"
                 );
-*/
 
-            // /done -> return users that reached the goal
             case "done":
             case "d":
-                missionService.getAllMissionSuccessUserInLatestMission();
+                MessageMaker.toMessage(
+                        missionService.getAllMissionSuccessUserInLatestMission(),
+                        "No one finished yet"
+                );
+
+                // /update -> return update user's problem solve count and return every users info;
+            case "update":
+            case "u":
+                /*
+                    1. update using crawl and login crawl (bypass parameter (all, no arg, userId))
+                    2. entryService.updateLatestEntry();
+                    3. MessageMaker.toMessage()...
+                 */
 /*
+                if(command.containsArgs()) {
+                    return taskService.updateSpecificUser(command.getFirstArg().toLowerCase());
+                }
+
                 return MessageMaker.dtoToMessage(
-                        taskService.getDoneList(),
-                        "Nobody finished yet"
+                        taskService.getAllUsers(),
+                        "No users"
                 );
 */
 
@@ -76,20 +90,6 @@ public class MessageDistributor {
                             taskService.updateSpecificUserManually(command.getFirstArg(), file),
                             "User not found"
                     );
-                }
-
-                return MessageMaker.dtoToMessage(
-                        taskService.getAllUsers(),
-                        "No users"
-                );
-*/
-
-            // /update -> return update user's problem solve count and return every users info;
-            case "update":
-            case "u":
-/*
-                if(command.containsArgs()) {
-                    return taskService.updateSpecificUser(command.getFirstArg().toLowerCase());
                 }
 
                 return MessageMaker.dtoToMessage(
