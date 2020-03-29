@@ -6,9 +6,5 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface ProblemSolveHistoryRepository extends JpaRepository<ProblemSolveHistory, String> {
-    List<ProblemSolveHistory> findAllByOrderByTotalCountDescHardCountDescMediumCountDescEasyCountDesc();
-
-    @Query(value = "SELECT solveHistory FROM ProblemSolveHistory solveHistory ORDER BY totalCount DESC, hardCount DESC, mediumCount DESC, easyCount DESC")
-    List<ProblemSolveHistory> findAllWithOrdering();
+public interface ProblemSolveHistoryRepository extends JpaRepository<ProblemSolveHistory, String>, ProblemSolveHistoryRepositoryCustom {
 }

@@ -1,6 +1,7 @@
 package com.nokchax.escape.mission.service;
 
 import com.nokchax.escape.entry.domain.Entry;
+import com.nokchax.escape.entry.dto.EntryDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,7 +19,7 @@ class MissionServiceTest {
 
     @Test
     void getAllUserTest() {
-        List<Entry> entries = missionService.getAllUserInLatestMission();
+        List<EntryDto> entries = missionService.getAllUserInLatestMission();
 
         assertThat(entries).isNotNull();
         assertThat(entries.size()).isEqualTo(14);
@@ -28,7 +29,7 @@ class MissionServiceTest {
 
     @Test
     void getMissionSuccessUserTest() {
-        List<Entry> entries = missionService.getAllMissionSuccessUserInLatestMission();
+        List<EntryDto> entries = missionService.getAllMissionSuccessUserInLatestMission();
 
         assertThat(entries).isNotNull();
         assertThat(entries.size()).isEqualTo(4);
@@ -38,7 +39,7 @@ class MissionServiceTest {
 
     @Test
     void getMissioningUserTest() {
-        List<Entry> entries = missionService.getAllMissioningUserInLatestMission();
+        List<EntryDto> entries = missionService.getAllMissioningUserInLatestMission();
 
         assertThat(entries).isNotNull();
         assertThat(entries.size()).isEqualTo(10);
