@@ -1,42 +1,28 @@
-package com.zum.escape.api.telegram.distributor;
+package com.nokchax.escape.message.distributor;
 
-import com.zum.escape.api.admin.service.AdminService;
-import com.zum.escape.api.observing.ObservingService;
-import com.zum.escape.api.task.TaskService.TaskService;
-import com.zum.escape.api.users.repository.UserPointRepository;
-import com.zum.escape.api.users.service.UserProblemHistoryService;
-import com.zum.escape.api.users.service.UserProblemService;
+import com.nokchax.escape.entry.service.EntryService;
+import com.nokchax.escape.mission.service.MissionService;
 import com.zum.escape.api.util.Command;
-import com.zum.escape.api.util.MessageMaker;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
-import java.io.File;
-
 @Slf4j
 @Component
 @RequiredArgsConstructor
 public class MessageDistributor {
-    private final TaskService taskService;
-    private final UserProblemHistoryService userProblemHistoryService;
-    private final AdminService adminService;
-    private final UserProblemService userProblemService;
-    private final UserPointRepository userPointRepository;
-    private final ObservingService observingService;
+    private final EntryService entryService;
+    private final MissionService missionService;
 
-
-    public String distributeMessage(Message message, File file) {
+    public String distributeMessage(Message message) {
         Command command = new Command(message);
-
-        log.info("Command : {} / Is File exist : {}", command, file != null);
 
         switch(command.getCommand()) {
             case "su":
-                return adminService.byPassMessage(message);
+//                return adminService.byPassMessage(message);
 
-                //help
+            //help
             case "help":
                 return "1. 문제풀고 나서 기록 업데이트 : /u or /update username\n" +
                         "2. 미션 완료 사용자 리스트 : /d or /done\n" +
@@ -48,25 +34,37 @@ public class MessageDistributor {
                         "8. 금주 미션 참가자 현황 : /l or /list\n\n" +
                         "예) 문제를 푼다 > /update username > /todo";
 
-                // /td -> return users that dose't reached the goal
+
+            case "list":
+            case "l":
+                missionService.getAllUserInLatestMission();
+
+            // /td -> return users that dose't reached the goal
             case "todo":
             case "t":
+                missionService.getAllMissioningUserInLatestMission();
+/*
                 return MessageMaker.dtoToMessage(
                         taskService.getTodoList(),
                         "Everybody finished"
                 );
+*/
 
-                // /done -> return users that reached the goal
+            // /done -> return users that reached the goal
             case "done":
             case "d":
+                missionService.getAllMissionSuccessUserInLatestMission();
+/*
                 return MessageMaker.dtoToMessage(
                         taskService.getDoneList(),
                         "Nobody finished yet"
                 );
+*/
 
-                // How to call : send file and comment like this /mu userId
+            // How to call : send file and comment like this /mu userId
             case "manualUpdate":
             case "mu":
+/*
                 log.info("Start manual update [first args : {}]", command.getFirstArg());
                 if(file == null) {
                     log.error("File not found");
@@ -84,10 +82,12 @@ public class MessageDistributor {
                         taskService.getAllUsers(),
                         "No users"
                 );
+*/
 
-                // /update -> return update user's problem solve count and return every users info;
+            // /update -> return update user's problem solve count and return every users info;
             case "update":
             case "u":
+/*
                 if(command.containsArgs()) {
                     return taskService.updateSpecificUser(command.getFirstArg().toLowerCase());
                 }
@@ -96,49 +96,52 @@ public class MessageDistributor {
                         taskService.getAllUsers(),
                         "No users"
                 );
-                // /point -> return all user's current point
+*/
+            // /point -> return all user's current point
             case "point":
             case "po":
+/*
                 return MessageMaker.dtoToMessage(
                         userPointRepository.findAllByOrderByPointDesc(),
                         "There are no users"
                 );
+*/
 
-                // /fine -> return fine list
+            // /fine -> return fine list
             case "fine":
             case "f":
+/*
                 return MessageMaker.dtoToMessage(
                         userPointRepository.findAllByPointIsLessThanOrderByPointAsc(0),
                         "No fine list"
                 );
+*/
 
-                // /history or /history id -> return user problem's counting result
+            // /history or /history id -> return user problem's counting result
             case "history":
             case "h":
+/*
                 return MessageMaker.dtoToMessage(
                         userProblemHistoryService.find(command),
                         "User not found"
                 );
+*/
 
-                // /problem {problem-name} -> return user list that solved this problem
+            // /problem {problem-name} -> return user list that solved this problem
             case "problem":
             case "pr":
+/*
                 return userProblemService.findAllUsersSolvedThisProblem(command)
                         .toMessage();
+*/
 
             case "currentStatus":
             case "cs":
-                return observingService.getCurrentStatus();
-
-            case "crawlPage":
-            case "cp":
-                observingService.scanPage();
-                return observingService.getCurrentStatus();
+//                return observingService.getCurrentStatus();
 
             default:
                 log.info("Unknown command : {}", command.toString());
         }
-
 
         return "Unknown command : " + command.toString();
     }
