@@ -23,6 +23,6 @@ public abstract class MessageTemplate {
     }
 
     public String footer() {
-        return "\n" + liner() + "\n";
+        return liner() + "\n";
     }
 }

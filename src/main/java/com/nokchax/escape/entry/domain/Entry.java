@@ -1,7 +1,6 @@
 package com.nokchax.escape.entry.domain;
 
 import com.nokchax.escape.entry.dto.EntryDto;
-import com.nokchax.escape.message.template.MessageTemplate;
 import com.nokchax.escape.mission.domain.Mission;
 import com.nokchax.escape.problem.dto.SolvedProblemSummaryDto;
 import com.nokchax.escape.user.domain.User;
@@ -16,7 +15,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @IdClass(EntryId.class)
-public class Entry extends MessageTemplate {
+public class Entry {
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mission_id")
