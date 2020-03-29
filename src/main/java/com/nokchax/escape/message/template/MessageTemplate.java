@@ -1,15 +1,8 @@
 package com.nokchax.escape.message.template;
 
-import javax.persistence.Transient;
-
 public abstract class MessageTemplate {
-    @Transient
-    protected static final char SPLIT_CHAR = '|';
-    @Transient
-    protected static final String LINER = "----------+---------------";
-
     public String liner() {
-        return LINER;
+        return "----------+---------------";
     }
 
     public String header() {
