@@ -22,6 +22,11 @@ public class EntryDto extends MessageTemplate {
     }
 
     @Override
+    public String title() {
+        return "    ID    | S   H   M   E ";
+    }
+
+    @Override
     public String body() {
         return String.format("%10s|%3d %3d %3d %3d\n", getShortenId(), score, hard, medium, easy);
     }

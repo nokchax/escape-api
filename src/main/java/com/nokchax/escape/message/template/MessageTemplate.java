@@ -5,15 +5,15 @@ public abstract class MessageTemplate {
         return "----------+---------------";
     }
 
+    public abstract String title();
+
     public String header() {
         return liner() + "\n" +
-                " USERNAME | S   H   M   E \n" +
+                title() + "\n" +
                 liner() + "\n";
     }
 
-    public String body() {
-        return "\n";
-    }
+    public abstract String body();
 
     public String footer() {
         return liner() + "\n";

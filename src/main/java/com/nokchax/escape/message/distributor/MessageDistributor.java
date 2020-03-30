@@ -1,9 +1,5 @@
 package com.nokchax.escape.message.distributor;
 
-import com.nokchax.escape.entry.service.EntryService;
-import com.nokchax.escape.message.template.MessageMaker;
-import com.nokchax.escape.mission.service.MissionService;
-import com.nokchax.escape.point.repository.PointRepository;
 import com.zum.escape.api.util.Command;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,9 +10,6 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 @Component
 @RequiredArgsConstructor
 public class MessageDistributor {
-    private final EntryService entryService;
-    private final MissionService missionService;
-    private final PointRepository pointRepository;
 
     public String distributeMessage(Message message) {
         Command command = new Command(message);
@@ -84,10 +77,6 @@ public class MessageDistributor {
                 return userProblemService.findAllUsersSolvedThisProblem(command)
                         .toMessage();
 */
-
-            case "currentStatus":
-            case "cs":
-//                return observingService.getCurrentStatus();
 
             default:
                 log.info("Unknown command : {}", command.toString());

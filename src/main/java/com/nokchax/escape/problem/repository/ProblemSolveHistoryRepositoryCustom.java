@@ -1,9 +1,9 @@
 package com.nokchax.escape.problem.repository;
 
-import com.nokchax.escape.problem.domain.ProblemSolveHistory;
+import com.nokchax.escape.problem.dto.ProblemSolveHistoryDto;
 
 import java.util.List;
 
 public interface ProblemSolveHistoryRepositoryCustom {
-    List<ProblemSolveHistory> findAllHistoryWithOrdering();
+    List<ProblemSolveHistoryDto> findAllHistoryWithOrdering();
 }
