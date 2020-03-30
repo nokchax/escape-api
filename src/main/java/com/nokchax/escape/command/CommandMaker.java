@@ -39,6 +39,10 @@ public class CommandMaker {
             case "f":
                 return new FineCommand(message);
 
+            case "problem":
+            case "p":
+                return new ProblemCommand(message);
+
             default:
                 return new UnknownCommand(message);
         }

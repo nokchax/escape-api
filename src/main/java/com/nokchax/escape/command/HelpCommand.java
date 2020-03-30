@@ -8,7 +8,7 @@ public class HelpCommand extends Command<Object> {
     }
 
     @Override
-    public String process() {
+    public String internalProcess() {
         return "1. 문제풀고 나서 기록 업데이트 : /u or /update username\n" +
                 "2. 미션 완료 사용자 리스트 : /d or /done\n" +
                 "3. 금주 미션 point 달성 현황 리스트 : /t or /todo\n" +

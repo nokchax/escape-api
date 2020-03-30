@@ -11,7 +11,7 @@ public class ProblemCommand extends Command<ProblemRepository> {
     }
 
     @Override
-    public String process() {
+    public String internalProcess() {
 
         return MessageMaker.toMessage(
                 getProcessor().findProblemSolveUser(Long.parseLong(getDefaultArgument())),

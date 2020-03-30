@@ -8,7 +8,7 @@ public class UnknownCommand extends Command<Object> {
     }
 
     @Override
-    public String process() {
+    public String internalProcess() {
         return "Unknown command";
     }
 }

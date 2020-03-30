@@ -11,7 +11,7 @@ public class FineCommand extends Command<PointRepository> {
     }
 
     @Override
-    public String process() {
+    public String internalProcess() {
         return MessageMaker.toMessage(
                 getProcessor().findAllPenaltyUsers(),
                 "There is no penalty user"

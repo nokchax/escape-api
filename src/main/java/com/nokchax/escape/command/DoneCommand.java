@@ -10,7 +10,7 @@ public class DoneCommand extends Command<MissionService> {
     }
 
     @Override
-    public String process() {
+    public String internalProcess() {
         return MessageMaker.toMessage(
                 getProcessor().getAllMissionSuccessUserInLatestMission(),
                 "No one finished yet"

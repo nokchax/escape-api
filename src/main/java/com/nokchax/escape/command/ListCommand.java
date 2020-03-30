@@ -11,7 +11,7 @@ public class ListCommand extends Command<MissionService>{
     }
 
     @Override
-    public String process() {
+    public String internalProcess() {
         MissionService processor = getProcessor();
 
         return MessageMaker.toMessage(
