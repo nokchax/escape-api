@@ -23,7 +23,7 @@ public class EntryDto extends MessageTemplate {
 
     @Override
     public String title() {
-        return "    ID    | S   H   M   E ";
+        return "    ID    | S   H   M   E \n";
     }
 
     @Override

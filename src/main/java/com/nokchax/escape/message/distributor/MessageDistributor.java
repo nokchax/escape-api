@@ -60,16 +60,6 @@ public class MessageDistributor {
                 );
 */
 
-            // /history or /history id -> return user problem's counting result
-            case "history":
-            case "h":
-/*
-                return MessageMaker.dtoToMessage(
-                        userProblemHistoryService.find(command),
-                        "User not found"
-                );
-*/
-
             // /problem {problem-name} -> return user list that solved this problem
             case "problem":
             case "pr":

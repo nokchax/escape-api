@@ -2,6 +2,7 @@ package com.nokchax.escape.problem.repository;
 
 import com.nokchax.escape.mission.domain.QMission;
 import com.nokchax.escape.problem.domain.QSolvedProblem;
+import com.nokchax.escape.problem.dto.ProblemSolveUserDto;
 import com.nokchax.escape.problem.dto.SolvedProblemSummaryDto;
 import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;

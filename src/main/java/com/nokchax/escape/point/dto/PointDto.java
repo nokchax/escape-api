@@ -13,16 +13,16 @@ public class PointDto extends MessageTemplate {
 
     @Override
     public String liner() {
-        return "--------------+-------";
+        return "--------------+-------\n";
     }
 
     @Override
     public String title() {
-        return "      ID      | POINT ";
+        return "      ID      | POINT \n";
     }
 
     @Override
     public String body() {
-        return String.format(" %12s | %5d ", userId, point);
+        return String.format(" %12s | %5d \n", userId, point);
     }
 }

@@ -31,11 +31,11 @@ public class ProblemSolveHistoryDto extends MessageTemplate {
 
     @Override
     public String title() {
-        return "    ID    | T   H   M   E ";
+        return "    ID    | T   H   M   E \n";
     }
 
     @Override
     public String body() {
-        return String.format("%10s|%3d %3d %3d %3d", getShortenId(), totalCount, hardCount, mediumCount, easyCount);
+        return String.format("%10s|%3d %3d %3d %3d\n", getShortenId(), totalCount, hardCount, mediumCount, easyCount);
     }
 }

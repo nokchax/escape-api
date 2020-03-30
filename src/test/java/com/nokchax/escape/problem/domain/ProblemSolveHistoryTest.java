@@ -1,5 +1,6 @@
 package com.nokchax.escape.problem.domain;
 
+import com.nokchax.escape.problem.dto.ProblemSolveHistoryDto;
 import com.nokchax.escape.problem.repository.ProblemSolveHistoryRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -104,7 +105,7 @@ class ProblemSolveHistoryTest {
     @Test
     void findAllAndOrderedQueryTest() {
         System.out.println("=========================================================Before find all");
-        List<ProblemSolveHistory> histories = problemSolveHistoryRepository.findAllHistoryWithOrdering();
+        List<ProblemSolveHistoryDto> histories = problemSolveHistoryRepository.findAllHistoryWithOrdering();
         System.out.println("=========================================================After find all");
 
         histories.forEach(System.out::println);
