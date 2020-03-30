@@ -8,6 +8,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 public class ProblemCommand extends Command<ProblemRepository> {
     public ProblemCommand(Message message) {
         super(message);
+        this.defaultArgumentAlias = "n";//number
     }
 
     @Override

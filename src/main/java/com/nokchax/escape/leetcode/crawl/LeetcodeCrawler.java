@@ -1,4 +1,4 @@
-package com.nokchax.escape.leetcode.api.crawl;
+package com.nokchax.escape.leetcode.crawl;
 
 /*
     basic - crawl without login

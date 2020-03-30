@@ -8,6 +8,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 public class HistoryCommand extends Command<ProblemSolveHistoryRepository> {
     public HistoryCommand(Message message) {
         super(message);
+        this.defaultArgumentAlias = "u"; //user
     }
 
     @Override
