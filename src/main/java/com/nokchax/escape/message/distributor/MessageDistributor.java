@@ -3,6 +3,7 @@ package com.nokchax.escape.message.distributor;
 import com.nokchax.escape.entry.service.EntryService;
 import com.nokchax.escape.message.template.MessageMaker;
 import com.nokchax.escape.mission.service.MissionService;
+import com.nokchax.escape.point.repository.PointRepository;
 import com.zum.escape.api.util.Command;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +16,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 public class MessageDistributor {
     private final EntryService entryService;
     private final MissionService missionService;
+    private final PointRepository pointRepository;
 
     public String distributeMessage(Message message) {
         Command command = new Command(message);
@@ -100,22 +102,18 @@ public class MessageDistributor {
             // /point -> return all user's current point
             case "point":
             case "po":
-/*
-                return MessageMaker.dtoToMessage(
-                        userPointRepository.findAllByOrderByPointDesc(),
-                        "There are no users"
+                return MessageMaker.toMessage(
+                        pointRepository.findAllUserPoint(),
+                        "There is no user"
                 );
-*/
 
             // /fine -> return fine list
             case "fine":
             case "f":
-/*
-                return MessageMaker.dtoToMessage(
-                        userPointRepository.findAllByPointIsLessThanOrderByPointAsc(0),
-                        "No fine list"
+                return MessageMaker.toMessage(
+                        pointRepository.findAllPenaltyUsers(),
+                        "There is no penalty user"
                 );
-*/
 
             // /history or /history id -> return user problem's counting result
             case "history":

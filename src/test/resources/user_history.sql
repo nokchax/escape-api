@@ -1,4 +1,4 @@
-INSERT INTO `user_history` (date_time, user_id, description, point) VALUES
+INSERT INTO `point` (date_time, user_id, description, point) VALUES
 ('2019-09-16 20:41:43','nokchax1',2,2),
 ('2019-09-16 20:41:43','nokchax2',2,2),
 ('2019-09-16 20:41:43','nokchax3',2,2),

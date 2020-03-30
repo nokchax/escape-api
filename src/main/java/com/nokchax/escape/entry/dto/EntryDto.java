@@ -25,16 +25,4 @@ public class EntryDto extends MessageTemplate {
     public String body() {
         return String.format("%10s|%3d %3d %3d %3d\n", getShortenId(), score, hard, medium, easy);
     }
-
-    @Override
-    public String toString() {
-        return "Entry{" +
-                "mission=" + missionId +
-                ", user=" + userId +
-                ", score=" + score +
-                ", hard=" + hard +
-                ", medium=" + medium +
-                ", easy=" + easy +
-                '}';
-    }
 }

@@ -5,5 +5,6 @@ import com.nokchax.escape.point.dto.PointDto;
 import java.util.List;
 
 public interface PointRepositoryCustom {
-    List<PointDto> findAllUserPointHistoryWithOrdering();
+    List<PointDto> findAllUserPoint();
+    List<PointDto> findAllPenaltyUsers();
 }

@@ -24,7 +24,7 @@ public class PointRepositoryImpl implements PointRepositoryCustom {
 
 
     @Override
-    public List<PointDto> findAllUserPointHistoryWithOrdering() {
+    public List<PointDto> findAllUserPoint() {
 
         return queryFactory.select(
                     bean(
@@ -39,6 +39,27 @@ public class PointRepositoryImpl implements PointRepositoryCustom {
                 .from(user)
                 .leftJoin(point).on(user.id.eq(point.user.id))
                 .groupBy(user.id)
+                .orderBy(point.point.sum().desc())
+                .fetch();
+    }
+
+    @Override
+    public List<PointDto> findAllPenaltyUsers() {
+
+        return queryFactory.select(
+                    bean(
+                            PointDto.class,
+                            user.id.as("userId"),
+                            new CaseBuilder().when(point.point.sum().isNull())
+                                    .then(0)
+                                    .otherwise(point.point.sum())
+                                    .as("point")
+                    )
+                )
+                .from(user)
+                .leftJoin(point).on(user.id.eq(point.user.id))
+                .groupBy(user.id)
+                .having(point.point.sum().lt(0))
                 .orderBy(point.point.sum().desc())
                 .fetch();
     }
