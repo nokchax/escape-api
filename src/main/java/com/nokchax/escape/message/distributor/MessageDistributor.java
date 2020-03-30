@@ -15,9 +15,6 @@ public class MessageDistributor {
         Command command = new Command(message);
 
         switch(command.getCommand()) {
-            case "su":
-//                return adminService.byPassMessage(message);
-
                 // /update -> return update user's problem solve count and return every users info;
             case "update":
             case "u":
@@ -61,12 +58,6 @@ public class MessageDistributor {
 */
 
             // /problem {problem-name} -> return user list that solved this problem
-            case "problem":
-            case "pr":
-/*
-                return userProblemService.findAllUsersSolvedThisProblem(command)
-                        .toMessage();
-*/
 
             default:
                 log.info("Unknown command : {}", command.toString());

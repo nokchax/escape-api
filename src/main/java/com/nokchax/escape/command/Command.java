@@ -1,23 +1,23 @@
 package com.nokchax.escape.command;
 
 import com.nokchax.escape.config.AppProperties;
+import com.nokchax.escape.util.CommandExtractor;
 import lombok.Data;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @Data
 public abstract class Command<C> {
     protected Message message;
-    protected Map<String, String> options = new HashMap<>();
-    protected String defaultArgument;
-    protected String defaultArgumentAlias;
+    protected Map<String, String> options;
     protected Map<Class, Object> processors;
+    protected String defaultArgumentAlias;
     protected Class<C> clazz;
     protected boolean sudo;
 
     public Command(Message message) {
+        extractOptions(message.getText());
         this.message = message;
     }
 
@@ -55,10 +55,10 @@ public abstract class Command<C> {
     }
 
     private void extractOptions(String commandString) {
-        String[] commandTokens = commandString.split("-");
+        this.options = CommandExtractor.extractOptions(commandString, defaultArgumentAlias);
+    }
 
-        for(String commandToken : commandTokens) {
-            String[] command = commandToken.split(" ");
-        }
+    protected String getDefaultArgument() {
+        return options.getOrDefault(defaultArgumentAlias, "");
     }
 }

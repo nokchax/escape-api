@@ -39,6 +39,10 @@ public class CommandMaker {
             case "f":
                 return new FineCommand(message);
 
+            case "history":
+            case "h":
+                return new HistoryCommand(message);
+
             case "problem":
             case "p":
                 return new ProblemCommand(message);
