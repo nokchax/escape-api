@@ -1,8 +1,11 @@
 package com.nokchax.escape.config;
 
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
@@ -13,12 +16,26 @@ public class CommonConfig {
 
     @Bean
     public RestTemplate restTemplate() {
-        RestTemplate restTemplate = new RestTemplate();
+        RestTemplate restTemplate = new RestTemplate(buildCustomConfig());
 
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
         converter.setSupportedMediaTypes(Collections.singletonList(MediaType.TEXT_HTML));
         restTemplate.getMessageConverters().add(converter);
 
         return restTemplate;
+    }
+
+    private HttpComponentsClientHttpRequestFactory buildCustomConfig() {
+        HttpComponentsClientHttpRequestFactory httpRequestFactory = new HttpComponentsClientHttpRequestFactory();
+        HttpClient httpClient = HttpClientBuilder.create()
+                .setMaxConnTotal(200)
+                .setMaxConnPerRoute(20)
+                .build();
+
+        httpRequestFactory.setConnectTimeout(2000);
+        httpRequestFactory.setConnectTimeout(3000);
+        httpRequestFactory.setHttpClient(httpClient);
+
+        return httpRequestFactory;
     }
 }

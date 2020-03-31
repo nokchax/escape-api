@@ -6,7 +6,7 @@ import com.nokchax.escape.user.domain.User;
 import org.springframework.stereotype.Component;
 
 @Component
-public class LeetcodeApiCrawler implements LeetcodeJsonCrawler<User> {
+public class LeetcodeApiCrawlerWithLogin implements LeetcodeJsonCrawler<User> {
 
     @Override
     public void crawlProblems(User user) {

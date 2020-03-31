@@ -1,5 +1,6 @@
 package com.nokchax.escape.user.domain;
 
+import com.nokchax.escape.leetcode.crawl.page.response.CrawledUserInfo;
 import com.nokchax.escape.problem.domain.SolvedProblem;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
@@ -38,6 +39,10 @@ public class User {
 
     public User(String id) {
         this.id = id;
+    }
+
+    public boolean isUpdated(CrawledUserInfo crawledUserInfo) {
+        return solvedProblemCount < crawledUserInfo.getSolvedProblemCount();
     }
 
     private void checkInput(String... inputs) {
