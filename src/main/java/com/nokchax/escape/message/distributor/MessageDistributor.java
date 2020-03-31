@@ -1,6 +1,6 @@
 package com.nokchax.escape.message.distributor;
 
-import com.zum.escape.api.util.Command;
+import com.nokchax.escape.command.CommandMaker;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -10,14 +10,25 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 @Component
 @RequiredArgsConstructor
 public class MessageDistributor {
+    private final CommandMaker commandMaker;
 
     public String distributeMessage(Message message) {
-        Command command = new Command(message);
+        try {
+            return commandMaker.makeCommand(message)
+                    .process();
 
-        switch(command.getCommand()) {
+        } catch (Exception e) {
+            log.error("{}", e.getMessage());
+            e.printStackTrace();
+
+            return e.getMessage();
+        }
+
                 // /update -> return update user's problem solve count and return every users info;
+/*
             case "update":
             case "u":
+*/
                 /*
                     1. update using crawl and login crawl (bypass parameter (all, no arg, userId))
                     2. entryService.updateLatestEntry();
@@ -35,8 +46,10 @@ public class MessageDistributor {
 */
 
             // How to call : send file and comment like this /mu userId
+/*
             case "manualUpdate":
             case "mu":
+*/
 /*
                 log.info("Start manual update [first args : {}]", command.getFirstArg());
                 if(file == null) {
@@ -56,13 +69,5 @@ public class MessageDistributor {
                         "No users"
                 );
 */
-
-            // /problem {problem-name} -> return user list that solved this problem
-
-            default:
-                log.info("Unknown command : {}", command.toString());
-        }
-
-        return "Unknown command : " + command.toString();
     }
 }

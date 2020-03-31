@@ -1,6 +1,7 @@
 package com.nokchax.escape.command;
 
 import com.nokchax.escape.config.AppProperties;
+import com.nokchax.escape.exception.UnAuthorizedException;
 import com.nokchax.escape.util.CommandExtractor;
 import lombok.Data;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -21,9 +22,9 @@ public abstract class Command<C> {
         this.message = message;
     }
 
-    public String process() {
+    public String process() throws Exception {
         if(isNotSudoer()) {
-            return "Permission denied";
+            throw new UnAuthorizedException("Permission denied");
         }
 
         return internalProcess();

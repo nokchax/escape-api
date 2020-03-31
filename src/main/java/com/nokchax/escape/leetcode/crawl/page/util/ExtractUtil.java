@@ -69,7 +69,9 @@ public class ExtractUtil {
                 break;
 
             default:
-                return "";
+                throw new IllegalArgumentException("Unknown target : " + target + "\n" +
+                        " Maybe leetcode user's page has been changed, check it"
+                );
         }
 
         return elements.get(0)
