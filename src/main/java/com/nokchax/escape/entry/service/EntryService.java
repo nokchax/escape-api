@@ -1,10 +1,12 @@
 package com.nokchax.escape.entry.service;
 
 import com.nokchax.escape.entry.domain.Entry;
+import com.nokchax.escape.entry.dto.EntryDto;
 import com.nokchax.escape.entry.repository.EntryRepository;
 import com.nokchax.escape.mission.repository.MissionRepository;
 import com.nokchax.escape.problem.dto.SolvedProblemSummaryDto;
 import com.nokchax.escape.problem.repository.SolvedProblemRepository;
+import com.nokchax.escape.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -30,4 +32,11 @@ public class EntryService {
         return entryRepository.saveAll(entries);
     }
 
+    public List<EntryDto> findAllUserInLatestMission(List<User> users) {
+        return entryRepository.findAllUserInLatestMission(
+                users.stream()
+                        .map(User::getId)
+                        .collect(Collectors.toList())
+        );
+    }
 }

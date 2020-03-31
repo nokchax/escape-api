@@ -48,7 +48,7 @@ public abstract class Command<C> {
                 .contains(getCommander());
     }
 
-    private String getCommander() {
+    protected String getCommander() {
 
         return message.getFrom()
                 .getId()

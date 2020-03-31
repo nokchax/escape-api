@@ -1,6 +1,7 @@
 package com.nokchax.escape.entry.dto;
 
 import com.nokchax.escape.message.template.MessageTemplate;
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.Builder;
 import lombok.Data;
 
@@ -14,6 +15,16 @@ public class EntryDto extends MessageTemplate {
     private int hard;
     private int medium;
     private int easy;
+
+    @QueryProjection
+    public EntryDto(long missionId, String userId, int score, int hard, int medium, int easy) {
+        this.missionId = missionId;
+        this.userId = userId;
+        this.score = score;
+        this.hard = hard;
+        this.medium = medium;
+        this.easy = easy;
+    }
 
     private String getShortenId() {
         return userId.length() > 10 ?

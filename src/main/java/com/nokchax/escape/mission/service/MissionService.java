@@ -4,6 +4,7 @@ import com.nokchax.escape.entry.domain.Entry;
 import com.nokchax.escape.entry.dto.EntryDto;
 import com.nokchax.escape.mission.domain.Mission;
 import com.nokchax.escape.mission.repository.MissionRepository;
+import com.nokchax.escape.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

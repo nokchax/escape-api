@@ -18,7 +18,9 @@ public class MessageMaker {
         MessageTemplate template = messageTemplate(dtos);
 
         StringBuilder stringBuilder = new StringBuilder("```\n" + template.header());
-        dtos.forEach(stringBuilder::append);
+        dtos.stream()
+                .map(MessageTemplate::body)
+                .forEachOrdered(stringBuilder::append);
         stringBuilder.append(template.footer())
                 .append("```\n");
 

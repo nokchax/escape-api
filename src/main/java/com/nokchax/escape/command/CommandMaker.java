@@ -12,10 +12,7 @@ import javax.annotation.PostConstruct;
 public class CommandMaker {
 
     public Command<?> makeCommand(Message message) {
-
-        String command = extractText(message);
-
-        switch (command) {
+        switch (extractText(message)) {
             case "list":
             case "l":
                 return new ListCommand(message);
