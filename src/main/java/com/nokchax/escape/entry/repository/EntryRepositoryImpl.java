@@ -33,13 +33,14 @@ public class EntryRepositoryImpl implements EntryRepositoryCustom {
     @Override
     public List<EntryDto> findAllUserInLatestMission(List<String> userIds) {
         return queryFactory.select(
-                new QEntryDto(
-                        entry.mission.id,
-                        entry.user.id,
-                        entry.score,
-                        entry.hard,
-                        entry.medium,
-                        entry.easy)
+                    new QEntryDto(
+                            entry.mission.id,
+                            entry.user.id,
+                            entry.score,
+                            entry.hard,
+                            entry.medium,
+                            entry.easy
+                    )
                 )
                 .from(entry)
                 .where(entry.mission.id.eq(select(mission.id.max()).from(mission)))
