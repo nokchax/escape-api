@@ -44,6 +44,10 @@ dependencies {
 
     //for querydsl
     implementation 'com.querydsl:querydsl-jpa'
+
+    //for webclient
+//    compile 'org.springframework.boot:spring-boot-starter-webflux'
+//    compile 'org.projectreactor:reactor-spring:1.0.1.RELEASE'
 }
 
 bootJar {
