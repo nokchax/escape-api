@@ -1,5 +1,6 @@
 package com.nokchax.escape.problem.dto;
 
+import com.nokchax.escape.message.template.MessageTemplate;
 import com.nokchax.escape.problem.domain.Difficulty;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
@@ -7,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class ProblemDto {
+public class ProblemDto extends MessageTemplate {
     private static final String LEETCODE_PROBLEM_URL = "https://leetcode.com/problems/";
 
     private Long viewId;
@@ -25,5 +26,19 @@ public class ProblemDto {
 
     public String getLeetcodeProblemUrl() {
         return LEETCODE_PROBLEM_URL + this.titleSlug;
+    }
+
+    @Override
+    public String title() {
+        return "Updated problems";
+    }
+
+    @Override
+    public String body() {
+        return String.format("%4d|%15s\n", viewId, title);
+    }
+
+    private String getShortenTitle() {
+        return title.length() > 15 ? title.substring(0, 16) : title;
     }
 }
