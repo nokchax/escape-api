@@ -8,5 +8,5 @@ import com.nokchax.escape.leetcode.crawl.page.response.CrawledUserInfo;
     json - crawl with json file
  */
 public interface LeetcodeCrawler<T> {
-    CrawledUserInfo crawlUserInfo(T paramType);
+    CrawledUserInfo crawlUserInfo(T paramType) throws Exception;
 }

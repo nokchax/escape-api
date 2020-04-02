@@ -1,7 +1,6 @@
 package com.zum.escape.api.users.endpoint;
 
 import com.zum.escape.api.telegram.distributor.MessageDistributor;
-import com.zum.escape.api.thirdPartyAdapter.leetcode.response.ProblemResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,10 +15,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.text.MessageFormat;
-import java.util.Scanner;
 
 @Slf4j
 @Component
