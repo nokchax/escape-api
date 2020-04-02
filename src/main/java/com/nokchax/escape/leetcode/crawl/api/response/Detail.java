@@ -6,15 +6,15 @@ import lombok.Data;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Stat {
+public class Detail {
     @JsonProperty("question_id")
-    private Long questionId;
+    private Long problemId;
     @JsonProperty("frontend_question_id")
-    private Long frontendQuestionId;
+    private Long frontendProblemId;
     @JsonProperty("question__title")
-    private String questionTitle;
+    private String problemTitle;
     @JsonProperty("question__title_slug")
-    private String questionTitleSlug;
+    private String problemTitleSlug;
     @JsonProperty("question_hide")
-    private boolean questionHide;
+    private boolean problemHide;
 }
