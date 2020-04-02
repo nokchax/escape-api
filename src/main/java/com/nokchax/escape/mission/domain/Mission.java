@@ -1,6 +1,7 @@
 package com.nokchax.escape.mission.domain;
 
 import com.nokchax.escape.entry.domain.Entry;
+import com.nokchax.escape.problem.domain.SolvedProblem;
 import lombok.*;
 
 import javax.persistence.*;
@@ -25,6 +26,11 @@ public class Mission {
 
     public Mission(long id) {
         this.id = id;
+    }
+
+    public boolean isInPeriod(SolvedProblem solvedProblem) {
+        return solvedProblem.getSolvedTime().isBefore(endDateTime)
+                && solvedProblem.getSolvedTime().isAfter(startDateTime);
     }
 
     @Override

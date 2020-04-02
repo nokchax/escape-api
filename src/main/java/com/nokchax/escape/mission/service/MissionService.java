@@ -4,10 +4,12 @@ import com.nokchax.escape.entry.domain.Entry;
 import com.nokchax.escape.entry.dto.EntryDto;
 import com.nokchax.escape.mission.domain.Mission;
 import com.nokchax.escape.mission.repository.MissionRepository;
+import com.nokchax.escape.problem.domain.SolvedProblem;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -47,6 +49,20 @@ public class MissionService {
                 .filter(participant -> !participant.isMissionComplete(missionGoalScore))
                 .map(Entry::toDto)
                 .collect(Collectors.toList());
+    }
+
+    /** * 푼 문제들이 속해있는 mission을 찾아 업데이트 해줌 */
+    public void fillOutSolvedProblemMissionInfo(Set<SolvedProblem> solvedProblems) {
+        List<Mission> missions = missionRepository.findAll();
+
+        solvedProblems.forEach(
+                solvedProblem -> {
+                    Mission missionInPeriod = missions.stream()
+                            .filter(mission -> mission.isInPeriod(solvedProblem))
+                            .findFirst()
+                            .orElseThrow(IllegalArgumentException::new);
+                    solvedProblem.updateMission(missionInPeriod);
+                });
     }
 
     /** * 최신 미션 리턴 */

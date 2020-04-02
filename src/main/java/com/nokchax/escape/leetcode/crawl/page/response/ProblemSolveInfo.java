@@ -14,4 +14,8 @@ import java.time.LocalDateTime;
 public class ProblemSolveInfo {
     private String problemTitle;
     private LocalDateTime solvedDate;
+
+    public boolean isSameTitle(String title) {
+        return problemTitle.equals(title);
+    }
 }

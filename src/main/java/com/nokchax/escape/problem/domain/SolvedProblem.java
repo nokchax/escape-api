@@ -1,5 +1,7 @@
 package com.nokchax.escape.problem.domain;
 
+import com.nokchax.escape.leetcode.crawl.page.response.CrawledUserInfo;
+import com.nokchax.escape.leetcode.crawl.page.response.ProblemSolveInfo;
 import com.nokchax.escape.mission.domain.Mission;
 import com.nokchax.escape.user.domain.User;
 import lombok.Getter;
@@ -32,6 +34,24 @@ public class SolvedProblem {
 
     private LocalDateTime solvedTime;
     private LocalDateTime updatedTime;
+
+    public SolvedProblem(User user, Problem problem, CrawledUserInfo crawledUserInfo) {
+        this.user = user;
+        this.problem = problem;
+
+        ProblemSolveInfo problemSolveInfo = crawledUserInfo.getSolvedProblems()
+                .stream()
+                .filter(solvedProblem -> solvedProblem.isSameTitle(problem.getTitle()))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Problem is not exists"));
+
+        this.solvedTime = problemSolveInfo.getSolvedDate();
+        this.updatedTime = LocalDateTime.now();
+    }
+
+    public void updateMission(Mission mission) {
+        this.mission = mission;
+    }
 
     @Override
     public String toString() {
