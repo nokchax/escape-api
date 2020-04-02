@@ -1,6 +1,7 @@
 package com.nokchax.escape.user.domain;
 
 import com.nokchax.escape.leetcode.crawl.page.response.CrawledUserInfo;
+import com.nokchax.escape.problem.domain.Problem;
 import com.nokchax.escape.problem.domain.SolvedProblem;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
@@ -9,6 +10,7 @@ import org.springframework.util.StringUtils;
 import javax.persistence.*;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Table(name = "users")
@@ -52,5 +54,9 @@ public class User {
                         throw new IllegalArgumentException("Input is null or empty");
                     }
                 });
+    }
+
+    public void addSolvedProblems(List<Problem> notSavedSolvedProblems) {
+//        solvedProblem.addAll(notSavedSolvedProblems);
     }
 }
