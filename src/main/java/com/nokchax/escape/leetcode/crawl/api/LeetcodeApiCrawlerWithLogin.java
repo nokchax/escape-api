@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.Optional;
 
 @Slf4j
 @Component
@@ -24,7 +25,17 @@ public class LeetcodeApiCrawlerWithLogin implements LeetcodeJsonCrawler<User> {
     }
 
     @Override
-    public CrawledUserInfo crawlUserInfo(User user) throws Exception {
+    public Optional<CrawledUserInfo> crawlUserInfo(User user) throws Exception {
+        CrawledUserInfo crawledUserInfo = doCrawl(user);
+
+        if(user.isNotUpdated(crawledUserInfo)) {
+            return Optional.empty();
+        }
+
+        return Optional.of(crawledUserInfo);
+    }
+
+    private CrawledUserInfo doCrawl(User user) throws Exception {
         // this pattern is not good.. when process order is important
         log.debug("Start selenium crawl [{}]", user.getId());
 

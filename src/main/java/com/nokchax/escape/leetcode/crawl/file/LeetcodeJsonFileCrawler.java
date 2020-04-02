@@ -4,6 +4,8 @@ import com.nokchax.escape.leetcode.crawl.LeetcodeJsonCrawler;
 import com.nokchax.escape.leetcode.crawl.page.response.CrawledUserInfo;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class LeetcodeJsonFileCrawler implements LeetcodeJsonCrawler<String> {
 
@@ -13,7 +15,7 @@ public class LeetcodeJsonFileCrawler implements LeetcodeJsonCrawler<String> {
     }
 
     @Override
-    public CrawledUserInfo crawlUserInfo(String paramType) {
+    public Optional<CrawledUserInfo> crawlUserInfo(String paramType) {
         return null;
     }
 }

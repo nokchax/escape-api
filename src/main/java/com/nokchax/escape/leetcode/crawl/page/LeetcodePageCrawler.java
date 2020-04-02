@@ -15,27 +15,29 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Optional;
+
 import static com.nokchax.escape.leetcode.crawl.Leetcode.LEETCODE_URL;
 
 @Slf4j
 @Component
 @RequiredArgsConstructor
 public class LeetcodePageCrawler implements LeetcodeCrawler<User> {
-    private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36";
+    private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (HTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36";
     private static final HttpEntity<String> HEADERS;
 
     private final RestTemplate restTemplate;
 
     @Override
-    public CrawledUserInfo crawlUserInfo(User user) {
+    public Optional<CrawledUserInfo> crawlUserInfo(User user) {
         Document document = crawlUserPage(user);
         CrawledUserInfo crawledUserInfo = parseDocument(document, user);
 
-        if(user.isUpdated(crawledUserInfo)) {
-            return null;
+        if(user.isNotUpdated(crawledUserInfo)) {
+            return Optional.empty();
         }
 
-        return crawledUserInfo;
+        return Optional.of(crawledUserInfo);
     }
 
     private Document crawlUserPage(User user) {

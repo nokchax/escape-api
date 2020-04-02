@@ -41,8 +41,8 @@ public class User {
         this.id = id;
     }
 
-    public boolean isUpdated(CrawledUserInfo crawledUserInfo) {
-        return solvedProblemCount < crawledUserInfo.getSolvedProblemCount();
+    public boolean isNotUpdated(CrawledUserInfo crawledUserInfo) {
+        return solvedProblemCount == crawledUserInfo.getSolvedProblemCount();
     }
 
     private void checkInput(String... inputs) {
