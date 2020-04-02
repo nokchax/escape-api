@@ -7,6 +7,7 @@ import com.nokchax.escape.leetcode.crawl.api.LeetcodeApiCrawlerWithLogin;
 import com.nokchax.escape.leetcode.crawl.page.LeetcodePageCrawler;
 import com.nokchax.escape.leetcode.crawl.page.response.CrawledUserInfo;
 import com.nokchax.escape.problem.dto.ProblemDto;
+import com.nokchax.escape.problem.service.ProblemService;
 import com.nokchax.escape.user.domain.User;
 import com.nokchax.escape.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,7 @@ import java.util.stream.Collectors;
 public class UpdateService {
     private final UserService userService;
     private final EntryService entryService;
+    private final ProblemService problemService;
     private final LeetcodePageCrawler pageCrawler;
     private final LeetcodeApiCrawlerWithLogin apiCrawler;
 
@@ -73,10 +75,19 @@ public class UpdateService {
     }
 
     @Async("threadPoolExecutor")
-    public CompletableFuture<User> updateUser(User user) {
+    public CompletableFuture<User> updateUser(User user) throws Exception {
         log.debug("{} : {}", Thread.currentThread().getName(), user.getId());
 
-        Optional<CrawledUserInfo> crawledUserInfo = pageCrawler.crawlUserInfo(user);
+        // 페이지 크롤
+        CrawledUserInfo crawledUserInfo = pageCrawler.crawlUserInfo(user)
+                .orElseThrow(() -> new Exception("Fail to crawl from page"));
+
+        if(!problemService.checkSolvedProblemExist(user, crawledUserInfo)) {
+            return CompletableFuture.completedFuture(user);
+        }
+
+        // 문제 업데이트를 했는데 여전히 푼 문제의 count 수가 동일하지 않다면 login crawl 시도
+
 
 
 //        crawledUserInfo.orElseGet()
