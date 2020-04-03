@@ -33,4 +33,10 @@ public class LeetcodeApiResponse {
                 )
                 .build();
     }
+
+    public List<CrawledProblemInfo> toCrawledProblemInfo() {
+        return problemInfos.stream()
+                .map(ProblemInfo::toCrawledProblemInfo)
+                .collect(Collectors.toList());
+    }
 }

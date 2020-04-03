@@ -5,6 +5,7 @@ import com.nokchax.escape.entry.dto.EntryDto;
 import com.nokchax.escape.entry.service.EntryService;
 import com.nokchax.escape.leetcode.crawl.LeetcodeCrawler;
 import com.nokchax.escape.leetcode.crawl.api.LeetcodeApiCrawlerWithLogin;
+import com.nokchax.escape.leetcode.crawl.api.response.CrawledProblemInfo;
 import com.nokchax.escape.leetcode.crawl.page.LeetcodePageCrawler;
 import com.nokchax.escape.leetcode.crawl.page.response.CrawledUserInfo;
 import com.nokchax.escape.problem.dto.ProblemDto;
@@ -68,14 +69,22 @@ public class UpdateService {
         return entryService.findAllUserInLatestMission(users);
     }
 
-    public List<ProblemDto> updateProblems() {
+    public List<ProblemDto> updateProblems() throws Exception {
         /*
             1. api 크롤해서 업데이트 (로그인 크롤)
             2. 기존 problem과 새 문제들 비교 후 업데이트 된 문제들 저장
             3. 업데이트 된 문제들 모두 리턴.
          */
+        User user = userService.findRandomUser();
+        List<CrawledProblemInfo> crawledProblemInfos = null;
 
-        return Collections.EMPTY_LIST;
+        try {
+            crawledProblemInfos = apiCrawler.crawlProblems(user);
+        } catch (Exception e) {
+            throw new Exception("Crawl Fail");
+        }
+
+        return problemService.checkProblemUpdated(crawledProblemInfos);
     }
 
     @Async("threadPoolExecutor")

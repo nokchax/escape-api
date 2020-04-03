@@ -3,10 +3,12 @@ package com.nokchax.escape.problem.dto;
 import com.nokchax.escape.message.template.MessageTemplate;
 import com.nokchax.escape.problem.domain.Difficulty;
 import com.querydsl.core.annotations.QueryProjection;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @NoArgsConstructor
 public class ProblemDto extends MessageTemplate {
     private static final String LEETCODE_PROBLEM_URL = "https://leetcode.com/problems/";

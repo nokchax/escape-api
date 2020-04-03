@@ -1,6 +1,8 @@
 package com.nokchax.escape.problem.domain;
 
 
+import com.nokchax.escape.leetcode.crawl.api.response.CrawledProblemInfo;
+import com.nokchax.escape.problem.dto.ProblemDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -34,5 +36,23 @@ public class Problem {
                 !problem.titleSlug.equals(this.titleSlug) ||
                 !problem.difficulty.equals(this.difficulty) ||
                 problem.hide != this.hide;
+    }
+
+    public boolean isUpdated(CrawledProblemInfo crawledProblemInfo) {
+        return !crawledProblemInfo.getFrontendProblemId().equals(this.viewId) ||
+                !crawledProblemInfo.getProblemTitle().equals(this.title) ||
+                !crawledProblemInfo.getProblemTitleSlug().equals(this.titleSlug) ||
+                !crawledProblemInfo.getDifficulty().equals(this.difficulty) ||
+                !crawledProblemInfo.getProblemId().equals(this.id) ||
+                crawledProblemInfo.isProblemHide() != this.hide;
+    }
+
+    public ProblemDto toDto() {
+        return ProblemDto.builder()
+                .title(title)
+                .titleSlug(titleSlug)
+                .difficulty(difficulty)
+                .viewId(viewId)
+                .build();
     }
 }

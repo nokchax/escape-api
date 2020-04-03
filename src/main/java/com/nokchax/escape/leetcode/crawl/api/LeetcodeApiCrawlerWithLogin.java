@@ -1,6 +1,7 @@
 package com.nokchax.escape.leetcode.crawl.api;
 
 import com.nokchax.escape.leetcode.crawl.LeetcodeJsonCrawler;
+import com.nokchax.escape.leetcode.crawl.api.response.CrawledProblemInfo;
 import com.nokchax.escape.leetcode.crawl.api.selenium.Selenium;
 import com.nokchax.escape.leetcode.crawl.api.selenium.UserAgentQueue;
 import com.nokchax.escape.leetcode.crawl.api.response.LeetcodeApiResponse;
@@ -11,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -20,8 +23,13 @@ public class LeetcodeApiCrawlerWithLogin implements LeetcodeJsonCrawler<User> {
     private final UserAgentQueue userAgentQueue;
 
     @Override
-    public void crawlProblems(User user) {
+    public List<CrawledProblemInfo> crawlProblems(User user) throws Exception {
+        LeetcodeApiResponse apiResponse = Selenium.openBrowser(userAgentQueue)
+                .toLoginPage()
+                .doLogin(user)
+                .doCrawl();
 
+        return apiResponse.toCrawledProblemInfo();
     }
 
     @Override

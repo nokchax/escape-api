@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Slf4j
 @Service
@@ -18,7 +19,7 @@ public class UserService {
     /*
         case 1. update all
         case 2. target is empty -> find by request user's id
-        case 2. update target id
+        case 3. update target id
      */
     public List<User> findByArgument(UpdateCommand.UpdateArgument argument) {
         if(argument.isEmptyArgument()) {
@@ -26,5 +27,12 @@ public class UserService {
         }
 
         return userRepository.findByUserId(argument.getTarget());
+    }
+
+    /** 유저 하나를 랜덤으로 리턴한다 */
+    public User findRandomUser() {
+        List<User> users = userRepository.findAll();
+
+        return users.get(ThreadLocalRandom.current().nextInt(users.size()));
     }
 }
