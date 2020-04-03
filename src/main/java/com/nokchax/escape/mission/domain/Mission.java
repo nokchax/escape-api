@@ -29,8 +29,10 @@ public class Mission {
     }
 
     public boolean isInPeriod(SolvedProblem solvedProblem) {
-        return solvedProblem.getSolvedTime().isBefore(endDateTime)
-                && solvedProblem.getSolvedTime().isAfter(startDateTime);
+        return (solvedProblem.getSolvedTime().isBefore(endDateTime)
+                && solvedProblem.getSolvedTime().isAfter(startDateTime)) ||
+                solvedProblem.getSolvedTime().isEqual(startDateTime) ||
+                solvedProblem.getSolvedTime().isEqual(endDateTime);
     }
 
     @Override
