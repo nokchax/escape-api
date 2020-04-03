@@ -26,6 +26,7 @@ public class User {
     private String id;
     private String password;
     private String name;
+    // 컬럼을 삭제하고, 그때그때 서브 쿼리로 갯수를 가져오는게 좋지 않을까
     private int solvedProblemCount;
     private String telegramId;
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
