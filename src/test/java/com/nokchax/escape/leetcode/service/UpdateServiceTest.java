@@ -1,14 +1,39 @@
 package com.nokchax.escape.leetcode.service;
 
+import com.nokchax.escape.user.domain.User;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 class UpdateServiceTest {
     private List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+    public static final List<TestInterface> NULL_CONTAINED_LISTS = Arrays.asList(
+            () -> {
+                System.out.println("null return class 1");
+                return null;
+            },
+            () -> {
+                System.out.println("null return class 2");
+                return null;
+            },
+            () -> {
+                System.out.println("integer return class 1");
+                return 1;
+            }, // 이 아래 메소드는 실행 안되는게 맞음
+            () -> {
+                System.out.println("null return class 3");
+                return null;
+            },
+            () -> {
+                System.out.println("integer return class 2");
+                return 2;
+            }
+    );
 
     @Test
     void streamTest() {
@@ -49,20 +74,22 @@ class UpdateServiceTest {
 
     @Test
     void findFirstTestWithMethodCall() throws Exception {
-        List<TestInterface> nullContainedLists = Arrays.asList(
-                () -> {System.out.println("null return class 1"); return null;},
-                () -> {System.out.println("null return class 2"); return null;},
-                () -> {System.out.println("integer return class 1"); return 1;}, // 이 아래 메소드는 실행 안되는게 맞음
-                () -> {System.out.println("null return class 3"); return null;},
-                () -> {System.out.println("integer return class 2"); return 2;}
-        );
 
-        Integer integer = nullContainedLists.stream()
+        Integer integer = NULL_CONTAINED_LISTS.stream()
                 .map(TestInterface::returnInt)
                 .filter(Objects::nonNull)
                 .findFirst()
                 .orElseThrow(Exception::new);
 
         System.out.println(integer);
+    }
+
+    @Test
+    void completeFutureTest() {
+        CompletableFuture.allOf(
+                NULL_CONTAINED_LISTS.stream()
+                        .map(TestInterface::returnInt)
+                        .map(CompletableFuture::completedFuture).toArray(CompletableFuture[]::new)
+        ).join();
     }
 }
