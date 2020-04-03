@@ -28,7 +28,7 @@ public class User {
     private String name;
     private int solvedProblemCount;
     private String telegramId;
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<SolvedProblem> solvedProblem = new HashSet<>();
 
     public User(String id, String password, String name) {
