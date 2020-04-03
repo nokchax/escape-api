@@ -11,7 +11,7 @@ public class UpdateProblemCommand extends Command<UpdateService> {
     }
 
     @Override
-    public String internalProcess() {
+    public String internalProcess() throws Exception {
         return MessageMaker.toMessage(
                 getProcessor().updateProblems(),
                 "Problem list is up to date"

@@ -9,10 +9,10 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class MessageDistributor {
+public class MessageHandler {
     private final CommandMaker commandMaker;
 
-    public String distributeMessage(Message message) {
+    public String handle(Message message) {
         try {
             return commandMaker.makeCommand(message)
                     .process();

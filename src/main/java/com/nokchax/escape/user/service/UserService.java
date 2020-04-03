@@ -35,4 +35,8 @@ public class UserService {
 
         return users.get(ThreadLocalRandom.current().nextInt(users.size()));
     }
+
+    public void registerUser(User user) {
+        userRepository.save(user);
+    }
 }

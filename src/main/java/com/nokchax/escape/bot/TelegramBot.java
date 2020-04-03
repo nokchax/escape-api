@@ -1,7 +1,7 @@
 package com.nokchax.escape.bot;
 
 import com.nokchax.escape.config.AppProperties;
-import com.nokchax.escape.message.distributor.MessageDistributor;
+import com.nokchax.escape.message.distributor.MessageHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -15,7 +15,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 @Component
 @RequiredArgsConstructor
 public class TelegramBot extends TelegramLongPollingBot {
-    private final MessageDistributor messageDistributor;
+    private final MessageHandler messageHandler;
     private final AppProperties properties;
 
     @Override
@@ -27,7 +27,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 
         SendMessage message = new SendMessage()
                 .setChatId(update.getMessage().getChatId())
-                .setText(messageDistributor.distributeMessage(update.getMessage()))
+                .setText(messageHandler.handle(update.getMessage()))
                 .setParseMode(ParseMode.MARKDOWN);
 
         sendMessage(message);

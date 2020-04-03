@@ -44,6 +44,13 @@ public class CommandMaker {
             case "p":
                 return new ProblemCommand(message);
 
+            case "updateProblem":
+            case "up":
+                return new UpdateProblemCommand(message);
+
+            case "register":
+                return new RegisterCommand(message);
+
             default:
                 return new UnknownCommand(message);
         }

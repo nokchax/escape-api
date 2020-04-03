@@ -2,7 +2,6 @@ package com.nokchax.escape.leetcode.crawl.api.response;
 
 import com.nokchax.escape.problem.domain.Difficulty;
 import com.nokchax.escape.problem.domain.Problem;
-import com.nokchax.escape.problem.dto.ProblemDto;
 import lombok.Builder;
 import lombok.Data;
 

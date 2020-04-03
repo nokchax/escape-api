@@ -12,7 +12,7 @@ import java.util.Map;
 public abstract class Command<C> {
     protected Message message;
     protected Map<String, String> options;
-    protected Map<Class, Object> processors;
+    protected Map<Class<?>, Object> processors;
     protected String defaultArgumentAlias;
     protected Class<C> clazz;
     protected boolean sudo;
@@ -30,7 +30,7 @@ public abstract class Command<C> {
         return internalProcess();
     }
 
-    public abstract String internalProcess();
+    public abstract String internalProcess() throws Exception ;
 
     protected C getProcessor() {
         return (C) processors.get(clazz);
