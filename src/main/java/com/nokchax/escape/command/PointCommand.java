@@ -13,7 +13,7 @@ public class PointCommand extends Command<PointRepository> {
     @Override
     public String internalProcess() {
         return MessageMaker.toMessage(
-                getProcessor().findAllUserPoint(),
+                processor().findAllUserPoint(),
                 "There is no user"
         );
     }

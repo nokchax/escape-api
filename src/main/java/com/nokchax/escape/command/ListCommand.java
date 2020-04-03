@@ -12,7 +12,7 @@ public class ListCommand extends Command<MissionService>{
 
     @Override
     public String internalProcess() {
-        MissionService processor = getProcessor();
+        MissionService processor = processor();
 
         return MessageMaker.toMessage(
                 processor.getAllUserInLatestMission(),

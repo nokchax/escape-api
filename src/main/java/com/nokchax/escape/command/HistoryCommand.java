@@ -14,7 +14,7 @@ public class HistoryCommand extends Command<ProblemSolveHistoryRepository> {
     @Override
     public String internalProcess() {
         return MessageMaker.toMessage(
-                getProcessor().findAllHistoryWithOrdering(),
+                processor().findAllHistoryWithOrdering(),
                 "No one solved a problem"
         );
     }

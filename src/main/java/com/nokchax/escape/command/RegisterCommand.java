@@ -20,7 +20,7 @@ public class RegisterCommand extends Command<UserService>{
             return "parameter is not correct, command like below form\n" +
                     "/register -u {id} -p {password} -n {name}";
         }
-        getProcessor().registerUser(user);
+        processor().registerUser(user);
 
         return "Register complete";
     }

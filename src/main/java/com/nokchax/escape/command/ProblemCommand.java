@@ -15,7 +15,7 @@ public class ProblemCommand extends Command<ProblemRepository> {
     public String internalProcess() {
 
         return MessageMaker.toMessage(
-                getProcessor().findProblemSolveUser(Long.parseLong(getDefaultArgument())),
+                processor().findProblemSolveUser(Long.parseLong(getDefaultArgument())),
                 "Problem not exist"
         );
     }

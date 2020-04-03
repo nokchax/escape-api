@@ -16,7 +16,7 @@ public class UpdateCommand extends Command<UpdateService> {
     @Override
     public String internalProcess() {
         return MessageMaker.toMessage(
-                getProcessor().updateLatestMission(extractArgument()),
+                processor().updateLatestMission(extractArgument()),
                 "User not found"
         );
     }
@@ -24,7 +24,7 @@ public class UpdateCommand extends Command<UpdateService> {
     private UpdateArgument extractArgument() {
         return UpdateArgument.builder()
                 .target(getDefaultArgument())
-                .requestUsersTelegramId(getCommander())
+                .requestUsersTelegramId(commander())
                 .build();
     }
 

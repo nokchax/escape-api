@@ -32,7 +32,7 @@ public abstract class Command<C> {
 
     public abstract String internalProcess() throws Exception ;
 
-    protected C getProcessor() {
+    protected C processor() {
         return (C) processors.get(clazz);
     }
 
@@ -45,10 +45,10 @@ public abstract class Command<C> {
 
         return properties.getAdmin()
                 .getIds()
-                .contains(getCommander());
+                .contains(commander());
     }
 
-    protected String getCommander() {
+    protected String commander() {
 
         return message.getFrom()
                 .getId()

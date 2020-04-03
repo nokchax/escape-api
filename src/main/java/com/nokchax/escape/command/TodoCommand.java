@@ -13,7 +13,7 @@ public class TodoCommand extends Command<MissionService> {
     @Override
     public String internalProcess() {
         return MessageMaker.toMessage(
-                getProcessor().getAllMissioningUserInLatestMission(),
+                processor().getAllMissioningUserInLatestMission(),
                 "Every one finished mission"
         );
     }

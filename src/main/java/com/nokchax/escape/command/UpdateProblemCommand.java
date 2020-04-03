@@ -13,7 +13,7 @@ public class UpdateProblemCommand extends Command<UpdateService> {
     @Override
     public String internalProcess() throws Exception {
         return MessageMaker.toMessage(
-                getProcessor().updateProblems(),
+                processor().updateProblems(),
                 "Problem list is up to date"
         );
     }
