@@ -2,8 +2,8 @@ package com.nokchax.escape.point.repository;
 
 
 import com.nokchax.escape.point.domain.QPoint;
-import com.nokchax.escape.user.domain.QUser;
 import com.nokchax.escape.point.dto.PointDto;
+import com.nokchax.escape.user.domain.QUser;
 import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
