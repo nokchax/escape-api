@@ -35,7 +35,7 @@ public class GivePointCommand extends Command<PointService> {
         private String targetUser;
         private int point;
 
-        private PointArgument(String targetUser, String point) {
+        public PointArgument(String targetUser, String point) {
             validateInput(targetUser, point);
 
             this.targetUser = targetUser;

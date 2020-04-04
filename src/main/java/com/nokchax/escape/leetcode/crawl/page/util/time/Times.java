@@ -12,6 +12,7 @@ public class Times {
     private List<Time> times;
 
     private Times() {}
+
     public static Times of(String timeString) {
         Times times = new Times();
 
