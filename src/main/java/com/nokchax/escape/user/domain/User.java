@@ -52,7 +52,10 @@ public class User {
         Arrays.stream(inputs)
                 .forEach(input -> {
                     if(StringUtils.isEmpty(input)) {
-                        throw new IllegalArgumentException("Input is null or empty");
+                        throw new IllegalArgumentException(
+                                "parameter is not correct, command like below form\n" +
+                                "/register -u {id} -p {password} -n {name}"
+                        );
                     }
                 });
     }

@@ -23,9 +23,7 @@ public abstract class Command<C> {
     }
 
     public String process() throws Exception {
-        if(isNotSudoer()) {
-            throw new UnAuthorizedException("Permission denied");
-        }
+        checkSudoer();
 
         return internalProcess();
     }
@@ -36,8 +34,10 @@ public abstract class Command<C> {
         return (C) processors.get(clazz);
     }
 
-    private boolean isNotSudoer() {
-        return sudo && checkAdmin();
+    private void checkSudoer() {
+        if(sudo && checkAdmin()) {
+            throw new UnAuthorizedException();
+        }
     }
 
     private boolean checkAdmin() {

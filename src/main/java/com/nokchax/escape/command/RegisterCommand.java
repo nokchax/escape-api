@@ -13,13 +13,8 @@ public class RegisterCommand extends Command<UserService>{
     // id, pw, name
     @Override
     public String internalProcess() throws Exception {
-        User user;
-        try {
-            user = new User(getOptions().get("u"), getOptions().get("p"), getOptions().get("n"));
-        } catch (Exception e) {
-            return "parameter is not correct, command like below form\n" +
-                    "/register -u {id} -p {password} -n {name}";
-        }
+        User user = new User(getOptions().get("u"), getOptions().get("p"), getOptions().get("n"));
+
         processor().registerUser(user);
 
         return "Register complete";
