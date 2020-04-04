@@ -10,5 +10,5 @@ import java.util.Optional;
     json - crawl with json file
  */
 public interface LeetcodeCrawler<T> {
-    Optional<CrawledUserInfo> crawlUserInfo(T paramType) throws Exception;
+    Optional<CrawledUserInfo> crawlUserInfo(T paramType);
 }

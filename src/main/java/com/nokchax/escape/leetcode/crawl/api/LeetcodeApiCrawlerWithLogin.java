@@ -1,5 +1,6 @@
 package com.nokchax.escape.leetcode.crawl.api;
 
+import com.nokchax.escape.exception.CrawlException;
 import com.nokchax.escape.leetcode.crawl.LeetcodeJsonCrawler;
 import com.nokchax.escape.leetcode.crawl.api.response.CrawledProblemInfo;
 import com.nokchax.escape.leetcode.crawl.api.selenium.Selenium;
@@ -23,17 +24,14 @@ public class LeetcodeApiCrawlerWithLogin implements LeetcodeJsonCrawler<User> {
     private final UserAgentQueue userAgentQueue;
 
     @Override
-    public List<CrawledProblemInfo> crawlProblems(User user) throws Exception {
-        LeetcodeApiResponse apiResponse = Selenium.openBrowser(userAgentQueue)
-                .toLoginPage()
-                .doLogin(user)
-                .doCrawl();
+    public List<CrawledProblemInfo> crawlProblems(User user) {
+        LeetcodeApiResponse apiResponse = getLeetcodeApiResponse(user);
 
         return apiResponse.toCrawledProblemInfo();
     }
 
     @Override
-    public Optional<CrawledUserInfo> crawlUserInfo(User user) throws Exception {
+    public Optional<CrawledUserInfo> crawlUserInfo(User user) {
         CrawledUserInfo crawledUserInfo = doCrawl(user);
 
         if(user.isNotUpdated(crawledUserInfo)) {
@@ -43,16 +41,25 @@ public class LeetcodeApiCrawlerWithLogin implements LeetcodeJsonCrawler<User> {
         return Optional.of(crawledUserInfo);
     }
 
-    private CrawledUserInfo doCrawl(User user) throws Exception {
+    private CrawledUserInfo doCrawl(User user) {
         // this pattern is not good.. when process order is important
         log.debug("Start selenium crawl [{}]", user.getId());
 
-        LeetcodeApiResponse apiResponse = Selenium.openBrowser(userAgentQueue)
-                .toLoginPage()
-                .doLogin(user)
-                .doCrawl();
+        LeetcodeApiResponse apiResponse = getLeetcodeApiResponse(user);
 
         return apiResponse.toCrawledUserInfo();
+    }
+
+    private LeetcodeApiResponse getLeetcodeApiResponse(User user) {
+        try {
+            return Selenium.openBrowser(userAgentQueue)
+                    .toLoginPage()
+                    .doLogin(user)
+                    .doCrawl();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new CrawlException();
+        }
     }
 
     // TODO: 2020-04-02 hardcoding...

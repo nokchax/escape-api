@@ -3,6 +3,7 @@ package com.nokchax.escape.leetcode.service;
 import com.nokchax.escape.command.UpdateCommand;
 import com.nokchax.escape.entry.dto.EntryDto;
 import com.nokchax.escape.entry.service.EntryService;
+import com.nokchax.escape.exception.CrawlException;
 import com.nokchax.escape.leetcode.crawl.LeetcodeCrawler;
 import com.nokchax.escape.leetcode.crawl.api.LeetcodeApiCrawlerWithLogin;
 import com.nokchax.escape.leetcode.crawl.api.response.CrawledProblemInfo;
@@ -19,7 +20,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
@@ -69,26 +69,20 @@ public class UpdateService {
         return entryService.findAllUserInLatestMission(users);
     }
 
-    public List<ProblemDto> updateProblems() throws Exception {
-        /*
-            1. api 크롤해서 업데이트 (로그인 크롤)
-            2. 기존 problem과 새 문제들 비교 후 업데이트 된 문제들 저장
-            3. 업데이트 된 문제들 모두 리턴.
-         */
+    /*
+        1. api 크롤해서 업데이트 (로그인 크롤)
+        2. 기존 problem과 새 문제들 비교 후 업데이트 된 문제들 저장
+        3. 업데이트 된 문제들 모두 리턴.
+     */
+    public List<ProblemDto> updateProblems() {
         User user = userService.findRandomUser();
-        List<CrawledProblemInfo> crawledProblemInfos = null;
-
-        try {
-            crawledProblemInfos = apiCrawler.crawlProblems(user);
-        } catch (Exception e) {
-            throw new Exception("Crawl Fail");
-        }
+        List<CrawledProblemInfo> crawledProblemInfos = apiCrawler.crawlProblems(user);
 
         return problemService.checkProblemUpdated(crawledProblemInfos);
     }
 
     @Async("threadPoolExecutor")
-    public CompletableFuture<User> updateUser(User user) throws Exception {
+    public CompletableFuture<User> updateUser(User user) {
         log.debug("{} : {}", Thread.currentThread().getName(), user.getId());
 
         return crawlers.stream()
@@ -102,12 +96,12 @@ public class UpdateService {
                 })
                 .filter(Objects::nonNull)
                 .findFirst()
-                .orElseThrow(() -> new Exception("Fail to crawl user : " + user.getId()));
+                .orElseThrow(() -> new CrawlException(user.getId()));
     }
 
-    public CompletableFuture<User> updateUser(User user, LeetcodeCrawler<User> crawler) throws Exception {
+    public CompletableFuture<User> updateUser(User user, LeetcodeCrawler<User> crawler) {
         CrawledUserInfo crawledUserInfo = crawler.crawlUserInfo(user)
-                .orElseThrow(() -> new Exception("Fail to crawl"));
+                .orElseThrow(CrawlException::new);
 
         if(!problemService.checkSolvedProblemExist(user, crawledUserInfo)) {
             return CompletableFuture.completedFuture(user);
