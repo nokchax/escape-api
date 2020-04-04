@@ -1,6 +1,7 @@
 package com.nokchax.escape.leetcode.crawl.page.response;
 
 import com.nokchax.escape.leetcode.crawl.page.util.ExtractUtil;
+import com.nokchax.escape.leetcode.crawl.page.util.time.Times;
 import com.zum.escape.api.util.DateStringToLocalDateTimeConverter;
 import lombok.Data;
 import org.jsoup.nodes.Element;
@@ -22,7 +23,7 @@ public class SubmissionInfo {
 
         return ProblemSolveInfo.builder()
                 .problemTitle(this.problemTitle)
-                .solvedDate(DateStringToLocalDateTimeConverter.convert(submissionTime))
+                .solvedDate(Times.of(submissionTime).calculate())
                 .build();
     }
 }
