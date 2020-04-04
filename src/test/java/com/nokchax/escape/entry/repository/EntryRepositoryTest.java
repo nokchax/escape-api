@@ -20,6 +20,7 @@ class EntryRepositoryTest {
     void getLastMissionTest() {
         List<EntryDto> allUserIncompleteLastMission = entryRepository.findAllUserIncompleteLastMission();
 
+        assertThat(allUserIncompleteLastMission.size()).isEqualTo(1);
         assertThat(allUserIncompleteLastMission.get(0).getMissionId()).isEqualTo(28);
 
         allUserIncompleteLastMission.forEach(System.out::println);

@@ -4,16 +4,14 @@ import com.nokchax.escape.entry.domain.Entry;
 import com.nokchax.escape.entry.domain.QEntry;
 import com.nokchax.escape.entry.dto.EntryDto;
 import com.nokchax.escape.entry.dto.QEntryDto;
+import com.nokchax.escape.mission.domain.Mission;
 import com.nokchax.escape.mission.domain.QMission;
-import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import javax.persistence.EntityManager;
-
 import java.util.List;
 
 import static com.querydsl.jpa.JPAExpressions.select;
-import static com.querydsl.jpa.JPAExpressions.selectOne;
 
 public class EntryRepositoryImpl implements EntryRepositoryCustom {
     private final JPAQueryFactory queryFactory;
@@ -51,7 +49,11 @@ public class EntryRepositoryImpl implements EntryRepositoryCustom {
 
     @Override
     public List<EntryDto> findAllUserIncompleteLastMission() {
-        QMission subMission = new QMission("subMission");
+        Mission lastMission = queryFactory.selectFrom(mission)
+                .orderBy(mission.id.desc())
+                .limit(1)
+                .offset(1)
+                .fetchFirst();
 
         return queryFactory.select(
                     new QEntryDto(
@@ -64,15 +66,9 @@ public class EntryRepositoryImpl implements EntryRepositoryCustom {
                     )
                 )
                 .from(entry)
-                .where(entry.mission.id.in(
-                        select(mission.id.max())
-                        .from(mission)
-                        .where(mission.id.lt(
-                                select(subMission.id.max())
-                                        .from(subMission)
-                                )
-                            )
-                        )
+                .where(
+                        entry.mission.id.eq(lastMission.getId())
+                        .and(entry.score.lt(lastMission.getGoalScore()))
                 )
                 .fetch();
     }
