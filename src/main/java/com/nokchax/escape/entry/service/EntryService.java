@@ -4,6 +4,8 @@ import com.nokchax.escape.entry.domain.Entry;
 import com.nokchax.escape.entry.dto.EntryDto;
 import com.nokchax.escape.entry.repository.EntryRepository;
 import com.nokchax.escape.mission.repository.MissionRepository;
+import com.nokchax.escape.point.domain.Point;
+import com.nokchax.escape.point.repository.PointRepository;
 import com.nokchax.escape.problem.dto.SolvedProblemSummaryDto;
 import com.nokchax.escape.problem.repository.SolvedProblemRepository;
 import com.nokchax.escape.user.domain.User;
@@ -20,6 +22,7 @@ public class EntryService {
     private final EntryRepository entryRepository;
     private final MissionRepository missionRepository;
     private final SolvedProblemRepository solvedProblemRepository;
+    private final PointRepository pointRepository;
 
     @Transactional
     public List<Entry> updateLatestEntry() {
@@ -38,5 +41,16 @@ public class EntryService {
                         .map(User::getId)
                         .collect(Collectors.toList())
         );
+    }
+
+    @Transactional
+    public void imposeFine() {
+        List<Entry> penaltyUsers = entryRepository.findAllUserIncompleteLastMission();
+
+        List<Point> finePoints = penaltyUsers.stream()
+                .map(Entry::imposeFine)
+                .collect(Collectors.toList());
+
+        pointRepository.saveAll(finePoints);
     }
 }

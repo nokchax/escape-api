@@ -1,6 +1,7 @@
 package com.nokchax.escape.schedule;
 
 import com.nokchax.escape.command.GivePointCommand;
+import com.nokchax.escape.entry.service.EntryService;
 import com.nokchax.escape.mission.service.MissionService;
 import com.nokchax.escape.point.service.PointService;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class PointScheduler {
     private final PointService pointService;
-    private final MissionService missionService;
+    private final EntryService entryService;
 
     /** 매달 1일 모든 유저에게 포인트 분배 */
     @Scheduled(cron = "0 0 0 1 * *")
@@ -24,14 +25,10 @@ public class PointScheduler {
     }
 
     /** 매 미션마다 벌점 부과 */
-    @Scheduled(cron = "30 1 0 * * MON")
+    @Scheduled(cron = "0 0 7 * * MON")
     public void imposeFine() {
-        /*
-            끝나는 시점에 바로 부과할 필요는 없다.
-            매주 월요일 아침에 부과한다.
-            지난주 mission 참가자 중 미션 통과 못한 사람 불러오기
-         */
-
-
+        log.info("Impose fine start");
+        entryService.imposeFine();
+        log.info("Impose fine end");
     }
 }

@@ -2,6 +2,7 @@ package com.nokchax.escape.entry.domain;
 
 import com.nokchax.escape.entry.dto.EntryDto;
 import com.nokchax.escape.mission.domain.Mission;
+import com.nokchax.escape.point.domain.Point;
 import com.nokchax.escape.problem.dto.SolvedProblemSummaryDto;
 import com.nokchax.escape.user.domain.User;
 import lombok.Getter;
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -51,6 +53,15 @@ public class Entry {
                 .hard(hard)
                 .medium(medium)
                 .easy(easy)
+                .build();
+    }
+
+    public Point imposeFine() {
+        return Point.builder()
+                .user(user)
+                .point(score - mission.getGoalScore())
+                .dateTime(LocalDateTime.now())
+                .description(Point.Description.FINES)
                 .build();
     }
 

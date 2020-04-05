@@ -13,6 +13,7 @@ public interface EntryRepositoryCustom {
     /** * 최신 미션을 수행하고 있는 사용자 중 원하는 사용자만 가져온다. */
     List<EntryDto> findAllUserInLatestMission(List<String> userIds);
 
-    /** * 지난 미션을 수행했던 사용자중 미션을 완료 못한 사용자만 가져온다. */
-    List<EntryDto> findAllUserIncompleteLastMission();
+    /** * 지난 미션을 수행했던 사용자중 미션을 완료 못한 사용자만 가져온다.
+     * @return*/
+    List<Entry> findAllUserIncompleteLastMission();
 }
