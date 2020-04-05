@@ -3,6 +3,7 @@ package com.nokchax.escape.mission.service;
 import com.nokchax.escape.entry.dto.EntryDto;
 import com.nokchax.escape.mission.domain.Mission;
 import com.nokchax.escape.mission.repository.MissionRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -17,6 +18,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
+@Slf4j
 @Import(MissionService.class)
 @ActiveProfiles("dev")
 class MissionServiceTest {
