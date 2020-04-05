@@ -39,7 +39,7 @@ public class MissionRepositoryImpl implements MissionRepositoryCustom {
 
         return queryFactory.select(mission)
                 .from(mission)
-                .join(mission.entry, entry)
+                .leftJoin(mission.entry, entry)
                 .fetchJoin()
                 .where(
                         mission.id.eq(select(missionSub.id.max()).from(missionSub))
