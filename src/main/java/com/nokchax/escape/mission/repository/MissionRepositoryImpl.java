@@ -39,7 +39,7 @@ public class MissionRepositoryImpl implements MissionRepositoryCustom {
 
         return queryFactory.select(mission)
                 .from(mission)
-                .innerJoin(mission.entry, entry)
+                .join(mission.entry, entry)
                 .fetchJoin()
                 .where(
                         mission.id.eq(select(missionSub.id.max()).from(missionSub))
@@ -49,17 +49,15 @@ public class MissionRepositoryImpl implements MissionRepositoryCustom {
 
     @Override
     public Mission findMissionWithEntryAndUser() {
-        // User를 가져올 필요가 있을까???
-        // User가 푼 데이터 수를 업데이트 하는건 따로 호출하는게 낫지 않을까
         QMission missionSub = new QMission("missionSub");
 
         return queryFactory.select(mission)
                 .from(mission)
-                .innerJoin(mission.entry, entry)
+                .join(mission.entry, entry)
                     .fetchJoin()
-                .innerJoin(entry.user, user)
+                .join(entry.user, user)
                     .fetchJoin()
-                .innerJoin(user.solvedProblem, solvedProblem)
+                .join(user.solvedProblem, solvedProblem)
                     .fetchJoin()
                 .where(
                         mission.id.eq(select(missionSub.id.max()).from(missionSub))

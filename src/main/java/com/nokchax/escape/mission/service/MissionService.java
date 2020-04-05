@@ -5,6 +5,7 @@ import com.nokchax.escape.entry.dto.EntryDto;
 import com.nokchax.escape.mission.domain.Mission;
 import com.nokchax.escape.mission.repository.MissionRepository;
 import com.nokchax.escape.problem.domain.SolvedProblem;
+import com.nokchax.escape.util.DateTimeMaker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -66,7 +67,18 @@ public class MissionService {
     }
 
     /** * 최신 미션 리턴 */
-    private Mission getLatestMission() {
+    public Mission getLatestMission() {
         return missionRepository.findLatestMissionWithEntry();
+
+    }
+
+    /** * 이전 미션 정리 및 새 미션 생성 */
+    public void createMission() {
+        Mission newMission = Mission.builder()
+                .startDateTime(DateTimeMaker.startOfWeek())
+                .endDateTime(DateTimeMaker.endOfWeek())
+                .build();
+
+        missionRepository.save(newMission);
     }
 }
