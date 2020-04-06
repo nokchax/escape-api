@@ -1,107 +1,66 @@
 package com.nokchax.escape.command;
 
-import com.nokchax.escape.leetcode.service.UpdateService;
-import com.nokchax.escape.mission.service.MissionService;
-import com.nokchax.escape.point.repository.PointRepository;
-import com.nokchax.escape.point.service.PointService;
-import com.nokchax.escape.problem.repository.ProblemRepository;
-import com.nokchax.escape.problem.repository.ProblemSolveHistoryRepository;
-import com.nokchax.escape.user.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
-import javax.annotation.PostConstruct;
-import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-
 @Component
 @RequiredArgsConstructor
 public class CommandMaker {
-    private final UserService userService;
-    private final PointService pointService;
-    private final UpdateService updateService;
-    private final MissionService missionService;
-    private final PointRepository pointRepository;
-    private final ProblemRepository problemRepository;
-    private final ProblemSolveHistoryRepository problemSolveHistoryRepository;
-
-    private Map<Class<?>, Object> processors;
-
-    private Map<Class<?>, Object> getProcessors() {
-        if(processors == null) {
-            initProcessorMap();
-        }
-
-        return processors;
-    }
-
-    @PostConstruct
-    public void initProcessorMap() {
-        this.processors = new HashMap<>();
-
-        for(Field field : this.getClass().getFields()) {
-            try {
-                processors.put(field.getType(), field.get(field.getName()));
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+    private final ApplicationContext applicationContext;
 
     public Command<?> makeCommand(Message message) {
         switch (extractText(message)) {
             case "list":
             case "l":
-                return new ListCommand(message, getProcessors());
+                return new ListCommand(message, applicationContext);
 
             case "todo":
             case "t":
-                return new TodoCommand(message, getProcessors());
+                return new TodoCommand(message, applicationContext);
 
             case "done":
             case "d":
-                return new DoneCommand(message, getProcessors());
+                return new DoneCommand(message, applicationContext);
 
             case "help":
-                return new HelpCommand(message, getProcessors());
+                return new HelpCommand(message, applicationContext);
 
             case "point":
             case "po":
-                return new PointCommand(message, getProcessors());
+                return new PointCommand(message, applicationContext);
 
             case "fine":
             case "f":
-                return new FineCommand(message, getProcessors());
+                return new FineCommand(message, applicationContext);
 
             case "history":
             case "h":
-                return new HistoryCommand(message, getProcessors());
+                return new HistoryCommand(message, applicationContext);
 
             case "problem":
             case "p":
-                return new ProblemCommand(message, getProcessors());
+                return new ProblemCommand(message, applicationContext);
 
             case "update" :
             case "u":
-                return new UpdateCommand(message, getProcessors());
+                return new UpdateCommand(message, applicationContext);
 
             case "updateProblem":
             case "up":
-                return new UpdateProblemCommand(message, getProcessors());
+                return new UpdateProblemCommand(message, applicationContext);
 
             case "register":
-                return new RegisterCommand(message, getProcessors());
+                return new RegisterCommand(message, applicationContext);
 
             case "givePoint":
             case "gp":
-                return new GivePointCommand(message, getProcessors());
+                return new GivePointCommand(message, applicationContext);
 
             default:
-                return new UnknownCommand(message, getProcessors());
+                return new UnknownCommand(message, applicationContext);
         }
     }
 

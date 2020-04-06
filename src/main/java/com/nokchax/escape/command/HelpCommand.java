@@ -1,11 +1,10 @@
 package com.nokchax.escape.command;
 
+import org.springframework.context.ApplicationContext;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
-import java.util.Map;
-
 public class HelpCommand extends Command<Object> {
-    public HelpCommand(Message message, Map<Class<?>, Object> processors) {
+    public HelpCommand(Message message, ApplicationContext processors) {
         super(message, processors);
     }
 

@@ -4,6 +4,7 @@ import com.nokchax.escape.config.AppProperties;
 import com.nokchax.escape.exception.UnAuthorizedException;
 import com.nokchax.escape.util.CommandExtractor;
 import lombok.Data;
+import org.springframework.context.ApplicationContext;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
 import java.util.Map;
@@ -12,15 +13,15 @@ import java.util.Map;
 public abstract class Command<C> {
     protected Message message;
     protected Map<String, String> options;
-    protected Map<Class<?>, Object> processors;
+    protected ApplicationContext applicationContext;
     protected String defaultArgumentAlias;
     protected Class<C> clazz;
     protected boolean sudo;
 
-    public Command(Message message, Map<Class<?>, Object> processors) {
+    public Command(Message message, ApplicationContext applicationContext) {
         extractOptions(message.getText());
         this.message = message;
-        this.processors = processors;
+        this.applicationContext = applicationContext;
     }
 
     public String process() {
@@ -32,7 +33,7 @@ public abstract class Command<C> {
     public abstract String internalProcess() ;
 
     protected C processor() {
-        return (C) processors.get(clazz);
+        return applicationContext.getBean(clazz);
     }
 
     private void checkSudoer() {
@@ -42,7 +43,7 @@ public abstract class Command<C> {
     }
 
     private boolean isAdmin() {
-        AppProperties properties = (AppProperties) processors.get(AppProperties.class);
+        AppProperties properties = applicationContext.getBean(AppProperties.class);
 
         return properties.getAdmin()
                 .getIds()

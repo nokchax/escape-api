@@ -4,14 +4,13 @@ import com.nokchax.escape.message.template.MessageMaker;
 import com.nokchax.escape.point.service.PointService;
 import lombok.Data;
 import org.jsoup.helper.StringUtil;
+import org.springframework.context.ApplicationContext;
 import org.springframework.util.StringUtils;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
-import java.util.Map;
-
 public class GivePointCommand extends Command<PointService> {
 
-    public GivePointCommand(Message message, Map<Class<?>, Object> processors) {
+    public GivePointCommand(Message message, ApplicationContext processors) {
         super(message, processors);
         sudo = true;
     }
@@ -20,7 +19,7 @@ public class GivePointCommand extends Command<PointService> {
     public String internalProcess() {
         return MessageMaker.toMessage(
                 processor().givePointTo(new PointArgument(getTargetUser(), getPoint())),
-                "Fail to give point myabe user not exist"
+                "Fail to give point maybe user not exist"
         );
     }
 
@@ -47,7 +46,7 @@ public class GivePointCommand extends Command<PointService> {
         private void validateInput(String targetUser, String point) {
             if(StringUtils.isEmpty(targetUser) || StringUtils.isEmpty(point) || !StringUtil.isNumeric(point)) {
                 throw new IllegalArgumentException(
-                        "parameter is not correct, command like below form\n" +
+                        "parameter is not correct, command like below template\n" +
                                 "/givePoint -u {id | all} -p {point}"
                 );
             }

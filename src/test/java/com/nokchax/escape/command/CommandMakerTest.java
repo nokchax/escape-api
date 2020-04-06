@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.ApplicationContext;
 
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Stream;
 
 @Slf4j
 @DataJpaTest
@@ -21,11 +23,12 @@ class CommandMakerTest {
     @Test
     void reflectionTest() {
         log.info("Get field start");
-        Arrays.asList(UserRepository.class, MissionRepository.class, EntryRepository.class, ProblemRepository.class)
-                .forEach(c -> {
-                    Object object = applicationContext.getBean(c);
-                    System.out.println(c + " : " + object);
-                        });
+        Map<Class<?>, Object> collect = new HashMap<>();
+        Stream.of(UserRepository.class, MissionRepository.class, EntryRepository.class, ProblemRepository.class)
+                .forEach(clazz -> collect.put(clazz, applicationContext.getBean(clazz)));
+
+        collect.forEach((k, v) -> System.out.println(k + " : " + v));
+
         log.info("Get field end");
     }
 }

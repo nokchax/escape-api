@@ -4,13 +4,12 @@ import com.nokchax.escape.leetcode.service.UpdateService;
 import com.nokchax.escape.message.template.MessageMaker;
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.context.ApplicationContext;
 import org.springframework.util.StringUtils;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
-import java.util.Map;
-
 public class UpdateCommand extends Command<UpdateService> {
-    public UpdateCommand(Message message, Map<Class<?>, Object> processors) {
+    public UpdateCommand(Message message, ApplicationContext processors) {
         super(message, processors);
         this.defaultArgumentAlias = "u";
     }

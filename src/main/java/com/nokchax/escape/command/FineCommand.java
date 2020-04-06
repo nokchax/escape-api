@@ -2,13 +2,12 @@ package com.nokchax.escape.command;
 
 import com.nokchax.escape.message.template.MessageMaker;
 import com.nokchax.escape.point.repository.PointRepository;
+import org.springframework.context.ApplicationContext;
 import org.telegram.telegrambots.meta.api.objects.Message;
-
-import java.util.Map;
 
 public class FineCommand extends Command<PointRepository> {
 
-    public FineCommand(Message message, Map<Class<?>, Object> processors) {
+    public FineCommand(Message message, ApplicationContext processors) {
         super(message, processors);
     }
 

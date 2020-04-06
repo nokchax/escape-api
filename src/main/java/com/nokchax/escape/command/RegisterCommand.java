@@ -2,12 +2,11 @@ package com.nokchax.escape.command;
 
 import com.nokchax.escape.user.domain.User;
 import com.nokchax.escape.user.service.UserService;
+import org.springframework.context.ApplicationContext;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
-import java.util.Map;
-
 public class RegisterCommand extends Command<UserService>{
-    public RegisterCommand(Message message, Map<Class<?>, Object> processors) {
+    public RegisterCommand(Message message, ApplicationContext processors) {
         super(message, processors);
         sudo = true;
     }
