@@ -22,13 +22,13 @@ public abstract class Command<C> {
         this.message = message;
     }
 
-    public String process() throws Exception {
+    public String process() {
         checkSudoer();
 
         return internalProcess();
     }
 
-    public abstract String internalProcess() throws Exception ;
+    public abstract String internalProcess() ;
 
     protected C processor() {
         return (C) processors.get(clazz);

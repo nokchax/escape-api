@@ -12,7 +12,7 @@ public class RegisterCommand extends Command<UserService>{
 
     // id, pw, name
     @Override
-    public String internalProcess() throws Exception {
+    public String internalProcess() {
         User user = new User(getOptions().get("u"), getOptions().get("p"), getOptions().get("n"));
 
         processor().registerUser(user);

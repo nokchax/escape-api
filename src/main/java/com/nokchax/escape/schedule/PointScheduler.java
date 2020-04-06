@@ -24,7 +24,7 @@ public class PointScheduler {
         log.info("Give points to every user end");
     }
 
-    /** 매 미션마다 벌점 부과 */
+    /** 매주 월요일 7시, 전주 미션에 대한 벌점 부과 */
     @Scheduled(cron = "0 0 7 * * MON")
     public void imposeFine() {
         log.info("Impose fine start");

@@ -17,11 +17,10 @@ public class MissionScheduler {
     private final MissionService missionService;
     private final UpdateService updateService;
 
-    //주간 미션 생성
-
+    /** 주간 미션 생성 */
     @Scheduled(cron = "0 0 0 * * MON")
     @Transactional
-    public void createTask() {
+    public void createMission() {
         log.info("Create mission start");
         // 이전 entry 업데이트
         updateService.updateLatestMission(UpdateCommand.UpdateArgument.UPDATE_ALL_ARGUMENT);
