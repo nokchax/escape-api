@@ -18,7 +18,7 @@ import java.io.File;
 import java.text.MessageFormat;
 
 @Slf4j
-@Component
+//@Component
 @RequiredArgsConstructor
 public class EscapeHelpBot extends TelegramLongPollingBot {
     private final MessageDistributor messageDistributor;

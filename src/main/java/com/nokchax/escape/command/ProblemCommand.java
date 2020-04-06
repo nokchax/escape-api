@@ -5,7 +5,6 @@ import com.nokchax.escape.problem.repository.ProblemRepository;
 import org.springframework.context.ApplicationContext;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
-// TODO: 2020-03-30 problem name
 public class ProblemCommand extends Command<ProblemRepository> {
     public ProblemCommand(Message message, ApplicationContext processors) {
         super(message, processors);

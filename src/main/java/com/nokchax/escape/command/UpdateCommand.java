@@ -9,6 +9,7 @@ import org.springframework.util.StringUtils;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
 public class UpdateCommand extends Command<UpdateService> {
+
     public UpdateCommand(Message message, ApplicationContext processors) {
         super(message, processors);
         this.defaultArgumentAlias = "u";

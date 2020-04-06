@@ -5,13 +5,13 @@ import com.nokchax.escape.user.service.UserService;
 import org.springframework.context.ApplicationContext;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
-public class RegisterCommand extends Command<UserService>{
+public class RegisterCommand extends Command<UserService> {
+
     public RegisterCommand(Message message, ApplicationContext processors) {
         super(message, processors);
         sudo = true;
     }
 
-    // id, pw, name
     @Override
     public String internalProcess() {
         User user = new User(getOptions().get("u"), getOptions().get("p"), getOptions().get("n"));

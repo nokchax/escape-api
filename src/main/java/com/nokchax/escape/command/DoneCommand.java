@@ -6,6 +6,7 @@ import org.springframework.context.ApplicationContext;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
 public class DoneCommand extends Command<MissionService> {
+
     public DoneCommand(Message message, ApplicationContext processors) {
         super(message, processors);
     }

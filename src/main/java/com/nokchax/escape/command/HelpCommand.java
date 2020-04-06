@@ -4,6 +4,7 @@ import org.springframework.context.ApplicationContext;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
 public class HelpCommand extends Command<Object> {
+
     public HelpCommand(Message message, ApplicationContext processors) {
         super(message, processors);
     }
