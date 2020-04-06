@@ -4,10 +4,12 @@ import com.nokchax.escape.message.template.MessageMaker;
 import com.nokchax.escape.point.repository.PointRepository;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
+import java.util.Map;
+
 public class FineCommand extends Command<PointRepository> {
 
-    public FineCommand(Message message) {
-        super(message);
+    public FineCommand(Message message, Map<Class<?>, Object> processors) {
+        super(message, processors);
     }
 
     @Override

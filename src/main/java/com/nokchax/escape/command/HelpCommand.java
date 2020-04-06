@@ -2,9 +2,11 @@ package com.nokchax.escape.command;
 
 import org.telegram.telegrambots.meta.api.objects.Message;
 
+import java.util.Map;
+
 public class HelpCommand extends Command<Object> {
-    public HelpCommand(Message message) {
-        super(message);
+    public HelpCommand(Message message, Map<Class<?>, Object> processors) {
+        super(message, processors);
     }
 
     @Override

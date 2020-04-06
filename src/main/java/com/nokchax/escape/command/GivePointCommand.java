@@ -7,10 +7,12 @@ import org.jsoup.helper.StringUtil;
 import org.springframework.util.StringUtils;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
+import java.util.Map;
+
 public class GivePointCommand extends Command<PointService> {
 
-    public GivePointCommand(Message message) {
-        super(message);
+    public GivePointCommand(Message message, Map<Class<?>, Object> processors) {
+        super(message, processors);
         sudo = true;
     }
 

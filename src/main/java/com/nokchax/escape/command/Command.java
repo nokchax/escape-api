@@ -17,9 +17,10 @@ public abstract class Command<C> {
     protected Class<C> clazz;
     protected boolean sudo;
 
-    public Command(Message message) {
+    public Command(Message message, Map<Class<?>, Object> processors) {
         extractOptions(message.getText());
         this.message = message;
+        this.processors = processors;
     }
 
     public String process() {

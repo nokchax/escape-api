@@ -7,9 +7,11 @@ import lombok.Data;
 import org.springframework.util.StringUtils;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
+import java.util.Map;
+
 public class UpdateCommand extends Command<UpdateService> {
-    public UpdateCommand(Message message) {
-        super(message);
+    public UpdateCommand(Message message, Map<Class<?>, Object> processors) {
+        super(message, processors);
         this.defaultArgumentAlias = "u";
     }
 
