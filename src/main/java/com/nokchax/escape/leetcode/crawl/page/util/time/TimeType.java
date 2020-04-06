@@ -20,7 +20,7 @@ public enum TimeType {
     private String type;
     private BiFunction<LocalDateTime, Integer, LocalDateTime> function;
 
-    private static final Map<String, TimeType> timeTypes = Collections.unmodifiableMap(
+    private static final Map<String, TimeType> TIME_TYPES = Collections.unmodifiableMap(
             Stream.of(values())
                     .collect(Collectors.toMap(TimeType::getType, Function.identity()))
     );
@@ -35,11 +35,11 @@ public enum TimeType {
     }
 
     public static TimeType of(String type) {
-        if(!timeTypes.containsKey(type)) {
+        if(!TIME_TYPES.containsKey(type)) {
             throw new InvalidTimeType(type);
         }
 
-        return timeTypes.get(type);
+        return TIME_TYPES.get(type);
     }
 
     private String getType() {

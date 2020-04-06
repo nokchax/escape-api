@@ -42,7 +42,6 @@ public class LeetcodeApiCrawlerWithLogin implements LeetcodeJsonCrawler<User> {
     }
 
     private CrawledUserInfo doCrawl(User user) {
-        // this pattern is not good.. when process order is important
         log.debug("Start selenium crawl [{}]", user.getId());
 
         LeetcodeApiResponse apiResponse = getLeetcodeApiResponse(user);

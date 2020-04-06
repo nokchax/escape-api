@@ -60,7 +60,6 @@ public class User {
                 });
     }
 
-    // TODO: 2020-04-02 update 쿼리가 나가는지 테스트 필요
     public boolean addSolvedProblems(Set<SolvedProblem> notSavedSolvedProblems) {
         solvedProblemCount += notSavedSolvedProblems.size();
 

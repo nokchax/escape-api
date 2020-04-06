@@ -13,10 +13,11 @@ import static com.querydsl.jpa.JPAExpressions.select;
 
 public class MissionRepositoryImpl implements MissionRepositoryCustom {
     private final JPAQueryFactory queryFactory;
-    QMission mission = QMission.mission;
-    QEntry entry = QEntry.entry;
-    QUser user = QUser.user;
-    QSolvedProblem solvedProblem = QSolvedProblem.solvedProblem;
+    private QMission mission = QMission.mission;
+    private QEntry entry = QEntry.entry;
+    private QUser user = QUser.user;
+    private QSolvedProblem solvedProblem = QSolvedProblem.solvedProblem;
+    private QMission missionSub = new QMission("missionSub");
 
     public MissionRepositoryImpl(EntityManager entityManager) {
         this.queryFactory = new JPAQueryFactory(entityManager);
@@ -35,7 +36,6 @@ public class MissionRepositoryImpl implements MissionRepositoryCustom {
 
     @Override
     public Mission findLatestMissionWithEntry() {
-        QMission missionSub = new QMission("missionSub");
 
         return queryFactory.select(mission)
                 .from(mission)
@@ -49,7 +49,6 @@ public class MissionRepositoryImpl implements MissionRepositoryCustom {
 
     @Override
     public Mission findMissionWithEntryAndUser() {
-        QMission missionSub = new QMission("missionSub");
 
         return queryFactory.select(mission)
                 .from(mission)

@@ -34,45 +34,6 @@ class MissionTest {
     }
 
     /*
-        Hibernate:
-        select
-            mission0_.id as id1_1_,
-            mission0_.end_date_time as end_date2_1_,
-            mission0_.goal_score as goal_sco3_1_,
-            mission0_.start_date_time as start_da4_1_
-        from
-            mission mission0_
-        order by
-            mission0_.id desc limit ?
-     */
-    @Test
-    public void findLatestTest() {
-        System.out.println("=========================================================Before find top");
-        Mission topByOrderByIdDesc = missionRepository.findTopByOrderByIdDesc();
-        System.out.println("=========================================================After find top");
-
-        System.out.println(topByOrderByIdDesc);
-    }
-
-    /*
-        Hibernate:
-        SELECT
-            *
-        FROM
-            mission
-        ORDER BY
-            id DESC LIMIT 1 OFFSET 1
-     */
-    @Test
-    public void findSecondLatestTest() {
-        System.out.println("=========================================================Before find last");
-        Mission lastMission = missionRepository.findLastMission();
-        System.out.println("=========================================================After find last");
-
-        System.out.println(lastMission);
-    }
-
-    /*
         =========================================================Before find latest
         Hibernate:
             select

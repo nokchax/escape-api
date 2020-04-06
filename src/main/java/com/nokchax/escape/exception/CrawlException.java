@@ -1,6 +1,7 @@
 package com.nokchax.escape.exception;
 
 public class CrawlException extends EscapeApiException {
+
     public CrawlException() {
         super("Fail to crawl");
     }

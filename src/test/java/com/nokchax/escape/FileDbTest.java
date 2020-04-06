@@ -13,12 +13,8 @@ import org.springframework.test.context.ActiveProfiles;
 import java.util.Optional;
 
 @DataJpaTest
-@ActiveProfiles("filedb")
+@ActiveProfiles("dev")
 public class FileDbTest {
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private ProblemRepository problemRepository;
     @Autowired
     private SolvedProblemRepository solvedProblemRepository;
     @Autowired
