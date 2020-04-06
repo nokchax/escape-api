@@ -23,9 +23,16 @@ public class MissionScheduler {
     public void createMission() {
         log.info("Create mission start");
         // 이전 entry 업데이트
-        updateService.updateLatestMission(UpdateCommand.UpdateArgument.UPDATE_ALL_ARGUMENT);
+        updateEntry();
         // 새 미션 생성
         missionService.createMission();
         log.info("Create mission end");
+    }
+
+    @Scheduled(cron = "0 0 9,12,15,18,21 * * SUN,MON,TUE,WED,THU,FRI,SAT")
+    public void updateEntry() {
+        log.info("Update entry start");
+        updateService.updateLatestMission(UpdateCommand.UpdateArgument.UPDATE_ALL);
+        log.info("Update entry end");
     }
 }

@@ -31,7 +31,7 @@ public class UpdateCommand extends Command<UpdateService> {
     @Data
     @Builder
     public static class UpdateArgument {
-        public static final UpdateArgument UPDATE_ALL_ARGUMENT = new UpdateArgument("all", "");
+        public static final UpdateArgument UPDATE_ALL = new UpdateArgument("all", "");
         private String target;
         private String requestUsersTelegramId;
 

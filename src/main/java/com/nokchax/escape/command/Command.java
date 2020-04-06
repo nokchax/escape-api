@@ -35,12 +35,12 @@ public abstract class Command<C> {
     }
 
     private void checkSudoer() {
-        if(sudo && checkAdmin()) {
+        if(sudo && !isAdmin()) {
             throw new UnAuthorizedException();
         }
     }
 
-    private boolean checkAdmin() {
+    private boolean isAdmin() {
         AppProperties properties = (AppProperties) processors.get(AppProperties.class);
 
         return properties.getAdmin()
