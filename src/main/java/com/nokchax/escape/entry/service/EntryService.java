@@ -3,7 +3,6 @@ package com.nokchax.escape.entry.service;
 import com.nokchax.escape.entry.domain.Entry;
 import com.nokchax.escape.entry.dto.EntryDto;
 import com.nokchax.escape.entry.repository.EntryRepository;
-import com.nokchax.escape.mission.repository.MissionRepository;
 import com.nokchax.escape.point.domain.Point;
 import com.nokchax.escape.point.repository.PointRepository;
 import com.nokchax.escape.problem.dto.SolvedProblemSummaryDto;
@@ -20,7 +19,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class EntryService {
     private final EntryRepository entryRepository;
-    private final MissionRepository missionRepository;
     private final SolvedProblemRepository solvedProblemRepository;
     private final PointRepository pointRepository;
 
