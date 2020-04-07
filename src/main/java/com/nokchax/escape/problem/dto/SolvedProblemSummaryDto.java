@@ -13,9 +13,9 @@ import lombok.NoArgsConstructor;
 public class SolvedProblemSummaryDto {
     private String userId;
     private long missionId;
-    private int hardCount;
-    private int mediumCount;
-    private int easyCount;
+    private long hardCount;
+    private long mediumCount;
+    private long easyCount;
 
     public int evaluateScore() {
         return Difficulty.countToScore(this);

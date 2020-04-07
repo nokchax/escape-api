@@ -15,6 +15,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -225,8 +226,12 @@ class SolvedProblemTest {
 
     @Test
     void groupByTest() {
+        List<String> userIds = userRepository.findAll()
+                .stream()
+                .map(User::getId)
+                .collect(Collectors.toList());
         System.out.println("=========================================================Before find solve problems summary dto");
-        List<SolvedProblemSummaryDto> summary = solvedProblemRepository.getSolvedProblemOfLatestMissionUser();
+        List<SolvedProblemSummaryDto> summary = solvedProblemRepository.getSolvedProblemOfLatestMissionUser(userIds);
         System.out.println("=========================================================After find solve problems summary dto");
 
         summary.forEach(System.out::println);

@@ -46,7 +46,6 @@ public class UpdateService {
         crawlers = leetcodeCrawlers;
     }
 
-
     public List<EntryDto> updateLatestMission(UpdateCommand.UpdateArgument argument) {
         log.debug("UPDATE USER STARTED");
         List<User> users = userService.findByArgument(argument);
@@ -66,7 +65,7 @@ public class UpdateService {
         CompletableFuture.allOf(futures.toArray(new CompletableFuture[futures.size()])).join();
         log.debug("UPDATE USER END");
 
-        return entryService.findAllUserInLatestMission(users);
+        return entryService.updateEntryInLatestMission(users);
     }
 
     /*

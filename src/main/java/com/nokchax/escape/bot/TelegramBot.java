@@ -12,9 +12,10 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 @Slf4j
-@Component
+//@Component
 @RequiredArgsConstructor
-public class TelegramBot extends TelegramLongPollingBot {
+public class TelegramBot /*extends TelegramLongPollingBot*/ {
+/*
     private final MessageHandler messageHandler;
     private final AppProperties properties;
 
@@ -52,4 +53,5 @@ public class TelegramBot extends TelegramLongPollingBot {
         return properties.getTelegramBot()
                 .getToken();
     }
+*/
 }

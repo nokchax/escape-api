@@ -45,7 +45,10 @@ public class EntryRepositoryImpl implements EntryRepositoryCustom {
                     )
                 )
                 .from(entry)
-                .where(entry.mission.id.eq(select(mission.id.max()).from(mission)))
+                .where(
+                        entry.mission.id.eq(select(mission.id.max()).from(mission))
+                        .and(entry.user.id.in(userIds))
+                )
                 .fetch();
     }
 
@@ -57,8 +60,7 @@ public class EntryRepositoryImpl implements EntryRepositoryCustom {
                 .offset(1)
                 .fetchFirst();
 
-        return queryFactory.select(entry
-                )
+        return queryFactory.select(entry)
                 .from(entry)
                 .leftJoin(entry.user, user)
                 .leftJoin(entry.mission, mission)

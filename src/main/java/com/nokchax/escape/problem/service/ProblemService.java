@@ -1,5 +1,7 @@
 package com.nokchax.escape.problem.service;
 
+import com.nokchax.escape.entry.repository.EntryRepository;
+import com.nokchax.escape.entry.service.EntryService;
 import com.nokchax.escape.leetcode.crawl.api.response.CrawledProblemInfo;
 import com.nokchax.escape.leetcode.crawl.page.response.CrawledUserInfo;
 import com.nokchax.escape.leetcode.crawl.page.response.ProblemSolveInfo;
@@ -25,6 +27,7 @@ public class ProblemService {
     private final ProblemRepository problemRepository;
     private final MissionService missionService;
     private final UserRepository userRepository;
+    private final EntryService entryService;
 
     public boolean checkSolvedProblemExist(User user, CrawledUserInfo crawledUserInfo) {
         // 푼 문제들의 title 만 추리기

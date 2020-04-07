@@ -22,9 +22,12 @@ public class EntryService {
     private final SolvedProblemRepository solvedProblemRepository;
     private final PointRepository pointRepository;
 
-    @Transactional
-    public List<Entry> updateLatestEntry() {
-        List<SolvedProblemSummaryDto> solvedProblemSummaries = solvedProblemRepository.getSolvedProblemOfLatestMissionUser();
+    public List<Entry> updateLatestEntry(List<User> users) {
+        List<SolvedProblemSummaryDto> solvedProblemSummaries = solvedProblemRepository.getSolvedProblemOfLatestMissionUser(
+                users.stream()
+                        .map(User::getId)
+                        .collect(Collectors.toList())
+        );
 
         List<Entry> entries = solvedProblemSummaries.stream()
                 .map(SolvedProblemSummaryDto::toEntry)
@@ -50,5 +53,13 @@ public class EntryService {
                 .collect(Collectors.toList());
 
         pointRepository.saveAll(finePoints);
+    }
+
+    public List<EntryDto> updateEntryInLatestMission(List<User> users) {
+        List<Entry> entries = updateLatestEntry(users);
+
+        return entries.stream()
+                .map(Entry::toDto)
+                .collect(Collectors.toList());
     }
 }
