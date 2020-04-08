@@ -37,7 +37,7 @@ public class EntryService {
     }
 
     public List<EntryDto> findAllUserInLatestMission(List<User> users) {
-        return entryRepository.findAllUserInLatestMission(
+        return entryRepository.findUsersInLatestMissionByUserId(
                 users.stream()
                         .map(User::getId)
                         .collect(Collectors.toList())

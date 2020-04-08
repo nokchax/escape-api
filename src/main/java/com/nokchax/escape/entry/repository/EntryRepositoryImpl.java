@@ -27,13 +27,13 @@ public class EntryRepositoryImpl implements EntryRepositoryCustom {
     @Override
     public List<Entry> getLatestEntry() {
 
-        return queryFactory.select(entry)
+        return queryFactory.selectFrom(entry)
                 .where(entry.mission.id.eq(select(mission.id.max()).from(mission)))
                 .fetch();
     }
 
     @Override
-    public List<EntryDto> findAllUserInLatestMission(List<String> userIds) {
+    public List<EntryDto> findUsersInLatestMissionByUserId(List<String> userIds) {
         return queryFactory.select(
                     new QEntryDto(
                             entry.mission.id,
