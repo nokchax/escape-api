@@ -36,9 +36,9 @@ public class Entry {
         this.mission = new Mission(solvedProblemSummaryDto.getMissionId());
         this.user = new User(solvedProblemSummaryDto.getUserId());
         this.score = solvedProblemSummaryDto.evaluateScore();
-        this.hard = (int) solvedProblemSummaryDto.getHardCount();
-        this.medium = (int) solvedProblemSummaryDto.getMediumCount();
-        this.easy = (int) solvedProblemSummaryDto.getEasyCount();
+        this.hard = solvedProblemSummaryDto.getHardCount();
+        this.medium = solvedProblemSummaryDto.getMediumCount();
+        this.easy = solvedProblemSummaryDto.getEasyCount();
     }
 
     public boolean isMissionComplete(int goalScore) {

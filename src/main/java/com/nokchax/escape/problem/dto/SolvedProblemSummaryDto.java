@@ -2,20 +2,28 @@ package com.nokchax.escape.problem.dto;
 
 import com.nokchax.escape.entry.domain.Entry;
 import com.nokchax.escape.problem.domain.Difficulty;
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-
 public class SolvedProblemSummaryDto {
     private String userId;
     private long missionId;
-    private long hardCount;
-    private long mediumCount;
-    private long easyCount;
+    private int hardCount;
+    private int mediumCount;
+    private int easyCount;
+
+    @QueryProjection
+    public SolvedProblemSummaryDto(String userId, long missionId, int hardCount, int mediumCount, int easyCount) {
+        this.userId = userId;
+        this.missionId = missionId;
+        this.hardCount = hardCount;
+        this.mediumCount = mediumCount;
+        this.easyCount = easyCount;
+    }
 
     public int evaluateScore() {
         return Difficulty.countToScore(this);
