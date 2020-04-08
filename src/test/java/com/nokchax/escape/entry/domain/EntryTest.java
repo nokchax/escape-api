@@ -2,6 +2,8 @@ package com.nokchax.escape.entry.domain;
 
 import com.nokchax.escape.mission.domain.Mission;
 import com.nokchax.escape.user.domain.User;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -13,9 +15,12 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Slf4j
 class EntryTest {
     @Test
+    @DisplayName("Entry 간의 compareTo 가 잘 동작하는지 테스트")
     void compareTest() {
+        log.info("Socre 가 높은순, hard가 높은순, medium이 높은순, easy가 높은순으로 출력되어야 함.");
         List<Entry> entries = Arrays.asList(
                 createEntry(10, 2, 0, 0),
                 createEntry(10, 1, 2, 1),
