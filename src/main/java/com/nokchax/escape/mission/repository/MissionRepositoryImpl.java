@@ -9,6 +9,8 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import javax.persistence.EntityManager;
 
+import java.util.Optional;
+
 import static com.querydsl.jpa.JPAExpressions.select;
 
 public class MissionRepositoryImpl implements MissionRepositoryCustom {
@@ -24,44 +26,45 @@ public class MissionRepositoryImpl implements MissionRepositoryCustom {
     }
 
     @Override
-    public Mission findMissionAndEntry(Long missionId) {
+    public Optional<Mission> findMissionAndEntry(Long missionId) {
 
-        return queryFactory.select(mission)
-                .from(mission)
-                .innerJoin(mission.entry, entry)
-                .fetchJoin()
-                .where(mission.id.eq(missionId))
-                .fetchOne();
+        return Optional.ofNullable(
+                queryFactory.select(mission)
+                        .from(mission)
+                        .innerJoin(mission.entry, entry)
+                        .fetchJoin()
+                        .where(mission.id.eq(missionId))
+                        .fetchOne()
+        );
     }
 
     @Override
-    public Mission findLatestMissionWithEntry() {
+    public Optional<Mission> findLatestMissionWithEntry() {
 
-        return queryFactory.select(mission)
-                .from(mission)
-                .leftJoin(mission.entry, entry)
-                .fetchJoin()
-                .where(
-                        mission.id.eq(select(missionSub.id.max()).from(missionSub))
-                )
-                .fetchOne();
+        return Optional.ofNullable(
+                queryFactory.select(mission)
+                        .from(mission)
+                        .leftJoin(mission.entry, entry)
+                        .fetchJoin()
+                        .where(mission.id.eq(select(missionSub.id.max()).from(missionSub)))
+                        .fetchOne()
+        );
     }
 
     @Override
-    public Mission findMissionWithEntryAndUser() {
+    public Optional<Mission> findMissionWithEntryAndUser() {
 
-        return queryFactory.select(mission)
-                .from(mission)
-                .join(mission.entry, entry)
-                    .fetchJoin()
-                .join(entry.user, user)
-                    .fetchJoin()
-                .join(user.solvedProblem, solvedProblem)
-                    .fetchJoin()
-                .where(
-                        mission.id.eq(select(missionSub.id.max()).from(missionSub))
-                        .and(solvedProblem.mission.id.eq(select(missionSub.id.max()).from(missionSub)))
-                )
-                .fetchOne();
+        return Optional.ofNullable(
+                queryFactory.select(mission)
+                        .from(mission)
+                        .leftJoin(mission.entry, entry)
+                            .fetchJoin()
+                        .leftJoin(entry.user, user)
+                            .fetchJoin()
+                        .leftJoin(user.solvedProblem, solvedProblem)
+                            .fetchJoin()
+                        .where(mission.id.eq(select(missionSub.id.max()).from(missionSub)))
+                        .fetchOne()
+        );
     }
 }

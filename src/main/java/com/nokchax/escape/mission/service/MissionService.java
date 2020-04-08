@@ -68,7 +68,8 @@ public class MissionService {
 
     /** * 최신 미션 리턴 */
     public Mission getLatestMission() {
-        return missionRepository.findLatestMissionWithEntry();
+        return missionRepository.findLatestMissionWithEntry()
+                .orElseThrow(() -> new RuntimeException("No missions in db"));
 
     }
 
