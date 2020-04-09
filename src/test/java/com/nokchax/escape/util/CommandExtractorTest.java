@@ -1,6 +1,7 @@
 package com.nokchax.escape.util;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.Map;
 
@@ -8,10 +9,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class CommandExtractorTest {
 
-    @Test
-    void testExtractor() {
-        String command = "/user -u id -p 123 -n 이름";
-
+    @ParameterizedTest
+    @ValueSource(strings = {"/user -u id -p 123 -n 이름", "user -u id -p 123 -n 이름"})
+    void testExtractor(String command) {
         Map<String, String> options = CommandExtractor.extractOptions(command, "u");
 
         assertThat(options.get("u")).isEqualTo("id");
@@ -19,10 +19,9 @@ class CommandExtractorTest {
         assertThat(options.get("n")).isEqualTo("이름");
     }
 
-    @Test
-    void testExtractorWithDefaultArgument() {
-        String command = "/user nokchax -p 123 -n 이름";
-
+    @ParameterizedTest
+    @ValueSource(strings = {"/user nokchax -p 123 -n 이름", "user nokchax -p 123 -n 이름"})
+    void testExtractorWithDefaultArgument(String command) {
         Map<String, String> options = CommandExtractor.extractOptions(command, "u");
 
         assertThat(options.get("u")).isEqualTo("nokchax");
@@ -30,16 +29,16 @@ class CommandExtractorTest {
         assertThat(options.get("n")).isEqualTo("이름");
     }
 
-    @Test
-    void testExtractorWithNoArgument() {
-        String command = "/user";
-
+    @ParameterizedTest
+    @ValueSource(strings = {"/user", "user"})
+    void testExtractorWithNoArgument(String command) {
         Map<String, String> options = CommandExtractor.extractOptions(command, "u");
 
         assertThat(options.size()).isZero();
     }
 
-    @Test
+    @ParameterizedTest
+    @ValueSource(strings = {"/user something special", "user something special"})
     void testExtractorWithEmptyStringIncluded() {
         String command = "/user something special";
 
