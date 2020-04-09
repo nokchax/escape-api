@@ -44,23 +44,22 @@ public class ProblemRepositoryImpl implements ProblemRepositoryCustom {
                 .fetch();
     }
 
-    /*
-        sub solved problem 에서 일단 id가 같은 사용자가 푼 문제를 모두 찾아낸다.
-        이 서브 쿼리 결과로 문제의 idx값을 찾아낸 다음 title에는 없는 문제들을 다시 추려낸다.
-     */
     @Override
-    public List<Problem> checkSolvedProblemCount(String id, List<String> titles) {
+    public List<Problem> findSolvedButNotSavedYetProblems(String id, List<String> titles) {
         QProblem subProblem = new QProblem("subProblem");
         QSolvedProblem subSolvedProblem = new QSolvedProblem("subSolvedProblem");
 
+        // 결국 가져오는건 사용자가 풀었는데 저장이 안된 문제들
         return queryFactory.selectFrom(problem)
                 .where(
+                        // 우선 사용자가 풀었고 이미 저장된 문제들은 제외
                         problem.id.notIn(
                             select(subSolvedProblem.problem.id)
                                 .from(subSolvedProblem)
                                 .where(subSolvedProblem.user.id.eq(id))
                         )
                 .and(
+                        // 크롤한 데이터 기준으로 푼 문제들은 포함해야함
                         problem.id.in(
                             select(subProblem.id)
                                     .from(subProblem)

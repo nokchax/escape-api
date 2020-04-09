@@ -6,8 +6,9 @@ import com.nokchax.escape.problem.dto.ProblemSolveUserDto;
 import java.util.List;
 
 public interface ProblemRepositoryCustom {
+    /** 문제 번호를 넘겨받으면 그 문제를 푼 사용자리스트를 리턴 */
     List<ProblemSolveUserDto> findProblemSolveUser(Long problemNo);
 
-    /** 넘겨받은 문제리스트 중에서 이미 저장된 문제의 수를 리턴 */
-    List<Problem> checkSolvedProblemCount(String id, List<String> titles);
+    /** 넘겨받은 문제리스트(푼 문제) 중에서 저장이 되지 않은 문제들을 리턴 */
+    List<Problem> findSolvedButNotSavedYetProblems(String id, List<String> titles);
 }

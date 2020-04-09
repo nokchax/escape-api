@@ -1,7 +1,5 @@
 package com.nokchax.escape.problem.service;
 
-import com.nokchax.escape.entry.repository.EntryRepository;
-import com.nokchax.escape.entry.service.EntryService;
 import com.nokchax.escape.leetcode.crawl.api.response.CrawledProblemInfo;
 import com.nokchax.escape.leetcode.crawl.page.response.CrawledUserInfo;
 import com.nokchax.escape.leetcode.crawl.page.response.ProblemSolveInfo;
@@ -27,7 +25,6 @@ public class ProblemService {
     private final ProblemRepository problemRepository;
     private final MissionService missionService;
     private final UserRepository userRepository;
-    private final EntryService entryService;
 
     public boolean checkSolvedProblemExist(User user, CrawledUserInfo crawledUserInfo) {
         // 푼 문제들의 title 만 추리기
@@ -37,7 +34,7 @@ public class ProblemService {
                 .collect(Collectors.toList());
 
         // 크롤한 문제들 중에서(이 문제들은 푼 문제들) DB에 저장이 안된 문제들만 가져오기
-        List<Problem> notSavedSolvedProblems = problemRepository.checkSolvedProblemCount(user.getId(), titles);
+        List<Problem> notSavedSolvedProblems = problemRepository.findSolvedButNotSavedYetProblems(user.getId(), titles);
 
         // 저장이 안된 푼 문제들을 저장해야 하므로 entity 생성
         Set<SolvedProblem> solvedProblems = notSavedSolvedProblems.stream()
