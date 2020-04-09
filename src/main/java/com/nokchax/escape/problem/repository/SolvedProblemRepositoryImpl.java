@@ -8,8 +8,10 @@ import com.nokchax.escape.problem.dto.QSolvedProblemSummaryDto;
 import com.nokchax.escape.problem.dto.SolvedProblemSummaryDto;
 import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import org.springframework.util.CollectionUtils;
 
 import javax.persistence.EntityManager;
+import java.util.Collections;
 import java.util.List;
 
 import static com.nokchax.escape.problem.domain.Difficulty.*;
@@ -29,6 +31,10 @@ public class SolvedProblemRepositoryImpl implements SolvedProblemRepositoryCusto
 
     @Override
     public List<SolvedProblemSummaryDto> findSolvedProblemOfLatestMissionByUserId(List<String> userIds) {
+        if(CollectionUtils.isEmpty(userIds)) {
+            return Collections.emptyList();
+        }
+
         return queryFactory.select(
                         new QSolvedProblemSummaryDto(
                                 entry.user.id.as("userId"),

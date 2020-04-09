@@ -62,6 +62,7 @@ class ProblemRepositoryTest extends JpaTest {
         TITLES는 1~40번까지의 문제
     */
     @Test
+    @DisplayName("사용자 아이디와 사용자가 푼 문제 리스트를 크롤하여 문제명만 넘겼을때, 이 사용자가 풀었지만 DB에는 저장되지 않은 문제들만 리턴하는지 테스트")
     void checkSolvedProblemCountTest() {
         log.info("nokchax14 번이 푼 문제는 30문제, TITLES는 총 40문제");
         log.info("Before query");
