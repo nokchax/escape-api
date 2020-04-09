@@ -6,5 +6,5 @@ import com.nokchax.escape.user.domain.User;
 import java.util.List;
 
 public interface SolvedProblemRepositoryCustom {
-    List<SolvedProblemSummaryDto> getSolvedProblemOfLatestMissionUser(List<String> users);
+    List<SolvedProblemSummaryDto> findSolvedProblemOfLatestMissionByUserId(List<String> users);
 }

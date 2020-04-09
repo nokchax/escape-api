@@ -23,7 +23,7 @@ public class EntryService {
     private final PointRepository pointRepository;
 
     public List<Entry> updateLatestEntry(List<User> users) {
-        List<SolvedProblemSummaryDto> solvedProblemSummaries = solvedProblemRepository.getSolvedProblemOfLatestMissionUser(
+        List<SolvedProblemSummaryDto> solvedProblemSummaries = solvedProblemRepository.findSolvedProblemOfLatestMissionByUserId(
                 users.stream()
                         .map(User::getId)
                         .collect(Collectors.toList())

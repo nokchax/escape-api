@@ -231,7 +231,7 @@ class SolvedProblemTest {
                 .map(User::getId)
                 .collect(Collectors.toList());
         System.out.println("=========================================================Before find solve problems summary dto");
-        List<SolvedProblemSummaryDto> summary = solvedProblemRepository.getSolvedProblemOfLatestMissionUser(userIds);
+        List<SolvedProblemSummaryDto> summary = solvedProblemRepository.findSolvedProblemOfLatestMissionByUserId(userIds);
         System.out.println("=========================================================After find solve problems summary dto");
 
         summary.forEach(System.out::println);

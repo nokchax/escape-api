@@ -28,7 +28,7 @@ public class SolvedProblemRepositoryImpl implements SolvedProblemRepositoryCusto
     }
 
     @Override
-    public List<SolvedProblemSummaryDto> getSolvedProblemOfLatestMissionUser(List<String> userIds) {
+    public List<SolvedProblemSummaryDto> findSolvedProblemOfLatestMissionByUserId(List<String> userIds) {
         return queryFactory.select(
                         new QSolvedProblemSummaryDto(
                                 entry.user.id.as("userId"),

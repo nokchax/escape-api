@@ -18,9 +18,9 @@ public enum Difficulty {
 
     public static int countToScore(SolvedProblemSummaryDto solvedProblemSummaryDto) {
 
-        return (int) (EASY.solvePoint * solvedProblemSummaryDto.getEasyCount() +
+        return EASY.solvePoint * solvedProblemSummaryDto.getEasyCount() +
                 MEDIUM.solvePoint * solvedProblemSummaryDto.getMediumCount() +
-                HARD.solvePoint * solvedProblemSummaryDto.getHardCount());
+                HARD.solvePoint * solvedProblemSummaryDto.getHardCount();
     }
 
     // TODO: 2020-04-03 map으로 변경하기
