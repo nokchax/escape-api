@@ -13,10 +13,12 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @Slf4j
 class ProblemRepositoryTest extends JpaTest {
@@ -65,12 +67,36 @@ class ProblemRepositoryTest extends JpaTest {
     @DisplayName("사용자 아이디와 사용자가 푼 문제 리스트를 크롤하여 문제명만 넘겼을때, 이 사용자가 풀었지만 DB에는 저장되지 않은 문제들만 리턴하는지 테스트")
     void checkSolvedProblemCountTest() {
         log.info("nokchax14 번이 푼 문제는 30문제, TITLES는 총 40문제");
-        log.info("Before query");
+        beforeQuery();
         List<Problem> notSavedSolvedProblems = problemRepository.findSolvedButNotSavedYetProblems("nokchax14", TITLES);
-        log.info("After query");
+        afterQuery();
 
         assertThat(notSavedSolvedProblems.size()).isEqualTo(10);
 
+        showResult();
         notSavedSolvedProblems.forEach(System.out::println);
+    }
+
+    @MethodSource
+    @ParameterizedTest
+    @DisplayName("사용자 아이디나 푼 문제리스트에 문제가 있는경우 익셉션이 발생하는지 테스트한다.")
+    void checkIllegalArgumentException(String userId, List<String> titles) {
+        beforeQuery();
+        List<Problem> solvedButNotSavedYetProblems = problemRepository.findSolvedButNotSavedYetProblems(userId, titles);
+        afterQuery();
+
+        assertThat(solvedButNotSavedYetProblems).isNotNull();
+        assertThat(solvedButNotSavedYetProblems.size()).isZero();
+    }
+
+    private static Stream<Arguments> checkIllegalArgumentException() {
+        return Stream.of(
+                Arguments.of(null, null),
+                Arguments.of(null, Collections.emptyList()),
+                Arguments.of("", null),
+                Arguments.of("", Collections.emptyList()),
+                Arguments.of("okay", null),
+                Arguments.of("okay", Collections.emptyList())
+        );
     }
 }

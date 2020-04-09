@@ -7,8 +7,12 @@ import com.nokchax.escape.problem.dto.ProblemSolveUserDto;
 import com.nokchax.escape.problem.dto.QProblemDto;
 import com.nokchax.escape.problem.dto.QProblemSolveUserDto;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static com.querydsl.jpa.JPAExpressions.select;
@@ -46,6 +50,10 @@ public class ProblemRepositoryImpl implements ProblemRepositoryCustom {
 
     @Override
     public List<Problem> findSolvedButNotSavedYetProblems(String id, List<String> titles) {
+        if(StringUtils.isEmpty(id) || CollectionUtils.isEmpty(titles)) {
+            return Collections.emptyList();
+        }
+
         QProblem subProblem = new QProblem("subProblem");
         QSolvedProblem subSolvedProblem = new QSolvedProblem("subSolvedProblem");
 
