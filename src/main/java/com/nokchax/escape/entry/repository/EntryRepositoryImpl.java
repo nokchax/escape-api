@@ -8,8 +8,10 @@ import com.nokchax.escape.mission.domain.Mission;
 import com.nokchax.escape.mission.domain.QMission;
 import com.nokchax.escape.user.domain.QUser;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import org.springframework.util.CollectionUtils;
 
 import javax.persistence.EntityManager;
+import java.util.Collections;
 import java.util.List;
 
 import static com.querydsl.jpa.JPAExpressions.select;
@@ -34,6 +36,10 @@ public class EntryRepositoryImpl implements EntryRepositoryCustom {
 
     @Override
     public List<EntryDto> findUsersInLatestMissionByUserId(List<String> userIds) {
+        if(CollectionUtils.isEmpty(userIds)) {
+            return Collections.emptyList();
+        }
+
         return queryFactory.select(
                     new QEntryDto(
                             entry.mission.id,

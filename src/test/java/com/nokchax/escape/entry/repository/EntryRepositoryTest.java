@@ -9,9 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -51,6 +50,16 @@ class EntryRepositoryTest extends JpaTest {
                 Arguments.of(Arrays.asList("nokchax1", "nokchax2", "nokchax3"), 3),
                 Arguments.of(Collections.EMPTY_LIST, 0)
         );
+    }
+
+    @ParameterizedTest
+    @NullAndEmptySource
+    @DisplayName("최신 미션을 수행중인 사용자 중 원하는 사용자만 찾는데 원하는 사용자가 null이거나 빈 값일때")
+    void getLatestMissionByUserIdTestWithNullOrEmptySource(List<String> userIds) {
+        List<EntryDto> usersInLatestMissionByUserId = entryRepository.findUsersInLatestMissionByUserId(userIds);
+
+        assertThat(usersInLatestMissionByUserId).isNotNull();
+        assertThat(usersInLatestMissionByUserId.size()).isZero();
     }
 
     @Test
