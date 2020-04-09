@@ -38,4 +38,13 @@ class CommandExtractorTest {
 
         assertThat(options.size()).isZero();
     }
+
+    @Test
+    void testExtractorWithEmptyStringIncluded() {
+        String command = "/user something special";
+
+        Map<String, String> options = CommandExtractor.extractOptions(command, "u");
+
+        assertThat(options.get("u")).isEqualTo("something special");
+    }
 }
