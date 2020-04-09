@@ -18,16 +18,18 @@ import javax.persistence.Id;
 @Immutable
 @Subselect(
                 "SELECT " +
-                "  user_id, " +
+                "  u.id as user_id, " +
                 "  COUNT(DISTINCT sp.problem_id) AS total_count, " +
                 "  COUNT(DISTINCT CASE WHEN difficulty = 'HARD' THEN sp.problem_id ELSE NULL END) AS hard_count, " +
                 "  COUNT(DISTINCT CASE WHEN difficulty = 'MEDIUM' THEN sp.problem_id ELSE NULL END) AS medium_count, " +
                 "  COUNT(DISTINCT CASE WHEN difficulty = 'EASY' THEN sp.problem_id ELSE NULL END) AS easy_count " +
                 "FROM " +
-                "  solved_problem sp LEFT JOIN problem p " +
-                "ON (sp.problem_id = p.problem_id) " +
+                "  users u LEFT JOIN solved_problem sp " +
+                "    ON (u.id = sp.user_id), " +
+                "  solved_problem ssp LEFT JOIN problem p " +
+                "    ON (ssp.problem_id = p.problem_id) " +
                 "GROUP BY " +
-                "  user_id"
+                "  u.id"
 )
 @NoArgsConstructor
 public class ProblemSolveHistory {

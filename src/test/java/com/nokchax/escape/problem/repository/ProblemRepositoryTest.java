@@ -64,9 +64,9 @@ class ProblemRepositoryTest extends JpaTest {
     @Test
     void checkSolvedProblemCountTest() {
         log.info("nokchax14 번이 푼 문제는 30문제, TITLES는 총 40문제");
-        System.out.println("=========================================================Before query");
+        log.info("Before query");
         List<Problem> notSavedSolvedProblems = problemRepository.findSolvedButNotSavedYetProblems("nokchax14", TITLES);
-        System.out.println("=========================================================After query");
+        log.info("After query");
 
         assertThat(notSavedSolvedProblems.size()).isEqualTo(10);
 
