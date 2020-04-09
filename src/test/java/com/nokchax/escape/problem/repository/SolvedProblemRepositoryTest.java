@@ -15,7 +15,7 @@ class SolvedProblemRepositoryTest extends JpaTest {
     private SolvedProblemRepository solvedProblemRepository;
 
     @Test
-    void test() {
+    void findSolvedProblemOfLatestMissionByUserIdTest() {
         beforeQuery();
         List<SolvedProblemSummaryDto> solvedProblems =
                 solvedProblemRepository.findSolvedProblemOfLatestMissionByUserId(Collections.singletonList("nokchax1"));
