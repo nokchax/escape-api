@@ -3,6 +3,7 @@ package com.nokchax.escape.user.repository;
 import com.nokchax.escape.user.domain.QUser;
 import com.nokchax.escape.user.domain.User;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import org.jsoup.helper.StringUtil;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
@@ -33,7 +34,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
 
     @Override
     public Optional<User> findByTelegramId(String target) {
-        if(target.isEmpty()) {
+        if(StringUtils.isEmpty(target)) {
             return Optional.empty();
         }
 

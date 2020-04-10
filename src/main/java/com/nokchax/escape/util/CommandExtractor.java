@@ -34,7 +34,6 @@ public class CommandExtractor {
             return;
         }
 
-        // TODO: 2020-03-30 명령어가 /로 시작하지 않는다면... 문제가 될 코드
         String key = index == 0 ? defaultOption : token.substring(0, splitIdx);
         String value = token.substring(splitIdx + 1);
 
