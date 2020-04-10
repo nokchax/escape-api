@@ -4,9 +4,7 @@ import com.nokchax.escape.leetcode.crawl.page.response.CrawledUserInfo;
 import com.nokchax.escape.leetcode.crawl.page.response.ProblemSolveInfo;
 import com.nokchax.escape.mission.domain.Mission;
 import com.nokchax.escape.user.domain.User;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -16,6 +14,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @IdClass(SolvedProblemId.class)
 public class SolvedProblem {
     @Id

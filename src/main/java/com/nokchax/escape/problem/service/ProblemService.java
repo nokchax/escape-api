@@ -13,6 +13,7 @@ import com.nokchax.escape.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -24,8 +25,8 @@ import java.util.stream.Collectors;
 public class ProblemService {
     private final ProblemRepository problemRepository;
     private final MissionService missionService;
-    private final UserRepository userRepository;
 
+    @Transactional
     public boolean checkSolvedProblemExist(User user, CrawledUserInfo crawledUserInfo) {
         // 푼 문제들의 title 만 추리기
         List<String> titles = crawledUserInfo.getSolvedProblems()
@@ -45,12 +46,7 @@ public class ProblemService {
         missionService.fillOutSolvedProblemMissionInfo(solvedProblems);
 
         // 저장하기!
-        boolean result = user.addSolvedProblems(solvedProblems);
-        if(result) {
-            userRepository.save(user);
-        }
-
-        return result;
+        return user.addSolvedProblems(solvedProblems);
     }
 
     public List<ProblemDto> checkProblemUpdated(List<CrawledProblemInfo> crawledProblems) {
