@@ -37,7 +37,7 @@ public class ProblemDto extends MessageTemplate {
 
     @Override
     public String body() {
-        return String.format("%4d|%15s\n", viewId, title);
+        return String.format("%4d|%15s\n", viewId, getShortenTitle());
     }
 
     private String getShortenTitle() {
