@@ -77,7 +77,7 @@ public class UpdateService {
         User user = userService.findRandomUser();
         List<CrawledProblemInfo> crawledProblemInfos = apiCrawler.crawlProblems(user);
 
-        return problemService.checkProblemUpdated(crawledProblemInfos);
+        return problemService.checkProblemIsNewOrUpdated(crawledProblemInfos);
     }
 
     @Async("threadPoolExecutor")
