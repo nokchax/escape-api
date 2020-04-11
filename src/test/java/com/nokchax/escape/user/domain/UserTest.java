@@ -29,9 +29,9 @@ class UserTest extends ServiceLayerTest {
     @Transactional
     @DisplayName("회원이 새문제를 풀었을때 새로푼 문제들이 저장 되는지")
     void persistenceTest() {
-        log.info("Before find");
+        beforeQuery();
         User user = userRepository.findByUserIdWithSolvedProblems("nokchax1").get(0);
-        log.info("After find");
+        afterQuery();
         Problem problem = problemRepository.findById(123L).orElseThrow(IllegalAccessError::new);
 
         System.out.println(user);
@@ -43,14 +43,14 @@ class UserTest extends ServiceLayerTest {
                 .user(user)
                 .build());
 
-        log.info("Before add");
+        beforeQuery();
         user.addSolvedProblems(solvedProblems);
-        log.info("After add");
+        afterQuery();
 
 
-        log.info("Before flush");
+        beforeClear();
         entityManager.flush();
         entityManager.clear();
-        log.info("After flush ");
+        afterClear();
     }
 }
