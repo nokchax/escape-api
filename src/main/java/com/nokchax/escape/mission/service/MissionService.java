@@ -40,7 +40,7 @@ public class MissionService {
                 .collect(Collectors.toList());
     }
 
-    /** * 현재 미션을 수행중인 사용자 중에서 목표를 당성하지 못한 사용자만 리턴 */
+    /** * 현재 미션을 수행중인 사용자 중에서 목표를 달성하지 못한 사용자만 리턴 */
     public List<EntryDto> getAllMissioningUserInLatestMission() {
         final Mission latestMission = getLatestMission();
         final int missionGoalScore = latestMission.getGoalScore();

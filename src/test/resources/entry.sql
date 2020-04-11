@@ -338,4 +338,4 @@ INSERT INTO `entry` (mission_id, user_id, easy, hard, medium, score) VALUES
 (29,'nokchax12',0,0,0,0),
 (29,'nokchax13',0,0,0,0),
 (29,'nokchax14',0,0,0,0),
-(29,'nokchax1',0,0,0,0);
+(29,'nokchax1',0,1,0,5);
