@@ -24,12 +24,21 @@ public class PointService {
     public List<PointDto> givePointTo(GivePointCommand.PointArgument pointArgument) {
         List<User> users = userRepository.findByUserId(pointArgument.getTargetUser());
 
-        List<Point> points = users.stream()
-                .map(user -> (new Point(user, pointArgument.getPoint())))
-                .collect(Collectors.toList());
+        pointRepository.saveAll(userToPoint(pointArgument, users));
 
-        pointRepository.saveAll(points);
-
-        return pointRepository.findAllUserPoint();
+        return pointRepository.findUserPointByUserId(extractUserIds(users));
     }
+
+    private List<Point> userToPoint(GivePointCommand.PointArgument pointArgument, List<User> users) {
+        return users.stream()
+                    .map(user -> (new Point(user, pointArgument.getPoint())))
+                    .collect(Collectors.toList());
+    }
+
+    private List<String> extractUserIds(List<User> users) {
+        return  users.stream()
+                .map(User::getId)
+                .collect(Collectors.toList());
+    }
+
 }
