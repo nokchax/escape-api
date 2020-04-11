@@ -4,7 +4,6 @@ import com.nokchax.escape.problem.domain.QSolvedProblem;
 import com.nokchax.escape.user.domain.QUser;
 import com.nokchax.escape.user.domain.User;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import org.jsoup.helper.StringUtil;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
