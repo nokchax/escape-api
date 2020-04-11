@@ -16,6 +16,8 @@ import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Set;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @Slf4j
 class UserTest extends ServiceLayerTest {
     @Autowired
@@ -34,8 +36,10 @@ class UserTest extends ServiceLayerTest {
         afterQuery();
         Problem problem = problemRepository.findById(123L).orElseThrow(IllegalAccessError::new);
 
-        System.out.println(user);
-        System.out.println(user.getSolvedProblem().size());
+        assertThat(user).isNotNull();
+        assertThat(user.getSolvedProblemCount()).isEqualTo(224);
+        assertThat(user.getSolvedProblem().size()).isEqualTo(108);
+
         Set<SolvedProblem> solvedProblems = new HashSet<>();
         solvedProblems.add(SolvedProblem.builder()
                 .mission(new Mission(1))
@@ -52,5 +56,12 @@ class UserTest extends ServiceLayerTest {
         entityManager.flush();
         entityManager.clear();
         afterClear();
+
+        beforeQuery();
+        user = userRepository.findByUserIdWithSolvedProblems("nokchax1").get(0);
+        afterQuery();
+        assertThat(user).isNotNull();
+        assertThat(user.getSolvedProblemCount()).isEqualTo(225);
+        assertThat(user.getSolvedProblem().size()).isEqualTo(109);
     }
 }
