@@ -25,7 +25,7 @@ public class CommandExtractor {
         return options;
     }
 
-    public static void splitOption(String token, Map<String, String> options, String defaultOption, int index) {
+    private static void splitOption(String token, Map<String, String> options, String defaultOption, int index) {
         log.debug("token : {}", token);
         token = token.trim();
         int splitIdx = token.indexOf(BLANK);

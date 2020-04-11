@@ -1,7 +1,6 @@
 package com.nokchax.escape.user.domain;
 
 import com.nokchax.escape.leetcode.crawl.page.response.CrawledUserInfo;
-import com.nokchax.escape.problem.domain.Problem;
 import com.nokchax.escape.problem.domain.SolvedProblem;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +9,6 @@ import org.springframework.util.StringUtils;
 import javax.persistence.*;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Table(name = "users")
@@ -28,6 +26,7 @@ public class User {
     private String name;
     // 컬럼을 삭제하고, 그때그때 서브 쿼리로 갯수를 가져오는게 좋지 않을까
     private int solvedProblemCount;
+    @Column(unique = true)
     private String telegramId;
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<SolvedProblem> solvedProblem = new HashSet<>();

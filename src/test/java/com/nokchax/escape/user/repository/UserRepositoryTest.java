@@ -10,6 +10,8 @@ import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -18,6 +20,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 class UserRepositoryTest extends JpaTest {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private EntityManager entityManager;
 
     @ParameterizedTest
     @CsvSource(value = {"nokchax1, 1", "all, 15"})
@@ -59,9 +63,64 @@ class UserRepositoryTest extends JpaTest {
 
         assertThat(user).isNotNull();
         assertThat(user.getId()).isEqualTo("nokchax1");
+        assertThat(user.getSolvedProblem().size()).isNotZero();
 
         showResult();
         System.out.println(user);
+        user.getSolvedProblem().forEach(System.out::println);
+    }
+
+    @Test
+    @DisplayName("유저 아이디로 찾는데 푼 문제가 없는경우 테스트")
+    void findByUserIdTest_NoSolvedProblemUser() {
+        saveNewUser();
+
+        beforeQuery();
+        User user = userRepository.findById("no solved problem")
+                .orElseThrow(NullPointerException::new);
+        afterQuery();
+
+        checkNotSolvedProblemUser(user);
+    }
+
+    @Test
+    @DisplayName("텔레그램 아이디로 사용자 찾기(푼 문제가 없을경우)")
+    @Transactional
+    void findByTelegramIdTest_NoSolvedProblemUser() {
+        saveNewUser();
+
+        beforeQuery();
+        User user = userRepository.findByTelegramId("telegram")
+                .orElseThrow(NullPointerException::new);
+        afterQuery();
+
+        checkNotSolvedProblemUser(user);
+    }
+
+    private void checkNotSolvedProblemUser(User user) {
+        assertThat(user).isNotNull();
+        assertThat(user.getTelegramId()).isEqualTo("telegram");
+        assertThat(user.getSolvedProblemCount()).isZero();
+        assertThat(user.getSolvedProblem().size()).isZero(); // 여기
+
+        showResult();
+        System.out.println(user);
+        user.getSolvedProblem().forEach(System.out::println);
+    }
+
+    private void saveNewUser() {
+        User user = User.builder()
+                .id("no solved problem")
+                .name("잠만보")
+                .telegramId("telegram")
+//                .solvedProblem(new HashSet<>())
+                .build();
+
+        beforeQuery();
+        userRepository.saveAndFlush(user);
+        afterQuery();
+
+        entityManager.clear(); //왜 OneToMany 연관관계 컬랙션 객체가 knull인가 했네...
     }
 
     @ParameterizedTest

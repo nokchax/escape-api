@@ -1,29 +1,27 @@
 package com.nokchax.escape.problem.service;
 
+import com.nokchax.escape.ServiceLayerTest;
+import com.nokchax.escape.exception.UserNotFoundException;
 import com.nokchax.escape.leetcode.crawl.page.response.CrawledUserInfo;
 import com.nokchax.escape.leetcode.crawl.page.response.ProblemSolveInfo;
-import com.nokchax.escape.mission.service.MissionService;
-import com.nokchax.escape.problem.domain.SolvedProblem;
 import com.nokchax.escape.user.domain.User;
 import com.nokchax.escape.user.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
-import org.springframework.test.context.ActiveProfiles;
 
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@DataJpaTest
-@Import({ProblemService.class, MissionService.class})
-@ActiveProfiles("dev")
-class ProblemServiceTest {
+import static org.assertj.core.api.Assertions.assertThat;
+
+@Slf4j
+class ProblemServiceTest extends ServiceLayerTest {
     @Autowired
     private ProblemService problemService;
     @Autowired
@@ -32,26 +30,29 @@ class ProblemServiceTest {
     private EntityManager entityManager;
 
     @Test
-    void checkSolvedProblemExistTest() throws Exception {
-        User user = userRepository.findById("nokchax14")
-                .orElseThrow(Exception::new);
+    @Transactional
+    void checkSolvedProblemExistTest() {
+        beforeQuery();
+        User user = userRepository.findByUserIdWithSolvedProblems("nokchax14").get(0);
+        afterQuery();
 
-        System.out.println("Before Update");
-        System.out.println(user);
+        assertThat(user.getSolvedProblemCount()).isEqualTo(30);
+        assertThat(user.getSolvedProblem().size()).isEqualTo(30);
 
-
-        System.out.println("=========================================================Before query");
+        beforeQuery();
         problemService.checkSolvedProblemExist(user, createTestCrawledUserInfo());
-        System.out.println("=========================================================After query");
+        afterQuery();
 
         entityManager.flush();
         entityManager.clear();
 
-        System.out.println("After Update");
+        beforeQuery();
         user = userRepository.findById("nokchax14")
-                .orElseThrow(Exception::new);
+                .orElseThrow(() -> new UserNotFoundException("nokchax14"));
+        afterQuery();
 
-        System.out.println(user);
+        assertThat(user.getSolvedProblemCount()).isEqualTo(40);
+        assertThat(user.getSolvedProblem().size()).isEqualTo(40);
     }
 
 
