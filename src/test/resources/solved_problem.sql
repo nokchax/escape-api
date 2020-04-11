@@ -1551,4 +1551,5 @@ INSERT INTO `solved_problem` (problem_id, user_id, solved_time, mission_id) VALU
 (100,'nokchax12','2020-03-23 11:41:03',29),
 (46,'nokchax12','2020-03-23 11:03:03',29),
 (162,'nokchax5','2020-03-23 16:11:53',29),
-(102,'nokchax5','2020-03-23 17:40:53',29);
+(102,'nokchax5','2020-03-23 17:40:53',29),
+(527,'nokchax1','2020-03-23 17:40:53',29);

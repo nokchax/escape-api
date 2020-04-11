@@ -22,20 +22,6 @@ public class EntryService {
     private final SolvedProblemRepository solvedProblemRepository;
     private final PointRepository pointRepository;
 
-    public List<Entry> updateLatestEntry(List<User> users) {
-        List<SolvedProblemSummaryDto> solvedProblemSummaries = solvedProblemRepository.findSolvedProblemOfLatestMissionByUserId(
-                users.stream()
-                        .map(User::getId)
-                        .collect(Collectors.toList())
-        );
-
-        List<Entry> entries = solvedProblemSummaries.stream()
-                .map(SolvedProblemSummaryDto::toEntry)
-                .collect(Collectors.toList());
-
-        return entryRepository.saveAll(entries);
-    }
-
     public List<EntryDto> findAllUserInLatestMission(List<User> users) {
         return entryRepository.findUsersInLatestMissionByUserId(
                 users.stream()
@@ -55,11 +41,26 @@ public class EntryService {
         pointRepository.saveAll(finePoints);
     }
 
+    @Transactional
     public List<EntryDto> updateEntryInLatestMission(List<User> users) {
-        List<Entry> entries = updateLatestEntry(users);
 
-        return entries.stream()
+        return updateLatestEntry(users).stream()
                 .map(Entry::toDto)
                 .collect(Collectors.toList());
     }
+
+    private List<Entry> updateLatestEntry(List<User> users) {
+        List<SolvedProblemSummaryDto> solvedProblemSummaries = solvedProblemRepository.findSolvedProblemOfLatestMissionByUserId(
+                users.stream()
+                        .map(User::getId)
+                        .collect(Collectors.toList())
+        );
+
+        List<Entry> entries = solvedProblemSummaries.stream()
+                .map(SolvedProblemSummaryDto::toEntry)
+                .collect(Collectors.toList());
+
+        return entryRepository.saveAll(entries);
+    }
+
 }

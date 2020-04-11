@@ -35,6 +35,18 @@ public class EntryRepositoryImpl implements EntryRepositoryCustom {
     }
 
     @Override
+    public List<Entry> getLastEntry() {
+        Mission lastMission = getLastMission();
+
+        return queryFactory.select(entry)
+                .from(entry)
+                .leftJoin(entry.user, user)
+                .leftJoin(entry.mission, mission)
+                .where(entry.mission.id.eq(lastMission.getId()))
+                .fetch();
+    }
+
+    @Override
     public List<EntryDto> findUsersInLatestMissionByUserId(List<String> userIds) {
         if(CollectionUtils.isEmpty(userIds)) {
             return Collections.emptyList();
@@ -60,11 +72,7 @@ public class EntryRepositoryImpl implements EntryRepositoryCustom {
 
     @Override
     public List<Entry> findAllUserIncompleteLastMission() {
-        Mission lastMission = queryFactory.selectFrom(mission)
-                .orderBy(mission.id.desc())
-                .limit(1)
-                .offset(1)
-                .fetchFirst();
+        Mission lastMission = getLastMission();
 
         return queryFactory.select(entry)
                 .from(entry)
@@ -75,5 +83,13 @@ public class EntryRepositoryImpl implements EntryRepositoryCustom {
                         .and(entry.score.lt(lastMission.getGoalScore()))
                 )
                 .fetch();
+    }
+
+    private Mission getLastMission() {
+        return queryFactory.selectFrom(mission)
+                .orderBy(mission.id.desc())
+                .limit(1)
+                .offset(1)
+                .fetchFirst();
     }
 }
