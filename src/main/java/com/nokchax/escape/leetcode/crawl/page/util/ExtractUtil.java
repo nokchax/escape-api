@@ -6,7 +6,10 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class ExtractUtil {
@@ -15,11 +18,18 @@ public class ExtractUtil {
     public static Set<ProblemSolveInfo> extractSolvedProblems(Document document) {
         Elements problems = document.getElementsByAttributeValueStarting("href", "/problems");
 
-        return problems.stream()
+        Map<String, ProblemSolveInfo> map = problems.stream()
                 .map(SubmissionInfo::new)
                 .filter(SubmissionInfo::isAccepted)
                 .map(SubmissionInfo::toSolveInfo)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toMap(
+                            ProblemSolveInfo::getProblemTitle,
+                            Function.identity(),
+                            (p1, p2) -> p1.getSolvedDate().isBefore(p2.getSolvedDate()) ? p1 : p2
+                        )
+                );
+
+        return new HashSet<>(map.values());
     }
 
     /** document에서 지금까지 푼 모든 문제 수를 리턴 */
@@ -40,9 +50,14 @@ public class ExtractUtil {
 
     /** 문제를 풀었는지 풀지 않았는지 확인 */
     private static boolean notSolvedProblems(Elements solvedProblemsElement) {
+        if(solvedProblemsElement == null || solvedProblemsElement.isEmpty()) {
+            return true;
+        }
 
-        return !solvedProblemsElement.isEmpty()
-                && !solvedProblemsElement.get(0).text().trim().isEmpty();
+        return solvedProblemsElement.get(0)
+                .text()
+                .trim()
+                .isEmpty();
     }
 
     /** document로 부터 problem elements를 추출 */

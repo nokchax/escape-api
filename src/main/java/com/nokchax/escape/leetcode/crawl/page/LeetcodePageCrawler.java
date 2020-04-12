@@ -23,7 +23,7 @@ import static com.nokchax.escape.leetcode.crawl.Leetcode.LEETCODE_URL;
 @Component
 @RequiredArgsConstructor
 public class LeetcodePageCrawler implements LeetcodeCrawler<User> {
-    private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (HTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36";
+    public static final String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (HTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36";
     private static final HttpEntity<String> HEADERS;
 
     private final RestTemplate restTemplate;
