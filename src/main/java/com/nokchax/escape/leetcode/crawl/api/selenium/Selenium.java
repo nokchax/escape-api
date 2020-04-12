@@ -36,7 +36,7 @@ public class Selenium {
 
         Selenium newBrowser = new Selenium();
         newBrowser.browser = new ChromeDriver(options);
-        newBrowser.wait = new WebDriverWait(newBrowser.browser, 20);
+        newBrowser.wait = new WebDriverWait(newBrowser.browser, 10);
 
         return newBrowser;
     }

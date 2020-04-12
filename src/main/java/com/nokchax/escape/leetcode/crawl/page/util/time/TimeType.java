@@ -1,6 +1,7 @@
 package com.nokchax.escape.leetcode.crawl.page.util.time;
 
 import com.nokchax.escape.exception.InvalidTimeType;
+import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -35,11 +36,20 @@ public enum TimeType {
     }
 
     public static TimeType of(String type) {
+        typeValidation(type);
+        type = type.toLowerCase();
+
         if(!TIME_TYPES.containsKey(type)) {
             throw new InvalidTimeType(type);
         }
 
         return TIME_TYPES.get(type);
+    }
+
+    private static void typeValidation(String type) {
+        if(StringUtils.isEmpty(type)) {
+            throw new IllegalArgumentException("Time type can't be a null or empty string");
+        }
     }
 
     private String getType() {
