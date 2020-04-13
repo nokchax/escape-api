@@ -6,11 +6,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.nokchax.escape.leetcode.crawl.page.response.CrawledUserInfo;
 import com.nokchax.escape.leetcode.crawl.page.response.ProblemSolveInfo;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class LeetcodeApiResponse {
@@ -42,5 +45,14 @@ public class LeetcodeApiResponse {
         return problemInfos.stream()
                 .map(ProblemInfo::toCrawledProblemInfo)
                 .collect(Collectors.toList());
+    }
+
+    public boolean isValidCrawl(String userId) {
+        if(StringUtils.isEmpty(this.userId)) {
+            log.error("UserID is [{}]", this.userId);
+            return false;
+        }
+
+        return this.userId.equalsIgnoreCase(userId);
     }
 }

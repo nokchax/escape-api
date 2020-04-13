@@ -7,6 +7,6 @@ public class CrawlException extends EscapeApiException {
     }
 
     public CrawlException(String userId) {
-        super("Fail to crawl " + userId);
+        super("Fail to crawl : " + userId);
     }
 }

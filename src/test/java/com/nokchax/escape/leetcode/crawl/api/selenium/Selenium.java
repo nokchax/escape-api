@@ -74,8 +74,16 @@ public class Selenium {
         return problemResponse;
     }
 
-    private void closeBrowser() {
-        browser.close();
+    public LeetcodeApiResponse reCrawl() throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        browser.navigate().to("https://leetcode.com/api/problems/all/");
+        WebElement body = browser.findElement(By.tagName("body"));
+        LeetcodeApiResponse problemResponse = objectMapper.readValue(body.getText(), LeetcodeApiResponse.class);
+        return problemResponse;
+    }
+
+    public void closeBrowser() {
+//        browser.close();
     }
 
     private void typeId(String userId) throws InterruptedException {
