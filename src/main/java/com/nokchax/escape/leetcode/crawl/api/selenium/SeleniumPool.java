@@ -28,15 +28,19 @@ public class SeleniumPool {
         try {
             return getSeleniumBrowser(user).crawlApi();
         } catch (CrawlException | WebDriverException e) {
-            // 로그인이 안됐거나, 로그인이 풀렸다면 재시도
-            if(tryCount < MAX_TRY_COUNT) {
-                return crawlApi(user, tryCount + 1);
-            }
-
-            // 기존 브라우저 셧다운
-            removeSeleniumBrowser(user);
-            throw new CrawlException("Fail to crawl retry count over 3 : Detail [" + e.getMessage() + "]");
+            return retry(user, tryCount, e);
         }
+    }
+
+    private LeetcodeApiResponse retry(User user, int tryCount, RuntimeException e) {
+        // 로그인이 안됐거나, 로그인이 풀렸다면 재시도
+        if(tryCount < MAX_TRY_COUNT) {
+            return crawlApi(user, tryCount + 1);
+        }
+
+        // 기존 브라우저 셧다운
+        removeSeleniumBrowser(user);
+        throw new CrawlException("Fail to crawl retry count over 3 : Detail [" + e.getMessage() + "]");
     }
 
     private SeleniumBrowser getSeleniumBrowser(User user) {
