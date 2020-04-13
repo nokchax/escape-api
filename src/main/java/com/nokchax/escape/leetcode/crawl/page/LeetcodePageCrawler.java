@@ -29,21 +29,21 @@ public class LeetcodePageCrawler implements LeetcodeCrawler<User> {
     private final RestTemplate restTemplate;
 
     @Override
-    public Optional<CrawledUserInfo> crawlUserInfo(User user) {
+    public CrawledUserInfo crawlUserInfo(User user) {
         Document document = crawlUserPage(user);
         CrawledUserInfo crawledUserInfo = parseDocument(document, user);
 
         if(user.isNotUpdated(crawledUserInfo)) {
-            return Optional.empty();
+            return CrawledUserInfo.NOT_UPDATED_USER_INFO;
         }
 
-        return Optional.of(crawledUserInfo);
+        return crawledUserInfo;
     }
 
     private Document crawlUserPage(User user) {
         ResponseEntity<String> responseHtml = restTemplate.exchange(LEETCODE_URL + user.getId(), HttpMethod.GET, HEADERS, String.class);
 
-        return Jsoup.parse(responseHtml.toString(), user.getId());
+        return Jsoup.parse(responseHtml.toString());
     }
 
     private CrawledUserInfo parseDocument(Document document, User user) {

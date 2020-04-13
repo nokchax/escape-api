@@ -19,7 +19,7 @@ public class LeetcodeApiCrawler implements LeetcodeJsonCrawler<User> {
     }
 
     @Override
-    public Optional<CrawledUserInfo> crawlUserInfo(User paramType) {
+    public CrawledUserInfo crawlUserInfo(User paramType) {
         return null;
     }
 }

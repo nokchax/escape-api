@@ -10,9 +10,9 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ExtractUtilTest {
-    private static final String pageResponse;
-    private Document parsedDocument = Jsoup.parse(pageResponse);
+public class ExtractUtilTest {
+    public static final String PAGE_RESPONSE;
+    private Document parsedDocument = Jsoup.parse(PAGE_RESPONSE);
 
     @Test
     @DisplayName("푼 문제 리스트를 제대로 추출하는지 테스트")
@@ -32,7 +32,7 @@ class ExtractUtilTest {
     }
 
     static {
-        pageResponse = "<200,<!DOCTYPE html>\n" +
+        PAGE_RESPONSE = "<!DOCTYPE html>\n" +
                 "<html>\n" +
                 "  <head>\n" +
                 "    <meta charset=\"utf-8\">\n" +

@@ -31,14 +31,14 @@ public class LeetcodeApiCrawlerWithLogin implements LeetcodeJsonCrawler<User> {
     }
 
     @Override
-    public Optional<CrawledUserInfo> crawlUserInfo(User user) {
+    public CrawledUserInfo crawlUserInfo(User user) {
         CrawledUserInfo crawledUserInfo = doCrawl(user);
 
         if(user.isNotUpdated(crawledUserInfo)) {
-            return Optional.empty();
+            return CrawledUserInfo.NOT_UPDATED_USER_INFO;
         }
 
-        return Optional.of(crawledUserInfo);
+        return crawledUserInfo;
     }
 
     private CrawledUserInfo doCrawl(User user) {

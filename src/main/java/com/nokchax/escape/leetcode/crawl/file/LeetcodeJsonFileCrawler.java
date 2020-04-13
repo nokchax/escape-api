@@ -18,7 +18,7 @@ public class LeetcodeJsonFileCrawler implements LeetcodeJsonCrawler<String> {
     }
 
     @Override
-    public Optional<CrawledUserInfo> crawlUserInfo(String paramType) {
+    public CrawledUserInfo crawlUserInfo(String paramType) {
         return null;
     }
 }
