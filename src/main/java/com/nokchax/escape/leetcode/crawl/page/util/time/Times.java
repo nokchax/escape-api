@@ -17,7 +17,7 @@ public class Times {
         Times times = new Times();
 
         times.times = Arrays.stream(timeString.split(","))
-                .map(time -> time.replace(((char) 160), ' '))
+                .map(time -> time.replace(((char) 160), ' ')) //160이 뭔 문자인지 모르겠지만 공백을 의미
                 .map(String::trim)
                 .map(Time::new)
                 .collect(Collectors.toList());
