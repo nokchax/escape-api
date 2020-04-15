@@ -1,6 +1,7 @@
 package com.nokchax.escape.leetcode.crawl.api.selenium;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nokchax.escape.config.AppProperties;
 import com.nokchax.escape.exception.CrawlException;
 import com.nokchax.escape.leetcode.crawl.api.response.LeetcodeApiResponse;
 import com.nokchax.escape.user.domain.User;
@@ -16,6 +17,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class SeleniumPool {
     private static final int MAX_TRY_COUNT = 3;
+    private final AppProperties properties;
     private final ObjectMapper objectMapper;
     private final UserAgentQueue userAgentQueue;
     private final Map<String, SeleniumBrowser> seleniumPool = new HashMap<>(); // key : user's id
@@ -58,18 +60,8 @@ public class SeleniumPool {
         seleniumPool.remove(user.getId());
     }
 
-    // TODO: 2020-04-13 load from properties file
     @PostConstruct
     private void init() {
-        String property = System.getProperty("os.name");
-        String driverPath = "/data/etc/webdriver/chromedriver";
-
-        if(property.startsWith("Mac")) {
-            driverPath = "/Users/nokchax" + driverPath;
-        } else if(property.startsWith("Window")) {
-            driverPath += ".exe";
-        }
-
-        System.setProperty("webdriver.chrome.driver", driverPath);
+        System.setProperty("webdriver.chrome.driver", properties.getSelenium().getDriverPath());
     }
 }
