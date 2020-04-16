@@ -13,7 +13,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 @Component
 public class UserAgentQueue {
-    private BlockingQueue<DesiredCapabilities> USER_AGENT_QUEUE = new LinkedBlockingQueue<>(
+    private final BlockingQueue<DesiredCapabilities> USER_AGENT_QUEUE = new LinkedBlockingQueue<>(
             Arrays.asList(
                     DesiredCapabilities.chrome(),
                     DesiredCapabilities.firefox(),
@@ -23,10 +23,12 @@ public class UserAgentQueue {
     );
 
     public DesiredCapabilities peek() {
+        if(USER_AGENT_QUEUE.isEmpty()) {
+            throw new IllegalArgumentException("No user agent");
+        }
+
         DesiredCapabilities frontUserAgent = USER_AGENT_QUEUE.poll();
-
         USER_AGENT_QUEUE.add(frontUserAgent);
-
         return frontUserAgent;
     }
 }
