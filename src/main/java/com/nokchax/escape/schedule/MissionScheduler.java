@@ -26,7 +26,6 @@ public class MissionScheduler {
         updateEntry();
         // 새 미션 생성
         missionService.createMission();
-        // TODO: 2020-04-11 entry 추가
         log.info("Create mission end");
     }
 

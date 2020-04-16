@@ -2,16 +2,20 @@ package com.nokchax.escape.mission.domain;
 
 import com.nokchax.escape.entry.domain.Entry;
 import com.nokchax.escape.problem.domain.SolvedProblem;
+import com.nokchax.escape.user.domain.User;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Builder
 @Getter
+@ToString(exclude = "entry")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Mission {
@@ -35,13 +39,9 @@ public class Mission {
                 solvedProblem.getSolvedTime().isEqual(endDateTime);
     }
 
-    @Override
-    public String toString() {
-        return "Mission{" +
-                "id=" + id +
-                ", goalScore=" + goalScore +
-                ", startDateTime=" + startDateTime +
-                ", endDateTime=" + endDateTime +
-                '}';
+    public void entry(List<User> users) {
+        this.entry = users.stream()
+                .map(user -> new Entry(user, this))
+                .collect(Collectors.toSet());
     }
 }

@@ -41,6 +41,11 @@ public class Entry implements Comparable<Entry> {
         this.easy = solvedProblemSummaryDto.getEasyCount();
     }
 
+    public Entry(User user, Mission mission) {
+        this.user = user;
+        this.mission = mission;
+    }
+
     public boolean isMissionComplete(int goalScore) {
         return this.score >= goalScore;
     }

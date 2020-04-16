@@ -9,6 +9,7 @@ import com.nokchax.escape.problem.domain.SolvedProblem;
 import com.nokchax.escape.problem.repository.ProblemRepository;
 import com.nokchax.escape.problem.repository.SolvedProblemRepository;
 import com.nokchax.escape.user.domain.User;
+import com.nokchax.escape.user.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -36,6 +37,8 @@ class MissionServiceTest extends ServiceLayerTest {
     private ProblemRepository problemRepository;
     @Autowired
     private EntityManager entityManager;
+    @Autowired
+    private UserRepository userRepository;
 
     @Test
     @DisplayName("최신 미션에 포함된 모든 유저 리턴")
@@ -80,6 +83,9 @@ class MissionServiceTest extends ServiceLayerTest {
     @Transactional
     @DisplayName("새 미션 생성 테스트")
     void createNewMissionTest() {
+        List<User> users = userRepository.findAll();
+        int numOfUsers = users.size();
+
         beforeQuery();
         missionService.createMission();
         afterQuery();
@@ -94,9 +100,11 @@ class MissionServiceTest extends ServiceLayerTest {
         afterQuery();
 
         assertThat(latestMission.getId()).isEqualTo(30);
+        assertThat(latestMission.getEntry().size()).isEqualTo(numOfUsers);
 
         showResult();
         System.out.println(latestMission);
+        latestMission.getEntry().forEach(System.out::println);
     }
 
     @Test

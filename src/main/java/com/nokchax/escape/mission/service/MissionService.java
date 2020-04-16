@@ -5,6 +5,8 @@ import com.nokchax.escape.entry.dto.EntryDto;
 import com.nokchax.escape.mission.domain.Mission;
 import com.nokchax.escape.mission.repository.MissionRepository;
 import com.nokchax.escape.problem.domain.SolvedProblem;
+import com.nokchax.escape.user.domain.User;
+import com.nokchax.escape.user.repository.UserRepository;
 import com.nokchax.escape.util.DateTimeMaker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class MissionService {
     private final MissionRepository missionRepository;
+    private final UserRepository userRepository;
 
     /** * 현재 미션 수행중인 유저 리스트 리턴 */
     public List<EntryDto> getAllUserInLatestMission() {
@@ -79,6 +82,9 @@ public class MissionService {
                 .startDateTime(DateTimeMaker.startOfWeek())
                 .endDateTime(DateTimeMaker.endOfWeek())
                 .build();
+        List<User> users = userRepository.findAll();
+
+        newMission.entry(users);
 
         missionRepository.save(newMission);
     }
