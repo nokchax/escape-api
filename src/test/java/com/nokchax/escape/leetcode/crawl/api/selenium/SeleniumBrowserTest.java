@@ -17,6 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
 class SeleniumBrowserTest {
+    private static final String PROPERTY_PATH = "/data/etc/escape/pw.properties";
     private static final UserAgentQueue userAgentQueue = new UserAgentQueue();
     private static final ObjectMapper objectMapper = new ObjectMapper();
     private static SeleniumBrowser seleniumBrowser;
@@ -48,10 +49,8 @@ class SeleniumBrowserTest {
     }
 
     private static String getPassword() {
-        String filePath = "/data/etc/escape/pw.properties";
-
         try {
-            return new Scanner(new File(filePath)).nextLine()
+            return new Scanner(new File(PROPERTY_PATH)).nextLine()
                     .split("=")[1]
                     .trim();
         } catch (FileNotFoundException e) {
