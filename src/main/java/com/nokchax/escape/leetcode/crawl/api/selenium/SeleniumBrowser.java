@@ -17,6 +17,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static com.nokchax.escape.leetcode.crawl.Leetcode.LEETCODE_API_URL;
+import static com.nokchax.escape.leetcode.crawl.Leetcode.LEETCODE_LOGIN_PAGE;
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
 @Slf4j
@@ -38,6 +39,7 @@ public class SeleniumBrowser {
     }
 
     private void login(User user) {
+        browser.get(LEETCODE_LOGIN_PAGE);
         WebElement idElement = browser.findElement(By.name("login"));
         WebElement passwordElement = browser.findElement(By.name("password"));
 
@@ -52,10 +54,10 @@ public class SeleniumBrowser {
     public LeetcodeApiResponse crawlApi() {
         WebElement apiResponse = getApiResponse();
 
-        return crawl(apiResponse);
+        return convert(apiResponse);
     }
 
-    private LeetcodeApiResponse crawl(WebElement body) {
+    private LeetcodeApiResponse convert(WebElement body) {
         LeetcodeApiResponse apiResponse = convertToObject(body);
 
         if(!apiResponse.isValidCrawl(userId)) {
