@@ -17,7 +17,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
-// TODO: 2020-04-02 코드 리팩토링
 @Slf4j
 public class Selenium {
     private WebDriver browser;
