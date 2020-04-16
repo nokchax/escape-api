@@ -12,7 +12,7 @@ public class CrawledUserInfo {
     public static CrawledUserInfo NOT_UPDATED_USER_INFO = CrawledUserInfo.builder()
             .userId("")
             .solvedProblemCount(0)
-            .solvedProblems(Collections.EMPTY_SET)
+            .solvedProblems(Collections.emptySet())
             .build();
 
     private String userId;
