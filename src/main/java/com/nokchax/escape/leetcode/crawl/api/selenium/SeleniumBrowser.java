@@ -52,7 +52,9 @@ public class SeleniumBrowser {
     }
 
     public LeetcodeApiResponse crawlApi() {
+        log.info("Selenium api crawl start : " + userId);
         WebElement apiResponse = getApiResponse();
+        log.info("Selenium api crawl end");
 
         return convert(apiResponse);
     }
