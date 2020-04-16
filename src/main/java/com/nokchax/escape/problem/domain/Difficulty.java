@@ -4,16 +4,30 @@ package com.nokchax.escape.problem.domain;
 import com.nokchax.escape.problem.dto.SolvedProblemSummaryDto;
 import lombok.Getter;
 
+import java.util.Arrays;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 @Getter
 public enum Difficulty {
-    EASY(1),
-    MEDIUM(2),
-    HARD(5);
+    EASY(1, 1),
+    MEDIUM(2, 2),
+    HARD(5,3);
 
-    private int solvePoint;
+    private final int solvePoint;
+    private final int level;
 
-    Difficulty(int solvePoint) {
+    private static final Map<Integer, Difficulty> DIFFICULTIES;
+
+    static {
+        DIFFICULTIES = Arrays.stream(Difficulty.values())
+                .collect(Collectors.toMap(Difficulty::getLevel, Function.identity()));
+    }
+
+    Difficulty(int solvePoint, int level) {
         this.solvePoint = solvePoint;
+        this.level = level;
     }
 
     public static int countToScore(SolvedProblemSummaryDto solvedProblemSummaryDto) {
@@ -23,8 +37,11 @@ public enum Difficulty {
                 HARD.solvePoint * solvedProblemSummaryDto.getHardCount();
     }
 
-    // TODO: 2020-04-03 map으로 변경하기
     public static Difficulty ofLevel(int level) {
-        return Difficulty.values()[level - 1];
+        if(!DIFFICULTIES.containsKey(level)) {
+            throw new IllegalArgumentException("Invalid level or new level type : " + level);
+        }
+
+        return DIFFICULTIES.get(level);
     }
 }
