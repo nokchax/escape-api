@@ -26,7 +26,7 @@ class SeleniumBrowserTest {
     static void init() {
         System.setProperty("webdriver.chrome.driver", "/data/etc/webdriver/chromedriver.exe");
         User user = new User("nokchax", getPassword(), "test");
-        seleniumBrowser = SeleniumBrowser.of(user, userAgentQueue, objectMapper);
+        seleniumBrowser = new SeleniumBrowser(user, userAgentQueue, objectMapper);
     }
 
 
@@ -48,7 +48,7 @@ class SeleniumBrowserTest {
         assertThat(apiResponse.getSolvedProblemCount()).isNotZero();
     }
 
-    private static String getPassword() {
+    public static String getPassword() {
         try {
             return new Scanner(new File(PROPERTY_PATH)).nextLine()
                     .split("=")[1]
