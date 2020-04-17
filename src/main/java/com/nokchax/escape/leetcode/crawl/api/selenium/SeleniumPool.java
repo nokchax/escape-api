@@ -2,13 +2,9 @@ package com.nokchax.escape.leetcode.crawl.api.selenium;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nokchax.escape.config.AppProperties;
-import com.nokchax.escape.exception.CrawlException;
-import com.nokchax.escape.leetcode.crawl.api.response.LeetcodeApiResponse;
 import com.nokchax.escape.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.openqa.selenium.WebDriverException;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -19,46 +15,21 @@ import java.util.Map;
 @Component
 @RequiredArgsConstructor
 public class SeleniumPool {
-    private static final int MAX_TRY_COUNT = 3;
     private final AppProperties properties;
     private final ObjectMapper objectMapper;
     private final UserAgentQueue userAgentQueue;
     private final Map<String, SeleniumBrowser> seleniumPool = new HashMap<>(); // key : user's id
 
-    public LeetcodeApiResponse crawlApi(User user) {
-        return crawlApi(user, 0);
-    }
-
-    private LeetcodeApiResponse crawlApi(User user, int tryCount) {
-        try {
-            return getSeleniumBrowser(user).crawlApi();
-        } catch (CrawlException | WebDriverException e) {
-            return retry(user, tryCount, e);
-        }
-    }
-
-    private LeetcodeApiResponse retry(User user, int tryCount, RuntimeException e) {
-        // 로그인이 안됐거나, 로그인이 풀렸다면 재시도
-        if(tryCount < MAX_TRY_COUNT) {
-            log.info("Crawl api retry count[" + tryCount + "] and user id [" + user.getId() + "]");
-            return crawlApi(user, tryCount + 1);
-        }
-
-        // 기존 브라우저 셧다운
-        removeSeleniumBrowser(user);
-        throw new CrawlException("Fail to crawl retry count over " + MAX_TRY_COUNT + " : Detail [" + e.getMessage() + "]");
-    }
-
-    private SeleniumBrowser getSeleniumBrowser(User user) {
-        if(!seleniumPool.containsKey(user.getId())) {
+    public SeleniumBrowser getSeleniumBrowser(User user) {
+        if (!seleniumPool.containsKey(user.getId())) {
             log.info("Open browser for " + user.getId());
-            seleniumPool.put(user.getId(), SeleniumBrowser.of(user, userAgentQueue, objectMapper));
+            seleniumPool.put(user.getId(), new SeleniumBrowser(user, userAgentQueue, objectMapper));
         }
 
         return seleniumPool.get(user.getId());
     }
 
-    private void removeSeleniumBrowser(User user) {
+    public void removeSeleniumBrowser(User user) {
         log.info("Close browser for " + user.getId());
         seleniumPool.get(user.getId())
                 .close();

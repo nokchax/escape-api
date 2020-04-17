@@ -27,15 +27,11 @@ public class SeleniumBrowser {
     private WebDriver browser;
     private WebDriverWait wait;
 
-    private SeleniumBrowser(User user, UserAgentQueue userAgentQueue, ObjectMapper objectMapper) {
+    public SeleniumBrowser(User user, UserAgentQueue userAgentQueue, ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
         this.userId = user.getId();
         initDriver(userAgentQueue);
         login(user);
-    }
-
-    public static SeleniumBrowser of(User user, UserAgentQueue userAgentQueue, ObjectMapper objectMapper) {
-        return new SeleniumBrowser(user, userAgentQueue, objectMapper);
     }
 
     private void login(User user) {
