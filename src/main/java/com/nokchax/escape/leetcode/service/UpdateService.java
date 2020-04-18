@@ -98,7 +98,7 @@ public class UpdateService {
                 .orElseThrow(() -> new CrawlException(user.getId()));
     }
 
-    public CompletableFuture<User> updateUser(User user, LeetcodeCrawler<User> crawler) {
+    private CompletableFuture<User> updateUser(User user, LeetcodeCrawler<User> crawler) {
         CrawledUserInfo crawledUserInfo = crawler.crawlUserInfo(user);
 
         if(crawledUserInfo.isNotUpdate() || !problemService.checkSolvedProblemExist(user, crawledUserInfo)) {
