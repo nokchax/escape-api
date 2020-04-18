@@ -4,6 +4,7 @@ import com.nokchax.escape.entry.domain.QEntry;
 import com.nokchax.escape.mission.domain.QMission;
 import com.nokchax.escape.problem.domain.QProblem;
 import com.nokchax.escape.problem.domain.QSolvedProblem;
+import com.nokchax.escape.problem.domain.SolvedProblem;
 import com.nokchax.escape.problem.dto.QSolvedProblemSummaryDto;
 import com.nokchax.escape.problem.dto.SolvedProblemSummaryDto;
 import com.querydsl.core.types.dsl.CaseBuilder;
@@ -77,6 +78,13 @@ public class SolvedProblemRepositoryImpl implements SolvedProblemRepositoryCusto
                         .and(userIds.isEmpty() ? null : entry.user.id.in(userIds))
                 )
                 .groupBy(entry.user)
+                .fetch();
+    }
+
+    @Override
+    public List<SolvedProblem> findSolvedProblemsByUserId(String userId) {
+        return queryFactory.selectFrom(solvedProblem)
+                .where(solvedProblem.user.id.eq(userId))
                 .fetch();
     }
 }

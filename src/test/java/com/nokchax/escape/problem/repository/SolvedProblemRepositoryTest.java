@@ -1,7 +1,9 @@
 package com.nokchax.escape.problem.repository;
 
 import com.nokchax.escape.JpaTest;
+import com.nokchax.escape.problem.domain.SolvedProblem;
 import com.nokchax.escape.problem.dto.SolvedProblemSummaryDto;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -17,6 +19,7 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Slf4j
 class SolvedProblemRepositoryTest extends JpaTest {
     @Autowired
     private SolvedProblemRepository solvedProblemRepository;
@@ -65,4 +68,17 @@ class SolvedProblemRepositoryTest extends JpaTest {
         );
     }
 
+    @Test
+    @DisplayName("사용자가 푼 문제를 사용자 id로 조회")
+    void findSolvedProblemsByUserId() {
+        beforeQuery();
+        List<SolvedProblem> solvedProblems = solvedProblemRepository.findSolvedProblemsByUserId("nokchax3");
+        afterQuery();
+
+        assertThat(solvedProblems).isNotNull();
+        assertThat(solvedProblems.size()).isNotZero();
+
+        showResult();
+        log.info("{}", solvedProblems.size());
+    }
 }
