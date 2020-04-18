@@ -9,7 +9,6 @@ import com.nokchax.escape.problem.domain.SolvedProblem;
 import com.nokchax.escape.problem.dto.ProblemDto;
 import com.nokchax.escape.problem.repository.ProblemRepository;
 import com.nokchax.escape.user.domain.User;
-import com.nokchax.escape.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

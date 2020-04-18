@@ -2,7 +2,6 @@ package com.nokchax.escape.schedule;
 
 import com.nokchax.escape.command.GivePointCommand;
 import com.nokchax.escape.entry.service.EntryService;
-import com.nokchax.escape.mission.service.MissionService;
 import com.nokchax.escape.point.service.PointService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
