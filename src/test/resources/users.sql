@@ -1,7 +1,7 @@
 INSERT INTO `users` (id, name, password, solved_problem_count, telegram_id) VALUES
 ('nokchax1','김광현1','',224, 'telegram1'),
 ('nokchax2','김광현2','',386, null),
-('nokchax3','김광현3','',125, null),
+('nokchax3','김광현3','',94, null),
 ('nokchax4','김광현4','',322, null),
 ('nokchax5','김광현5','',183, null),
 ('nokchax6','김광현6','',222, null),

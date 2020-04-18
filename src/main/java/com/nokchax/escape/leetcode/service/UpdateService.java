@@ -62,7 +62,9 @@ public class UpdateService {
                 .collect(Collectors.toList());
 
         log.debug("WAITING CRAWLING USERS");
-        CompletableFuture.allOf(futures.toArray(new CompletableFuture[futures.size()])).join();
+        futures.stream()
+                .filter(Objects::nonNull)
+                .forEach(CompletableFuture::join);
         log.debug("UPDATE USER END");
 
         return entryService.updateEntryInLatestMission(users);
