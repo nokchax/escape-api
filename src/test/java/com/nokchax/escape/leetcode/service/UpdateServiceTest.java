@@ -53,6 +53,7 @@ class UpdateServiceTest extends ServiceLayerTest {
             .target(TEST_USER_ID)
             .requestUsersTelegramId("")
             .build();
+
     @Autowired
     private UpdateService updateService;
     @Autowired
@@ -61,8 +62,6 @@ class UpdateServiceTest extends ServiceLayerTest {
     private EntityManager entityManager;
     @Autowired
     private SolvedProblemRepository solvedProblemRepository;
-    @Autowired
-    private MissionService missionService;
     @SpyBean
     private UserService userService;
     @SpyBean
@@ -71,8 +70,6 @@ class UpdateServiceTest extends ServiceLayerTest {
     private LeetcodePageCrawler pageCrawler;
     @MockBean
     private LeetcodeApiCrawlerWithLogin apiCrawler;
-    @SpyBean
-    private ProblemService problemService;
 
     @Test
     @DisplayName("문제 리스트 업데이트 테스트")
