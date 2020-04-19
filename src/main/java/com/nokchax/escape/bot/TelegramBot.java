@@ -43,14 +43,12 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername() {
-        System.out.println(properties.getTelegram().getName());
         return properties.getTelegram()
                 .getName();
     }
 
     @Override
     public String getBotToken() {
-        System.out.println(properties.getTelegram().getToken());
         return properties.getTelegram()
                 .getToken();
     }

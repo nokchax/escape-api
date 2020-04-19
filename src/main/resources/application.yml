@@ -10,18 +10,18 @@ spring:
     url: jdbc:h2:file:~/escape
     driver-class-name: org.h2.Driver
 
-app:
-  telegram:
-    name:
-    token:
-
-  admin:
-    ids:
-
-  master:
-    id:
-    pw:
-    name:
-
-  selenium:
-    driverPath:
+#app:
+#  telegram:
+#    name:
+#    token:
+#
+#  admin:
+#    ids:
+#
+#  master:
+#    id:
+#    pw:
+#    name:
+#
+#  selenium:
+#    driverPath:
