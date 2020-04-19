@@ -31,7 +31,7 @@ public class HelpCommand extends Command<Object> {
         return "1. 사용자 등록 : /register -u {userId} -p {pw} -n {name}\n" +
                 "2. 사용자 telegram id 등록 : /telegram -u {userId} -t {telegramId}\n" +
                 "3. 포인트 주기 : /givePoint -u {id | all} -p {point}\n" +
-                "4. 현 테스크 업데이트 : /updateTask\n" +
+                "4. 미션 업데이트 : /updateMission\n" +
                 "5. 문제 리스트 업데이트 : /updateProblem\n\n";
     }
 }

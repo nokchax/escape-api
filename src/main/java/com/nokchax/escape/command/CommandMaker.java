@@ -64,6 +64,10 @@ public class CommandMaker {
             case "telegram":
                 return new RegisterTelegramIdCommand(message, applicationContext);
 
+            case "updateMission":
+            case "updatemission":
+                return new MissionUpdateCommand(message, applicationContext);
+
             default:
                 return new UnknownCommand(message, applicationContext);
         }
