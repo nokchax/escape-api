@@ -30,13 +30,8 @@ import org.springframework.stereotype.Component;
 @Data
 @ConfigurationProperties(prefix = "app")
 public class AppProperties {
-    private String name;
-    @NestedConfigurationProperty
     private TelegramBot telegram;
-    @NestedConfigurationProperty
     private Master master;
-    @NestedConfigurationProperty
     private Admin admin;
-    @NestedConfigurationProperty
     private Selenium selenium;
 }
