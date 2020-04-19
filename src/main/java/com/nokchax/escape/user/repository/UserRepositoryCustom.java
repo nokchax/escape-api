@@ -14,4 +14,6 @@ public interface UserRepositoryCustom {
     List<User> findByUserIdWithSolvedProblems(String target);
     /** 사용자 텔레그램 아이디로 엔티티 찾기 */
     Optional<User> findByTelegramId(String target);
+    /** 최신 미션에 참가하고 있지 않은 사용자 찾기 */
+    List<User> findUsersNotInLatestMission();
 }

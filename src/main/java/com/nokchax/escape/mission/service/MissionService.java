@@ -88,4 +88,8 @@ public class MissionService {
 
         missionRepository.save(newMission);
     }
+
+    public void updateMission() {
+        List<User> users = userRepository.findUsersNotInLatestMission();
+    }
 }

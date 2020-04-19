@@ -120,7 +120,7 @@ class UserRepositoryTest extends JpaTest {
         userRepository.saveAndFlush(user);
         afterQuery();
 
-        entityManager.clear(); //왜 OneToMany 연관관계 컬랙션 객체가 knull인가 했네...
+        entityManager.clear(); //왜 OneToMany 연관관계 컬랙션 객체가 null인가 했네...
     }
 
     @ParameterizedTest
@@ -132,6 +132,19 @@ class UserRepositoryTest extends JpaTest {
         assertThatThrownBy(() -> userRepository.findByTelegramId(telegramId).orElseThrow(NullPointerException::new))
                 .isInstanceOf(NullPointerException.class);
         afterQuery();
+    }
+
+    @Test
+    @DisplayName("사용자 중에서 최신 미션을 수행중이지 않은 사용자 리턴 테스트")
+    void findUsersNotInLatestMission() {
+        beforeQuery();
+        List<User> usersNotInLatestMission = userRepository.findUsersNotInLatestMission();
+        afterQuery();
+
+        assertThat(usersNotInLatestMission).isNotNull();
+        assertThat(usersNotInLatestMission.size()).isOne();
+
+        usersNotInLatestMission.forEach(System.out::println);
     }
 
 }
