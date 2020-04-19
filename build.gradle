@@ -28,7 +28,6 @@ dependencies {
     compile "org.jsoup:jsoup:1.10.2"
     runtimeOnly 'com.h2database:h2'
     compile 'org.projectlombok:lombok'
-    compile 'com.squareup.okhttp3:okhttp:3.5.0'
     runtimeOnly 'mysql:mysql-connector-java'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {

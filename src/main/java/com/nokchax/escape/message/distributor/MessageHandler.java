@@ -13,6 +13,7 @@ public class MessageHandler {
     private final CommandMaker commandMaker;
 
     public String handle(Message message) {
+        log.info("By[{} : {}] : [{}]", message.getFrom().getUserName(), message.getFrom().getId(), message.getText());
         try {
             return commandMaker.makeCommand(message)
                     .process();

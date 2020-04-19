@@ -15,8 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Optional;
-
 import static com.nokchax.escape.leetcode.crawl.Leetcode.LEETCODE_URL;
 
 @Slf4j
