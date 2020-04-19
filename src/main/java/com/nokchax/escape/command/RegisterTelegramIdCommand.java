@@ -12,6 +12,7 @@ public class RegisterTelegramIdCommand extends Command<UserService> {
 
     public RegisterTelegramIdCommand(Message message, ApplicationContext applicationContext) {
         super(message, applicationContext);
+        this.sudo = true;
         this.defaultArgumentAlias = "u";
         this.requiredOptions = Arrays.asList("u", "t");
     }
@@ -23,7 +24,7 @@ public class RegisterTelegramIdCommand extends Command<UserService> {
                     "/telegram -u {userId} -t {telegramId}";
         }
 
-        processor().updateTelegramId(new UpdateTelegramIdArgument(getOptions().get("U"), getOptions().get("p")));
+        processor().updateTelegramId(new UpdateTelegramIdArgument(getOptions().get("u"), getOptions().get("p")));
 
         return "update complete";
     }

@@ -61,6 +61,9 @@ public class CommandMaker {
             case "gp":
                 return new GivePointCommand(message, applicationContext);
 
+            case "telegram":
+                return new RegisterTelegramIdCommand(message, applicationContext);
+
             default:
                 return new UnknownCommand(message, applicationContext);
         }
