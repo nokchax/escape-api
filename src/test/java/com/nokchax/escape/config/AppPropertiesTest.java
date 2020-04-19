@@ -6,13 +6,18 @@ import com.nokchax.escape.config.properties.TelegramBot;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 //jupiter에서 아래 annotaion만으로 충분
-@SpringBootTest
+@DataJpaTest
+@Import(AppProperties.class)
 @ActiveProfiles("dev")
 public class AppPropertiesTest {
     @Autowired
@@ -21,7 +26,7 @@ public class AppPropertiesTest {
     @Test
     @DisplayName("프로파일 및 프로퍼티 로드 테스트")
     public void configurationPropertiesTest() {
-        TelegramBot telegramBot = properties.getTelegramBot();
+        TelegramBot telegramBot = properties.getTelegram();
         Master master = properties.getMaster();
         Admin admin = properties.getAdmin();
 

@@ -13,7 +13,7 @@ spring:
     data: classpath:/users.sql, classpath:/problems.sql, classpath:/missions.sql, classpath:/entry.sql, classpath:/solved_problem.sql, classpath:/user_history.sql, classpath:/sequence.sql #이 파일들내에 존재하는 쿼리를 실행시킨후 테스트를 진행함
 
 app:
-  telegramBot:
+  telegram:
     name: peng
     token: giantPeng
 

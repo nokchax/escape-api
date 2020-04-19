@@ -6,6 +6,8 @@ import com.nokchax.escape.config.properties.Selenium;
 import com.nokchax.escape.config.properties.TelegramBot;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.NestedConfigurationProperty;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 /*
@@ -26,11 +28,15 @@ import org.springframework.stereotype.Component;
 */
 // load properties using @ConfigurationProperties annotation
 @Data
-@Component
-@ConfigurationProperties("app")
+@ConfigurationProperties(prefix = "app")
 public class AppProperties {
-    private TelegramBot telegramBot;
+    private String name;
+    @NestedConfigurationProperty
+    private TelegramBot telegram;
+    @NestedConfigurationProperty
     private Master master;
+    @NestedConfigurationProperty
     private Admin admin;
+    @NestedConfigurationProperty
     private Selenium selenium;
 }

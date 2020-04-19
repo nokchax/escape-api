@@ -2,7 +2,7 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: none
+      ddl-auto: create
   h2:
     console:
       enabled: true
@@ -10,20 +10,18 @@ spring:
     url: jdbc:h2:file:~/escape
     driver-class-name: org.h2.Driver
 
-
-telegram:
-  bot:
+app:
+  telegram:
     name:
     token:
 
-observer:
-  admins:
+  admin:
+    ids:
 
-master:
-  id:
-  pw:
-  name:
+  master:
+    id:
+    pw:
+    name:
 
-observing:
-  page:
-  noticeRoomNo:
+  selenium:
+    driverPath:

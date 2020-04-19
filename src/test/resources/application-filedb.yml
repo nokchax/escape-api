@@ -14,7 +14,7 @@ spring:
 
 
 app:
-  telegramBot:
+  telegram:
     name: peng
     token: giantPeng
 
