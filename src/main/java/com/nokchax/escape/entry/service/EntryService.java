@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class EntryService {
     private final EntryRepository entryRepository;
@@ -30,7 +31,6 @@ public class EntryService {
         );
     }
 
-    @Transactional
     public void imposeFine() {
         List<Entry> penaltyUsers = entryRepository.findAllUserIncompleteLastMission();
 
@@ -41,7 +41,6 @@ public class EntryService {
         pointRepository.saveAll(finePoints);
     }
 
-    @Transactional
     public List<EntryDto> updateEntryInLatestMission(List<User> users) {
 
         return updateLatestEntry(users).stream()

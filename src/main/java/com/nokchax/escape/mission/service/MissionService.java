@@ -2,6 +2,7 @@ package com.nokchax.escape.mission.service;
 
 import com.nokchax.escape.entry.domain.Entry;
 import com.nokchax.escape.entry.dto.EntryDto;
+import com.nokchax.escape.exception.UserNotFoundException;
 import com.nokchax.escape.mission.domain.Mission;
 import com.nokchax.escape.mission.repository.MissionRepository;
 import com.nokchax.escape.problem.domain.SolvedProblem;
@@ -10,12 +11,16 @@ import com.nokchax.escape.user.repository.UserRepository;
 import com.nokchax.escape.util.DateTimeMaker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class MissionService {
     private final MissionRepository missionRepository;
@@ -91,5 +96,14 @@ public class MissionService {
 
     public void updateMission() {
         List<User> users = userRepository.findUsersNotInLatestMission();
+
+        if(CollectionUtils.isEmpty(users)) {
+            throw new UserNotFoundException("현재 미션을 수행하지 않는 유저가 존재하지 않습니다.");
+        }
+
+        Mission latestMission = missionRepository.findLatestMissionWithEntry()
+                .orElseThrow(() -> {throw new IllegalArgumentException("no missions");});
+
+        latestMission.updateEntry(users);
     }
 }

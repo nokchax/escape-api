@@ -7,7 +7,6 @@ import lombok.Data;
 import org.springframework.context.ApplicationContext;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;

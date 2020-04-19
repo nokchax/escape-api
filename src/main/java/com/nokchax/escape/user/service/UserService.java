@@ -10,12 +10,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import javax.transaction.Transactional;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Slf4j
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;

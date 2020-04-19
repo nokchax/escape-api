@@ -44,4 +44,8 @@ public class Mission {
                 .map(user -> new Entry(user, this))
                 .collect(Collectors.toSet());
     }
+
+    public void updateEntry(List<User> newUsers) {
+        newUsers.forEach(newUser -> entry.add(new Entry(newUser, this)));
+    }
 }

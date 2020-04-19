@@ -20,12 +20,12 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class ProblemService {
     private final ProblemRepository problemRepository;
     private final MissionService missionService;
 
-    @Transactional
     public boolean checkSolvedProblemExist(User user, CrawledUserInfo crawledUserInfo) {
         // 푼 문제들의 title 만 추리기
         List<String> titles = crawledUserInfo.getSolvedProblems()
