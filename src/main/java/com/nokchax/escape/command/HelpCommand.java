@@ -7,11 +7,16 @@ public class HelpCommand extends Command<Object> {
 
     public HelpCommand(Message message, ApplicationContext processors) {
         super(message, processors);
+        this.defaultArgumentAlias = "t"; //type
     }
 
     @Override
     public String internalProcess() {
-        return "1. 문제풀고 나서 기록 업데이트 : /u or /update username\n" +
+        if("admin".equalsIgnoreCase(getDefaultArgument())) {
+            return adminHelp();
+        }
+
+        return "1. 문제 풀고 나서 기록 업데이트 : /u or /update username\n" +
                 "2. 미션 완료 사용자 리스트 : /d or /done\n" +
                 "3. 금주 미션 point 달성 현황 리스트 : /t or /todo\n" +
                 "4. 보너스(방학) 포인트 확인 : /po or /point\n" +
@@ -20,5 +25,13 @@ public class HelpCommand extends Command<Object> {
                 "7. 문제별 푼 사용자 리스트 : /pr or /problem 문제번호\n" +
                 "8. 금주 미션 참가자 현황 : /l or /list\n\n" +
                 "예) 문제를 푼다 > /update username > /todo";
+    }
+
+    private String adminHelp() {
+        return "1. 사용자 등록 : /register -u {userId} -p {pw} -n {name}\n" +
+                "2. 사용자 telegram id 등록 : /telegram -u {userId} -t {telegramId}\n" +
+                "3. 포인트 주기 : /givePoint -u {id | all} -p {point}\n" +
+                "4. 현 테스크 업데이트 : /updateTask\n" +
+                "5. 문제 리스트 업데이트 : /updateProblem\n\n";
     }
 }

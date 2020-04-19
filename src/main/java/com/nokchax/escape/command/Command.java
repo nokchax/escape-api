@@ -1,7 +1,7 @@
 package com.nokchax.escape.command;
 
 import com.nokchax.escape.config.AppProperties;
-import com.nokchax.escape.exception.UnAuthorizedException;
+import com.nokchax.escape.exception.PermissionDeniedException;
 import com.nokchax.escape.util.CommandExtractor;
 import lombok.Data;
 import org.springframework.context.ApplicationContext;
@@ -38,7 +38,7 @@ public abstract class Command<C> {
 
     private void checkSudoer() {
         if(sudo && !isAdmin()) {
-            throw new UnAuthorizedException();
+            throw new PermissionDeniedException();
         }
     }
 
