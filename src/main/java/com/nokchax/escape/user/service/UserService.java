@@ -1,5 +1,6 @@
 package com.nokchax.escape.user.service;
 
+import com.nokchax.escape.command.RegisterTelegramIdCommand;
 import com.nokchax.escape.command.UpdateCommand;
 import com.nokchax.escape.exception.UserNotFoundException;
 import com.nokchax.escape.user.domain.User;
@@ -62,5 +63,12 @@ public class UserService {
 
     public void registerUser(User user) {
         userRepository.save(user);
+    }
+
+    public void updateTelegramId(RegisterTelegramIdCommand.UpdateTelegramIdArgument updateTelegramIdArgument) {
+        User user = userRepository.findOneByUserId(updateTelegramIdArgument.getUserId())
+                .orElseThrow(() -> new UserNotFoundException(updateTelegramIdArgument.getUserId()));
+
+        user.updateTelegramId(updateTelegramIdArgument);
     }
 }

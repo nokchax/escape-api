@@ -7,11 +7,15 @@ import lombok.Data;
 import org.springframework.context.ApplicationContext;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 @Data
 public abstract class Command<C> {
     protected Message message;
+    protected List<String> requiredOptions;
     protected Map<String, String> options;
     protected ApplicationContext applicationContext;
     protected String defaultArgumentAlias;
@@ -22,6 +26,7 @@ public abstract class Command<C> {
         extractOptions(message.getText());
         this.message = message;
         this.applicationContext = applicationContext;
+        this.requiredOptions = Collections.emptyList();
     }
 
     public String process() {
@@ -63,5 +68,12 @@ public abstract class Command<C> {
 
     protected String getDefaultArgument() {
         return options.getOrDefault(defaultArgumentAlias, "");
+    }
+
+    protected boolean allOptionsExist() {
+        Map<String, String> options = getOptions();
+
+        return requiredOptions.stream()
+                .noneMatch(options::containsKey);
     }
 }

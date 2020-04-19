@@ -1,5 +1,6 @@
 package com.nokchax.escape.user.domain;
 
+import com.nokchax.escape.command.RegisterTelegramIdCommand;
 import com.nokchax.escape.leetcode.crawl.page.response.CrawledUserInfo;
 import com.nokchax.escape.problem.domain.SolvedProblem;
 import lombok.*;
@@ -63,5 +64,13 @@ public class User {
         solvedProblemCount += notSavedSolvedProblems.size();
 
         return solvedProblem.addAll(notSavedSolvedProblems);
+    }
+
+    public void updateTelegramId(RegisterTelegramIdCommand.UpdateTelegramIdArgument updateTelegramIdArgument) {
+        if(StringUtils.isEmpty(updateTelegramIdArgument.getTelegramId())) {
+            throw new IllegalArgumentException("Telegram id is empty or null");
+        }
+
+        this.telegramId = updateTelegramIdArgument.getTelegramId();
     }
 }

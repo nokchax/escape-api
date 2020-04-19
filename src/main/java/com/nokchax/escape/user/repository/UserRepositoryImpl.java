@@ -34,6 +34,19 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     }
 
     @Override
+    public Optional<User> findOneByUserId(String target) {
+        if (StringUtils.isEmpty(target)) {
+            return Optional.empty();
+        }
+
+        return Optional.ofNullable(
+                queryFactory.selectFrom(user)
+                        .where(user.id.eq(target))
+                        .fetchOne()
+        );
+    }
+
+    @Override
     public List<User> findByUserIdWithSolvedProblems(String target) {
         if(StringUtils.isEmpty(target)) {
             return Collections.emptyList();
