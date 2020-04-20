@@ -23,7 +23,8 @@ create table mission (
 create table point (
     date_time timestamp not null,
     user_id varchar(255) not null,
-    description integer, point integer not null,
+    description varchar(255),
+    point integer not null,
     primary key (date_time, user_id),
     foreign key (user_id) references users
 );

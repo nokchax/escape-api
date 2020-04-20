@@ -1,15 +1,15 @@
-spring:
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: create
-  h2:
-    console:
-      enabled: true
-  datasource:
-    url: jdbc:h2:file:~/escape
-    driver-class-name: org.h2.Driver
-
+#spring:
+#  jpa:
+#    show-sql: true
+#    hibernate:
+#      ddl-auto: create
+#  h2:
+#    console:
+#      enabled: true
+#  datasource:
+#    url: jdbc:h2:file:~/escape
+#    driver-class-name: org.h2.Driver
+#
 #app:
 #  telegram:
 #    name:
