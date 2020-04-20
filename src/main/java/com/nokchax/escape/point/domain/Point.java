@@ -23,6 +23,7 @@ public class Point {
     @Id
     private LocalDateTime dateTime;
     private int point;
+    @Enumerated(EnumType.STRING)
     private Description description;
 
     public Point(User user, int point) {
