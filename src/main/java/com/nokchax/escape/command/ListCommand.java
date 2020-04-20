@@ -9,6 +9,8 @@ public class ListCommand extends Command<MissionService> {
 
     public ListCommand(Message message, ApplicationContext processors) {
         super(message, processors);
+        this.clazz = MissionService.class;
+        extractOptions(message.getText());
     }
 
     @Override

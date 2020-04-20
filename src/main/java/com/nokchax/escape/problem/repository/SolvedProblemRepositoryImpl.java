@@ -77,7 +77,7 @@ public class SolvedProblemRepositoryImpl implements SolvedProblemRepositoryCusto
                         entry.mission.id.eq(select(missionSub.id.max()).from(missionSub))
                         .and(userIds.isEmpty() ? null : entry.user.id.in(userIds))
                 )
-                .groupBy(entry.user)
+                .groupBy(entry.user.id)
                 .fetch();
     }
 

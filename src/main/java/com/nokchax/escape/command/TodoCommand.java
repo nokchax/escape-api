@@ -9,6 +9,8 @@ public class TodoCommand extends Command<MissionService> {
 
     public TodoCommand(Message message, ApplicationContext processors) {
         super(message, processors);
+        this.clazz = MissionService.class;
+        extractOptions(message.getText());
     }
 
     @Override

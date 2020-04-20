@@ -10,6 +10,8 @@ public class ProblemCommand extends Command<ProblemRepository> {
     public ProblemCommand(Message message, ApplicationContext processors) {
         super(message, processors);
         this.defaultArgumentAlias = "n"; //number
+        this.clazz = ProblemRepository.class;
+        extractOptions(message.getText());
     }
 
     @Override

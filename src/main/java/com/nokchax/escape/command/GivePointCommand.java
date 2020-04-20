@@ -12,7 +12,9 @@ public class GivePointCommand extends Command<PointService> {
 
     public GivePointCommand(Message message, ApplicationContext processors) {
         super(message, processors);
-        sudo = true;
+        this.clazz = PointService.class;
+        this.sudo = true;
+        extractOptions(message.getText());
     }
 
     @Override

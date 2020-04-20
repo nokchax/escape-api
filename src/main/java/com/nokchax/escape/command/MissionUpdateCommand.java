@@ -7,6 +7,8 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 public class MissionUpdateCommand extends Command<MissionService> {
     public MissionUpdateCommand(Message message, ApplicationContext applicationContext) {
         super(message, applicationContext);
+        this.clazz = MissionService.class;
+        extractOptions(message.getText());
     }
     @Override
     public String internalProcess() {

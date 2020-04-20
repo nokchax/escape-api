@@ -10,6 +10,8 @@ public class UpdateProblemCommand extends Command<UpdateService> {
     public UpdateProblemCommand(Message message, ApplicationContext processors) {
         super(message, processors);
         this.sudo = true;
+        this.clazz = UpdateService.class;
+        extractOptions(message.getText());
     }
 
     @Override

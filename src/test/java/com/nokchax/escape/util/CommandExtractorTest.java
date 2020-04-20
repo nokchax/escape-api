@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class CommandExtractorTest {
 
     @ParameterizedTest
-    @ValueSource(strings = {"/user -u id -p 123 -n 이름", "user -u id -p 123 -n 이름"})
+    @ValueSource(strings = {"/user -u id -p 123 -n 이름", "user -u id -p 123 -n 이름", "/u -u id -p 123 -n 이름"})
     void testExtractor(String command) {
         Map<String, String> options = CommandExtractor.extractOptions(command, "u");
 
@@ -38,7 +38,7 @@ class CommandExtractorTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"/user something special", "user something special"})
+    @ValueSource(strings = {"/user something special", "user something special", "/u something special"})
     void testExtractorWithEmptyStringIncluded() {
         String command = "/user something special";
 

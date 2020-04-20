@@ -7,6 +7,8 @@ public class UnknownCommand extends Command<Object> {
 
     public UnknownCommand(Message message, ApplicationContext processors) {
         super(message, processors);
+        this.clazz = Object.class;
+        extractOptions(message.getText());
     }
 
     @Override

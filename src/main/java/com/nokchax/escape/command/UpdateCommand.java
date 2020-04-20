@@ -13,6 +13,8 @@ public class UpdateCommand extends Command<UpdateService> {
     public UpdateCommand(Message message, ApplicationContext processors) {
         super(message, processors);
         this.defaultArgumentAlias = "u";
+        this.clazz = UpdateService.class;
+        extractOptions(message.getText());
     }
 
     @Override

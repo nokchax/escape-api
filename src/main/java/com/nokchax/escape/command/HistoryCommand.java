@@ -10,6 +10,8 @@ public class HistoryCommand extends Command<ProblemSolveHistoryRepository> {
     public HistoryCommand(Message message, ApplicationContext processors) {
         super(message, processors);
         this.defaultArgumentAlias = "u"; // userId
+        this.clazz = ProblemSolveHistoryRepository.class;
+        extractOptions(message.getText());
     }
 
     @Override
