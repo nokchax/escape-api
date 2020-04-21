@@ -4,7 +4,6 @@ import com.nokchax.escape.config.AppProperties;
 import com.nokchax.escape.exception.PermissionDeniedException;
 import com.nokchax.escape.util.CommandExtractor;
 import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContext;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
@@ -73,6 +72,6 @@ public abstract class Command<C> {
         Map<String, String> options = getOptions();
 
         return requiredOptions.stream()
-                .noneMatch(options::containsKey);
+                .allMatch(options::containsKey);
     }
 }

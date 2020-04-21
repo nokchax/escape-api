@@ -24,10 +24,11 @@ import javax.persistence.Id;
                 "  COUNT(DISTINCT CASE WHEN difficulty = 'MEDIUM' THEN sp.problem_id ELSE NULL END) AS medium_count, " +
                 "  COUNT(DISTINCT CASE WHEN difficulty = 'EASY' THEN sp.problem_id ELSE NULL END) AS easy_count " +
                 "FROM " +
-                "  users u LEFT JOIN solved_problem sp " +
-                "    ON (u.id = sp.user_id), " +
-                "  solved_problem ssp LEFT JOIN problem p " +
-                "    ON (ssp.problem_id = p.problem_id) " +
+                "   solved_problem sp " +
+                "RIGHT JOIN users u " +
+                "   ON (u.id = sp.user_id) " +
+                "LEFT JOIN problem p " +
+                "   ON (p.problem_id = sp.problem_id) " +
                 "GROUP BY " +
                 "  u.id"
 )
