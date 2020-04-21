@@ -27,8 +27,10 @@ dependencies {
     compile "org.telegram:telegrambots-spring-boot-starter:4.7"
     compile "org.jsoup:jsoup:1.10.2"
     runtimeOnly 'com.h2database:h2'
-    compile 'org.projectlombok:lombok'
+    compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'mysql:mysql-connector-java'
+    testCompileOnly 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
