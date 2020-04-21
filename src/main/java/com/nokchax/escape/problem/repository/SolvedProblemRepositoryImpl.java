@@ -7,7 +7,9 @@ import com.nokchax.escape.problem.domain.QSolvedProblem;
 import com.nokchax.escape.problem.domain.SolvedProblem;
 import com.nokchax.escape.problem.dto.QSolvedProblemSummaryDto;
 import com.nokchax.escape.problem.dto.SolvedProblemSummaryDto;
+import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.dsl.CaseBuilder;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.util.CollectionUtils;
 
@@ -36,10 +38,18 @@ public class SolvedProblemRepositoryImpl implements SolvedProblemRepositoryCusto
             return Collections.emptyList();
         }
 
+        Long latestMissionId = queryFactory.select(missionSub.id.max())
+                .from(missionSub)
+                .fetchOne();
+
+        if(latestMissionId == null) {
+            throw new IllegalArgumentException("Latest mission is not exist");
+        }
+
         return queryFactory.select(
                         new QSolvedProblemSummaryDto(
                                 entry.user.id.as("userId"),
-                                entry.mission.id.as("missionId"),
+                                Expressions.constant(latestMissionId),
                                 new CaseBuilder().when(
                                                 solvedProblem.problem.difficulty.ne(HARD)
                                                 .or(solvedProblem.problem.difficulty.isNull())
@@ -74,7 +84,7 @@ public class SolvedProblemRepositoryImpl implements SolvedProblemRepositoryCusto
                 )
                 .leftJoin(solvedProblem.problem, problem)
                 .where(
-                        entry.mission.id.eq(select(missionSub.id.max()).from(missionSub))
+                        entry.mission.id.eq(latestMissionId)
                         .and(userIds.isEmpty() ? null : entry.user.id.in(userIds))
                 )
                 .groupBy(entry.user.id)
