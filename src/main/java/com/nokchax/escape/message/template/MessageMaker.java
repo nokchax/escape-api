@@ -10,19 +10,35 @@ public class MessageMaker {
             return defaultMessage;
         }
 
-        return buildMessage(dtos);
+        return wrapMessage(buildHeader(dtos) + buildBody(dtos));
     }
 
+    public static String toSplitMessage(List<? extends MessageTemplate> dtos, String defaultMessage) {
+        if(CollectionUtils.isEmpty(dtos)) {
+            return defaultMessage;
+        }
 
-    private static String buildMessage(List<? extends MessageTemplate> dtos) {
+        return buildHeader(dtos) + wrapMessage(buildBody(dtos));
+    }
+
+    private static String wrapMessage(String message) {
+        return "```\n" + message + "```\n";
+    }
+
+    private static String buildHeader(List<? extends MessageTemplate> dtos) {
         MessageTemplate template = messageTemplate(dtos);
 
-        StringBuilder stringBuilder = new StringBuilder("```\n" + template.header());
+        return  template.header();
+    }
+
+    private static String buildBody(List<? extends MessageTemplate> dtos) {
+        MessageTemplate template = messageTemplate(dtos);
+
+        StringBuilder stringBuilder = new StringBuilder();
         dtos.stream()
                 .map(MessageTemplate::body)
                 .forEachOrdered(stringBuilder::append);
-        stringBuilder.append(template.footer())
-                .append("```\n");
+        stringBuilder.append(template.footer());
 
         return stringBuilder.toString();
     }

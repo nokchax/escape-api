@@ -17,7 +17,7 @@ public class ProblemCommand extends Command<ProblemRepository> {
     @Override
     public String internalProcess() {
 
-        return MessageMaker.toMessage(
+        return MessageMaker.toSplitMessage(
                 processor().findProblemSolveUser(Long.parseLong(getDefaultArgument())),
                 "Problem not exist"
         );

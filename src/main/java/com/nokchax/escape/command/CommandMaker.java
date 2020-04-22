@@ -41,7 +41,7 @@ public class CommandMaker {
                 return new HistoryCommand(message, applicationContext);
 
             case "problem":
-            case "p":
+            case "pr":
                 return new ProblemCommand(message, applicationContext);
 
             case "update" :

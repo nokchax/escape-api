@@ -33,7 +33,7 @@ public class ProblemSolveUserDto extends MessageTemplate {
         return problem.getDifficulty() + "\n"
                 + "[" + problem.getTitle() + "]\n"
                 + problem.getLeetcodeProblemUrl() + "\n"
-                + "------------";
+                + "------------\n";
     }
 
     @Override
