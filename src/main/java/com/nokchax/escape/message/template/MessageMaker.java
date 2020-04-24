@@ -28,7 +28,7 @@ public class MessageMaker {
     private static String buildHeader(List<? extends MessageTemplate> dtos) {
         MessageTemplate template = messageTemplate(dtos);
 
-        return  template.header();
+        return  template.title();
     }
 
     private static String buildBody(List<? extends MessageTemplate> dtos) {
