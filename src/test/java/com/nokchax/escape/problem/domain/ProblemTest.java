@@ -23,7 +23,6 @@ public class ProblemTest {
     ProblemRepository problemRepository;
 
     @Test
-    @Sql("/problems.sql")
     public void getAllProblemTest() {
         List<Problem> problems = problemRepository.findAll();
 

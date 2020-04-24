@@ -38,7 +38,7 @@ class UserTest extends ServiceLayerTest {
 
         assertThat(user).isNotNull();
         assertThat(user.getSolvedProblemCount()).isEqualTo(224);
-        assertThat(user.getSolvedProblem().size()).isEqualTo(108);
+        assertThat(user.getSolvedProblem().size()).isEqualTo(109);
 
         Set<SolvedProblem> solvedProblems = new HashSet<>();
         solvedProblems.add(SolvedProblem.builder()
@@ -58,10 +58,10 @@ class UserTest extends ServiceLayerTest {
         afterClear();
 
         beforeQuery();
-        user = userRepository.findByUserIdWithSolvedProblems("nokchax1").get(0);
+        user = userRepository.findByUserIdWithSolvedProblems("nokchax10").get(0);
         afterQuery();
         assertThat(user).isNotNull();
-        assertThat(user.getSolvedProblemCount()).isEqualTo(225);
-        assertThat(user.getSolvedProblem().size()).isEqualTo(109);
+        assertThat(user.getSolvedProblemCount()).isEqualTo(183);
+        assertThat(user.getSolvedProblem().size()).isEqualTo(132);
     }
 }

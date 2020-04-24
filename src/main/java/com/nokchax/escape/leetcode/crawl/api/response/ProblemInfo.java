@@ -14,7 +14,6 @@ public class ProblemInfo {
     @JsonProperty("stat")
     private Detail detail;
     private String status;
-    @JsonProperty("difficulty")
     private Level difficulty; // difficulty 1 easy, 2 medium, 3 hard
 
     public boolean isSolvedProblem() {

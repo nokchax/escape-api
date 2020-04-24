@@ -92,7 +92,7 @@ public class SeleniumBrowser {
         options.merge(userAgentQueue.peek());
 
         this.browser = new ChromeDriver(options);
-        this.wait = new WebDriverWait(this.browser, 10);
+        this.wait = new WebDriverWait(this.browser, 20);
     }
 
     private void typeId(WebElement idElement, String userId) {

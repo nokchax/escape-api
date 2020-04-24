@@ -29,7 +29,7 @@ class SolvedProblemRepositoryTest extends JpaTest {
     void findSolvedProblemOfLatestMissionByUserIdTest() {
         beforeQuery();
         List<SolvedProblemSummaryDto> solvedProblems =
-                solvedProblemRepository.findSolvedProblemOfLatestMissionByUserId(Collections.singletonList("nokchax1"));
+                solvedProblemRepository.findSolvedProblemOfLatestMissionByUserId(Collections.singletonList("nokchax10"));
         afterQuery();
 
         solvedProblems.forEach(

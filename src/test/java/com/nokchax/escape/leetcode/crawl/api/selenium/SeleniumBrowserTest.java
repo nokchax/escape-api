@@ -57,4 +57,5 @@ class SeleniumBrowserTest {
             throw new RuntimeException("Fail to load properties file, check file exist");
         }
     }
+
 }
