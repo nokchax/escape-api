@@ -102,7 +102,7 @@ public class MissionService {
         }
 
         Mission latestMission = missionRepository.findLatestMissionWithEntry()
-                .orElseThrow(() -> {throw new IllegalArgumentException("no missions");});
+                .<IllegalArgumentException>orElseThrow(() -> {throw new IllegalArgumentException("no missions");});
 
         latestMission.updateEntry(users);
     }
