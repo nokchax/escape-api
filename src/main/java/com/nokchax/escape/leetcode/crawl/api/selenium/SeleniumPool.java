@@ -39,6 +39,6 @@ public class SeleniumPool {
 
     @PostConstruct
     private void init() {
-        System.setProperty("webdriver.chrome.driver", properties.getSelenium().getDriverPath());
+        System.setProperty(properties.getSelenium().getDriverType(), properties.getSelenium().getDriverPath());
     }
 }

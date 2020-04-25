@@ -15,5 +15,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Data
 @ConfigurationProperties(prefix = "selenium")
 public class Selenium {
+    private String driverType;
     private String driverPath;
 }
