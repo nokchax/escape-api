@@ -25,14 +25,15 @@ public class ProblemSolveUserDto extends MessageTemplate {
 
     @Override
     public String liner() {
-        return "------------\n";
+        return "";
     }
 
     @Override
     public String title() {
         return problem.getDifficulty() + "\n"
                 + "[" + problem.getTitle() + "]\n"
-                + problem.getLeetcodeProblemUrl() + "\n";
+                + problem.getLeetcodeProblemUrl() + "\n"
+                + "------------\n";
     }
 
     @Override
