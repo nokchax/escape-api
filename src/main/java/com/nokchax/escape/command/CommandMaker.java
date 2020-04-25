@@ -11,6 +11,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 public class CommandMaker {
     private final ApplicationContext applicationContext;
 
+    // TODO: 2020-04-25 using annotation like spring's @Mapping annotation
     public Command<?> makeCommand(Message message) {
         switch (extractText(message)) {
             case "list":
