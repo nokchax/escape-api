@@ -52,13 +52,13 @@ public class UpdateService {
         log.debug("UPDATE USER STARTED");
         List<User> users = userService.findByArgument(argument);
 
-        List<CompletableFuture<User>> futures = users.stream()
+        List<CompletableFuture<User>> futures = users.parallelStream()
                 .map(user -> {
                     try {
                         return updateUser(user);
                     } catch (Exception e) {
                         e.printStackTrace();
-                        return null; // null을 리턴해도 괜찮나?
+                        return null;
                     }
                 })
                 .collect(Collectors.toList());
