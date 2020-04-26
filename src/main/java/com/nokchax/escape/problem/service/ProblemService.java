@@ -10,8 +10,10 @@ import com.nokchax.escape.problem.dto.ProblemDto;
 import com.nokchax.escape.problem.repository.ProblemRepository;
 import com.nokchax.escape.user.domain.User;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +21,7 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -34,12 +37,16 @@ public class ProblemService {
                 .collect(Collectors.toList());
 
         // 크롤한 문제들 중에서(이 문제들은 푼 문제들) DB에 저장이 안된 문제들만 가져오기
+        log.info("[{}] : 문제 가져오기 시작", user.getId());
         List<Problem> notSavedSolvedProblems = problemRepository.findSolvedButNotSavedYetProblems(user.getId(), titles);
+        log.info("[{}] : 문제 가져오기 끝", user.getId());
 
         // 저장이 안된 푼 문제들을 저장해야 하므로 entity 생성
+        log.info("[{}] : 문제 변환 시작", user.getId());
         Set<SolvedProblem> solvedProblems = notSavedSolvedProblems.stream()
                 .map(problem -> new SolvedProblem(user, problem, crawledUserInfo))
                 .collect(Collectors.toSet());
+        log.info("[{}] : 문제 변환 시작", user.getId());
 
         // solved problem entity 에 mission 정보를 추가하는 작업
         missionService.fillOutSolvedProblemMissionInfo(solvedProblems);

@@ -2,6 +2,7 @@ package com.nokchax.escape.user.domain;
 
 import com.nokchax.escape.command.RegisterTelegramIdCommand;
 import com.nokchax.escape.leetcode.crawl.page.response.CrawledUserInfo;
+import com.nokchax.escape.problem.domain.Problem;
 import com.nokchax.escape.problem.domain.SolvedProblem;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +11,9 @@ import org.springframework.util.StringUtils;
 import javax.persistence.*;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Table(name = "users")
 @Entity
@@ -62,6 +65,10 @@ public class User {
 
     public boolean addSolvedProblems(Set<SolvedProblem> notSavedSolvedProblems) {
         solvedProblemCount += notSavedSolvedProblems.size();
+
+        log.info("[{}] 문제 추가 시작", id);
+        notSavedSolvedProblems.forEach(x -> log.info("{}", x));
+        log.info("[{}] 문제 추가 끝", id);
 
         return solvedProblem.addAll(notSavedSolvedProblems);
     }
