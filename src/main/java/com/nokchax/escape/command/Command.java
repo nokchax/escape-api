@@ -15,14 +15,15 @@ import java.util.Map;
 
 @Data
 public abstract class Command<C> {
-    protected Message message;
-    protected List<String> requiredOptions;
+    protected final Message message;
+    protected final ApplicationContext applicationContext;
+    protected final List<String> requiredOptions;
     protected Map<String, String> options;
-    protected ApplicationContext applicationContext;
     protected String defaultArgumentAlias;
     protected Class<C> clazz;
     protected boolean sudo;
 
+    //order is important
     public Command(Message message, ApplicationContext applicationContext, List<String> requiredOptions) {
         this.message = message;
         this.applicationContext = applicationContext;
