@@ -23,15 +23,14 @@ public abstract class Command<C> {
     protected Class<C> clazz;
     protected boolean sudo;
 
-    @SuppressWarnings("unchecked")
     public Command(Message message, ApplicationContext applicationContext, List<String> requiredOptions) {
         this.message = message;
         this.applicationContext = applicationContext;
         this.requiredOptions = requiredOptions;
-        clazz = (Class<C>) ((ParameterizedType) getClass().getGenericSuperclass())
-                .getActualTypeArguments()[0];
-        initOptions(message.getText());
+        initClass();
+        initOptions();
         initDefaultArgument();
+        initSudo();
     }
 
     public Command(Message message, ApplicationContext applicationContext) {
@@ -71,8 +70,8 @@ public abstract class Command<C> {
                 .toString();
     }
 
-    protected void initOptions(String commandString) {
-        this.options = CommandExtractor.extractOptions(commandString, defaultArgumentAlias);
+    protected void initOptions() {
+        this.options = CommandExtractor.extractOptions(this.message.getText(), defaultArgumentAlias);
     }
 
     protected String getDefaultArgument() {
@@ -92,4 +91,15 @@ public abstract class Command<C> {
         }
     }
 
+    private void initSudo() {
+        if(this instanceof SudoCommand) {
+            this.sudo = true;
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void initClass() {
+        clazz = (Class<C>) ((ParameterizedType) getClass().getGenericSuperclass())
+                .getActualTypeArguments()[0];
+    }
 }

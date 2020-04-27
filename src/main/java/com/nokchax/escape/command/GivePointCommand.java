@@ -8,11 +8,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.util.StringUtils;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
-public class GivePointCommand extends Command<PointService> {
+public class GivePointCommand extends Command<PointService> implements SudoCommand {
 
     public GivePointCommand(Message message, ApplicationContext processors) {
         super(message, processors);
-        this.sudo = true;
     }
 
     @Override

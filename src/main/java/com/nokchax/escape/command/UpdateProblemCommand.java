@@ -5,11 +5,10 @@ import com.nokchax.escape.message.template.MessageMaker;
 import org.springframework.context.ApplicationContext;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
-public class UpdateProblemCommand extends Command<UpdateService> {
+public class UpdateProblemCommand extends Command<UpdateService> implements SudoCommand {
 
     public UpdateProblemCommand(Message message, ApplicationContext processors) {
         super(message, processors);
-        this.sudo = true;
     }
 
     @Override

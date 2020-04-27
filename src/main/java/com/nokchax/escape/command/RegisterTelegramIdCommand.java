@@ -8,11 +8,10 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 
 import java.util.Arrays;
 
-public class RegisterTelegramIdCommand extends Command<UserService> {
+public class RegisterTelegramIdCommand extends Command<UserService> implements SudoCommand {
 
     public RegisterTelegramIdCommand(Message message, ApplicationContext applicationContext) {
         super(message, applicationContext, Arrays.asList("u", "t"));
-        this.sudo = true;
     }
 
     @Override
