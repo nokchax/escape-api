@@ -93,14 +93,12 @@ public abstract class Command<C> {
     }
 
     private void initSudo() {
-        if(this instanceof SudoCommand) {
-            this.sudo = true;
-        }
+        this.sudo = this instanceof SudoCommand;
     }
 
     @SuppressWarnings("unchecked")
     private void initClass() {
-        clazz = (Class<C>) ((ParameterizedType) getClass().getGenericSuperclass())
+        this.clazz = (Class<C>) ((ParameterizedType) getClass().getGenericSuperclass())
                 .getActualTypeArguments()[0];
     }
 }
