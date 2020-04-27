@@ -11,12 +11,9 @@ import java.util.Arrays;
 public class RegisterTelegramIdCommand extends Command<UserService> {
 
     public RegisterTelegramIdCommand(Message message, ApplicationContext applicationContext) {
-        super(message, applicationContext);
+        super(message, applicationContext, Arrays.asList("u", "t"));
         this.sudo = true;
         this.defaultArgumentAlias = "u";
-        this.requiredOptions = Arrays.asList("u", "t");
-        this.clazz = UserService.class;
-        extractOptions(message.getText());
     }
 
     @Override

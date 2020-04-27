@@ -8,8 +8,6 @@ public class HelpCommand extends Command<Object> {
     public HelpCommand(Message message, ApplicationContext processors) {
         super(message, processors);
         this.defaultArgumentAlias = "t"; //type
-        this.clazz = Object.class;
-        extractOptions(message.getText());
     }
 
     @Override

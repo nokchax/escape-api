@@ -10,8 +10,6 @@ public class RegisterCommand extends Command<UserService> {
     public RegisterCommand(Message message, ApplicationContext processors) {
         super(message, processors);
         this.sudo = true;
-        this.clazz = UserService.class;
-        extractOptions(message.getText());
     }
 
     @Override

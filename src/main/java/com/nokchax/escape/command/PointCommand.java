@@ -9,8 +9,6 @@ public class PointCommand extends Command<PointRepository> {
 
     public PointCommand(Message message, ApplicationContext processors) {
         super(message, processors);
-        this.clazz = PointRepository.class;
-        extractOptions(message.getText());
     }
 
     @Override

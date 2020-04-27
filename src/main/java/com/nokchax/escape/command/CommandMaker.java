@@ -55,6 +55,7 @@ public class CommandMaker {
                 return new UpdateProblemCommand(message, applicationContext);
 
             case "register":
+            case "r":
                 return new RegisterCommand(message, applicationContext);
 
             case "givePoint":
@@ -67,6 +68,7 @@ public class CommandMaker {
 
             case "updateMission":
             case "updatemission":
+            case "um":
                 return new MissionUpdateCommand(message, applicationContext);
 
             default:

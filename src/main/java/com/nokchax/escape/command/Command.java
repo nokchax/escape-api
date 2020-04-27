@@ -7,6 +7,7 @@ import lombok.Data;
 import org.springframework.context.ApplicationContext;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -21,14 +22,22 @@ public abstract class Command<C> {
     protected Class<C> clazz;
     protected boolean sudo;
 
-    public Command(Message message, ApplicationContext applicationContext) {
+    @SuppressWarnings("unchecked")
+    public Command(Message message, ApplicationContext applicationContext, List<String> requiredOptions) {
         this.message = message;
         this.applicationContext = applicationContext;
-        this.requiredOptions = Collections.emptyList();
+        this.requiredOptions = requiredOptions;
+        clazz = (Class<C>) ((ParameterizedType) getClass().getGenericSuperclass())
+                .getActualTypeArguments()[0];
+        extractOptions(message.getText());
+    }
+
+    public Command(Message message, ApplicationContext applicationContext) {
+        this(message, applicationContext, Collections.emptyList());
     }
 
     public String process() {
-        checkSudoer();
+        checkAdmin();
 
         return internalProcess();
     }
@@ -39,7 +48,7 @@ public abstract class Command<C> {
         return applicationContext.getBean(clazz);
     }
 
-    private void checkSudoer() {
+    private void checkAdmin() {
         if(sudo && !isAdmin()) {
             throw new PermissionDeniedException();
         }
