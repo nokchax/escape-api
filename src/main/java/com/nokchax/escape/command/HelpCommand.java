@@ -3,11 +3,12 @@ package com.nokchax.escape.command;
 import org.springframework.context.ApplicationContext;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
+import java.util.Collections;
+
 public class HelpCommand extends Command<Object> {
 
     public HelpCommand(Message message, ApplicationContext processors) {
-        super(message, processors);
-        this.defaultArgumentAlias = "t"; //type
+        super(message, processors, Collections.singletonList("t"));
     }
 
     @Override

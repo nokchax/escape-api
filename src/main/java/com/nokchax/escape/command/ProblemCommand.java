@@ -5,11 +5,12 @@ import com.nokchax.escape.problem.repository.ProblemRepository;
 import org.springframework.context.ApplicationContext;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
+import java.util.Collections;
+
 public class ProblemCommand extends Command<ProblemRepository> {
 
     public ProblemCommand(Message message, ApplicationContext processors) {
-        super(message, processors);
-        this.defaultArgumentAlias = "n"; //number
+        super(message, processors, Collections.singletonList("n")); //number
     }
 
     @Override

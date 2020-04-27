@@ -13,7 +13,6 @@ public class RegisterTelegramIdCommand extends Command<UserService> {
     public RegisterTelegramIdCommand(Message message, ApplicationContext applicationContext) {
         super(message, applicationContext, Arrays.asList("u", "t"));
         this.sudo = true;
-        this.defaultArgumentAlias = "u";
     }
 
     @Override

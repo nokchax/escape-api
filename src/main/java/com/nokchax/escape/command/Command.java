@@ -5,6 +5,7 @@ import com.nokchax.escape.exception.PermissionDeniedException;
 import com.nokchax.escape.util.CommandExtractor;
 import lombok.Data;
 import org.springframework.context.ApplicationContext;
+import org.springframework.util.CollectionUtils;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
 import java.lang.reflect.ParameterizedType;
@@ -29,7 +30,8 @@ public abstract class Command<C> {
         this.requiredOptions = requiredOptions;
         clazz = (Class<C>) ((ParameterizedType) getClass().getGenericSuperclass())
                 .getActualTypeArguments()[0];
-        extractOptions(message.getText());
+        initOptions(message.getText());
+        initDefaultArgument();
     }
 
     public Command(Message message, ApplicationContext applicationContext) {
@@ -69,7 +71,7 @@ public abstract class Command<C> {
                 .toString();
     }
 
-    protected void extractOptions(String commandString) {
+    protected void initOptions(String commandString) {
         this.options = CommandExtractor.extractOptions(commandString, defaultArgumentAlias);
     }
 
@@ -83,4 +85,11 @@ public abstract class Command<C> {
         return requiredOptions.stream()
                 .allMatch(options::containsKey);
     }
+
+    private void initDefaultArgument() {
+        if(!CollectionUtils.isEmpty(requiredOptions)) {
+            this.defaultArgumentAlias = requiredOptions.get(0);
+        }
+    }
+
 }

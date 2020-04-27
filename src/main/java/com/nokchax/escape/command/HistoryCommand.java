@@ -5,11 +5,12 @@ import com.nokchax.escape.problem.repository.ProblemSolveHistoryRepository;
 import org.springframework.context.ApplicationContext;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
+import java.util.Collections;
+
 public class HistoryCommand extends Command<ProblemSolveHistoryRepository> {
 
     public HistoryCommand(Message message, ApplicationContext processors) {
-        super(message, processors);
-        this.defaultArgumentAlias = "u"; // userId
+        super(message, processors, Collections.singletonList("u")); //userId
     }
 
     @Override
