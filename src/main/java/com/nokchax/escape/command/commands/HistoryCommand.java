@@ -9,7 +9,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import java.util.Collections;
 
 public class HistoryCommand extends Command<ProblemSolveHistoryRepository> {
-    private static final String USER_ID = "U";
+    private static final String USER_ID = "u";
 
     public HistoryCommand(Message message, ApplicationContext processors) {
         super(message, processors, Collections.singletonList(USER_ID)); //userId
