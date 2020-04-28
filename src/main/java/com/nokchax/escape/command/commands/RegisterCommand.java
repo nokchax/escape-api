@@ -8,6 +8,9 @@ import org.springframework.context.ApplicationContext;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
 public class RegisterCommand extends Command<UserService> implements SudoCommand {
+    private static final String USER_ID = "u";
+    private static final String PASSWORD = "p";
+    private static final String NAME = "n";
 
     public RegisterCommand(Message message, ApplicationContext processors) {
         super(message, processors);
@@ -15,10 +18,20 @@ public class RegisterCommand extends Command<UserService> implements SudoCommand
 
     @Override
     public String internalProcess() {
-        User user = new User(getOptions().get("u"), getOptions().get("p"), getOptions().get("n"));
-
-        processor().registerUser(user);
+        processor().registerUser(new User(getUserId(), getPassword(), getName()));
 
         return "Register complete";
+    }
+
+    private String getUserId() {
+        return getArgument(USER_ID);
+    }
+
+    private String getPassword() {
+        return getArgument(PASSWORD);
+    }
+
+    private String getName() {
+        return getArgument(NAME);
     }
 }

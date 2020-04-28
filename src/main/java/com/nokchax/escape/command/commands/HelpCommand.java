@@ -7,14 +7,16 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import java.util.Collections;
 
 public class HelpCommand extends Command<Object> {
+    private static final String TYPE = "t";
+    private static final String ADMIN = "admin";
 
     public HelpCommand(Message message, ApplicationContext processors) {
-        super(message, processors, Collections.singletonList("t"));
+        super(message, processors, Collections.singletonList(TYPE));
     }
 
     @Override
     public String internalProcess() {
-        if("admin".equalsIgnoreCase(getDefaultArgument())) {
+        if(ADMIN.equalsIgnoreCase(getDefaultArgument())) {
             return adminHelp();
         }
 

@@ -10,26 +10,30 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.util.StringUtils;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
+import java.util.Arrays;
+
 public class GivePointCommand extends Command<PointService> implements SudoCommand {
+    private static final String USER_ID = "u";
+    private static final String POINT = "p";
 
     public GivePointCommand(Message message, ApplicationContext processors) {
-        super(message, processors);
+        super(message, processors, Arrays.asList(USER_ID, POINT));
     }
 
     @Override
     public String internalProcess() {
         return MessageMaker.toMessage(
                 processor().givePointTo(new PointArgument(getTargetUser(), getPoint())),
-                "Fail to give point maybe user not exist"
+                "Fail to give point, maybe user not exist"
         );
     }
 
     private String getTargetUser() {
-        return options.getOrDefault("u", "");
+        return getArgument(USER_ID);
     }
 
     private String getPoint() {
-        return options.getOrDefault("p", "");
+        return getArgument(POINT);
     }
 
     @Data

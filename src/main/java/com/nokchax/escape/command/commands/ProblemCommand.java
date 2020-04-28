@@ -9,9 +9,10 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import java.util.Collections;
 
 public class ProblemCommand extends Command<ProblemRepository> {
+    private static final String NUMBER = "n";
 
     public ProblemCommand(Message message, ApplicationContext processors) {
-        super(message, processors, Collections.singletonList("n")); //number
+        super(message, processors, Collections.singletonList(NUMBER)); //number
     }
 
     @Override
