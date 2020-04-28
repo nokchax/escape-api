@@ -290,5 +290,6 @@ class CommandMakerTest extends JpaTest {
     @DisplayName("Annotation 기반으로 클래스를 찾아서 map 초기화하기")
     void initMapWithAnnotationAttachedClasses() {
         //https://stackoverflow.com/a/47428495
+        //https://stackoverflow.com/a/23973331
     }
 }

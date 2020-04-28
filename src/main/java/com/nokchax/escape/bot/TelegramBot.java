@@ -20,7 +20,6 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
-        log.info("{}", update.getMessage().getCaption());
         if (!update.hasMessage()) {
             return;
         }
