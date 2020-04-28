@@ -1,6 +1,6 @@
 package com.nokchax.escape.leetcode.service;
 
-import com.nokchax.escape.command.UpdateCommand;
+import com.nokchax.escape.command.commands.UpdateCommand;
 import com.nokchax.escape.entry.dto.EntryDto;
 import com.nokchax.escape.entry.service.EntryService;
 import com.nokchax.escape.exception.CrawlException;

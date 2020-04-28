@@ -1,7 +1,7 @@
 package com.nokchax.escape.user.service;
 
-import com.nokchax.escape.command.RegisterTelegramIdCommand;
-import com.nokchax.escape.command.UpdateCommand;
+import com.nokchax.escape.command.commands.RegisterTelegramIdCommand;
+import com.nokchax.escape.command.commands.UpdateCommand;
 import com.nokchax.escape.exception.UserNotFoundException;
 import com.nokchax.escape.user.domain.User;
 import com.nokchax.escape.user.repository.UserRepository;

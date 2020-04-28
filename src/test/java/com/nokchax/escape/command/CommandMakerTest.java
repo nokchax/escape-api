@@ -1,6 +1,7 @@
 package com.nokchax.escape.command;
 
 import com.nokchax.escape.JpaTest;
+import com.nokchax.escape.command.commands.HelpCommand;
 import com.nokchax.escape.entry.repository.EntryRepository;
 import com.nokchax.escape.mission.repository.MissionRepository;
 import com.nokchax.escape.problem.repository.ProblemRepository;

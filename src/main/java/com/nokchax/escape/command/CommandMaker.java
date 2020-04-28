@@ -1,5 +1,6 @@
 package com.nokchax.escape.command;
 
+import com.nokchax.escape.command.commands.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;

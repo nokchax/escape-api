@@ -1,5 +1,7 @@
-package com.nokchax.escape.command;
+package com.nokchax.escape.command.commands;
 
+import com.nokchax.escape.command.Command;
+import com.nokchax.escape.command.SudoCommand;
 import com.nokchax.escape.user.service.UserService;
 import lombok.Builder;
 import lombok.Data;

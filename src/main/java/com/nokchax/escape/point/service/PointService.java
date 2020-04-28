@@ -1,6 +1,6 @@
 package com.nokchax.escape.point.service;
 
-import com.nokchax.escape.command.GivePointCommand;
+import com.nokchax.escape.command.commands.GivePointCommand;
 import com.nokchax.escape.point.domain.Point;
 import com.nokchax.escape.point.dto.PointDto;
 import com.nokchax.escape.point.repository.PointRepository;
