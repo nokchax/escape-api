@@ -1,6 +1,6 @@
 package com.nokchax.escape.schedule;
 
-import com.nokchax.escape.command.UpdateCommand;
+import com.nokchax.escape.command.commands.UpdateCommand;
 import com.nokchax.escape.leetcode.service.UpdateService;
 import com.nokchax.escape.mission.service.MissionService;
 import lombok.RequiredArgsConstructor;

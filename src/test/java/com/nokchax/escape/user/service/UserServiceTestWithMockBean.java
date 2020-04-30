@@ -1,8 +1,7 @@
 package com.nokchax.escape.user.service;
 
 import com.nokchax.escape.ServiceLayerTest;
-import com.nokchax.escape.command.RegisterTelegramIdCommand;
-import com.nokchax.escape.command.UpdateCommand;
+import com.nokchax.escape.command.commands.UpdateCommand;
 import com.nokchax.escape.exception.UserNotFoundException;
 import com.nokchax.escape.user.domain.User;
 import com.nokchax.escape.user.repository.UserRepository;
@@ -13,7 +12,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.mock.mockito.SpyBean;
 
 import javax.persistence.EntityManager;
 import java.util.Arrays;

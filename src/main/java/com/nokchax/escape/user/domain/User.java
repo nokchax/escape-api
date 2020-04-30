@@ -1,6 +1,6 @@
 package com.nokchax.escape.user.domain;
 
-import com.nokchax.escape.command.RegisterTelegramIdCommand;
+import com.nokchax.escape.command.commands.RegisterTelegramIdCommand;
 import com.nokchax.escape.leetcode.crawl.page.response.CrawledUserInfo;
 import com.nokchax.escape.problem.domain.Problem;
 import com.nokchax.escape.problem.domain.SolvedProblem;

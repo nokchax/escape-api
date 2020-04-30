@@ -1,7 +1,7 @@
 package com.nokchax.escape.user.service;
 
 import com.nokchax.escape.ServiceLayerTest;
-import com.nokchax.escape.command.RegisterTelegramIdCommand;
+import com.nokchax.escape.command.commands.RegisterTelegramIdCommand;
 import com.nokchax.escape.user.domain.User;
 import com.nokchax.escape.user.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;

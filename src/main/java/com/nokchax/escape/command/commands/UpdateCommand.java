@@ -1,20 +1,24 @@
-package com.nokchax.escape.command;
+package com.nokchax.escape.command.commands;
 
+import com.nokchax.escape.command.Command;
 import com.nokchax.escape.leetcode.service.UpdateService;
 import com.nokchax.escape.message.template.MessageMaker;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 import org.springframework.context.ApplicationContext;
 import org.springframework.util.StringUtils;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
+import java.util.Collections;
+
 public class UpdateCommand extends Command<UpdateService> {
+    private static final String USER_ID = "u";
+    private static final String ALL = "all";
 
     public UpdateCommand(Message message, ApplicationContext processors) {
-        super(message, processors);
-        this.defaultArgumentAlias = "u";
-        this.clazz = UpdateService.class;
-        extractOptions(message.getText());
+        super(message, processors, Collections.singletonList(USER_ID));
     }
 
     @Override
@@ -32,12 +36,13 @@ public class UpdateCommand extends Command<UpdateService> {
                 .build();
     }
 
-    @Data
+    @Getter
     @Builder
+    @ToString
     public static class UpdateArgument {
-        public static final UpdateArgument UPDATE_ALL = new UpdateArgument("all", "");
-        private String target;
-        private String requestUsersTelegramId;
+        public static final UpdateArgument UPDATE_ALL = new UpdateArgument(ALL, "");
+        private final String target;
+        private final String requestUsersTelegramId;
 
         public boolean isEmptyArgument() {
             return StringUtils.isEmpty(target);

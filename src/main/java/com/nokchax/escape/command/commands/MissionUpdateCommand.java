@@ -1,15 +1,16 @@
-package com.nokchax.escape.command;
+package com.nokchax.escape.command.commands;
 
+import com.nokchax.escape.command.Command;
 import com.nokchax.escape.mission.service.MissionService;
 import org.springframework.context.ApplicationContext;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
 public class MissionUpdateCommand extends Command<MissionService> {
+
     public MissionUpdateCommand(Message message, ApplicationContext applicationContext) {
         super(message, applicationContext);
-        this.clazz = MissionService.class;
-        extractOptions(message.getText());
     }
+
     @Override
     public String internalProcess() {
         processor().updateMission();

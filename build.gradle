@@ -46,6 +46,9 @@ dependencies {
     //for querydsl
     implementation 'com.querydsl:querydsl-jpa'
 
+    //for reflections
+    compile 'org.reflections:reflections:0.9.11'
+
     //for webclient
 //    compile 'org.springframework.boot:spring-boot-starter-webflux'
 //    compile 'org.projectreactor:reactor-spring:1.0.1.RELEASE'

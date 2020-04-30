@@ -1,5 +1,6 @@
 package com.nokchax.escape.command;
 
+import com.nokchax.escape.command.commands.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
@@ -55,6 +56,7 @@ public class CommandMaker {
                 return new UpdateProblemCommand(message, applicationContext);
 
             case "register":
+            case "r":
                 return new RegisterCommand(message, applicationContext);
 
             case "givePoint":
@@ -67,6 +69,7 @@ public class CommandMaker {
 
             case "updateMission":
             case "updatemission":
+            case "um":
                 return new MissionUpdateCommand(message, applicationContext);
 
             default:
