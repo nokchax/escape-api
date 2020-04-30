@@ -1,11 +1,13 @@
 package com.nokchax.escape.command.commands;
 
 import com.nokchax.escape.command.Command;
+import com.nokchax.escape.command.CommandMapping;
 import com.nokchax.escape.message.template.MessageMaker;
 import com.nokchax.escape.mission.service.MissionService;
 import org.springframework.context.ApplicationContext;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
+@CommandMapping(commands = {"todo", "t"})
 public class TodoCommand extends Command<MissionService> {
 
     public TodoCommand(Message message, ApplicationContext processors) {

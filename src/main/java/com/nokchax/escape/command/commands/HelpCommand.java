@@ -1,11 +1,13 @@
 package com.nokchax.escape.command.commands;
 
 import com.nokchax.escape.command.Command;
+import com.nokchax.escape.command.CommandMapping;
 import org.springframework.context.ApplicationContext;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
 import java.util.Collections;
 
+@CommandMapping(commands = {"help"})
 public class HelpCommand extends Command<Object> {
     private static final String TYPE = "t";
     private static final String ADMIN = "admin";

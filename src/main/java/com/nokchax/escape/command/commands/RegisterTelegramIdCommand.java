@@ -1,6 +1,7 @@
 package com.nokchax.escape.command.commands;
 
 import com.nokchax.escape.command.Command;
+import com.nokchax.escape.command.CommandMapping;
 import com.nokchax.escape.command.SudoCommand;
 import com.nokchax.escape.user.service.UserService;
 import lombok.Builder;
@@ -12,6 +13,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 
 import java.util.Arrays;
 
+@CommandMapping(commands = {"telegram"})
 public class RegisterTelegramIdCommand extends Command<UserService> implements SudoCommand {
     private static final String USER_ID = "u";
     private static final String TELEGRAM_ID = "t";

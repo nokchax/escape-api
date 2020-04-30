@@ -1,6 +1,7 @@
 package com.nokchax.escape.command.commands;
 
 import com.nokchax.escape.command.Command;
+import com.nokchax.escape.command.CommandMapping;
 import com.nokchax.escape.leetcode.service.UpdateService;
 import com.nokchax.escape.message.template.MessageMaker;
 import lombok.Builder;
@@ -13,6 +14,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 
 import java.util.Collections;
 
+@CommandMapping(commands = {"update", "u"})
 public class UpdateCommand extends Command<UpdateService> {
     private static final String USER_ID = "u";
     private static final String ALL = "all";
