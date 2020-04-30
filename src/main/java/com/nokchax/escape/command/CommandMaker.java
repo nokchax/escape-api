@@ -2,18 +2,59 @@ package com.nokchax.escape.command;
 
 import com.nokchax.escape.command.commands.*;
 import lombok.RequiredArgsConstructor;
+import org.reflections.Reflections;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
+import javax.annotation.PostConstruct;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 @Component
 @RequiredArgsConstructor
 public class CommandMaker {
     private final ApplicationContext applicationContext;
+    private Map<String, Constructor<?>> constructors;
+
+    @PostConstruct
+    private void init() {
+        constructors = new HashMap<>();
+        Reflections reflections = new Reflections("com.nokchax.escape.command");
+
+        Set<Class<?>> classes = reflections.getTypesAnnotatedWith(CommandMapping.class);
+        classes.forEach(clazz -> {
+                    CommandMapping annotation = clazz.getAnnotation(CommandMapping.class);
+                    String[] commands = annotation.commands();
+                    try {
+                        Constructor<?> constructor = clazz.getConstructor(Message.class, ApplicationContext.class);
+
+                        Arrays.stream(commands)
+                                .forEach(command -> constructors.put(command, constructor));
+                    } catch (NoSuchMethodException e) {
+                        e.printStackTrace();
+                    }
+                });
+    }
 
     // TODO: 2020-04-25 using annotation like spring's @Mapping annotation
     public Command<?> makeCommand(Message message) {
+        Constructor<?> constructor = matchCommandConstructor(message);
+
+        try {
+            return (Command<?>) constructor.newInstance(message, applicationContext);
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+            throw new IllegalArgumentException("Fail to change message to command");
+        }
+/*
         switch (extractText(message)) {
             case "list":
             case "l":
@@ -74,6 +115,16 @@ public class CommandMaker {
 
             default:
                 return new UnknownCommand(message, applicationContext);
+        }
+*/
+    }
+
+    private Constructor<?> matchCommandConstructor(Message message) {
+        try {
+            return constructors.getOrDefault(extractText(message), UnknownCommand.class.getConstructor(Message.class, ApplicationContext.class));
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            throw new IllegalArgumentException("Unknown command");
         }
     }
 
