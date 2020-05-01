@@ -28,6 +28,7 @@ public class CommandMaker {
         constructors = new HashMap<>();
         Reflections reflections = new Reflections("com.nokchax.escape.command");
 
+        // TODO: 2020-05-01 동일한 명령어가 존재하면 에러남기고 init 종료
         Set<Class<?>> classes = reflections.getTypesAnnotatedWith(CommandMapping.class);
         classes.forEach(clazz -> {
                     CommandMapping annotation = clazz.getAnnotation(CommandMapping.class);
