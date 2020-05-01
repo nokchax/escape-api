@@ -22,8 +22,9 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CommandMaker {
     private final ApplicationContext applicationContext;
-    private Map<String, Constructor<?>> constructors;
+    private Map<String, Constructor<? extends Command<?>>> constructors;
 
+    @SuppressWarnings("unchecked")
     @PostConstruct
     private void init() {
         constructors = new HashMap<>();
@@ -34,7 +35,7 @@ public class CommandMaker {
                     CommandMapping annotation = clazz.getAnnotation(CommandMapping.class);
                     String[] commands = annotation.commands();
                     try {
-                        Constructor<?> constructor = clazz.getConstructor(Message.class, ApplicationContext.class);
+                        Constructor<? extends Command<?>> constructor = (Constructor<? extends Command<?>>) clazz.getConstructor(Message.class, ApplicationContext.class);
 
                         Arrays.stream(commands)
                                 .forEach(command -> constructors.put(command, constructor));
