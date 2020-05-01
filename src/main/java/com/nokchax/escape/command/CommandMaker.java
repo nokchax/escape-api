@@ -30,24 +30,26 @@ public class CommandMaker {
                 .forEach(this::putConstructor);
     }
 
-    // TODO: 2020-05-01 동일한 명령어가 존재하면 에러남기고 init 종료
-    @SuppressWarnings("unchecked")
     private void putConstructor(Class<?> clazz) {
         CommandMapping annotation = clazz.getAnnotation(CommandMapping.class);
+        Arrays.stream(annotation.commands())
+                .forEach(command -> matchCommandAndConstructor(command, clazz));
+    }
+
+    @SuppressWarnings("unchecked")
+    private void matchCommandAndConstructor(String command, Class<?> clazz) {
+        Constructor<? extends Command<?>> constructor = null;
         try {
-            Constructor<? extends Command<?>> constructor = (Constructor<? extends Command<?>>) clazz.getConstructor(Message.class, ApplicationContext.class);
-
-            Arrays.stream(annotation.commands())
-                    .forEach(command -> {
-                        if(constructors.containsKey(command)) {
-                            throw new RuntimeException("Command key duplicated");
-                        }
-
-                        constructors.put(command, constructor);
-                    });
+            constructor = (Constructor<? extends Command<?>>) clazz.getConstructor(Message.class, ApplicationContext.class);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
+
+        if(constructors.containsKey(command)) {
+            throw new RuntimeException("Command key duplicated");
+        }
+
+        constructors.put(command, constructor);
     }
 
     public Command<?> makeCommand(Message message) {
