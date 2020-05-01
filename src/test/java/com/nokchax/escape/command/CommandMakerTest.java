@@ -1,12 +1,11 @@
 package com.nokchax.escape.command;
 
-import com.nokchax.escape.JpaTest;
+import com.nokchax.escape.ServiceLayerTest;
 import com.nokchax.escape.command.commands.HelpCommand;
 import com.nokchax.escape.entry.repository.EntryRepository;
 import com.nokchax.escape.mission.repository.MissionRepository;
 import com.nokchax.escape.problem.repository.ProblemRepository;
 import com.nokchax.escape.user.repository.UserRepository;
-import com.sun.org.apache.bcel.internal.util.ClassLoader;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -33,11 +32,28 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @Slf4j
-class CommandMakerTest extends JpaTest {
+class CommandMakerTest extends ServiceLayerTest {
     @Autowired
     private ApplicationContext applicationContext;
+    @Autowired
+    private CommandMaker commandMaker;
+
+    @Test
+    void initTest() {
+        Message mockMessage = mock(Message.class);
+
+        when(mockMessage.getText()).thenReturn("help");
+
+        Command<?> command = commandMaker.makeCommand(mockMessage);
+
+        assertThat(command).isNotNull();
+        assertThat(command.process()).endsWith("/todo");
+        System.out.println("command = " + command.process());
+    }
 
     @Test
     @DisplayName("애플리케이션 컨텍스트로 부터 클래스를 가지고 빈을 잘 가져오는지 테스트")
