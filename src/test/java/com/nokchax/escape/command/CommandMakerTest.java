@@ -1,6 +1,9 @@
 package com.nokchax.escape.command;
 
 import com.nokchax.escape.ServiceLayerTest;
+import com.nokchax.escape.command.commands.DoneCommand;
+import com.nokchax.escape.command.commands.FineCommand;
+import com.nokchax.escape.command.commands.GivePointCommand;
 import com.nokchax.escape.command.commands.HelpCommand;
 import com.nokchax.escape.entry.repository.EntryRepository;
 import com.nokchax.escape.mission.repository.MissionRepository;
@@ -9,6 +12,9 @@ import com.nokchax.escape.user.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
@@ -42,17 +48,45 @@ class CommandMakerTest extends ServiceLayerTest {
     @Autowired
     private CommandMaker commandMaker;
 
-    @Test
-    void initTest() {
-        Message mockMessage = mock(Message.class);
-
-        when(mockMessage.getText()).thenReturn("help");
-
-        Command<?> command = commandMaker.makeCommand(mockMessage);
+    @ParameterizedTest
+    @MethodSource
+    void initTest(Message message, Class<? extends Command<?>> clazz) {
+        Command<?> command = commandMaker.makeCommand(message);
 
         assertThat(command).isNotNull();
-        assertThat(command.process()).endsWith("/todo");
-        System.out.println("command = " + command.process());
+        assertThat(command).isInstanceOf(clazz);
+    }
+
+    // 이렇게 테스트를 위해서지만... 이렇게 노가다로 해야하나..?
+    private static Stream<Arguments> initTest() {
+        Message helpMessage = mock(Message.class);
+        Message doneMessage = mock(Message.class);
+        Message dMessage = mock(Message.class);
+        Message fineMessage = mock(Message.class);
+        Message fMessage = mock(Message.class);
+        Message givePointMessage = mock(Message.class);
+        Message givepointMessage = mock(Message.class);
+        Message gpMessage = mock(Message.class);
+
+        when(helpMessage.getText()).thenReturn("/help");
+        when(doneMessage.getText()).thenReturn("/done");
+        when(dMessage.getText()).thenReturn("/d");
+        when(fineMessage.getText()).thenReturn("/fine");
+        when(fMessage.getText()).thenReturn("/f");
+        when(givePointMessage.getText()).thenReturn("/givePoint");
+        when(givepointMessage.getText()).thenReturn("/givepoint");
+        when(gpMessage.getText()).thenReturn("/gp");
+
+        return Stream.of(
+                Arguments.of(helpMessage, HelpCommand.class),
+                Arguments.of(doneMessage, DoneCommand.class),
+                Arguments.of(dMessage, DoneCommand.class),
+                Arguments.of(fineMessage, FineCommand.class),
+                Arguments.of(fMessage, FineCommand.class),
+                Arguments.of(givePointMessage, GivePointCommand.class),
+                Arguments.of(givepointMessage, GivePointCommand.class),
+                Arguments.of(gpMessage, GivePointCommand.class)
+        );
     }
 
     @Test
