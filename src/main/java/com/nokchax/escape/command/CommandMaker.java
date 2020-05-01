@@ -38,7 +38,13 @@ public class CommandMaker {
             Constructor<? extends Command<?>> constructor = (Constructor<? extends Command<?>>) clazz.getConstructor(Message.class, ApplicationContext.class);
 
             Arrays.stream(annotation.commands())
-                    .forEach(command -> constructors.put(command, constructor));
+                    .forEach(command -> {
+                        if(constructors.containsKey(command)) {
+                            throw new RuntimeException("Command key duplicated");
+                        }
+
+                        constructors.put(command, constructor);
+                    });
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
