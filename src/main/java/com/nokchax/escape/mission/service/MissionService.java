@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
 @Transactional
 @RequiredArgsConstructor
 public class MissionService {
+    private static final int GOAL_SCORE = 5;
     private final MissionRepository missionRepository;
     private final UserRepository userRepository;
 
@@ -86,6 +87,7 @@ public class MissionService {
         Mission newMission = Mission.builder()
                 .startDateTime(DateTimeMaker.startOfWeek())
                 .endDateTime(DateTimeMaker.endOfWeek())
+                .goalScore(GOAL_SCORE)
                 .build();
         List<User> users = userRepository.findAll();
 
