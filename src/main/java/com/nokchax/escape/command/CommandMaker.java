@@ -19,11 +19,37 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class CommandMaker {
     private final ApplicationContext applicationContext;
+    private Constructor<? extends Command<?>> UNKNOWN_COMMAND_CONSTRUCTOR;
     private Map<String, Constructor<? extends Command<?>>> constructors;
 
+    public Command<?> makeCommand(Message message) {
+        try {
+            return constructors.getOrDefault(extractText(message), UNKNOWN_COMMAND_CONSTRUCTOR)
+                    .newInstance(message, applicationContext);
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+            throw new IllegalArgumentException("Fail to change message to command : " + e.getMessage());
+        }
+    }
+
+    private String extractText(Message message) {
+        String text = message.getText();
+        if (StringUtils.isEmpty(text)) {
+            text = message.getCaption();
+        }
+
+        if(text.startsWith("/")) {
+            text = text.substring(1);
+        }
+
+        return text.split(" ")[0].trim();
+    }
+
     @PostConstruct
-    private void init() {
+    private void init() throws NoSuchMethodException {
         constructors = new HashMap<>();
+        UNKNOWN_COMMAND_CONSTRUCTOR = UnknownCommand.class
+                .getConstructor(Message.class, ApplicationContext.class);
 
         new Reflections("com.nokchax.escape.command")
                 .getTypesAnnotatedWith(CommandMapping.class)
@@ -50,36 +76,5 @@ public class CommandMaker {
         }
 
         constructors.put(command, constructor);
-    }
-
-    public Command<?> makeCommand(Message message) {
-        try {
-            return (Command<?>) matchCommandConstructor(message).newInstance(message, applicationContext);
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
-            throw new IllegalArgumentException("Fail to change message to command");
-        }
-    }
-
-    private Constructor<?> matchCommandConstructor(Message message) {
-        try {
-            return constructors.getOrDefault(extractText(message), UnknownCommand.class.getConstructor(Message.class, ApplicationContext.class));
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-            throw new IllegalArgumentException("Unknown command");
-        }
-    }
-
-    private String extractText(Message message) {
-        String text = message.getText();
-        if (StringUtils.isEmpty(text)) {
-            text = message.getCaption();
-        }
-
-        if(text.startsWith("/")) {
-            text = text.substring(1);
-        }
-
-        return text.split(" ")[0].trim();
     }
 }
