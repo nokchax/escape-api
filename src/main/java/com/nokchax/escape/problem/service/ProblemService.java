@@ -58,22 +58,24 @@ public class ProblemService {
     public List<ProblemDto> checkProblemIsNewOrUpdated(List<CrawledProblemInfo> crawledProblems) {
         // 모든 문제 가져오기
         Map<Long, Problem> problems = findAllProblemsAsMap();
-
         // 문제 업데이트 체크해서 업데이트 된 정보만 추리고, 문제 엔티티화
-        List<Problem> newOrUpdatedProblems = crawledProblems.stream()
-                .filter(crawledProblem -> checkNewOrUpdated(problems, crawledProblem))
-                .map(CrawledProblemInfo::toProblem)
-                .collect(Collectors.toList());
+        List<Problem> newOrUpdatedProblems = extractNewOrUpdatedProblems(crawledProblems, problems);
 
         // 저장하기
         problemRepository.saveAll(newOrUpdatedProblems);
-
         // 삭제하기
         removeProblems(problems, crawledProblems);
 
         // 업데이트 된 문제들만 Dto로 변경하여 리턴하기
         return newOrUpdatedProblems.stream()
                 .map(Problem::toDto)
+                .collect(Collectors.toList());
+    }
+
+    private List<Problem> extractNewOrUpdatedProblems(List<CrawledProblemInfo> crawledProblems, Map<Long, Problem> problems) {
+        return crawledProblems.stream()
+                .filter(crawledProblem -> checkNewOrUpdated(problems, crawledProblem))
+                .map(CrawledProblemInfo::toProblem)
                 .collect(Collectors.toList());
     }
 
