@@ -68,10 +68,34 @@ public class ProblemService {
         // 저장하기
         problemRepository.saveAll(newOrUpdatedProblems);
 
+        // 삭제하기
+        removeProblems(problems, crawledProblems);
+
         // 업데이트 된 문제들만 Dto로 변경하여 리턴하기
         return newOrUpdatedProblems.stream()
                 .map(Problem::toDto)
                 .collect(Collectors.toList());
+    }
+
+    private void removeProblems(Map<Long, Problem> problems, List<CrawledProblemInfo> crawledProblems) {
+        Map<Long, CrawledProblemInfo> updatedProblems = crawledProblems.stream()
+                .collect(Collectors.toMap(CrawledProblemInfo::getProblemId, Function.identity()));
+
+        List<Problem> removedProblems = problems.values()
+                .stream()
+                .filter(problem -> checkRemoved(problem, updatedProblems))
+                .collect(Collectors.toList());
+
+        if(removedProblems.size() > 0) {
+            log.info("총 [{}]개의 문제가 삭제되었습니다.", removedProblems.size());
+            removedProblems.forEach(removedProblem -> log.info("{}", removedProblem));
+
+            problemRepository.deleteAll(removedProblems);
+        }
+    }
+
+    private boolean checkRemoved(Problem problem, Map<Long, CrawledProblemInfo> updatedProblems) {
+        return !updatedProblems.containsKey(problem.getId());
     }
 
     private boolean checkNewOrUpdated(Map<Long, Problem> problems, CrawledProblemInfo crawledProblemInfo) {
