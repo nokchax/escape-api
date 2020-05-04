@@ -27,8 +27,8 @@ public abstract class Command<C> {
         this.applicationContext = applicationContext;
         this.options = options;
         initClass();
-        initOptions();
         initDefaultArgument();
+        initOptions();
         initSudo();
     }
 
