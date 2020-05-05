@@ -48,6 +48,7 @@ public class UpdateService {
         crawlers = leetcodeCrawlers;
     }
 
+    // TODO: 2020-05-05 transaction manager is not thread safe so detach crawl and update logic
     public List<EntryDto> updateLatestMission(UpdateCommand.UpdateArgument argument) {
         log.debug("UPDATE USER STARTED");
         List<User> users = userService.findByArgument(argument);
