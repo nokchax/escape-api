@@ -28,7 +28,6 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class UpdateService {
     private final UserService userService;
@@ -49,7 +48,8 @@ public class UpdateService {
     }
 
     // TODO: 2020-05-05 transaction manager is not thread safe so detach crawl and update logic
-    public List<EntryDto> updateLatestMission(UpdateCommand.UpdateArgument argument) {
+    @Transactional
+    public void updateLatestMission(UpdateCommand.UpdateArgument argument) {
         log.debug("UPDATE USER STARTED");
         List<User> users = userService.findByArgument(argument);
 
@@ -69,6 +69,17 @@ public class UpdateService {
                 .filter(Objects::nonNull)
                 .forEach(CompletableFuture::join);
         log.debug("UPDATE USER END");
+    }
+
+    public List<EntryDto> updateLatestMissionAndReturnEntry(UpdateCommand.UpdateArgument argument) {
+        updateLatestMission(argument);
+
+        return returnLatestEntry(argument);
+    }
+
+    @Transactional
+    public List<EntryDto> returnLatestEntry(UpdateCommand.UpdateArgument argument) {
+        List<User> users = userService.findByArgument(argument);
 
         return entryService.updateEntryInLatestMission(users);
     }
@@ -78,6 +89,7 @@ public class UpdateService {
         2. 기존 problem과 새 문제들 비교 후 업데이트 된 문제들 저장
         3. 업데이트 된 문제들 모두 리턴.
      */
+    @Transactional
     public List<ProblemDto> updateProblems() {
         User user = userService.findRandomUser();
         List<CrawledProblemInfo> crawledProblemInfos = apiCrawler.crawlProblems(user);

@@ -26,7 +26,7 @@ public class UpdateCommand extends Command<UpdateService> {
     @Override
     public String internalProcess() {
         return MessageMaker.toMessage(
-                processor().updateLatestMission(extractArgument()),
+                processor().updateLatestMissionAndReturnEntry(extractArgument()),
                 "User not found"
         );
     }
