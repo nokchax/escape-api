@@ -216,7 +216,7 @@ class UpdateServiceTest extends ServiceLayerTest {
         given(apiCrawler.crawlUserInfo(any())).willThrow(RuntimeException.class);
 
         beforeQuery();
-        List<EntryDto> entries = updateService.updateLatestMission(UPDATE_ARGUMENT);
+        List<EntryDto> entries = updateService.updateLatestMissionAndReturnEntry(UPDATE_ARGUMENT);
         afterQuery();
 
         assertThat(entries.size()).isOne();
@@ -232,7 +232,7 @@ class UpdateServiceTest extends ServiceLayerTest {
         given(userService.findByArgument(UPDATE_ARGUMENT)).willReturn(Arrays.asList(MOCK_TEST_USER, ANOTHER_MOCK_TEST_USER));
 
         beforeQuery();
-        List<EntryDto> entries = updateService.updateLatestMission(UPDATE_ARGUMENT);
+        List<EntryDto> entries = updateService.updateLatestMissionAndReturnEntry(UPDATE_ARGUMENT);
         afterQuery();
 
         assertThat(entries.size()).isEqualTo(2);

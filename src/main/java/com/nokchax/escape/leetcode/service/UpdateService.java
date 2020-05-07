@@ -98,6 +98,7 @@ public class UpdateService {
     }
 
     @Async("threadPoolExecutor")
+    @Transactional
     public CompletableFuture<User> updateUser(User user) {
         log.debug("{} : {}", Thread.currentThread().getName(), user.getId());
 
@@ -115,7 +116,8 @@ public class UpdateService {
                 .orElseThrow(() -> new CrawlException(user.getId()));
     }
 
-    private CompletableFuture<User> updateUser(User user, LeetcodeCrawler<User> crawler) {
+    @Transactional
+    public CompletableFuture<User> updateUser(User user, LeetcodeCrawler<User> crawler) {
         CrawledUserInfo crawledUserInfo = crawler.crawlUserInfo(user);
 
         if(crawledUserInfo.isNotUpdate() || !problemService.checkSolvedProblemExist(user, crawledUserInfo)) {
