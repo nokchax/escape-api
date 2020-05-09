@@ -129,4 +129,6 @@ public class UpdateService {
                 ? CompletableFuture.completedFuture(user)
                 : null;
     }
+
+    // TODO: 2020-05-09 User entity를 사용하지 말고 DTO 를 사용해서 처리해야지 Non thread safe한 Transaction manager의 문제를 해결할수 있을듯 적어도 크롤시점에서는 사용하지 말자
 }
