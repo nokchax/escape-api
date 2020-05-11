@@ -1,5 +1,6 @@
 package com.nokchax.escape.leetcode.service;
 
+import com.nokchax.escape.command.commands.UpdateCommand;
 import com.nokchax.escape.entry.service.EntryService;
 import com.nokchax.escape.leetcode.crawl.LeetcodeCrawler;
 import com.nokchax.escape.leetcode.crawl.api.LeetcodeApiCrawlerWithLogin;
@@ -37,4 +38,11 @@ public class CrawlService {
     }
 
     // TODO: 2020-05-09 User entity를 사용하지 말고 DTO 를 사용해서 처리해야지 Non thread safe한 Transaction manager의 문제를 해결할 수 있을듯 적어도 크롤시점에서는 사용하지 말자
+
+    public void updateUser(UpdateCommand.UpdateArgument updateArgument) {
+        // update argument로 사용자 dto 받아오기 필요한건 id, 푼 문제수
+        // 병렬 스트림으로 각 사용자의 정보 크롤하기
+        // 크롤한 정보로 업데이트가 있는지 검사 후 푼 문제의 id만 리턴?
+        // db업데이트
+    }
 }
