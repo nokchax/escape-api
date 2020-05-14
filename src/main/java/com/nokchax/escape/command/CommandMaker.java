@@ -77,4 +77,5 @@ public class CommandMaker {
 
         constructors.put(command, constructor);
     }
+    // TODO: 2020-05-14 make help statement using annotation
 }
