@@ -4,6 +4,7 @@ import com.nokchax.escape.command.commands.UpdateCommand;
 import com.nokchax.escape.entry.dto.EntryDto;
 import com.nokchax.escape.entry.service.EntryService;
 import com.nokchax.escape.exception.CrawlException;
+import com.nokchax.escape.exception.UserNotFoundException;
 import com.nokchax.escape.leetcode.crawl.LeetcodeCrawler;
 import com.nokchax.escape.leetcode.crawl.api.LeetcodeApiCrawlerWithLogin;
 import com.nokchax.escape.leetcode.crawl.api.response.CrawledProblemInfo;
@@ -12,6 +13,7 @@ import com.nokchax.escape.leetcode.crawl.page.response.CrawledUserInfo;
 import com.nokchax.escape.problem.dto.ProblemDto;
 import com.nokchax.escape.problem.service.ProblemService;
 import com.nokchax.escape.user.domain.User;
+import com.nokchax.escape.user.repository.UserRepository;
 import com.nokchax.escape.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +33,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UpdateService {
     private final UserService userService;
+    private final UserRepository userRepository;
     private final EntryService entryService;
     private final ProblemService problemService;
     private final LeetcodePageCrawler pageCrawler;
@@ -47,6 +50,22 @@ public class UpdateService {
         crawlers = leetcodeCrawlers;
     }
 
+    public String fixUserProblem(String userId) {
+        //user 찾아오기
+        User user = userRepository.findOneByUserId(userId)
+                .orElseThrow(() -> {throw new UserNotFoundException(userId);});
+
+        // apiCrawler로 유저가 푼 문제 모두 가져오기
+        CrawledUserInfo crawledUserInfo = apiCrawler.crawlUserInfo(user);
+
+        // 푼 문제중 저장되지 않은 문제 추리기
+        // 저장 되어있는데 풀리 않은 문제 찾아 삭제하기
+
+        // 저장되지 않은 문제 저장하기
+        problemService.fixSolvedProblems(crawledUserInfo);
+
+        return "";
+    }
     // TODO: 2020-05-05 transaction manager is not thread safe so detach crawl and update logic
     @Transactional
     public void updateLatestMission(UpdateCommand.UpdateArgument argument) {
@@ -128,5 +147,19 @@ public class UpdateService {
         return user.isNotUpdated(crawledUserInfo)
                 ? CompletableFuture.completedFuture(user)
                 : null;
+    }
+
+    public String viewUserProblem(UpdateCommand.UpdateArgument extractArgument) {
+        List<User> users = userService.findByArgument(extractArgument);
+        System.out.println(users.size());
+
+        StringBuilder sb = new StringBuilder();
+        users.forEach(user -> {
+            System.out.println(user);
+            CrawledUserInfo crawledUserInfo = pageCrawler.crawlUserInfo(user);
+            System.out.println(crawledUserInfo);
+            sb.append(crawledUserInfo.toString());
+        });
+        return sb.toString();
     }
 }
