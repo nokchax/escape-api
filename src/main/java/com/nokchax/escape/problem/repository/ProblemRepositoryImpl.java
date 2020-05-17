@@ -76,4 +76,9 @@ public class ProblemRepositoryImpl implements ProblemRepositoryCustom {
                 ))
                 .fetch();
     }
+
+    @Override
+    public List<Problem> findSolvedButRemoveFromApi(String id, List<String> titles) {
+        return null;
+    }
 }

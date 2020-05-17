@@ -11,4 +11,7 @@ public interface ProblemRepositoryCustom {
 
     /** 넘겨받은 문제리스트(푼 문제) 중에서 저장이 되지 않은 문제들을 리턴 */
     List<Problem> findSolvedButNotSavedYetProblems(String id, List<String> titles);
+
+    /** 넘겨받은 문제리스트에 있지 않은 저장된 문제들 리턴 (api 에서 삭제됭 문제들?)*/
+    List<Problem> findSolvedButRemoveFromApi(String userId, List<String> titles);
 }
