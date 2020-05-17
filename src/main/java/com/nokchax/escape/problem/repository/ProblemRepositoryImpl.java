@@ -79,6 +79,12 @@ public class ProblemRepositoryImpl implements ProblemRepositoryCustom {
 
     @Override
     public List<Problem> findSolvedButRemoveFromApi(String id, List<String> titles) {
+        if(StringUtils.isEmpty(id) || CollectionUtils.isEmpty(titles)) {
+            return Collections.emptyList();
+        }
+
+        QProblem subProblem = new QProblem("subProblem");
+        QSolvedProblem subSolvedProblem = new QSolvedProblem("subSolvedProblem");
         return null;
     }
 }
