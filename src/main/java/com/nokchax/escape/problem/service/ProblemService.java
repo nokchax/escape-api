@@ -113,4 +113,16 @@ public class ProblemService {
                 .stream()
                 .collect(Collectors.toMap(Problem::getId, Function.identity()));
     }
+
+    public void fixSolvedProblems(CrawledUserInfo crawledUserInfo) {
+        List<String> titles = crawledUserInfo.getSolvedProblems()
+                .stream()
+                .map(ProblemSolveInfo::getProblemTitle)
+                .collect(Collectors.toList());
+
+        List<Problem> solvedButNotSavedYetProblems =
+                problemRepository.findSolvedButNotSavedYetProblems(crawledUserInfo.getUserId(), titles);
+
+        problemRepository.findSolvedButRemoveFromApi(crawledUserInfo.getUserId(), titles);
+    }
 }
