@@ -151,15 +151,14 @@ public class UpdateService {
 
     public String viewUserProblem(UpdateCommand.UpdateArgument extractArgument) {
         List<User> users = userService.findByArgument(extractArgument);
-        System.out.println(users.size());
 
         StringBuilder sb = new StringBuilder();
+
         users.forEach(user -> {
-            System.out.println(user);
             CrawledUserInfo crawledUserInfo = pageCrawler.crawlUserInfo(user);
-            System.out.println(crawledUserInfo);
             sb.append(crawledUserInfo.toString());
         });
+
         return sb.toString();
     }
 }
