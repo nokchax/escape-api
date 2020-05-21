@@ -20,7 +20,7 @@ class CommandTest {
         System.out.println("someClass = " + someClass);
     }
 
-    class TestClass<T> {
+    static class TestClass<T> {
         Class<T> clazz;
 
         TestClass() {
@@ -37,20 +37,20 @@ class CommandTest {
         }
     }
 
-    class SomeClass extends TestClass<String> implements TestInterface {
+    static class SomeClass extends TestClass<String> implements TestInterface {
         SomeClass() {
             super();
             System.out.println(String.class);
         }
     }
 
-    class ParentClass {
+    static class ParentClass {
         ParentClass() {
             System.out.println("This : " + this);
         }
     }
 
-    class ChildClass extends ParentClass implements TestInterface {
+    static class ChildClass extends ParentClass implements TestInterface {
         ChildClass() {
             super();
         }
