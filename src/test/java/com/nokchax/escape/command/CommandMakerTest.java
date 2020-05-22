@@ -57,7 +57,7 @@ class CommandMakerTest extends ServiceLayerTest {
         assertThat(command).isInstanceOf(clazz);
     }
 
-    // 이렇게 테스트를 위해서지만... 이렇게 노가다로 해야하나..?
+    // 테스트를 위해서지만... 이렇게 노가다로 해야하나..?
     private static Stream<Arguments> initTest() {
         Message helpMessage = mock(Message.class);
         Message doneMessage = mock(Message.class);
