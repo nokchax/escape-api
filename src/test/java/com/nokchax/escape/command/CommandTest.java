@@ -1,23 +1,25 @@
 package com.nokchax.escape.command;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.ParameterizedType;
 
+@Slf4j
 class CommandTest {
 
     @Test
     void test() {
-        System.out.println("JUST TEST CLASS START");
+        log.info("JUST TEST CLASS START");
         ParentClass parentClass = new ParentClass();
-        System.out.println("parentClass = " + parentClass);
-        System.out.println("JUST TEST CLASS END");
-        System.out.println("JUST CHILD CLASS START");
+        log.info("parentClass = " + parentClass);
+        log.info("JUST TEST CLASS END");
+        log.info("JUST CHILD CLASS START");
         ChildClass childClass = new ChildClass();
-        System.out.println("childClass = " + childClass);
-        System.out.println("JUST CHILD CLASS END");
+        log.info("childClass = " + childClass);
+        log.info("JUST CHILD CLASS END");
         SomeClass someClass = new SomeClass();
-        System.out.println("someClass = " + someClass);
+        log.info("someClass = " + someClass);
     }
 
     static class TestClass<T> {
@@ -29,24 +31,24 @@ class CommandTest {
 
             @SuppressWarnings("unchecked")
             Class<T> ret = (Class<T>) parameterizedType.getActualTypeArguments()[0];
-            System.out.println("ret : " + ret);
+            log.info("ret : " + ret);
 
-            System.out.println(clazz);
+            log.info("{}", clazz);
 
-            System.out.println("This : " + this);
+            log.info("This : " + this);
         }
     }
 
     static class SomeClass extends TestClass<String> implements TestInterface {
         SomeClass() {
             super();
-            System.out.println(String.class);
+            log.info("{}", String.class);
         }
     }
 
     static class ParentClass {
         ParentClass() {
-            System.out.println("This : " + this);
+            log.info("This : " + this);
         }
     }
 
