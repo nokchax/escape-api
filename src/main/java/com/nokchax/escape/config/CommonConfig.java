@@ -25,6 +25,7 @@ public class CommonConfig {
         return restTemplate;
     }
 
+    // TODO: 2020-05-25 configurable
     private HttpComponentsClientHttpRequestFactory buildCustomConfig() {
         HttpComponentsClientHttpRequestFactory httpRequestFactory = new HttpComponentsClientHttpRequestFactory();
         HttpClient httpClient = HttpClientBuilder.create()

@@ -15,6 +15,7 @@ public class Async {
     public Executor threadPoolExecutor() {
         ThreadPoolTaskExecutor threadPoolExecutor = new ThreadPoolTaskExecutor();
 
+        // TODO: 2020-05-25 configurable
         threadPoolExecutor.setCorePoolSize(20);
         threadPoolExecutor.setMaxPoolSize(40);
         threadPoolExecutor.setQueueCapacity(30);
