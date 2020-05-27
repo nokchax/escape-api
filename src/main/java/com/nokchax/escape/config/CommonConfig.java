@@ -34,7 +34,8 @@ public class CommonConfig {
                 .build();
 
         httpRequestFactory.setConnectTimeout(2000);
-        httpRequestFactory.setConnectTimeout(3000);
+        // TODO: 2020-05-27 change to other config
+//        httpRequestFactory.setConnectTimeout(3000);
         httpRequestFactory.setHttpClient(httpClient);
 
         return httpRequestFactory;
