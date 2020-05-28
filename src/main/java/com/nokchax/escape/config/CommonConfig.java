@@ -35,6 +35,7 @@ public class CommonConfig {
 
         httpRequestFactory.setConnectTimeout(2000);
         // TODO: 2020-05-27 change to other config
+        httpRequestFactory.setReadTimeout(5000);
 //        httpRequestFactory.setConnectTimeout(3000);
         httpRequestFactory.setHttpClient(httpClient);
 
