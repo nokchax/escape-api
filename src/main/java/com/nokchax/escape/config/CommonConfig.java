@@ -1,5 +1,6 @@
 package com.nokchax.escape.config;
 
+import lombok.RequiredArgsConstructor;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.context.annotation.Bean;
@@ -12,7 +13,9 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Collections;
 
 @Configuration
+@RequiredArgsConstructor
 public class CommonConfig {
+    private final AppProperties properties;
 
     @Bean
     public RestTemplate restTemplate() {
