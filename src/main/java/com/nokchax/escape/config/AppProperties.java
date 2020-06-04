@@ -1,9 +1,6 @@
 package com.nokchax.escape.config;
 
-import com.nokchax.escape.config.properties.Admin;
-import com.nokchax.escape.config.properties.Master;
-import com.nokchax.escape.config.properties.Selenium;
-import com.nokchax.escape.config.properties.TelegramBot;
+import com.nokchax.escape.config.properties.*;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -15,4 +12,6 @@ public class AppProperties {
     private Master master;
     private Admin admin;
     private Selenium selenium;
+    private HttpClient httpClient;
+    private ThreadPool threadPool;
 }
