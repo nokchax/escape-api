@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @Data
 @ConfigurationProperties(prefix = "httpclient")
-public class HttpClient {
+public class HttpClientProperty {
     private int maxConnTotal;
     private int maxConnPerRoute;
     private int connectTimeout;//mill

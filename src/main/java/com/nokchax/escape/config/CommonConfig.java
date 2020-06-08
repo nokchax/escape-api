@@ -1,5 +1,6 @@
 package com.nokchax.escape.config;
 
+import com.nokchax.escape.config.properties.HttpClientProperty;
 import lombok.RequiredArgsConstructor;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
@@ -28,16 +29,16 @@ public class CommonConfig {
         return restTemplate;
     }
 
-    // TODO: 2020-05-25 configurable
     private HttpComponentsClientHttpRequestFactory buildCustomConfig() {
+        HttpClientProperty client = properties.getHttpClientProperty();
         HttpComponentsClientHttpRequestFactory httpRequestFactory = new HttpComponentsClientHttpRequestFactory();
         HttpClient httpClient = HttpClientBuilder.create()
-                .setMaxConnTotal(200)
-                .setMaxConnPerRoute(20)
+                .setMaxConnTotal(client.getMaxConnTotal())
+                .setMaxConnPerRoute(client.getMaxConnPerRoute())
                 .build();
 
-        httpRequestFactory.setConnectTimeout(2000);
-        httpRequestFactory.setReadTimeout(5000);
+        httpRequestFactory.setConnectTimeout(client.getConnectTimeout());
+        httpRequestFactory.setReadTimeout(client.getReadTimeout());
         httpRequestFactory.setHttpClient(httpClient);
 
         return httpRequestFactory;

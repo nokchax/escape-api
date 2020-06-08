@@ -12,6 +12,6 @@ public class AppProperties {
     private Master master;
     private Admin admin;
     private Selenium selenium;
-    private HttpClient httpClient;
+    private HttpClientProperty httpClientProperty;
     private ThreadPool threadPool;
 }
