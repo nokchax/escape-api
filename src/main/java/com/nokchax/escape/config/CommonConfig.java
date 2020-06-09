@@ -1,6 +1,6 @@
 package com.nokchax.escape.config;
 
-import com.nokchax.escape.config.properties.HttpClientProperty;
+import com.nokchax.escape.config.properties.HttpProperty;
 import lombok.RequiredArgsConstructor;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
@@ -30,7 +30,7 @@ public class CommonConfig {
     }
 
     private HttpComponentsClientHttpRequestFactory buildCustomConfig() {
-        HttpClientProperty client = properties.getHttpClientProperty();
+        HttpProperty client = properties.getHttpProperty();
         HttpComponentsClientHttpRequestFactory httpRequestFactory = new HttpComponentsClientHttpRequestFactory();
         HttpClient httpClient = HttpClientBuilder.create()
                 .setMaxConnTotal(client.getMaxConnTotal())
