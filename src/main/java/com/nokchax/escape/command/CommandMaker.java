@@ -51,6 +51,7 @@ public class CommandMaker {
         UNKNOWN_COMMAND_CONSTRUCTOR = UnknownCommand.class
                 .getConstructor(Message.class, ApplicationContext.class);
 
+        //load commands using reflection
         new Reflections("com.nokchax.escape.command")
                 .getTypesAnnotatedWith(CommandMapping.class)
                 .forEach(this::putConstructor);
