@@ -17,8 +17,8 @@ import static com.querydsl.core.types.Projections.bean;
 public class PointRepositoryImpl implements PointRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
-    private QPoint point = QPoint.point1;
-    private QUser user = QUser.user;
+    private final QPoint point = QPoint.point1;
+    private final QUser user = QUser.user;
 
     public PointRepositoryImpl(EntityManager entityManager) {
         this.queryFactory = new JPAQueryFactory(entityManager);
