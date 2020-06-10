@@ -11,7 +11,6 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -82,9 +81,6 @@ public class ProblemRepositoryImpl implements ProblemRepositoryCustom {
         if(StringUtils.isEmpty(id) || CollectionUtils.isEmpty(titles)) {
             return Collections.emptyList();
         }
-
-        QProblem subProblem = new QProblem("subProblem");
-        QSolvedProblem subSolvedProblem = new QSolvedProblem("subSolvedProblem");
         return null;
     }
 }
