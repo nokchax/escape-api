@@ -23,10 +23,10 @@ import static com.querydsl.jpa.JPAExpressions.select;
 public class SolvedProblemRepositoryImpl implements SolvedProblemRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
-    private QEntry entry = QEntry.entry;
-    private QMission missionSub = new QMission("missionSub");
-    private QProblem problem = QProblem.problem;
-    private QSolvedProblem solvedProblem = QSolvedProblem.solvedProblem;
+    private final QEntry entry = QEntry.entry;
+    private final QMission missionSub = new QMission("missionSub");
+    private final QProblem problem = QProblem.problem;
+    private final QSolvedProblem solvedProblem = QSolvedProblem.solvedProblem;
 
     public SolvedProblemRepositoryImpl(EntityManager entityManager) {
         this.queryFactory = new JPAQueryFactory(entityManager);
