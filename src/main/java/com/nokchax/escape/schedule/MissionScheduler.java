@@ -30,6 +30,7 @@ public class MissionScheduler {
         log.info("Create mission end");
     }
 
+    /** 지난 엔트리 업데이트 **/
     @Scheduled(cron = "0 0 9,12,15,18,21 * * SUN,MON,TUE,WED,THU,FRI,SAT")
     public void updateEntry() {
         log.info("Update entry start");
