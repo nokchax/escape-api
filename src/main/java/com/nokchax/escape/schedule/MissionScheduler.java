@@ -17,6 +17,7 @@ public class MissionScheduler {
     private final MissionService missionService;
     private final UpdateService updateService;
 
+    // TODO: 2020-06-11 이런 것들은 db에서 관리해서 도중에 서버가 꺼져도 다시 실행하면 스케쥴링된 작업이 완료되도록 해야하지 않을까
     /** 주간 미션 생성 */
     @Scheduled(cron = "0 0 0 * * MON")
     @Transactional
