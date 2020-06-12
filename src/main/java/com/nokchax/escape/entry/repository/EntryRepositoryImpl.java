@@ -18,9 +18,9 @@ import static com.querydsl.jpa.JPAExpressions.select;
 
 public class EntryRepositoryImpl implements EntryRepositoryCustom {
     private final JPAQueryFactory queryFactory;
-    private QEntry entry = QEntry.entry;
-    private QUser user = QUser.user;
-    private QMission mission = QMission.mission;
+    private final QEntry entry = QEntry.entry;
+    private final QUser user = QUser.user;
+    private final QMission mission = QMission.mission;
 
     public EntryRepositoryImpl(EntityManager entityManager) {
         this.queryFactory = new JPAQueryFactory(entityManager);
