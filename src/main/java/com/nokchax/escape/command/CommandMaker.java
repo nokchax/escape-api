@@ -45,6 +45,7 @@ public class CommandMaker {
         return text.split(" ")[0].trim();
     }
 
+    // TODO: 2020-06-14 do not make new instance but invoke instance and send message
     @PostConstruct
     private void init() throws NoSuchMethodException {
         constructors = new HashMap<>();
