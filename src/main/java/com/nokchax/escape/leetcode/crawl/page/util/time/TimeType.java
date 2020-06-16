@@ -18,8 +18,8 @@ public enum TimeType {
     WEEK("week", LocalDateTime::minusWeeks), WEEKS("weeks", LocalDateTime::minusWeeks),
     MONTH("month", LocalDateTime::minusMonths), MONTHS("months", LocalDateTime::minusMonths);
 
-    private String type;
-    private BiFunction<LocalDateTime, Integer, LocalDateTime> function;
+    private final String type;
+    private final BiFunction<LocalDateTime, Integer, LocalDateTime> function;
 
     private static final Map<String, TimeType> TIME_TYPES = Collections.unmodifiableMap(
             Stream.of(values())
