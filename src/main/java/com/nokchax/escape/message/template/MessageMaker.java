@@ -5,6 +5,8 @@ import org.springframework.util.CollectionUtils;
 import java.util.List;
 
 public class MessageMaker {
+    private MessageMaker() {}
+
     public static String toMessage(List<? extends MessageTemplate> dtos, String defaultMessage) {
         if(CollectionUtils.isEmpty(dtos)) {
             return defaultMessage;
