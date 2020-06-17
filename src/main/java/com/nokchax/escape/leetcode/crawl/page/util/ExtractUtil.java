@@ -13,6 +13,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class ExtractUtil {
+    private ExtractUtil() {}
 
     /** 제출한 문제풀이 리스트 중에서 통과한 문제만 리턴 */
     public static Set<ProblemSolveInfo> extractSolvedProblems(Document document) {
