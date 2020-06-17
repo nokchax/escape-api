@@ -11,7 +11,7 @@ import java.util.List;
 public class ProblemSolveHistoryRepositoryImpl implements ProblemSolveHistoryRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
-    private QProblemSolveHistory problemSolveHistory = QProblemSolveHistory.problemSolveHistory;
+    private final QProblemSolveHistory problemSolveHistory = QProblemSolveHistory.problemSolveHistory;
 
     public ProblemSolveHistoryRepositoryImpl(EntityManager entityManager) {
         this.queryFactory = new JPAQueryFactory(entityManager);
