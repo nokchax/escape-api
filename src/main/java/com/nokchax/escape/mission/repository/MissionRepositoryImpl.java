@@ -15,11 +15,11 @@ import static com.querydsl.jpa.JPAExpressions.select;
 
 public class MissionRepositoryImpl implements MissionRepositoryCustom {
     private final JPAQueryFactory queryFactory;
-    private QMission mission = QMission.mission;
-    private QEntry entry = QEntry.entry;
-    private QUser user = QUser.user;
-    private QSolvedProblem solvedProblem = QSolvedProblem.solvedProblem;
-    private QMission missionSub = new QMission("missionSub");
+    private final QMission mission = QMission.mission;
+    private final QEntry entry = QEntry.entry;
+    private final QUser user = QUser.user;
+    private final QSolvedProblem solvedProblem = QSolvedProblem.solvedProblem;
+    private final QMission missionSub = new QMission("missionSub");
 
     public MissionRepositoryImpl(EntityManager entityManager) {
         this.queryFactory = new JPAQueryFactory(entityManager);
