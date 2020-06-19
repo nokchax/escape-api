@@ -38,7 +38,7 @@ public class CommandMaker {
             text = message.getCaption();
         }
 
-        if(text.startsWith("/")) {
+        if (text.startsWith("/")) {
             text = text.substring(1);
         }
 
@@ -73,7 +73,7 @@ public class CommandMaker {
             e.printStackTrace();
         }
 
-        if(constructors.containsKey(command)) {
+        if (constructors.containsKey(command)) {
             throw new RuntimeException("Command key duplicated");
         }
 
