@@ -8,4 +8,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Help {
+    String value() default "";
+    String[] command() default {};
+    String description() default "";
 }
