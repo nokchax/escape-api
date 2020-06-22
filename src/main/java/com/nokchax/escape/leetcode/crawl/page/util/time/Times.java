@@ -13,6 +13,7 @@ public class Times {
 
     private Times() {}
 
+    // https://m.blog.naver.com/PostView.nhn?blogId=bb_&logNo=221449936369&proxyReferer=https:%2F%2Fwww.google.com%2F
     public static Times of(String timeString) {
         Times times = new Times();
 
