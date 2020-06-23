@@ -32,10 +32,6 @@ public class Time {
         return now;
     }
 
-    public LocalDateTime calculate(LocalDateTime time) {
-        return type.minus(time, timeValue);
-    }
-
     public Time calculate(Time time) {
         byTime = type.minus(time.byTime, timeValue);
 
