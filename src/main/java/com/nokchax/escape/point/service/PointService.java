@@ -23,6 +23,7 @@ public class PointService {
     private final UserRepository userRepository;
 
     /** 사용자에게 포인트를 주거나 뺏는다, 대상 아이디를 쓰면 해당 유저만, all 이라면 모든 유저에게 */
+    // TODO: 2020-06-24 enum화 시키기 individual or all -> all일경우의 쿼리 그게 아닐경우의 쿼리를 생성해서 반환후 querydsl에서 사용하는 식으로
     public List<PointDto> givePointTo(GivePointCommand.PointArgument pointArgument) {
         List<User> users = userRepository.findByUserId(pointArgument.getTargetUser());
 
