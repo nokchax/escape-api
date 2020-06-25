@@ -17,20 +17,20 @@ import javax.persistence.Id;
 @ToString
 @Immutable
 @Subselect(
-                "SELECT " +
-                "  u.id as user_id, " +
-                "  COUNT(DISTINCT sp.problem_id) AS total_count, " +
-                "  COUNT(DISTINCT CASE WHEN difficulty = 'HARD' THEN sp.problem_id ELSE NULL END) AS hard_count, " +
-                "  COUNT(DISTINCT CASE WHEN difficulty = 'MEDIUM' THEN sp.problem_id ELSE NULL END) AS medium_count, " +
-                "  COUNT(DISTINCT CASE WHEN difficulty = 'EASY' THEN sp.problem_id ELSE NULL END) AS easy_count " +
-                "FROM " +
-                "   solved_problem sp " +
-                "RIGHT JOIN users u " +
-                "   ON (u.id = sp.user_id) " +
-                "LEFT JOIN problem p " +
-                "   ON (p.problem_id = sp.problem_id) " +
-                "GROUP BY " +
-                "  u.id"
+    "SELECT " +
+    "  u.id as user_id, " +
+    "  COUNT(DISTINCT sp.problem_id) AS total_count, " +
+    "  COUNT(DISTINCT CASE WHEN difficulty = 'HARD' THEN sp.problem_id ELSE NULL END) AS hard_count, " +
+    "  COUNT(DISTINCT CASE WHEN difficulty = 'MEDIUM' THEN sp.problem_id ELSE NULL END) AS medium_count, " +
+    "  COUNT(DISTINCT CASE WHEN difficulty = 'EASY' THEN sp.problem_id ELSE NULL END) AS easy_count " +
+    "FROM " +
+    "   solved_problem sp " +
+    "RIGHT JOIN users u " +
+    "   ON (u.id = sp.user_id) " +
+    "LEFT JOIN problem p " +
+    "   ON (p.problem_id = sp.problem_id) " +
+    "GROUP BY " +
+    "  u.id"
 )
 @NoArgsConstructor
 public class ProblemSolveHistory {
