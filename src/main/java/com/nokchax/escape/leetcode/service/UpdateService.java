@@ -66,6 +66,7 @@ public class UpdateService {
 
         return "";
     }
+
     // TODO: 2020-05-05 transaction manager is not thread safe so detach crawl and update logic
     @Transactional
     public void updateLatestMission(UpdateCommand.UpdateArgument argument) {
