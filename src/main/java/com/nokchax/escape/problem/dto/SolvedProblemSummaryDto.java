@@ -1,9 +1,10 @@
 package com.nokchax.escape.problem.dto;
 
 import com.nokchax.escape.entry.domain.Entry;
+import com.nokchax.escape.mission.domain.Mission;
 import com.nokchax.escape.problem.domain.Difficulty;
+import com.nokchax.escape.user.domain.User;
 import com.querydsl.core.annotations.QueryProjection;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -30,6 +31,13 @@ public class SolvedProblemSummaryDto {
     }
 
     public Entry toEntry() {
-        return new Entry(this);
+        return Entry.builder()
+                .mission(new Mission(missionId))
+                .user(new User(userId))
+                .score(evaluateScore())
+                .hard(hardCount)
+                .medium(mediumCount)
+                .easy(easyCount)
+                .build();
     }
 }
