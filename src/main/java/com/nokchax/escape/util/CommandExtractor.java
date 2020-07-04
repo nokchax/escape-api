@@ -30,7 +30,7 @@ public class CommandExtractor {
         token = token.trim();
         int splitIdx = token.indexOf(BLANK);
 
-        if(splitIdx < 0) {
+        if (splitIdx < 0) {
             return;
         }
 
