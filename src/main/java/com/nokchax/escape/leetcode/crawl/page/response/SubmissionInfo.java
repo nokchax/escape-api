@@ -7,14 +7,16 @@ import org.jsoup.nodes.Element;
 
 @Data
 public class SubmissionInfo {
+    public static final String TAG = "tag";
+    public static final String CLASS = "class";
     private boolean accepted;
     private String problemTitle;
     private String submissionTime;
 
     public SubmissionInfo(Element problemElement) {
-        String acceptedString = ExtractUtil.extractExtractToString(problemElement, "tag", "span");
-        this.problemTitle = ExtractUtil.extractExtractToString(problemElement, "tag", "b");
-        this.submissionTime = ExtractUtil.extractExtractToString(problemElement, "class", "text-muted");
+        String acceptedString = ExtractUtil.extractExtractToString(problemElement, TAG, "span");
+        this.problemTitle = ExtractUtil.extractExtractToString(problemElement, TAG, "b");
+        this.submissionTime = ExtractUtil.extractExtractToString(problemElement, CLASS, "text-muted");
         this.accepted = "Accepted".equalsIgnoreCase(acceptedString);
     }
 
