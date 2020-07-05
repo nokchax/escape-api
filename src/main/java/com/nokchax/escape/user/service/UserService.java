@@ -28,7 +28,7 @@ public class UserService {
         case 3. update target id
      */
     public List<User> findByArgument(UpdateCommand.UpdateArgument argument) {
-        if(argument.isEmptyArgument()) {
+        if (argument.isEmptyArgument()) {
             return findByTelegramId(argument);
         }
 
@@ -38,7 +38,7 @@ public class UserService {
     private List<User> findByUserId(UpdateCommand.UpdateArgument argument) {
         List<User> users = userRepository.findByUserId(argument.getTarget());
 
-        if(users.isEmpty()) {
+        if (users.isEmpty()) {
             throw new UserNotFoundException(argument.getTarget());
         }
 
@@ -56,7 +56,7 @@ public class UserService {
     public User findRandomUser() {
         List<User> users = userRepository.findAll();
 
-        if(CollectionUtils.isEmpty(users)) {
+        if (CollectionUtils.isEmpty(users)) {
             throw new UserNotFoundException("There are no users in db");
         }
 
