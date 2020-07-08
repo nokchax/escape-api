@@ -18,7 +18,7 @@ public class HelpCommand extends Command<Object> {
 
     @Override
     public String internalProcess() {
-        if(ADMIN.equalsIgnoreCase(getDefaultArgument())) {
+        if (ADMIN.equalsIgnoreCase(getDefaultArgument())) {
             return adminHelp();
         }
 

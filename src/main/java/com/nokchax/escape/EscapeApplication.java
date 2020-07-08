@@ -26,7 +26,7 @@ public class EscapeApplication {
     private static String getConfigFilePath() {
         String os = System.getProperty("os.name");
 
-        if(StringUtils.isEmpty(os) || !os.startsWith("Mac")) {
+        if (StringUtils.isEmpty(os) || !os.startsWith("Mac")) {
             return EXTERNAL_CONFIG_FILE;
         }
 

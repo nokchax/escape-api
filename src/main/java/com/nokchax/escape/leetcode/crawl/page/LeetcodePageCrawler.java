@@ -31,7 +31,7 @@ public class LeetcodePageCrawler implements LeetcodeCrawler<User> {
         Document document = crawlUserPage(user);
         CrawledUserInfo crawledUserInfo = parseDocument(document, user);
 
-        if(user.isNotUpdated(crawledUserInfo)) {
+        if (user.isNotUpdated(crawledUserInfo)) {
             return CrawledUserInfo.NOT_UPDATED_USER_INFO;
         }
 

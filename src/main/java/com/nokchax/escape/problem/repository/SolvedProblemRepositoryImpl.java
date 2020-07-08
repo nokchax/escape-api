@@ -34,7 +34,7 @@ public class SolvedProblemRepositoryImpl implements SolvedProblemRepositoryCusto
 
     @Override
     public List<SolvedProblemSummaryDto> findSolvedProblemOfLatestMissionByUserId(List<String> userIds) {
-        if(CollectionUtils.isEmpty(userIds)) {
+        if (CollectionUtils.isEmpty(userIds)) {
             return Collections.emptyList();
         }
 
@@ -42,7 +42,7 @@ public class SolvedProblemRepositoryImpl implements SolvedProblemRepositoryCusto
                 .from(missionSub)
                 .fetchOne();
 
-        if(latestMissionId == null) {
+        if (latestMissionId == null) {
             throw new IllegalArgumentException("Latest mission is not exist");
         }
 

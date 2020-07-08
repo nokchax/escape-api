@@ -88,7 +88,7 @@ public class ProblemService {
                 .filter(problem -> checkRemoved(problem, updatedProblems))
                 .collect(Collectors.toList());
 
-        if(removedProblems.size() > 0) {
+        if (removedProblems.size() > 0) {
             log.info("총 [{}]개의 문제가 삭제되었습니다.", removedProblems.size());
             removedProblems.forEach(removedProblem -> log.info("{}", removedProblem));
 
@@ -101,7 +101,7 @@ public class ProblemService {
     }
 
     private boolean checkNewOrUpdated(Map<Long, Problem> problems, CrawledProblemInfo crawledProblemInfo) {
-        if(!problems.containsKey(crawledProblemInfo.getProblemId())) {
+        if (!problems.containsKey(crawledProblemInfo.getProblemId())) {
             return true;
         }
 

@@ -29,7 +29,7 @@ public class LeetcodeApiCrawlerWithLogin implements LeetcodeJsonCrawler<User> {
         CrawledUserInfo crawledUserInfo = seleniumCrawler.crawlApi(user)
                 .toCrawledUserInfo();
 
-        if(user.isNotUpdated(crawledUserInfo)) {
+        if (user.isNotUpdated(crawledUserInfo)) {
             return CrawledUserInfo.NOT_UPDATED_USER_INFO;
         }
 

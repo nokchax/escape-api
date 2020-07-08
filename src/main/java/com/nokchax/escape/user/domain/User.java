@@ -54,7 +54,7 @@ public class User {
     private void checkInput(String... inputs) {
         Arrays.stream(inputs)
                 .forEach(input -> {
-                    if(StringUtils.isEmpty(input)) {
+                    if (StringUtils.isEmpty(input)) {
                         throw new IllegalArgumentException(
                                 "parameter is not correct, command like below form\n" +
                                 "/register -u {id} -p {password} -n {name}"
@@ -74,7 +74,7 @@ public class User {
     }
 
     public void updateTelegramId(RegisterTelegramIdCommand.UpdateTelegramIdArgument updateTelegramIdArgument) {
-        if(StringUtils.isEmpty(updateTelegramIdArgument.getTelegramId())) {
+        if (StringUtils.isEmpty(updateTelegramIdArgument.getTelegramId())) {
             throw new IllegalArgumentException("Telegram id is empty or null");
         }
 

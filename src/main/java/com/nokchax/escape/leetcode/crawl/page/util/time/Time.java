@@ -16,7 +16,7 @@ public class Time {
     public Time(String timeString) {
         String[] inputs = timeString.split("\\s+");
 
-        if(inputs.length < 2) {
+        if (inputs.length < 2) {
             throw new InvalidTimeType(timeString);
         }
 

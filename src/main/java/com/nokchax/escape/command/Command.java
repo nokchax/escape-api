@@ -69,7 +69,7 @@ public abstract class Command<C> {
     }
 
     private void initDefaultArgument() {
-        if(!CollectionUtils.isEmpty(options)) {
+        if (!CollectionUtils.isEmpty(options)) {
             this.defaultArgumentAlias = options.get(0);
         }
     }
@@ -89,7 +89,7 @@ public abstract class Command<C> {
     }
 
     private void checkAdmin() {
-        if(sudo && !isAdmin()) {
+        if (sudo && !isAdmin()) {
             throw new PermissionDeniedException();
         }
     }

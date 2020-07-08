@@ -48,7 +48,7 @@ public class EntryRepositoryImpl implements EntryRepositoryCustom {
 
     @Override
     public List<EntryDto> findUsersInLatestMissionByUserId(List<String> userIds) {
-        if(CollectionUtils.isEmpty(userIds)) {
+        if (CollectionUtils.isEmpty(userIds)) {
             return Collections.emptyList();
         }
 

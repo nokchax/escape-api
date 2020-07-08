@@ -54,7 +54,7 @@ public class LeetcodeApiResponse {
     }
 
     public boolean isValidCrawl(String userId) {
-        if(StringUtils.isEmpty(this.userId)) {
+        if (StringUtils.isEmpty(this.userId)) {
             log.error("UserID is [{}]", this.userId);
             return false;
         }

@@ -99,7 +99,7 @@ public class MissionService {
     public void updateMission() {
         List<User> users = userRepository.findUsersNotInLatestMission();
 
-        if(CollectionUtils.isEmpty(users)) {
+        if (CollectionUtils.isEmpty(users)) {
             throw new UserNotFoundException("현재 미션을 수행하지 않는 유저가 존재하지 않습니다.");
         }
 

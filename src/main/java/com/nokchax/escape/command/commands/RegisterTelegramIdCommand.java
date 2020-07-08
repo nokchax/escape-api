@@ -24,7 +24,7 @@ public class RegisterTelegramIdCommand extends Command<UserService> implements S
 
     @Override
     public String internalProcess() {
-        if(!allOptionsExist()) {
+        if (!allOptionsExist()) {
             return "parameter is not correct, command like below template\n" +
                     "/telegram -u {userId} -t {telegramId}";
         }

@@ -38,7 +38,7 @@ public enum Difficulty {
     }
 
     public static Difficulty ofLevel(int level) {
-        if(!DIFFICULTIES.containsKey(level)) {
+        if (!DIFFICULTIES.containsKey(level)) {
             throw new IllegalArgumentException("Invalid level or new level type : " + level);
         }
 

@@ -140,7 +140,7 @@ public class UpdateService {
     public CompletableFuture<User> updateUser(User user, LeetcodeCrawler<User> crawler) {
         CrawledUserInfo crawledUserInfo = crawler.crawlUserInfo(user);
 
-        if(crawledUserInfo.isNotUpdate() || !problemService.checkSolvedProblemExist(user, crawledUserInfo)) {
+        if (crawledUserInfo.isNotUpdate() || !problemService.checkSolvedProblemExist(user, crawledUserInfo)) {
             return CompletableFuture.completedFuture(user);
         }
 

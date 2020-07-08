@@ -39,7 +39,7 @@ public enum TimeType {
         typeValidation(type);
         type = type.toLowerCase();
 
-        if(!TIME_TYPES.containsKey(type)) {
+        if (!TIME_TYPES.containsKey(type)) {
             throw new InvalidTimeType(type);
         }
 
@@ -47,7 +47,7 @@ public enum TimeType {
     }
 
     private static void typeValidation(String type) {
-        if(StringUtils.isEmpty(type)) {
+        if (StringUtils.isEmpty(type)) {
             throw new IllegalArgumentException("Time type can't be a null or empty string");
         }
     }

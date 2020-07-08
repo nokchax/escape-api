@@ -30,7 +30,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
 
     @Override
     public List<User> findByUserId(String target) {
-        if(StringUtils.isEmpty(target)) {
+        if (StringUtils.isEmpty(target)) {
             return Collections.emptyList();
         }
 
@@ -54,7 +54,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
 
     @Override
     public List<User> findByUserIdWithSolvedProblems(String target) {
-        if(StringUtils.isEmpty(target)) {
+        if (StringUtils.isEmpty(target)) {
             return Collections.emptyList();
         }
 
@@ -68,7 +68,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
 
     @Override
     public Optional<User> findByTelegramId(String target) {
-        if(StringUtils.isEmpty(target)) {
+        if (StringUtils.isEmpty(target)) {
             return Optional.empty();
         }
 

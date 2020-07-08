@@ -19,7 +19,7 @@ public class UserAgentQueue {
     );
 
     public DesiredCapabilities peek() {
-        if(USER_AGENT_QUEUE.isEmpty()) {
+        if (USER_AGENT_QUEUE.isEmpty()) {
             throw new IllegalArgumentException("No user agent");
         }
 

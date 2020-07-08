@@ -37,7 +37,7 @@ public class ExtractUtil {
     public static int extractSolvedProblemCount(Document document) {
         Elements solvedProblemsElement = extractProblemElements(document);
 
-        if(notSolvedProblems(solvedProblemsElement)) {
+        if (notSolvedProblems(solvedProblemsElement)) {
             return 0;
         }
 
@@ -51,7 +51,7 @@ public class ExtractUtil {
 
     /** 문제를 풀었는지 풀지 않았는지 확인 */
     private static boolean notSolvedProblems(Elements solvedProblemsElement) {
-        if(solvedProblemsElement == null || solvedProblemsElement.isEmpty()) {
+        if (solvedProblemsElement == null || solvedProblemsElement.isEmpty()) {
             return true;
         }
 

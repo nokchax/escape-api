@@ -49,7 +49,7 @@ public class ProblemRepositoryImpl implements ProblemRepositoryCustom {
 
     @Override
     public List<Problem> findSolvedButNotSavedYetProblems(String id, List<String> titles) {
-        if(StringUtils.isEmpty(id) || CollectionUtils.isEmpty(titles)) {
+        if (StringUtils.isEmpty(id) || CollectionUtils.isEmpty(titles)) {
             return Collections.emptyList();
         }
 
@@ -78,7 +78,7 @@ public class ProblemRepositoryImpl implements ProblemRepositoryCustom {
 
     @Override
     public List<Problem> findSolvedButRemoveFromApi(String id, List<String> titles) {
-        if(StringUtils.isEmpty(id) || CollectionUtils.isEmpty(titles)) {
+        if (StringUtils.isEmpty(id) || CollectionUtils.isEmpty(titles)) {
             return Collections.emptyList();
         }
         return null;

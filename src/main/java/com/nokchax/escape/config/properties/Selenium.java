@@ -6,9 +6,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 /*
     String driverPath = "/data/etc/webdriver/chromedriver";
 
-    if(property.startsWith("Mac")) {
+    if (property.startsWith("Mac")) {
         driverPath = "/Users/nokchax" + driverPath;
-    } else if(property.startsWith("Window")) {
+    } else if (property.startsWith("Window")) {
         driverPath += ".exe";
     }
  */

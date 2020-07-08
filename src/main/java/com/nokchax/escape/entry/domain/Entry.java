@@ -84,13 +84,13 @@ public class Entry implements Comparable<Entry> {
 
     @Override
     public int compareTo(Entry anotherEntry) {
-        if(this.score != anotherEntry.score) {
+        if (this.score != anotherEntry.score) {
             return Integer.compare(anotherEntry.score, this.score);
-        } else if(this.hard != anotherEntry.hard) {
+        } else if (this.hard != anotherEntry.hard) {
             return Integer.compare(anotherEntry.hard, this.hard);
-        } else if(this.medium != anotherEntry.medium) {
+        } else if (this.medium != anotherEntry.medium) {
             return Integer.compare(anotherEntry.medium, this.medium);
-        } else if(this.easy != anotherEntry.easy) {
+        } else if (this.easy != anotherEntry.easy) {
             return Integer.compare(anotherEntry.easy, this.easy);
         } else return 0;
     }

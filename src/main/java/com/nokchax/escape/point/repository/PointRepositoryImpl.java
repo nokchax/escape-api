@@ -47,7 +47,7 @@ public class PointRepositoryImpl implements PointRepositoryCustom {
 
     @Override
     public List<PointDto> findUserPointByUserId(List<String> userIds) {
-        if(CollectionUtils.isEmpty(userIds)) {
+        if (CollectionUtils.isEmpty(userIds)) {
             return Collections.emptyList();
         }
 

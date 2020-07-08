@@ -58,7 +58,7 @@ public class SeleniumBrowser {
     private LeetcodeApiResponse convert(WebElement body) {
         LeetcodeApiResponse apiResponse = convertToObject(body);
 
-        if(!apiResponse.isValidCrawl(userId)) {
+        if (!apiResponse.isValidCrawl(userId)) {
             throw new CrawlException("Maybe login session out for [" + userId + "]");
         }
 

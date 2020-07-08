@@ -8,7 +8,7 @@ public class MessageMaker {
     private MessageMaker() {}
 
     public static String toMessage(List<? extends MessageTemplate> dtos, String defaultMessage) {
-        if(CollectionUtils.isEmpty(dtos)) {
+        if (CollectionUtils.isEmpty(dtos)) {
             return defaultMessage;
         }
 
