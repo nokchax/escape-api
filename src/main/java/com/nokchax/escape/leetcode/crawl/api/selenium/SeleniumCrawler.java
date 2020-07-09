@@ -32,7 +32,7 @@ public class SeleniumCrawler {
     private LeetcodeApiResponse retry(User user, int tryCount, RuntimeException e) {
         // 로그인이 안됐거나, 로그인이 풀렸다면 재시도
         if (tryCount < MAX_TRY_COUNT) {
-            log.info("Crawl api retry count[" + tryCount + "] and user id [" + user.getId() + "]");
+            log.info("Crawl api retry count[{}] and user id[{}]", tryCount, user.getId());
             return crawlApi(user, tryCount + 1);
         }
 
