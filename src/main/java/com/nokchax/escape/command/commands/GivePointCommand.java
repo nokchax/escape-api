@@ -53,7 +53,7 @@ public class GivePointCommand extends Command<PointService> implements SudoComma
         private void validateInput(String targetUser, String point) {
             if (StringUtils.isEmpty(targetUser) || StringUtils.isEmpty(point) || !StringUtil.isNumeric(point)) {
                 throw new IllegalArgumentException(
-                        "parameter is not correct, command like below template\n" +
+                        "parameter is not correct, command like below format\n" +
                                 "/givePoint -u {id | all} -p {point}"
                 );
             }
