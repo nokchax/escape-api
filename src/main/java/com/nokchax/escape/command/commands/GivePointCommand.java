@@ -13,7 +13,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 
 import java.util.Arrays;
 
-@CommandMapping(commands = {"givePoint", "givepoint", "gp"})
+@CommandMapping(commands = {"givePoint", "gp"})
 public class GivePointCommand extends Command<PointService> implements SudoCommand {
     private static final String USER_ID = "u";
     private static final String POINT = "p";

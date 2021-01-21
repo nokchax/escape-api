@@ -8,7 +8,7 @@ import com.nokchax.escape.message.template.MessageMaker;
 import org.springframework.context.ApplicationContext;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
-@CommandMapping(commands = {"updateProblem", "updateproblem", "up"})
+@CommandMapping(commands = {"updateProblem", "up"})
 public class UpdateProblemCommand extends Command<UpdateService> implements SudoCommand {
 
     public UpdateProblemCommand(Message message, ApplicationContext processors) {
