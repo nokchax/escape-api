@@ -32,6 +32,7 @@ public class CommandMaker {
         }
     }
 
+    // TODO: wrap Message class to remove this method
     private String extractText(Message message) {
         String text = message.getText();
         if (StringUtils.isEmpty(text)) {
@@ -74,7 +75,7 @@ public class CommandMaker {
         }
 
         if (constructors.containsKey(command)) {
-            throw new RuntimeException("Command key duplicated");
+            throw new Error("Command key duplicated");
         }
 
         constructors.put(command, constructor);
