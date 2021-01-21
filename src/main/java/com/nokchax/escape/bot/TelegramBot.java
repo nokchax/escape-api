@@ -26,11 +26,13 @@ public class TelegramBot extends TelegramLongPollingBot {
 
         // todo: message핸들러 내부에서 발생한 에러를 캐치해서 메세지를 전달하는 식으로 개발해보기
         /*
+
         String message;
         try {
             message = messageHandler.handle(update.getMessage());
         } catch(Exception e) {
-            message = MessageAdvice.handleException(e);
+            handler = MessageHandlerAdapter.getHandler(e);
+            message = handler.handleException(e);
         } finally {
             sendMessage(message):
         }

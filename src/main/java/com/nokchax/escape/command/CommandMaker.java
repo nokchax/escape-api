@@ -78,6 +78,8 @@ public class CommandMaker {
         }
 
         constructors.put(command, constructor);
+        constructors.put(command.toLowerCase(), constructor);
+        constructors.put(command.toUpperCase(), constructor);
     }
     // TODO: 2020-05-14 make help statement using annotation
 }
