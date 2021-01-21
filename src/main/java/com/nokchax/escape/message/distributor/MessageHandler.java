@@ -13,14 +13,12 @@ public class MessageHandler {
     private final CommandMaker commandMaker;
 
     public String handle(Message message) {
+        // todo: Wrap message and overwrite toString
         log.info("By[{} : {}] : [{}]", message.getFrom().getUserName(), message.getFrom().getId(), message.getText());
         try {
-            return commandMaker.makeCommand(message)
-                    .process();
-
+            return commandMaker.makeCommand(message).process();
         } catch (Exception e) {
-            log.error("{}", e.getMessage());
-
+            log.error("Fail to handle message : [{}]", e.getMessage());
             return e.getMessage();
         }
     }
